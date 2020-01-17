@@ -115,9 +115,7 @@ export default class SearchIndexerDB extends Dexie {
     // if none, the actually do the querying
     this.stateMachine.send(IndexEvent.QUERY_START);
     await this.waitForState(IndexState.IDLE);
-
-    // TODO: use the sort and paging to hydrate the proper items
-    return [];
+    return this._query(criteria);
   };
 
   // _query Just worries about filters.
@@ -171,6 +169,9 @@ export default class SearchIndexerDB extends Dexie {
       }
 
       let itemIds = intersection(...indexResults.map((r) => r.matches).filter(Boolean));
+
+      // TODO: handle sort, limit, and skip
+
       let items = this.allItems.bulkGet(itemIds) as any;
 
       result = { items, refiners, key: JSON.stringify(filters), totalCount: items.length };
