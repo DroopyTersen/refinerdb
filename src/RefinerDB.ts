@@ -27,7 +27,6 @@ export default class SearchIndexerDB extends Dexie {
   private stateMachine: Interpreter<any>;
   private indexRegistrations: IndexConfig[] = [];
   private activeIndexingId = -1;
-  private activeQueryId = -1;
   config: RefinderDBConfig = {
     indexDelay: 750,
     itemsIndexSchema: "++_id",
@@ -41,7 +40,7 @@ export default class SearchIndexerDB extends Dexie {
     };
     this.initDB();
     this.stateMachine = createStateMachine(
-      createMachineConfig(this._reIndex, this._query, this.config.indexDelay),
+      createMachineConfig(this._reIndex, this.config.indexDelay),
       this.config.onTransition
     );
   }
