@@ -23,11 +23,12 @@ export interface SearchIndexerConfig {
   onIndexSuccess?: () => void;
   indexDelay: number;
   itemsIndexSchema?: string;
-  onTransition: (state: IndexState) => void;
+  onTransition?: (state: IndexState) => void;
 }
+
 export interface IndexFilter {
   indexKey: string;
-  indexDefinition?: IndexDefinition;
+  indexDefinition?: IndexConfig;
   values?: string[] | number[];
   min?: string | number | Date;
   max?: string | number | Date;
@@ -44,23 +45,31 @@ export interface RefinerOption {
   count: number;
 }
 
-export interface SearchIndex {
-  id: string;
-  value: {
+export interface IndexConfig {
+  key: string;
+  type: IndexType;
+  hashFn: (item: any) => any;
+  skipRefinerOptions?: boolean;
+}
+
+export interface SearchIndex extends IndexConfig {
+  value?: {
     [key: string]: number[];
   };
   sortedKeys?: any[];
 }
 
-export interface QueryResult {
-  items: any[];
-  refiners: {
-    [key: string]: RefinerOption[];
-  };
-}
-export interface IndexDefinition {
+export interface IndexConfig {
   key: string;
   type: IndexType;
   hashFn: (item: any) => any;
   skipRefinerOptions?: boolean;
+}
+
+export interface QueryResult {
+  key: string;
+  items: any[];
+  refiners: {
+    [key: string]: RefinerOption[];
+  };
 }
