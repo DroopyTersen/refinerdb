@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "@types/jest": "^24.9.0",
+    "@types/node": "^13.1.8",
+    "fake-indexeddb": "^3.0.0",
+    "jes": "^0.6.1",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "dexie": "^3.0.0-rc.1",
+    "xstate": "^4.7.6"
+  }
+}
