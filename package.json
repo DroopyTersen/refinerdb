@@ -4,6 +4,7 @@
     "@types/node": "^13.1.8",
     "fake-indexeddb": "^3.0.0",
     "jes": "^0.6.1",
+    "ts-jest": "^24.3.0",
     "typescript": "^3.7.5"
   },
   "dependencies": {
