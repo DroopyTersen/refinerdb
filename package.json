@@ -14,7 +14,7 @@
     "build": "tsc --build tsconfig.lib.json",
     "clean": "rimraf lib",
     "prerelease": "npm run build",
-    "release": "np --no-cleanup"
+    "release": "np --no-cleanup --no-publish && npm run publish"
   },
   "repository": {
     "type": "git",
