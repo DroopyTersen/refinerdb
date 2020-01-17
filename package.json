@@ -4,6 +4,8 @@
     "@types/node": "^13.1.8",
     "fake-indexeddb": "^3.0.0",
     "jes": "^0.6.1",
+    "jest": "^24.9.0",
+    "majestic": "^1.6.2",
     "ts-jest": "^24.3.0",
     "typescript": "^3.7.5"
   },
@@ -11,5 +13,31 @@
     "dexie": "^3.0.0-rc.1",
     "lodash": "^4.17.15",
     "xstate": "^4.7.6"
-  }
+  },
+  "name": "refinerdb",
+  "description": "A browser database (indexeddb wrapper) used to support advanced search scenarios. An engine that could power an Amazon Refiner-like search experience.",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest --watch",
+    "test:ui": "majestic"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DroopyTersen/refinerdb.git"
+  },
+  "keywords": [
+    "indexeddb",
+    "refiners",
+    "search"
+  ],
+  "author": "Andrew Petersen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DroopyTersen/refinerdb/issues"
+  },
+  "homepage": "https://github.com/DroopyTersen/refinerdb#readme"
 }
