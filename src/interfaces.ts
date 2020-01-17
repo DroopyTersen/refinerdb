@@ -4,6 +4,14 @@ export enum IndexType {
   Date = "Date",
 }
 
+export interface RefinderDBConfig {
+  onIndexStart?: () => void;
+  onIndexSuccess?: () => void;
+  indexDelay: number;
+  itemsIndexSchema?: string;
+  onTransition?: (state: IndexState) => void;
+}
+
 export enum IndexState {
   IDLE = "idle",
   STALE = "stale",
@@ -11,19 +19,12 @@ export enum IndexState {
   QUERYING = "querying",
   FAILED = "error",
 }
+
 export enum IndexEvent {
   INDEX_START = "index:start",
   INVALIDATE = "index:invalidate",
   RETRY = "index:retry",
   QUERY_START = "query:start",
-}
-
-export interface SearchIndexerConfig {
-  onIndexStart?: () => void;
-  onIndexSuccess?: () => void;
-  indexDelay: number;
-  itemsIndexSchema?: string;
-  onTransition?: (state: IndexState) => void;
 }
 
 export interface IndexFilter {

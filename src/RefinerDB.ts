@@ -2,7 +2,7 @@ import Dexie from "dexie";
 import {
   SearchIndex,
   IndexConfig,
-  SearchIndexerConfig,
+  RefinderDBConfig,
   IndexState,
   IndexEvent,
   IndexFilter,
@@ -26,12 +26,12 @@ export default class SearchIndexerDB extends Dexie {
   private indexRegistrations: IndexConfig[] = [];
   private activeIndexingId = -1;
   private activeQueryId = -1;
-  config: SearchIndexerConfig = {
+  config: RefinderDBConfig = {
     indexDelay: 750,
     itemsIndexSchema: "++_id",
   };
 
-  constructor(dbName: string, config?: SearchIndexerConfig) {
+  constructor(dbName: string, config?: RefinderDBConfig) {
     super(dbName);
     this.config = {
       ...this.config,
