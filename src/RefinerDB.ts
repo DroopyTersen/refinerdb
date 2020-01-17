@@ -7,7 +7,9 @@ import {
   IndexEvent,
   IndexFilter,
   QueryResult,
-  IndexResult,
+  IndexFilterResult,
+  FilterResult,
+  QueryCriteria,
 } from "./interfaces";
 import { indexers } from "./helpers/indexers";
 import { createStateMachine, createMachineConfig } from "./stateMachine";
@@ -15,13 +17,13 @@ import { finders } from "./helpers/finders";
 import intersection from "lodash/intersection";
 import { Interpreter } from "xstate";
 import omit from "lodash/omit";
+import { parseFilter, filterToString } from "./helpers/filterParser";
 
 export default class SearchIndexerDB extends Dexie {
   allItems: Dexie.Table<any, number>;
   indexes: Dexie.Table<SearchIndex, string>;
-  queryResults: Dexie.Table<QueryResult, string>;
-  metadata: Dexie.Table<any, string>;
-  filters: IndexFilter[] = [];
+  filterResults: Dexie.Table<FilterResult, string>;
+
   private stateMachine: Interpreter<any>;
   private indexRegistrations: IndexConfig[] = [];
   private activeIndexingId = -1;
@@ -49,12 +51,11 @@ export default class SearchIndexerDB extends Dexie {
       allItems: this.config.itemsIndexSchema,
       metadata: "key",
       indexes: "key",
-      queryResults: "key",
+      filterResults: "key",
     });
     this.allItems = this.table("allItems");
     this.indexes = this.table("indexes");
-    this.metadata = this.table("metadata");
-    this.queryResults = this.table("queryResults");
+    this.filterResults = this.table("filterResults");
   };
 
   setIndexes = (indexes: IndexConfig[]) => {
@@ -65,12 +66,6 @@ export default class SearchIndexerDB extends Dexie {
     // this.allItems.count().then((count) => {
     //   if (count > 0) this.stateMachine.send(IndexEvent.INVALIDATE);
     // });
-  };
-
-  setFilters = (filters: IndexFilter[]) => {
-    this.filters = filters;
-    // Let the state machine handle triggering the query
-    this.stateMachine.send(IndexEvent.QUERY_START);
   };
 
   registerIndex = (index: IndexConfig) => {
@@ -92,6 +87,7 @@ export default class SearchIndexerDB extends Dexie {
       // TODO: queryResults.clear() throws an error if there are none?
       // this.queryResults.clear();
       this.indexes.clear();
+      this.filterResults.clear();
       this.allItems.clear();
       this.allItems.bulkAdd(items);
     });
@@ -115,58 +111,69 @@ export default class SearchIndexerDB extends Dexie {
     return;
   };
 
-  query = async () => {
-    // check cached query results for a matching data key (stringified Query Params)
-
+  query = async (criteria: QueryCriteria) => {
     // if none, the actually do the querying
     this.stateMachine.send(IndexEvent.QUERY_START);
     await this.waitForState(IndexState.IDLE);
-    return;
+
+    // TODO: use the sort and paging to hydrate the proper items
+    return [];
   };
 
-  _query = async (queryId: number = Date.now()): Promise<QueryResult> => {
-    this.activeQueryId = queryId;
+  // _query Just worries about filters.
+  // It also only worries about getting the itemIds, not hydrating the items
+  // It will cache the results using the stringified filters as the key
+  _query = async (criteria: QueryCriteria): Promise<QueryResult> => {
     let result: QueryResult = null;
-    await this.transaction("r", this.indexes, this.allItems, () => {
-      let allIndexes: SearchIndex[] = this.indexes.bulkGet(
-        this.filters.map((f) => f.indexKey)
-      ) as any;
+    let filters = parseFilter(criteria.filter);
 
-      let results = this.filters.map((filter) => {
-        return finders.findByIndexFilter(
-          filter,
-          allIndexes.find((i) => i.key === filter.indexKey)
-        );
-      });
+    await this.transaction("rw", this.indexes, this.allItems, () => {
+      let allIndexes: SearchIndex[] = this.indexes.bulkGet(filters.map((f) => f.indexKey)) as any;
 
-      // console.log("TCL: results", results);
-      let indexResults = results.map((matches, i) => {
-        return {
-          indexKey: this.filters[i].indexDefinition.key,
-          matches,
-        } as IndexResult;
-      });
-
-      let allRefinerOptions = indexResults.map((indexResult, i) => {
-        if (this.filters[i].indexDefinition.skipRefinerOptions) {
-          return [];
+      // Get an array of arrays. where we store a set of itemId matches for each filter
+      let indexResults: IndexFilterResult[] = [];
+      for (var i = 0; i < filters.length; i++) {
+        let filter = filters[i];
+        let filterKey = filterToString(filter);
+        let matches = [];
+        let cachedFilterResult = this.filterResults.get(filterKey) as any;
+        if (cachedFilterResult && cachedFilterResult.itemIds) {
+          matches = cachedFilterResult.itemIds;
+        } else {
+          matches = finders.findByIndexFilter(
+            filter,
+            allIndexes.find((i) => i.key === filter.indexKey)
+          );
+          this.filterResults.put({ key: filterKey, itemIds: matches });
         }
-        let index = allIndexes.find((i) => i.key === indexResult.indexKey);
-        return finders.getRefinerOptions(index, indexResults);
-      });
-
-      let refiners = allRefinerOptions.reduce((refiners, options, i) => {
-        refiners[this.filters[i].indexDefinition.key] = options;
-        return refiners;
-      }, {});
-
-      let items = this.allItems.bulkGet(intersection(...results.filter(Boolean))) as any;
-
-      if (this.activeQueryId !== queryId) {
-        result = null;
-      } else {
-        result = { items, refiners, key: JSON.stringify(this.filters) };
+        indexResults.push({
+          indexKey: filter.indexKey,
+          matches,
+          refinerOptions: [],
+        });
       }
+
+      let refiners = null;
+
+      if (criteria.includeRefiners) {
+        let allRefinerOptions = indexResults.map((indexResult, i) => {
+          if (filters[i].indexDefinition.skipRefinerOptions) {
+            return [];
+          }
+          let index = allIndexes.find((i) => i.key === indexResult.indexKey);
+          return finders.getRefinerOptions(index, indexResults);
+        });
+
+        refiners = allRefinerOptions.reduce((refiners, options, i) => {
+          refiners[filters[i].indexDefinition.key] = options;
+          return refiners;
+        }, {});
+      }
+
+      let itemIds = intersection(...indexResults.map((r) => r.matches).filter(Boolean));
+      let items = this.allItems.bulkGet(itemIds) as any;
+
+      result = { items, refiners, key: JSON.stringify(filters), totalCount: items.length };
     });
 
     return result;
@@ -174,8 +181,8 @@ export default class SearchIndexerDB extends Dexie {
 
   _reIndex = (indexingId: number = Date.now()) => {
     this.activeIndexingId = indexingId;
-    return this.transaction("rw", this.allItems, this.indexes, this.queryResults, () => {
-      // this.queryResults.clear();
+    return this.transaction("rw", this.allItems, this.indexes, this.filterResults, () => {
+      this.filterResults.clear();
       let indexes: SearchIndex[] = this.indexRegistrations.map((index) => {
         return {
           ...index,

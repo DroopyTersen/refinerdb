@@ -10,6 +10,45 @@ npm install refinerdb
 
 ## Quick Start
 
+```javascript
+import RefinerDB, { IndexType } from "refinerdb";
+
+// Setup DB
+let refinerDB = new RefinerDB("movies-db");
+refinerDB.setIndexes([
+  { key: "title", type: IndexType.String, hashFn: (item) => item.title },
+  { key: "genre", type: IndexType.String, hashFn: (item) => item.genres },
+  { key: "released", type: IndexType.Date, hashFn: (item) => item.released_date },
+  { key: "score", type: IndexType.Number, hashFn: (item) => item.vote_average },
+]);
+
+// Add data
+let movies = await fetchMovies();
+refinerDB.setItems(movies);
+
+// Query Data
+let filter = {
+  genre: ["Action", "Comedy"],
+  score: { min: 6.5 },
+};
+let { items, refiners, itemCount, totalCount } = await refinerDB.query({
+  filter,
+  sort: "released",
+  sortDir: "desc",
+});
+
+// items will be an array of movies
+// refiners will be an object of like
+// {
+//     "genre": [
+//         { key: "Action", count: 13 },
+//         { key: "Comedy", count: 21 },
+//         { key: "Drama", count: 42 }
+//     ],
+//     ...
+// }
+```
+
 TOOD: Show a quick example of using it
 
 ## Setup

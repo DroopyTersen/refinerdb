@@ -1,4 +1,10 @@
-import { IndexFilter, SearchIndex, IndexType, IndexResult, RefinerOption } from "../interfaces";
+import {
+  IndexFilter,
+  SearchIndex,
+  IndexType,
+  IndexFilterResult,
+  RefinerOption,
+} from "../interfaces";
 import flatten from "lodash/flatten";
 import uniq from "lodash/uniq";
 import intersection from "lodash/intersection";
@@ -82,7 +88,7 @@ function findByIndexFilter(
   }
 }
 
-function getRefinerOptions(index: SearchIndex, indexResults: IndexResult[]): RefinerOption[] {
+function getRefinerOptions(index: SearchIndex, indexResults: IndexFilterResult[]): RefinerOption[] {
   // Find all matches except for matches for this index
   let noIndexResults = !indexResults || !indexResults.length;
   let nonTargetMatches: number[] = intersection(

@@ -35,7 +35,15 @@ export interface IndexFilter {
   max?: string | number | Date;
 }
 
-export interface IndexResult {
+export type MinMaxFilterValue = { min?: number | Date | string; max?: number | Date | string };
+export type StringFilterValue = string | string[];
+export type NumberFilterValue = number | number[];
+
+export interface Filter {
+  [key: string]: MinMaxFilterValue | StringFilterValue | NumberFilterValue;
+}
+
+export interface IndexFilterResult {
   indexKey: string;
   matches: number[];
   refinerOptions: RefinerOption[];
@@ -67,10 +75,24 @@ export interface IndexConfig {
   skipRefinerOptions?: boolean;
 }
 
+export interface QueryCriteria {
+  filter: Filter;
+  sort?: string;
+  sortDir?: "asc" | "desc";
+  limit?: number;
+  skip?: number;
+  includeRefiners?: boolean;
+}
+
+export interface FilterResult {
+  key: string;
+  itemIds: number[];
+}
 export interface QueryResult {
   key: string;
   items: any[];
   refiners: {
     [key: string]: RefinerOption[];
   };
+  totalCount: number;
 }
