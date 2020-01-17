@@ -7,7 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "test:ui": "majestic",
     "prebuild": "npm run clean",
     "build": "tsc --build tsconfig.lib.json",
