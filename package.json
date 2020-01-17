@@ -12,7 +12,9 @@
     "test:ui": "majestic",
     "prebuild": "npm run clean",
     "build": "tsc --build tsconfig.lib.json",
-    "clean": "rimraf lib"
+    "clean": "rimraf lib",
+    "prerelease": "npm run build",
+    "release": "np --no-cleanup"
   },
   "repository": {
     "type": "git",
