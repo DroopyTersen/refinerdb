@@ -5,9 +5,7 @@ import {
   RefinderDBConfig,
   IndexState,
   IndexEvent,
-  IndexFilter,
   QueryResult,
-  IndexFilterResult,
   FilterResult,
   QueryCriteria,
 } from "./interfaces";
@@ -127,7 +125,7 @@ export default class SearchIndexerDB extends Dexie {
       let allIndexes: SearchIndex[] = this.indexes.bulkGet(filters.map((f) => f.indexKey)) as any;
 
       // Get an array of arrays. where we store a set of itemId matches for each filter
-      let filterResults: IndexFilterResult[] = [];
+      let filterResults: FilterResult[] = [];
       for (var i = 0; i < filters.length; i++) {
         let filter = filters[i];
         let filterKey = filterToString(filter);
@@ -140,39 +138,49 @@ export default class SearchIndexerDB extends Dexie {
             filter,
             allIndexes.find((i) => i.key === filter.indexKey)
           );
-          this.filterResults.put({ key: filterKey, itemIds: matches });
+          this.filterResults.put({ key: filterKey, matches, indexKey: filter.indexKey });
         }
         filterResults.push({
           indexKey: filter.indexKey,
+          key: filterKey,
           matches,
-          refinerOptions: [],
         });
       }
 
       let refiners = null;
 
       if (criteria.includeRefiners) {
-        let allRefinerOptions = filterResults.map((indexResult, i) => {
-          if (filters[i].indexDefinition.skipRefinerOptions) {
+        let allRefinerOptions = this.indexRegistrations.map((indexRegistration, i) => {
+          if (indexRegistration.skipRefinerOptions) {
             return [];
           }
-          let index = allIndexes.find((i) => i.key === indexResult.indexKey);
+          let index = allIndexes.find((i) => i.key === indexRegistration.key);
           return finders.getRefinerOptions(index, filterResults);
         });
 
         refiners = allRefinerOptions.reduce((refiners, options, i) => {
-          refiners[filters[i].indexDefinition.key] = options;
+          refiners[this.indexRegistrations[i].key] = options;
           return refiners;
         }, {});
       }
 
-      let itemIds = intersection(...filterResults.map((r) => r.matches).filter(Boolean));
+      let itemIds: number[] = [];
+      // If there are no filters, return all items
+      if (filterResults.length === 0) {
+        itemIds = this.allItems.toCollection().primaryKeys() as any;
+      } else {
+        // There are filters so return the intersection of all the matches
+        itemIds = intersection(...filterResults.map((r) => r.matches).filter(Boolean));
+      }
+      // TODO: how to handle sort?
 
-      // TODO: handle sort, limit, and skip
+      let skip = criteria.skip || 0;
+      let limit = criteria.limit || 1000;
+      let trimmedIds = itemIds.slice(skip, skip + limit);
 
-      let items = this.allItems.bulkGet(itemIds) as any;
+      let items = this.allItems.bulkGet(trimmedIds) as any;
 
-      result = { items, refiners, key: JSON.stringify(filters), totalCount: items.length };
+      result = { items, refiners, totalCount: items.length };
     });
 
     return result;

@@ -88,24 +88,29 @@ function findByIndexFilter(
   }
 }
 
-function getRefinerOptions(index: SearchIndex, indexResults: IndexFilterResult[]): RefinerOption[] {
-  let noIndexResults = !indexResults || !indexResults.length;
+function getRefinerOptions(
+  index: SearchIndex,
+  filterResults: IndexFilterResult[]
+): RefinerOption[] {
+  // Figure out which filter result sets should be used to calculate the options
+  // All results sets except the index being calculated
+  let nonTargetFilterResults = filterResults.filter((f) => f.indexKey !== index.key);
   // Find all matches except for matches for this index
-  let nonTargetMatches: number[] = intersection(
-    ...indexResults.filter((i) => i.indexKey !== index.key).map((i) => i.matches)
-  );
+  let nonTargetMatches: number[] = intersection(...nonTargetFilterResults.map((f) => f.matches));
 
   let refinerOptions: RefinerOption[] = [];
   let hashKeys = Object.keys(index.value);
   for (var i = 0; i < hashKeys.length; i++) {
-    let count = nonTargetMatches.length
-      ? // If we have non target index filter results, then return the count of their intersection
-        intersection(index.value[hashKeys[i]], nonTargetMatches).length
-      : // We weren't passed any index results so return the whole hash count
-      // otherwise return Zero because we have a nonTarget index filter with no matches
-      noIndexResults
-      ? index.value[hashKeys[i]].length
-      : 0;
+    let count =
+      !nonTargetFilterResults || !nonTargetFilterResults.length
+        ? // We weren't passed any non target filter results so return the whole hash count
+          index.value[hashKeys[i]].length
+        : nonTargetMatches.length
+        ? // If we have non target index filter results, then return the count of their intersection
+          intersection(index.value[hashKeys[i]], nonTargetMatches).length
+        : // otherwise return Zero because we have a nonTarget index filter with no matches
+          0;
+
     if (count) {
       refinerOptions.push({ key: hashKeys[i], count });
     }

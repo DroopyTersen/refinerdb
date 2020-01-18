@@ -43,12 +43,6 @@ export interface Filter {
   [key: string]: MinMaxFilterValue | StringFilterValue | NumberFilterValue;
 }
 
-export interface IndexFilterResult {
-  indexKey: string;
-  matches: number[];
-  refinerOptions: RefinerOption[];
-}
-
 export interface RefinerOption {
   key: string;
   count: number;
@@ -85,11 +79,11 @@ export interface QueryCriteria {
 }
 
 export interface FilterResult {
+  indexKey: string;
   key: string;
-  itemIds: number[];
+  matches: number[];
 }
 export interface QueryResult {
-  key: string;
   items: any[];
   refiners: {
     [key: string]: RefinerOption[];
