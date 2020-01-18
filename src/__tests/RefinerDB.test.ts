@@ -171,15 +171,12 @@ describe("Auto Indexing", () => {
   it("Should properly handle canceling a reIndex if new items get added mid Indexing", () => {});
 });
 
-describe("Querying", () => {
+describe("Querying - Basic", () => {
   let search = new RefinerDb("test-querying");
   search.setIndexes(indexDefinitions);
 
-  beforeAll(async () => {
-    await search.setItems(items);
-  });
-
   it("Should return the correct item with a single exact equals string filter", async () => {
+    await search.setItems(items);
     let result = await search.query({ filter: { title: "two" } });
     expect(result).toBeTruthy();
     expect(result).toHaveProperty("items");
@@ -188,6 +185,7 @@ describe("Querying", () => {
   });
 
   it("Should support 'includeRefiners' flag", async () => {
+    await search.setItems(items);
     let result = await search.query({ filter: { title: "two" }, includeRefiners: true });
     expect(result).toBeTruthy();
     expect(result).toHaveProperty("items");
@@ -196,6 +194,18 @@ describe("Querying", () => {
     expect(result).toHaveProperty("refiners");
     expect(result.refiners).toHaveProperty("title");
     expect(result.refiners.title).toHaveLength(4);
+  });
+
+  it("Should wait for a reIndex", async () => {
+    search.setItems(items);
+    expect(search.getIndexState()).toBe(IndexState.QUERYING);
+
+    let result = await search.query({ filter: { title: "two" } });
+    expect(search.getIndexState()).toBe(IndexState.IDLE);
+    expect(result).toBeTruthy();
+    expect(result).toHaveProperty("items");
+    expect(result.items).toHaveLength(1);
+    expect(result.items[0].title).toBe("two");
   });
 });
 
