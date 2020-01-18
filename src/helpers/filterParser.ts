@@ -2,6 +2,8 @@ import { IndexFilter, Filter } from "../interfaces";
 import omit from "lodash/omit";
 
 export function parseFilter(filter: Filter): IndexFilter[] {
+  if (!filter) return [];
+
   let filters = Object.keys(filter).map((indexKey) => {
     let indexFilter: IndexFilter = {
       indexKey,

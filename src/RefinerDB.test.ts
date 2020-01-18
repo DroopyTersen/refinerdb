@@ -11,7 +11,7 @@ describe("Constructor", () => {
     let search = new RefinerDb("test-db");
     expect(search.table("allItems")).toBeTruthy();
     expect(search.table("indexes")).toBeTruthy();
-    expect(search.table("metadata")).toBeTruthy();
+    expect(search.table("filterResults")).toBeTruthy();
     try {
       search.table("INIDLE_TABLE");
       expect("INVALID TABLE NAME").toBe("SHOULD HAVE THROWN");

@@ -48,7 +48,6 @@ export default class SearchIndexerDB extends Dexie {
   initDB = () => {
     this.version(1).stores({
       allItems: this.config.itemsIndexSchema,
-      metadata: "key",
       indexes: "key",
       filterResults: "key",
     });
@@ -82,7 +81,7 @@ export default class SearchIndexerDB extends Dexie {
   setItems = async (items: any[]) => {
     // TODO: set IndexState
     this.stateMachine.send(IndexEvent.INVALIDATE);
-    await this.transaction("rw", this.allItems, this.indexes, () => {
+    await this.transaction("rw", this.allItems, this.indexes, this.filterResults, () => {
       // TODO: queryResults.clear() throws an error if there are none?
       // this.queryResults.clear();
       this.indexes.clear();
@@ -106,7 +105,7 @@ export default class SearchIndexerDB extends Dexie {
 
   reIndex = async () => {
     this.stateMachine.send(IndexEvent.INDEX_START);
-    await this.waitForState(IndexState.QUERYING);
+    await this.waitForState(IndexState.IDLE);
     return;
   };
 
@@ -128,7 +127,7 @@ export default class SearchIndexerDB extends Dexie {
       let allIndexes: SearchIndex[] = this.indexes.bulkGet(filters.map((f) => f.indexKey)) as any;
 
       // Get an array of arrays. where we store a set of itemId matches for each filter
-      let indexResults: IndexFilterResult[] = [];
+      let filterResults: IndexFilterResult[] = [];
       for (var i = 0; i < filters.length; i++) {
         let filter = filters[i];
         let filterKey = filterToString(filter);
@@ -143,7 +142,7 @@ export default class SearchIndexerDB extends Dexie {
           );
           this.filterResults.put({ key: filterKey, itemIds: matches });
         }
-        indexResults.push({
+        filterResults.push({
           indexKey: filter.indexKey,
           matches,
           refinerOptions: [],
@@ -153,12 +152,12 @@ export default class SearchIndexerDB extends Dexie {
       let refiners = null;
 
       if (criteria.includeRefiners) {
-        let allRefinerOptions = indexResults.map((indexResult, i) => {
+        let allRefinerOptions = filterResults.map((indexResult, i) => {
           if (filters[i].indexDefinition.skipRefinerOptions) {
             return [];
           }
           let index = allIndexes.find((i) => i.key === indexResult.indexKey);
-          return finders.getRefinerOptions(index, indexResults);
+          return finders.getRefinerOptions(index, filterResults);
         });
 
         refiners = allRefinerOptions.reduce((refiners, options, i) => {
@@ -167,7 +166,7 @@ export default class SearchIndexerDB extends Dexie {
         }, {});
       }
 
-      let itemIds = intersection(...indexResults.map((r) => r.matches).filter(Boolean));
+      let itemIds = intersection(...filterResults.map((r) => r.matches).filter(Boolean));
 
       // TODO: handle sort, limit, and skip
 

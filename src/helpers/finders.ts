@@ -89,8 +89,8 @@ function findByIndexFilter(
 }
 
 function getRefinerOptions(index: SearchIndex, indexResults: IndexFilterResult[]): RefinerOption[] {
-  // Find all matches except for matches for this index
   let noIndexResults = !indexResults || !indexResults.length;
+  // Find all matches except for matches for this index
   let nonTargetMatches: number[] = intersection(
     ...indexResults.filter((i) => i.indexKey !== index.key).map((i) => i.matches)
   );

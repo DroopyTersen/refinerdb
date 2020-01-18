@@ -79,4 +79,17 @@ describe("Filter Parser", () => {
     let filters = parseFilter(filter);
     expect(JSON.stringify(filters)).toBe(JSON.stringify(expected));
   });
+
+  it("Should handle a null filter", () => {
+    let expected = [];
+    let filters = parseFilter(null);
+    expect(JSON.stringify(filters)).toBe(JSON.stringify(expected));
+  });
+
+  it("Should handle an undefined filter", () => {
+    let criteria: any = {};
+    let expected = [];
+    let filters = parseFilter(criteria.filter);
+    expect(JSON.stringify(filters)).toBe(JSON.stringify(expected));
+  });
 });
