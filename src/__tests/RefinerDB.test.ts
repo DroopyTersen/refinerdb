@@ -4,7 +4,7 @@ import RefinerDb, {
   IndexState,
   IndexConfig,
   SearchIndex,
-} from "./index";
+} from "../index";
 
 describe("Constructor", () => {
   it("Should setup the proper data stores", () => {
@@ -198,6 +198,7 @@ describe("Querying", () => {
     expect(result.refiners.title).toHaveLength(4);
   });
 });
+
 function wait(delay: number) {
   return new Promise((resolve) => {
     setTimeout(() => resolve(), delay);

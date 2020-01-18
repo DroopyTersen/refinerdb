@@ -1,4 +1,4 @@
-import binarySearch, { findStringRange, compareNumbers } from "./binarySearch";
+import binarySearch, { findStringRange, compareNumbers } from "../helpers/binarySearch";
 
 let sortedNumberArray = [-1, 0, 1.1, 3, 3.2, 4, 10];
 let sortedStringArray = [

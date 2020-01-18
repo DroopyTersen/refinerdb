@@ -1,5 +1,5 @@
 import { IndexType, SearchIndex } from "../interfaces";
-import { indexValues, indexers } from "./indexers";
+import { indexValues, indexers } from "../helpers/indexers";
 
 describe.only("search.indexers", () => {
   describe("indexValue", () => {

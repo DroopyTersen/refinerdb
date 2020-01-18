@@ -1,5 +1,5 @@
-import { createMachineConfig, createStateMachine } from "./stateMachine";
-import { IndexState, IndexEvent } from "./interfaces";
+import { createMachineConfig, createStateMachine } from "../stateMachine";
+import { IndexState, IndexEvent } from "../interfaces";
 
 describe("State Machine", () => {
   it("Should start in an Idle state", () => {

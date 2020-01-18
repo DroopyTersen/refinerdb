@@ -1,4 +1,4 @@
-import { finders } from "./finders";
+import { finders } from "../helpers/finders";
 
 import { SearchIndex, IndexType, FilterResult } from "../interfaces";
 
