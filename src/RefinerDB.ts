@@ -136,7 +136,7 @@ export default class SearchIndexerDB extends Dexie {
 
       let refiners = null;
 
-      if (criteria.includeRefiners) {
+      if (criteria.includeRefiners !== false) {
         let allRefinerOptions = this.indexRegistrations.map((indexRegistration, i) => {
           if (indexRegistration.skipRefinerOptions) {
             return [];
