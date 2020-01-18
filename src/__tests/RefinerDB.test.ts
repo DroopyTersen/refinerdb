@@ -198,7 +198,7 @@ describe("Querying - Basic", () => {
 
   it("Should wait for a reIndex", async () => {
     search.setItems(items);
-    expect(search.getIndexState()).toBe(IndexState.QUERYING);
+    expect(search.getIndexState()).toBe(IndexState.STALE);
 
     let result = await search.query({ filter: { title: "two" } });
     expect(search.getIndexState()).toBe(IndexState.IDLE);
