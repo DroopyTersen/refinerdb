@@ -135,14 +135,14 @@ describe("Auto Indexing", () => {
   beforeEach(async () => {});
 
   it("Should automatically reindex when new items are added", async () => {
-    search = new RefinerDb("test-auto-indexing", { indexDelay: 500 });
+    search = new RefinerDb("test-auto-indexing", { indexDelay: 300 });
     let titleIndex = await search.indexes.get("title");
     let idIndex = await search.indexes.get("id");
     expect(titleIndex).toBeFalsy();
     expect(idIndex).toBeFalsy();
 
     search.setIndexes(indexDefinitions);
-    await wait(810);
+    await wait(600);
 
     return new Promise(async (resolve) => {
       //   expect(reindexSpy).toHaveBeenCalledTimes(0);
@@ -164,7 +164,7 @@ describe("Auto Indexing", () => {
           idIndex.sortedKeys[idIndex.sortedKeys.length - 1]
         );
         resolve();
-      }, 1000);
+      }, 600);
     });
   });
 
@@ -186,6 +186,7 @@ describe("Querying", () => {
     expect(result.items).toHaveLength(1);
     expect(result.items[0].title).toBe("two");
   });
+
   it("Should support 'includeRefiners' flag", async () => {
     let result = await search.query({ filter: { title: "two" }, includeRefiners: true });
     expect(result).toBeTruthy();

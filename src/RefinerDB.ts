@@ -57,19 +57,6 @@ export default class SearchIndexerDB extends Dexie {
   setIndexes = (indexes: IndexConfig[]) => {
     this.indexRegistrations = indexes;
     this.stateMachine.send(IndexEvent.INVALIDATE);
-    // TODO: Trigger invalidate only if we have items and
-    // the indexes aren't what we have in db already
-    // this.allItems.count().then((count) => {
-    //   if (count > 0) this.stateMachine.send(IndexEvent.INVALIDATE);
-    // });
-  };
-
-  registerIndex = (index: IndexConfig) => {
-    if (!index || !index.key) return;
-    this.indexRegistrations = [
-      ...this.indexRegistrations.filter((i) => i.key !== index.key),
-      index,
-    ];
   };
 
   getIndexState = (): IndexState => {
