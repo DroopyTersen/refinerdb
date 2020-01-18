@@ -84,6 +84,7 @@ export interface FilterResult {
   matches: number[];
 }
 export interface QueryResult {
+  key: string;
   items: any[];
   refiners: {
     [key: string]: RefinerOption[];

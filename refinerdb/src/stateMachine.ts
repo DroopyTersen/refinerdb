@@ -12,7 +12,7 @@ export function createStateMachine(
   return interpreter;
 }
 
-export function createMachineConfig(reIndex, indexingDelay = 750) {
+export function createMachineConfig(reIndex, query, indexingDelay = 750) {
   return Machine({
     id: "indexer",
     initial: IndexState.IDLE,
@@ -33,7 +33,7 @@ export function createMachineConfig(reIndex, indexingDelay = 750) {
           id: "reindex",
           src: () => reIndex(),
           onDone: {
-            target: IndexState.IDLE,
+            target: IndexState.QUERYING,
           },
           onError: {
             target: IndexState.FAILED,
@@ -41,25 +41,27 @@ export function createMachineConfig(reIndex, indexingDelay = 750) {
           },
         },
       },
-      // [IndexState.QUERYING]: {
-      //   on: {
-      //     [IndexEvent.INVALIDATE]: IndexState.STALE,
-      //     [IndexEvent.QUERY_START]: IndexState.QUERYING,
-      //   },
-      //   invoke: {
-      //     id: "query",
-      //     src: () => query(),
-      //     onDone: {
-      //       target: IndexState.IDLE,
-      //     },
-      //     onError: {
-      //       target: IndexState.FAILED,
-      //     },
-      //   },
-      // },
+      [IndexState.QUERYING]: {
+        on: {
+          [IndexEvent.INVALIDATE]: IndexState.STALE,
+          [IndexEvent.QUERY_START]: IndexState.QUERYING,
+        },
+        invoke: {
+          id: "query",
+          src: () => query(),
+          onDone: {
+            target: IndexState.IDLE,
+          },
+          onError: {
+            target: IndexState.FAILED,
+            actions: (context, event) => console.log("QUERY ERROR", event.data),
+          },
+        },
+      },
       [IndexState.IDLE]: {
         on: {
           [IndexEvent.INVALIDATE]: IndexState.STALE,
+          [IndexEvent.QUERY_START]: IndexState.QUERYING,
         },
       },
       [IndexState.FAILED]: {
