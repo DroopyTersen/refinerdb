@@ -87,14 +87,42 @@ export default class SearchIndexerDB extends Dexie {
   setItems = async (items: any[]) => {
     // TODO: set IndexState
     this.stateMachine.send(IndexEvent.INVALIDATE);
-    await this.transaction("rw", this.allItems, this.indexes, this.filterResults, () => {
-      // TODO: queryResults.clear() throws an error if there are none?
-      // this.queryResults.clear();
-      this.indexes.clear();
-      this.filterResults.clear();
-      this.allItems.clear();
-      this.allItems.bulkAdd(items);
-    });
+    await this.transaction(
+      "rw",
+      this.allItems,
+      this.indexes,
+      this.filterResults,
+      this.queryResults,
+      () => {
+        // TODO: queryResults.clear() throws an error if there are none?
+        // this.queryResults.clear();
+        this.indexes.clear();
+        this.filterResults.clear();
+        this.queryResults.clear();
+        this.allItems.clear();
+        this.allItems.bulkAdd(items);
+      }
+    );
+  };
+
+  pushItems = async (items: any[]) => {
+    this.stateMachine.send(IndexEvent.INVALIDATE);
+    await this.transaction(
+      "rw",
+      this.allItems,
+      this.indexes,
+      this.filterResults,
+      this.queryResults,
+      () => {
+        // TODO: queryResults.clear() throws an error if there are none?
+        // this.queryResults.clear();
+        this.indexes.clear();
+        this.filterResults.clear();
+        this.allItems.clear();
+        this.queryResults.clear();
+        this.allItems.bulkPut(items);
+      }
+    );
   };
 
   waitForState = (targetState: IndexState) => {
