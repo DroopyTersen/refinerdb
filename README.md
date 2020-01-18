@@ -8,7 +8,9 @@ A browser database (indexeddb wrapper) used to support advanced search scenarios
 npm install refinerdb
 ```
 
-## Quick Start
+## Quick Start 
+
+[![Edit refinerdb-vanilla](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/refinerdb-vanilla-9vijf?fontsize=14&hidenavigation=1&theme=dark)
 
 ```javascript
 import RefinerDB, { IndexType } from "refinerdb";
