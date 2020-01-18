@@ -1,10 +1,4 @@
-import {
-  IndexFilter,
-  SearchIndex,
-  IndexType,
-  IndexFilterResult,
-  RefinerOption,
-} from "../interfaces";
+import { IndexFilter, SearchIndex, IndexType, FilterResult, RefinerOption } from "../interfaces";
 import flatten from "lodash/flatten";
 import uniq from "lodash/uniq";
 import intersection from "lodash/intersection";
@@ -88,10 +82,7 @@ function findByIndexFilter(
   }
 }
 
-function getRefinerOptions(
-  index: SearchIndex,
-  filterResults: IndexFilterResult[]
-): RefinerOption[] {
+function getRefinerOptions(index: SearchIndex, filterResults: FilterResult[]): RefinerOption[] {
   // Figure out which filter result sets should be used to calculate the options
   // All results sets except the index being calculated
   let nonTargetFilterResults = filterResults.filter((f) => f.indexKey !== index.key);

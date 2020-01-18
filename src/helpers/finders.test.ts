@@ -1,6 +1,6 @@
 import { finders } from "./finders";
 
-import { SearchIndex, IndexType, IndexFilterResult } from "../interfaces";
+import { SearchIndex, IndexType, FilterResult } from "../interfaces";
 
 describe("search.finders", () => {
   describe("findByNumber", () => {
@@ -117,20 +117,20 @@ describe("search.finders", () => {
         Drama: [4, 6, 7, 8],
       },
     };
-    let indexResultsA: IndexFilterResult = {
+    let indexResultsA: FilterResult = {
+      key: "",
       matches: [1, 2, 3, 4],
       indexKey: "A",
-      refinerOptions: [],
     };
-    let indexResultsB: IndexFilterResult = {
+    let indexResultsB: FilterResult = {
+      key: "",
       matches: [1, 2],
       indexKey: "B",
-      refinerOptions: [],
     };
-    let genreIndexResults: IndexFilterResult = {
+    let genreIndexResults: FilterResult = {
+      key: "",
       matches: [],
       indexKey: "genre",
-      refinerOptions: [],
     };
     it("Should return the index hash if no other index results were included", () => {
       let refinerOptions = finders.getRefinerOptions(genresIndex, []);
@@ -151,10 +151,10 @@ describe("search.finders", () => {
     });
 
     it("Should return no options if another indexResult had zero matches", () => {
-      let indexResultsC: IndexFilterResult = {
+      let indexResultsC: FilterResult = {
+        key: "",
         matches: [],
         indexKey: "C",
-        refinerOptions: [],
       };
       let refinerOptions = finders.getRefinerOptions(genresIndex, [indexResultsC]);
       // console.log(refinerOptions);
