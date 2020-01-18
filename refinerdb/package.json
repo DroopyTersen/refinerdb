@@ -1,0 +1,50 @@
+{
+  "name": "refinerdb",
+  "description": "A browser database (indexeddb wrapper) used to support advanced search scenarios. An engine that could power an Amazon Refiner-like search experience.",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:ui": "majestic",
+    "prebuild": "npm run clean",
+    "build": "tsc --build tsconfig.lib.json",
+    "clean": "rimraf lib",
+    "prerelease": "npm run build",
+    "release": "np --no-cleanup --no-publish && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DroopyTersen/refinerdb.git"
+  },
+  "author": "Andrew Petersen",
+  "bugs": {
+    "url": "https://github.com/DroopyTersen/refinerdb/issues"
+  },
+  "homepage": "https://github.com/DroopyTersen/refinerdb#readme",
+  "dependencies": {
+    "dexie": "^3.0.0-rc.1",
+    "lodash": "^4.17.15",
+    "xstate": "^4.7.6"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.9.0",
+    "@types/node": "^13.1.8",
+    "fake-indexeddb": "^3.0.0",
+    "jest": "^24.9.0",
+    "majestic": "^1.6.2",
+    "np": "^5.2.1",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^24.3.0",
+    "typescript": "^3.7.5"
+  },
+  "license": "MIT",
+  "keywords": [
+    "indexeddb",
+    "refiners",
+    "search"
+  ]
+}
