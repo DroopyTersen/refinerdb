@@ -60,6 +60,7 @@ describe("Set Indexes", () => {
     expect(search.getIndexState()).toBe(IndexState.STALE);
   });
 });
+
 describe("Set Items", function() {
   let search = new RefinerDb("test-items");
   search.setIndexes(indexDefinitions);
@@ -170,6 +171,32 @@ describe("Auto Indexing", () => {
   it("Should properly handle canceling a reIndex if new items get added mid Indexing", () => {});
 });
 
+describe("Querying", () => {
+  let search = new RefinerDb("test-querying");
+  search.setIndexes(indexDefinitions);
+
+  beforeAll(async () => {
+    await search.setItems(items);
+  });
+
+  it("Should return the correct item with a single exact equals string filter", async () => {
+    let result = await search.query({ filter: { title: "two" } });
+    expect(result).toBeTruthy();
+    expect(result).toHaveProperty("items");
+    expect(result.items).toHaveLength(1);
+    expect(result.items[0].title).toBe("two");
+  });
+  it("Should support 'includeRefiners' flag", async () => {
+    let result = await search.query({ filter: { title: "two" }, includeRefiners: true });
+    expect(result).toBeTruthy();
+    expect(result).toHaveProperty("items");
+    expect(result.items).toHaveLength(1);
+    expect(result.items[0].title).toBe("two");
+    expect(result).toHaveProperty("refiners");
+    expect(result.refiners).toHaveProperty("title");
+    expect(result.refiners.title).toHaveLength(4);
+  });
+});
 function wait(delay: number) {
   return new Promise((resolve) => {
     setTimeout(() => resolve(), delay);

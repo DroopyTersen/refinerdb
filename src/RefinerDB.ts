@@ -121,21 +121,23 @@ export default class SearchIndexerDB extends Dexie {
     let result: QueryResult = null;
     let filters = parseFilter(criteria.filter);
 
-    await this.transaction("rw", this.indexes, this.allItems, () => {
-      let allIndexes: SearchIndex[] = this.indexes.bulkGet(filters.map((f) => f.indexKey)) as any;
-
+    let allIndexes: SearchIndex[] = (await this.indexes.bulkGet(
+      this.indexRegistrations.map((index) => index.key)
+    )) as any;
+    await this.transaction("rw", this.indexes, this.allItems, this.filterResults, async () => {
       // Get an array of arrays. where we store a set of itemId matches for each filter
       let filterResults: FilterResult[] = [];
       for (var i = 0; i < filters.length; i++) {
         let filter = filters[i];
         let filterKey = filterToString(filter);
         let matches = [];
+        let indexDefinition = this.indexRegistrations.find((i) => i.key === filter.indexKey);
         let cachedFilterResult = this.filterResults.get(filterKey) as any;
-        if (cachedFilterResult && cachedFilterResult.itemIds) {
+        if (cachedFilterResult && cachedFilterResult.matches) {
           matches = cachedFilterResult.itemIds;
         } else {
           matches = finders.findByIndexFilter(
-            filter,
+            { indexDefinition, ...filter },
             allIndexes.find((i) => i.key === filter.indexKey)
           );
           this.filterResults.put({ key: filterKey, matches, indexKey: filter.indexKey });
@@ -178,7 +180,7 @@ export default class SearchIndexerDB extends Dexie {
       let limit = criteria.limit || 1000;
       let trimmedIds = itemIds.slice(skip, skip + limit);
 
-      let items = this.allItems.bulkGet(trimmedIds) as any;
+      let items = await this.allItems.bulkGet(trimmedIds);
 
       result = { items, refiners, totalCount: items.length };
     });
