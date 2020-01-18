@@ -95,8 +95,6 @@ export default class SearchIndexerDB extends Dexie {
   };
 
   query = async (criteria: QueryCriteria) => {
-    // if none, the actually do the querying
-    this.stateMachine.send(IndexEvent.QUERY_START);
     await this.waitForState(IndexState.IDLE);
     return this._query(criteria);
   };
