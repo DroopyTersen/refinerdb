@@ -23,7 +23,6 @@ export default async function reindex(db: RefinerDB, queryId = Date.now()) {
     db.allItems
       .each((item, { primaryKey }) => {
         db._indexRegistrations.forEach((indexDefinition, i) => {
-          // STRING INDEX
           let indexer = indexers[indexDefinition.type];
           if (indexer) {
             indexer(item, primaryKey, indexes[i]);
@@ -34,7 +33,7 @@ export default async function reindex(db: RefinerDB, queryId = Date.now()) {
         if (activeQueryId === queryId) {
           indexes.forEach((index) => {
             index.sortedKeys = index.sortedKeys.sort();
-            db.indexes.put(omit(index, "hashFn"));
+            db.indexes.put(index);
           });
         }
       });

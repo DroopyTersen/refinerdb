@@ -40,7 +40,7 @@ export default class RefinerDB extends Dexie {
   private workerIsReady;
   config: RefinerDBConfig = {
     indexDelay: 750,
-    itemsIndexSchema: "++_id",
+    itemsIndexSchema: "++__itemId",
     isWebWorker: false,
   };
 
@@ -168,9 +168,14 @@ export default class RefinerDB extends Dexie {
     let result: QueryResult = null;
     let filters = parseFilter(this._criteria.filter);
 
-    let allIndexes: SearchIndex[] = (await this.indexes.bulkGet(
-      this._indexRegistrations.map((index) => index.key)
-    )) as any;
+    let allIndexes: SearchIndex[] = (
+      await this.indexes.bulkGet(this._indexRegistrations.map((index) => index.key))
+    ).filter(Boolean) as any;
+
+    if (!allIndexes || !allIndexes.length) {
+      // this.stateMachine.send(IndexEvent.INVALIDATE);
+      return Promise.resolve(null);
+    }
 
     // Check for a stale query id after every async activity
     if (this.activeQueryId !== queryId) return;
@@ -227,15 +232,17 @@ export default class RefinerDB extends Dexie {
         // If there are no filters, return all items
         if (filterResults.length === 0) {
           itemIds = await this.allItems.toCollection().primaryKeys();
+          console.log("TCL: allItems itemIds", itemIds);
         } else {
           // There are filters so return the intersection of all the matches
           itemIds = intersection(...filterResults.map((r) => r.matches).filter(Boolean));
+          console.log("TCL: filtered itemIds", itemIds, filterResults.length);
         }
         // TODO: how to handle sort?
 
         let skip = this._criteria.skip || 0;
         let limit = this._criteria.limit || 1000;
-        let trimmedIds = itemIds.slice(skip, skip + limit);
+        let trimmedIds = itemIds; // itemIds.slice(skip, skip + limit);
 
         let items = await this.allItems.bulkGet(trimmedIds);
         // Check for a stale query id after every async activity

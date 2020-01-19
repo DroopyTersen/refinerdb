@@ -83,9 +83,15 @@ function findByIndexFilter(
   }
 }
 
-function getRefinerOptions(index: SearchIndex, filterResults: FilterResult[]): RefinerOption[] {
+function getRefinerOptions(
+  index: SearchIndex,
+  filterResults: FilterResult[] = []
+): RefinerOption[] {
   // Figure out which filter result sets should be used to calculate the options
   // All results sets except the index being calculated
+  filterResults = filterResults || [];
+  // TODO: is this what should be returning? Or null?
+  if (!index || !index.key) return [];
   let nonTargetFilterResults = filterResults.filter((f) => f.indexKey !== index.key);
   // Find all matches except for matches for this index
   let nonTargetMatches: number[] = intersection(...nonTargetFilterResults.map((f) => f.matches));

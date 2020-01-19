@@ -3,6 +3,5 @@ import { IndexStateContext } from "RefinerDBProvider";
 
 export default function useIndexState() {
   let data = useContext(IndexStateContext);
-  console.log("TCL: useIndexState -> data", data.status);
   return data;
 }

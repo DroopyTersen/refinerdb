@@ -50,7 +50,6 @@ const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
   let dbConfig: RefinerDBConfig = {
     workerPath,
     onTransition: (state) => {
-      console.log("RefinerDBProvider", state);
       setIndexState(state);
     },
     indexDelay: 500,
