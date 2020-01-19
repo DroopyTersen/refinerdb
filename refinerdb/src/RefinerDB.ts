@@ -10,13 +10,17 @@ import {
   QueryCriteria,
   Filter,
 } from "./interfaces";
-import { indexers } from "./helpers/indexers";
+import { spawn, Thread, Worker } from "threads";
+import { indexers, checkIfModifiedIndexes } from "./helpers/indexers";
 import { createStateMachine, createMachineConfig } from "./stateMachine";
 import { finders } from "./helpers/finders";
 import intersection from "lodash/intersection";
 import { Interpreter } from "xstate";
 import omit from "lodash/omit";
 import { parseFilter, filterToString } from "./helpers/filterParser";
+import { setCache, getCache } from "./helpers/cache";
+import reindex from "./transactions/reindex";
+import { setItems, pushItems } from "./transactions/setItems";
 
 export default class RefinerDB extends Dexie {
   static destroy = (dbName: string) => {
@@ -27,15 +31,17 @@ export default class RefinerDB extends Dexie {
   filterResults: Dexie.Table<FilterResult, string>;
   queryResults: Dexie.Table<QueryResult, string>;
 
-  private _criteria: QueryCriteria = { filter: null };
-  private _indexRegistrations: IndexConfig[] = [];
-
+  _criteria: QueryCriteria = { filter: null };
+  _indexRegistrations: IndexConfig[] = [];
   private stateMachine: Interpreter<any>;
   private activeIndexingId = -1;
   private activeQueryId = -1;
+  private worker;
+  private workerIsReady;
   config: RefinerDBConfig = {
     indexDelay: 750,
     itemsIndexSchema: "++_id",
+    isWebWorker: false,
   };
 
   constructor(dbName: string, config?: RefinerDBConfig) {
@@ -49,6 +55,17 @@ export default class RefinerDB extends Dexie {
       createMachineConfig(this._reIndex, this._query, this.config.indexDelay),
       this.config.onTransition
     );
+    if (this.config.indexes && this.config.indexes.length) {
+      this._indexRegistrations = this.config.indexes;
+    }
+    if (this.config.workerPath) {
+      this.workerIsReady = spawn(new Worker(this.config.workerPath)).then(
+        (worker) => (this.worker = worker)
+      );
+    }
+    if (!this.config.isWebWorker) {
+      this._indexRegistrations = getCache(this.name + "-indexes") || [];
+    }
   }
 
   initDB = () => {
@@ -79,9 +96,14 @@ export default class RefinerDB extends Dexie {
   get indexRegistrations() {
     return this._indexRegistrations;
   }
-  setIndexes = (indexes: IndexConfig[]) => {
-    this._indexRegistrations = indexes;
-    this.stateMachine.send(IndexEvent.INVALIDATE);
+  setIndexes = (indexes: IndexConfig[], forceReindex = false) => {
+    if (forceReindex === true || checkIfModifiedIndexes(this._indexRegistrations, indexes)) {
+      this._indexRegistrations = indexes;
+      if (!this.config.isWebWorker) {
+        setCache(this.name + "-indexes", this._indexRegistrations);
+      }
+      this.stateMachine.send(IndexEvent.INVALIDATE);
+    }
   };
 
   getIndexState = (): IndexState => {
@@ -89,44 +111,21 @@ export default class RefinerDB extends Dexie {
   };
 
   setItems = async (items: any[]) => {
-    // TODO: set IndexState
     this.stateMachine.send(IndexEvent.INVALIDATE);
-    await this.transaction(
-      "rw",
-      this.allItems,
-      this.indexes,
-      this.filterResults,
-      this.queryResults,
-      () => {
-        // TODO: queryResults.clear() throws an error if there are none?
-        // this.queryResults.clear();
-        this.indexes.clear();
-        this.filterResults.clear();
-        this.queryResults.clear();
-        this.allItems.clear();
-        this.allItems.bulkAdd(items);
-      }
-    );
+    if (this.config.workerPath) {
+      await this.workerIsReady;
+      let result = await this.worker.setItems(this.name, items);
+      console.log("TCL: setItems -> Web Worker result", result);
+    } else {
+      await setItems(this, items);
+    }
+    this.stateMachine.send(IndexEvent.INVALIDATE);
   };
 
   pushItems = async (items: any[]) => {
     this.stateMachine.send(IndexEvent.INVALIDATE);
-    await this.transaction(
-      "rw",
-      this.allItems,
-      this.indexes,
-      this.filterResults,
-      this.queryResults,
-      () => {
-        // TODO: queryResults.clear() throws an error if there are none?
-        // this.queryResults.clear();
-        this.indexes.clear();
-        this.filterResults.clear();
-        this.allItems.clear();
-        this.queryResults.clear();
-        this.allItems.bulkPut(items);
-      }
-    );
+    await pushItems(this, items);
+    this.stateMachine.send(IndexEvent.INVALIDATE);
   };
 
   // deleteItems = async (filter?: Filter) => {
@@ -242,7 +241,7 @@ export default class RefinerDB extends Dexie {
         // Check for a stale query id after every async activity
         if (this.activeQueryId !== queryId) return;
 
-        result = { items, refiners, totalCount: items.length, key: this.getCriteriaKey() };
+        result = { items, refiners, totalCount: itemIds.length, key: this.getCriteriaKey() };
         this.queryResults.put(result);
       }
     );
@@ -252,51 +251,13 @@ export default class RefinerDB extends Dexie {
     return result;
   };
 
-  _reIndex = (indexingId: number = Date.now()) => {
-    this.activeIndexingId = indexingId;
-    return this.transaction(
-      "rw",
-      this.allItems,
-      this.indexes,
-      this.filterResults,
-      this.queryResults,
-      () => {
-        this.filterResults.clear();
-        this.queryResults.clear();
-        let indexes: SearchIndex[] = this._indexRegistrations.map((index) => {
-          return {
-            ...index,
-            value: {},
-            sortedKeys: [],
-          };
-        });
-        // Loop through each items
-        this.allItems
-          .each((item, { primaryKey }) => {
-            this._indexRegistrations.forEach((indexDefinition, i) => {
-              // STRING INDEX
-              let indexer = indexers[indexDefinition.type];
-              if (indexer) {
-                indexer(item, primaryKey, indexes[i]);
-              }
-            });
-          })
-          .then(() => {
-            indexes.forEach((index) => {
-              index.sortedKeys = index.sortedKeys.sort();
-              this.indexes.put(omit(index, "hashFn"));
-            });
-            if (this.activeIndexingId !== indexingId) {
-              console.log("CANCELING TRANSACTION");
-              Dexie.currentTransaction.abort();
-            }
-          });
-
-        if (this.activeIndexingId !== indexingId) {
-          console.log("CANCELING TRANSACTION");
-          Dexie.currentTransaction.abort();
-        }
-      }
-    );
+  _reIndex = async (indexingId: number = Date.now()) => {
+    if (this.config.workerPath) {
+      await this.workerIsReady;
+      let result = await this.worker.reindex(this.name, this._indexRegistrations);
+      console.log("TCL: _reIndex -> Web Worker result", result);
+    } else {
+      return reindex(this, indexingId);
+    }
   };
 }

@@ -50,6 +50,10 @@ describe("search.finders", () => {
       expect(results).toHaveLength(7);
     });
 
+    it("Should return all results if for empty string filter", () => {
+      let results = finders.findByString(genresIndex, [""]);
+      expect(results).toHaveLength(8);
+    });
     it("Should come back sorted by the index hash values", () => {
       let titleIndex: SearchIndex = {
         key: "title",

@@ -28,12 +28,13 @@ function findByDate(
 }
 
 function findByString(index: SearchIndex, values: string[]) {
+  values = values.filter(Boolean);
   let isExactEquals = !values.find((v) => v.indexOf("*") > -1);
 
   if (isExactEquals) {
     return index.sortedKeys.reduce((results, hashKey) => {
-      // Is it a match?
-      if (values.indexOf(hashKey) > -1) {
+      // Is it a match? Or do we not have values?
+      if (values.indexOf(hashKey) > -1 || !values.length) {
         //It's a match so push any items that aren't already in the results array
         let hashMatches = index.value[hashKey];
         hashMatches.forEach((itemId) => {

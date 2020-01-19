@@ -1,4 +1,4 @@
-import { IndexType, SearchIndex } from "../interfaces";
+import { IndexType, SearchIndex, IndexConfig } from "../interfaces";
 
 export function indexValues(hashValues: string[] | number[], primaryKey, index: SearchIndex) {
   if (!index.value) index.value = {};
@@ -56,3 +56,7 @@ export const indexers = {
   [IndexType.Number]: indexNumber,
   [IndexType.Date]: indexDate,
 };
+
+export function checkIfModifiedIndexes(current: IndexConfig[], next: IndexConfig[]): boolean {
+  return JSON.stringify(current) !== JSON.stringify(next);
+}

@@ -9,7 +9,7 @@ export interface HeaderProps {
 
 export default function Header() {
   let indexState = useIndexState();
-  console.log("RENDERING Header");
+  console.log("RENDERING Header", indexState.status);
   return (
     <header>
       <h2>

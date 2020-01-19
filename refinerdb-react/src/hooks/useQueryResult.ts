@@ -14,7 +14,7 @@ export default function useQueryResult() {
       let queryResult: QueryResult = await refinerDB.getQueryResult();
       setResult(queryResult);
     }
-    console.log("TCL: getNewResults -> queryResult", status);
+    // console.log("TCL: getNewResults -> queryResult", status);
     if (status === IndexState.IDLE) {
       getNewResults();
     }

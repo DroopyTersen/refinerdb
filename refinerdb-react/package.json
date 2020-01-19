@@ -28,6 +28,7 @@
 		"@types/react-dom": "^16.9.0",
 		"react-scripts": "3.3.0",
 		"rimraf": "^3.0.0",
+		"threads-plugin": "^1.2.0",
 		"typescript": "~3.7.2"
 	},
 	"eslintConfig": {

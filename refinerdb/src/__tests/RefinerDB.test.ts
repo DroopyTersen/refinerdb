@@ -23,13 +23,9 @@ describe("Constructor", () => {
   it("Should respect the passed in SearchIndexerConfig", () => {
     let config: RefinerDBConfig = {
       indexDelay: 500,
-      onIndexStart: () => console.log("starting indexing"),
-      onIndexSuccess: () => console.log("done indexing"),
     };
     let search = new RefinerDb("test-db2", config);
     expect(search.config.indexDelay).toBe(config.indexDelay);
-    expect(search.config.onIndexStart).toBe(config.onIndexStart);
-    expect(search.config.onIndexSuccess).toBe(config.onIndexSuccess);
   });
 
   it("Should setup the state machine", () => {
@@ -52,12 +48,24 @@ let indexDefinitions: IndexConfig[] = [
 ];
 
 describe("Set Indexes", () => {
-  let search = new RefinerDb("test-indexes", { indexDelay: 200 });
-  it("Should stay IDLE if there are no items", async () => {
+  it("Should go to stale if there are new indexes being set", async () => {
+    let search = new RefinerDb("test-indexes", { indexDelay: 200 });
     expect(search.getIndexState()).toBe(IndexState.IDLE);
     search.setIndexes(indexDefinitions);
     await wait(100);
     expect(search.getIndexState()).toBe(IndexState.STALE);
+  });
+
+  it("Should NOT go stale if you repeatedly set the same indexes", async () => {
+    let search = new RefinerDb("test-indexes-2", { indexDelay: 200 });
+    expect(search.getIndexState()).toBe(IndexState.IDLE);
+    search.setIndexes(indexDefinitions);
+    await wait(100);
+    expect(search.getIndexState()).toBe(IndexState.STALE);
+    await wait(300);
+    expect(search.getIndexState()).toBe(IndexState.IDLE);
+    search.setIndexes(indexDefinitions);
+    expect(search.getIndexState()).toBe(IndexState.IDLE);
   });
 });
 

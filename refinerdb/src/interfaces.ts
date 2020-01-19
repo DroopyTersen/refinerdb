@@ -5,11 +5,11 @@ export enum IndexType {
 }
 
 export interface RefinerDBConfig {
-  onIndexStart?: () => void;
-  onIndexSuccess?: () => void;
-  indexDelay: number;
+  indexDelay?: number;
   itemsIndexSchema?: string;
   onTransition?: (state: IndexState) => void;
+  workerPath?: string;
+  isWebWorker?: boolean;
   indexes?: IndexConfig[];
 }
 

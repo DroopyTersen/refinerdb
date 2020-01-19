@@ -7,6 +7,7 @@ export function createStateMachine(
 ) {
   let interpreter = interpret(machine)
     .onTransition((state) => onTransition(state?.value as IndexState))
+    // .onTransition((state) => console.log("State Transition", state?.value))
     .start();
 
   return interpreter;

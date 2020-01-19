@@ -4,7 +4,6 @@ import { RefinerDBNameContext, getDbByName } from "RefinerDBProvider";
 
 export default function useRefinerDB() {
   let dbName = useContext(RefinerDBNameContext);
-  console.log("TCL: useRefinerDB -> dbName", dbName);
   if (dbName) {
     return getDbByName(dbName);
   }

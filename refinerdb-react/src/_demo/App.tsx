@@ -6,20 +6,48 @@ import { IndexType } from "refinerdb";
 import useRefinerDB from "hooks/useRefinerDB";
 import useQueryResult from "hooks/useQueryResult";
 import { ObjectInspector, TableInspector } from "react-inspector";
+import useRefiner from "hooks/useRefiner";
 const App: React.FC = () => {
   return (
-    <RefinerDBProvider name="demo-app">
+    <RefinerDBProvider name="demo-app" workerPath={"/refinerdb.worker.js"}>
       <div className="App">
         <Header />
         <IndexesSetup />
+        <RefinerDropdown indexKey="ethnicity" />
+        <Results />
         <DataSetup />
         <Content />
-        <Results />
       </div>
     </RefinerDBProvider>
   );
 };
 
+function RefinerDropdown({ indexKey }) {
+  let refiner = useRefiner(indexKey);
+
+  if (!refiner || !refiner.options) {
+    return null;
+  }
+  let handleChange = (e) => {
+    refiner.update(e.currentTarget.value);
+    console.log();
+  };
+
+  return (
+    <>
+      <select onChange={handleChange}>
+        <option key="blank" value="">
+          Filter by {indexKey}
+        </option>
+        {refiner.options.map((option) => (
+          <option key={option.key} value={option.key}>
+            {option.key} - {option.count}
+          </option>
+        ))}
+      </select>
+    </>
+  );
+}
 function Results() {
   let result = useQueryResult();
 
@@ -47,19 +75,20 @@ function IndexesSetup() {
 function DataSetup() {
   let refinerDB = useRefinerDB();
 
-  useEffect(() => {
-    console.log(refinerDB);
+  const refreshData = async () => {
     if (refinerDB) {
-      let doAsync = async () => {
-        let babyNames = await fetch("/babyNames.json").then((data) => data.json());
-        refinerDB.setItems(babyNames);
-      };
-      doAsync();
+      let babyNames = await fetch("/babyNames.json").then((data) => data.json());
+      refinerDB.setItems(babyNames);
     }
-  }, [refinerDB]);
+  };
 
-  return null;
+  return (
+    <button type="button" onClick={refreshData}>
+      Refresh Data
+    </button>
+  );
 }
+
 function Content() {
   console.log("RENDERING Content");
   return <div>Hi there, I am content</div>;
