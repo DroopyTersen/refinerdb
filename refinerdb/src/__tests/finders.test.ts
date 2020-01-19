@@ -1,12 +1,11 @@
 import { finders } from "../helpers/finders";
 
-import { SearchIndex, IndexType, FilterResult } from "../interfaces";
+import { IndexType, FilterResult, SearchIndex } from "../interfaces";
 
 describe("search.finders", () => {
   describe("findByNumber", () => {
     let ratingIndex: SearchIndex = {
       key: "rating",
-      hashFn: () => {},
       type: IndexType.Number,
       sortedKeys: [0, 1, 3.1, 4, 6.2],
       value: {
@@ -32,7 +31,6 @@ describe("search.finders", () => {
     let genresIndex: SearchIndex = {
       key: "genre",
       type: IndexType.String,
-      hashFn: () => {},
       sortedKeys: ["Action", "Comedy", "Drama"],
       value: {
         Action: [1, 2, 3],
@@ -58,7 +56,6 @@ describe("search.finders", () => {
       let titleIndex: SearchIndex = {
         key: "title",
         type: IndexType.String,
-        hashFn: () => {},
         sortedKeys: ["Apple Pie", "Bannana Pie", "Cherry Pie"],
         value: {
           "Cherry Pie": [1, 2, 3],
@@ -85,7 +82,6 @@ describe("search.finders", () => {
       key: "bornOnDate",
       type: IndexType.Date,
       sortedKeys: [...dates],
-      hashFn: () => {},
       value: {
         [dates[0]]: [1, 2, 8],
         [dates[1]]: [2, 4, 5],
@@ -114,7 +110,6 @@ describe("search.finders", () => {
       key: "genre",
       type: IndexType.String,
       sortedKeys: ["Action", "Comedy", "Drama"],
-      hashFn: () => {},
       value: {
         Action: [1, 2, 3],
         Comedy: [2, 4, 5],

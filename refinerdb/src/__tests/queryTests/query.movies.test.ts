@@ -19,10 +19,10 @@ let actionNightMovies = nightMovies
 // Genre: Comedy - 239
 // Title: Halloween - 3
 let indexes: IndexConfig[] = [
-  { key: "title", hashFn: (item) => item.title, type: IndexType.String },
-  { key: "genre", hashFn: (item) => item.genres, type: IndexType.String },
-  { key: "released", hashFn: (item) => item.released, type: IndexType.Date },
-  { key: "score", hashFn: (item) => item.score, type: IndexType.Number, skipRefinerOptions: true },
+  { key: "title", type: IndexType.String },
+  { key: "genre", path: "genres", type: IndexType.String },
+  { key: "released", type: IndexType.Date },
+  { key: "score", type: IndexType.Number, skipRefinerOptions: true },
 ];
 
 describe("Query Tests - Movies Data Set", () => {

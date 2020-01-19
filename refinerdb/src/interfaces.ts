@@ -49,13 +49,6 @@ export interface RefinerOption {
   count: number;
 }
 
-export interface IndexConfig {
-  key: string;
-  type: IndexType;
-  hashFn: (item: any) => any;
-  skipRefinerOptions?: boolean;
-}
-
 export interface SearchIndex extends IndexConfig {
   value?: {
     [key: string]: number[];
@@ -66,7 +59,7 @@ export interface SearchIndex extends IndexConfig {
 export interface IndexConfig {
   key: string;
   type: IndexType;
-  hashFn: (item: any) => any;
+  path?: string;
   skipRefinerOptions?: boolean;
 }
 

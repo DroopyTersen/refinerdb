@@ -5,7 +5,6 @@ describe.only("search.indexers", () => {
   describe("indexValue", () => {
     let stringIndex: SearchIndex = {
       key: "genres",
-      hashFn: (item) => item.genres,
       type: IndexType.String,
     };
     let stringHashes1 = ["comedy", "drama", "action"];
@@ -26,13 +25,12 @@ describe.only("search.indexers", () => {
 
   describe("indexers.indexString", () => {
     let genreIndex: SearchIndex = {
-      key: "genres",
-      hashFn: (item) => item.genres,
+      key: "genre",
+      path: "genres",
       type: IndexType.String,
     };
     let titleIndex: SearchIndex = {
       key: "title",
-      hashFn: (item) => item.title,
       type: IndexType.String,
     };
 
@@ -72,7 +70,7 @@ describe.only("search.indexers", () => {
     it("Should support a hashFn that returns a single Date or DateString", () => {
       let bornIndex: SearchIndex = {
         key: "bornOnDate",
-        hashFn: (item) => item.born,
+        path: "born",
         type: IndexType.Date,
       };
 
@@ -89,7 +87,7 @@ describe.only("search.indexers", () => {
       // TODO: what should it do?
       let bornIndex: SearchIndex = {
         key: "bornOnDate",
-        hashFn: (item) => item.born,
+        path: "born",
         type: IndexType.Date,
       };
       let items = [
@@ -113,7 +111,6 @@ describe.only("search.indexers", () => {
     it("Should support a hashFn that returns a single Number", () => {
       let ageIndex: SearchIndex = {
         key: "age",
-        hashFn: (item) => item.age,
         type: IndexType.Number,
       };
 
@@ -132,7 +129,7 @@ describe.only("search.indexers", () => {
       // TODO: what should it do?
       let ageIndex: SearchIndex = {
         key: "age",
-        hashFn: (item) => item.INVALID,
+        path: "invalid!",
         type: IndexType.Number,
       };
       let items = [{ name: "Andrew", age: "blah" }];
@@ -145,7 +142,6 @@ describe.only("search.indexers", () => {
       // TODO: what should it do?
       let ageIndex: SearchIndex = {
         key: "age",
-        hashFn: (item) => item.age,
         type: IndexType.Number,
       };
       let items = [{ name: "Andrew", age: "blah" }];

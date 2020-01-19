@@ -43,8 +43,8 @@ let items = [
 ];
 
 let indexDefinitions: IndexConfig[] = [
-  { key: "title", hashFn: (item) => item.title, type: IndexType.String },
-  { key: "id", hashFn: (item) => item.id, type: IndexType.Number },
+  { key: "title", type: IndexType.String },
+  { key: "id", type: IndexType.Number },
 ];
 
 describe("Set Indexes", () => {

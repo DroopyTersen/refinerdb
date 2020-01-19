@@ -1,5 +1,5 @@
 import { IndexType, SearchIndex, IndexConfig } from "../interfaces";
-
+import get from "lodash/get";
 export function indexValues(hashValues: string[] | number[], primaryKey, index: SearchIndex) {
   if (!index.value) index.value = {};
   hashValues.forEach((hash) => {
@@ -15,7 +15,7 @@ export function indexValues(hashValues: string[] | number[], primaryKey, index: 
 }
 
 function indexString(item, primaryKey: number, index: SearchIndex) {
-  let hashValues = index.hashFn(item);
+  let hashValues = get(item, index.path || index.key);
   if (typeof hashValues === "string") {
     hashValues = [hashValues];
   }
@@ -23,7 +23,7 @@ function indexString(item, primaryKey: number, index: SearchIndex) {
 }
 
 function indexNumber(item, primaryKey: number, index: SearchIndex) {
-  let hashValues = index.hashFn(item);
+  let hashValues = get(item, index.path || index.key);
   if (!Array.isArray(hashValues)) {
     hashValues = [hashValues];
   }
@@ -40,7 +40,7 @@ function indexNumber(item, primaryKey: number, index: SearchIndex) {
 
 function indexDate(item, primaryKey: number, index: SearchIndex) {
   try {
-    let date = index.hashFn(item);
+    let date = get(item, index.path || index.key);
     if (typeof date === "string") {
       date = new Date(date);
     }
