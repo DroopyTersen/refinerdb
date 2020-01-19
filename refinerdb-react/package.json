@@ -2,9 +2,20 @@
 	"name": "refinerdb-react",
 	"version": "0.1.0",
 	"private": true,
+	"main": "lib/entry.js",
+	"scripts": {
+		"start": "react-scripts start",
+		"build:app": "react-scripts build",
+		"build": "tsc --build tsconfig.lib.json",
+		"watch": "tsc --build tsconfig.lib.json --watch",
+		"test": "react-scripts test",
+		"test:gui": "npx majestic",
+		"eject": "react-scripts eject"
+	},
 	"dependencies": {
 		"react": "^16.12.0",
 		"react-dom": "^16.12.0",
+		"react-inspector": "^4.0.0",
 		"refinerdb": "^0.1.0"
 	},
 	"devDependencies": {
@@ -18,12 +29,6 @@
 		"react-scripts": "3.3.0",
 		"rimraf": "^3.0.0",
 		"typescript": "~3.7.2"
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
 	},
 	"eslintConfig": {
 		"extends": "react-app"

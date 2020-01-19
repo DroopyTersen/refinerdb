@@ -1,6 +1,6 @@
 import RefinerDb, {
   IndexType,
-  RefinderDBConfig,
+  RefinerDBConfig,
   IndexState,
   IndexConfig,
   SearchIndex,
@@ -21,7 +21,7 @@ describe("Constructor", () => {
   });
 
   it("Should respect the passed in SearchIndexerConfig", () => {
-    let config: RefinderDBConfig = {
+    let config: RefinerDBConfig = {
       indexDelay: 500,
       onIndexStart: () => console.log("starting indexing"),
       onIndexSuccess: () => console.log("done indexing"),

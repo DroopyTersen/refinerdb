@@ -2,12 +2,13 @@ import Dexie from "dexie";
 import {
   SearchIndex,
   IndexConfig,
-  RefinderDBConfig,
+  RefinerDBConfig,
   IndexState,
   IndexEvent,
   QueryResult,
   FilterResult,
   QueryCriteria,
+  Filter,
 } from "./interfaces";
 import { indexers } from "./helpers/indexers";
 import { createStateMachine, createMachineConfig } from "./stateMachine";
@@ -17,7 +18,10 @@ import { Interpreter } from "xstate";
 import omit from "lodash/omit";
 import { parseFilter, filterToString } from "./helpers/filterParser";
 
-export default class SearchIndexerDB extends Dexie {
+export default class RefinerDB extends Dexie {
+  static destroy = (dbName: string) => {
+    Dexie.delete(dbName);
+  };
   allItems: Dexie.Table<any, number>;
   indexes: Dexie.Table<SearchIndex, string>;
   filterResults: Dexie.Table<FilterResult, string>;
@@ -29,12 +33,12 @@ export default class SearchIndexerDB extends Dexie {
   private stateMachine: Interpreter<any>;
   private activeIndexingId = -1;
   private activeQueryId = -1;
-  config: RefinderDBConfig = {
+  config: RefinerDBConfig = {
     indexDelay: 750,
     itemsIndexSchema: "++_id",
   };
 
-  constructor(dbName: string, config?: RefinderDBConfig) {
+  constructor(dbName: string, config?: RefinerDBConfig) {
     super(dbName);
     this.config = {
       ...this.config,
@@ -124,6 +128,11 @@ export default class SearchIndexerDB extends Dexie {
       }
     );
   };
+
+  // deleteItems = async (filter?: Filter) => {
+  //   // TODO: query using the filter for a set of itemId's to delete
+
+  // }
 
   waitForState = (targetState: IndexState) => {
     return new Promise((resolve, reject) => {

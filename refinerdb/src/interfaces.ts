@@ -4,12 +4,13 @@ export enum IndexType {
   Date = "Date",
 }
 
-export interface RefinderDBConfig {
+export interface RefinerDBConfig {
   onIndexStart?: () => void;
   onIndexSuccess?: () => void;
   indexDelay: number;
   itemsIndexSchema?: string;
   onTransition?: (state: IndexState) => void;
+  indexes?: IndexConfig[];
 }
 
 export enum IndexState {

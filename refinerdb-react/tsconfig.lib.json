@@ -15,7 +15,7 @@
 		"isolatedModules": true,
 		"jsx": "react",
 		"outDir": "lib",
-		"noEmit": true
+		"declaration": true
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx"],
 	"exclude": ["node_modules", "lib", "src/**/*test.tsx", "src/**/*test.ts"]
