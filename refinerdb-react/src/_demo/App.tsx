@@ -131,11 +131,11 @@ function IndexesSetup() {
   useEffect(() => {
     if (setIndexes) {
       setIndexes([
-        { key: "birthYear", type: "number" },
-        { key: "ethnicity", type: "string" },
-        { key: "gender", type: "string" },
-        { key: "firstName", type: "string" },
-        { key: "rank", type: "number" },
+        { key: "birthYear", type: IndexType.Number, skipRefinerOptions: true },
+        { key: "ethnicity", type: IndexType.String },
+        { key: "gender", type: IndexType.String },
+        { key: "firstName", type: IndexType.String, skipRefinerOptions: true },
+        { key: "rank", type: IndexType.Number, skipRefinerOptions: true },
       ]);
     }
   }, [setIndexes]);
