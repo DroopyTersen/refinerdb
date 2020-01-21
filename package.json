@@ -5,7 +5,8 @@
 	"private": true,
 	"workspaces": [
 		"refinerdb",
-		"refinerdb-react"
+		"refinerdb-react",
+		"refinerdb-react-demo"
 	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"

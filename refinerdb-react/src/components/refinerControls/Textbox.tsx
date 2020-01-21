@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
-import useRefiner from "hooks/useRefiner";
+import useRefiner from "../../hooks/useRefiner";
 import { MinMaxFilterValue } from "refinerdb";
-import useDebounce from "hooks/useDebounce";
+import useDebounce from "../../hooks/useDebounce";
 
 function Textbox({ indexKey, label, delay = 500 }: TextboxProps) {
   let refiner = useRefiner(indexKey);

@@ -1,20 +1,21 @@
 {
-  "name": "refinerdb-react",
+  "name": "refinerdb-react-demo",
   "version": "0.1.0",
   "private": true,
-  "main": "lib/index.js",
+  "main": "lib/entry.js",
   "scripts": {
-    "start": "npm run watch",
-    "build:app": "react-scripts build",
-    "build": "tsc --build tsconfig.lib.json",
-    "clean": "rimraf lib",
-    "watch": "tsc --build tsconfig.lib.json --watch"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "test:gui": "npx majestic",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-inspector": "^4.0.0",
-    "refinerdb": "^0.1.0"
+    "refinerdb": "^0.1.0",
+    "refinerdb-react": "^0.1.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",

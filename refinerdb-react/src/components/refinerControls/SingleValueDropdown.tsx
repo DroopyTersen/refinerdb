@@ -1,5 +1,5 @@
 import React from "react";
-import useRefiner from "hooks/useRefiner";
+import useRefiner from "../../hooks/useRefiner";
 
 function SingleValueDropdown({ indexKey, label }: SingleValueDropdownProps) {
   let refiner = useRefiner(indexKey);
