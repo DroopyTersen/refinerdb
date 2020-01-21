@@ -61,10 +61,10 @@ let demo: DemoProps = {
   renderRefiners: function() {
     return (
       <>
-        <Textbox indexKey="title" label="Title" delay={300} />
+        <Textbox indexKey="title" label="Title" debounce={300} />
         <SingleValueDropdown indexKey="type" label="Type" />
         <SingleValueDropdown indexKey="genre" label="Genre" />
-        <NumberRangeRefiner indexKey="score" label="Score" delay={200} />
+        <NumberRangeRefiner indexKey="score" label="Score" debounce={200} />
       </>
     );
   },

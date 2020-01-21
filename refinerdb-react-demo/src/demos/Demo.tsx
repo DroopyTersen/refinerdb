@@ -6,6 +6,7 @@ import {
   useQueryResult,
   useRefinerDB,
   useIndexes,
+  ClearRefinersButton,
 } from "refinerdb-react";
 import Header from "components/Header";
 
@@ -17,7 +18,10 @@ function Demo({ dbName, title, indexes, getItems, renderItem, renderRefiners }: 
           <DataSetup indexes={indexes} getItems={getItems} />
           <ResultInspector />
         </Header>
-        <div className="rdb-refiners">{renderRefiners()}</div>
+        <div className="rdb-refiners">
+          <ClearRefinersButton className="button-clear">Clear All</ClearRefinersButton>
+          {renderRefiners()}
+        </div>
         <div className="rdb-item-results">
           <ItemResults renderItem={renderItem} />
         </div>

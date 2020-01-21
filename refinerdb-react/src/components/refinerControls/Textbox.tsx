@@ -1,25 +1,27 @@
 import React, { useState, useCallback } from "react";
 import useRefiner from "../../hooks/useRefiner";
-import { MinMaxFilterValue } from "refinerdb";
-import useDebounce from "../../hooks/useDebounce";
 
-function Textbox({ indexKey, label, delay = 500 }: TextboxProps) {
-  let refiner = useRefiner(indexKey);
+function Textbox({ indexKey, label, debounce = 500 }: TextboxProps) {
+  let refiner = useRefiner(indexKey, { debounce });
+  console.log("TCL: Textbox -> Textbox", indexKey, refiner.value);
 
-  let [value, setValue] = useState(refiner && refiner.filter ? (refiner.filter as string) : "");
-
-  useDebounce(
-    () => {
-      refiner.update(value ? value + "*" : "");
+  let onChange = useCallback(
+    (e) => {
+      let val = e.currentTarget.value;
+      if (val) val += "*";
+      refiner.setValue(val ? val : "");
     },
-    delay,
-    [value]
+    [refiner.setValue]
   );
 
   return (
     <div>
       <label>{label || indexKey}</label>
-      <input type="text" value={value} onChange={(e) => setValue(e.currentTarget.value)} />
+      <input
+        type="text"
+        value={(refiner.value ? refiner.value + "" : "").replace("*", "")}
+        onChange={onChange}
+      />
     </div>
   );
 }
@@ -29,5 +31,5 @@ export default React.memo(Textbox);
 export interface TextboxProps {
   indexKey: string;
   label?: string;
-  delay?: number;
+  debounce?: number;
 }

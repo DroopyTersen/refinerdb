@@ -5,30 +5,64 @@ import {
   NumberFilterValue,
   MinMaxFilterValue,
   RefinerOption,
+  QueryCriteria,
 } from "refinerdb";
 import useRefinerDB from "./useRefinerDB";
+import { useCallback, useMemo, useState, useEffect } from "react";
+import useDebounce from "./useDebounce";
+import useCriteria from "./useCriteria";
 
-export default function useRefiner(key: string) {
+export interface RefinerConfig {
+  debounce: number;
+}
+const defaultConfig: RefinerConfig = {
+  debounce: 250,
+};
+export type FilterValueType = MinMaxFilterValue | StringFilterValue | NumberFilterValue;
+export default function useRefiner<T extends FilterValueType>(key: string, config = defaultConfig) {
   let refinerDB = useRefinerDB();
   let result = useQueryResult();
 
-  let criteria = { filter: {}, ...refinerDB.criteria };
+  let criteria = useCriteria();
+  let filterValue = getFilterValue(criteria, key);
 
-  let update = (newVal: StringFilterValue | NumberFilterValue | MinMaxFilterValue) => {
-    if (!criteria.filter) {
-      criteria.filter = {};
-    }
-    criteria.filter[key] = newVal;
-    refinerDB.setCriteria(criteria);
-  };
+  let updateCriteria = useCallback(
+    (newVal: T) => {
+      if (!criteria.filter) {
+        criteria.filter = {};
+      }
+      criteria.filter[key] = newVal;
+      if (!criteria.filter[key]) {
+        delete criteria.filter[key];
+      }
+      refinerDB.setCriteria(criteria);
+    },
+    [criteria]
+  );
+
+  let [value, setValue] = useState<T>(() => getFilterValue(criteria, key));
+
+  useEffect(() => {
+    console.log("NEW FILTER VALUE?", filterValue);
+    setValue(filterValue);
+  }, [filterValue]);
+
+  useDebounce(
+    () => {
+      updateCriteria(value);
+    },
+    config.debounce,
+    [value]
+  );
 
   return {
-    filter: criteria && criteria.filter ? criteria.filter[key] : null,
+    value,
     options: result && result.refiners ? result.refiners[key] : [],
-    update,
-  } as {
-    filter: MinMaxFilterValue | StringFilterValue | NumberFilterValue;
-    options: RefinerOption[];
-    update: (newVal: StringFilterValue | NumberFilterValue | MinMaxFilterValue) => void;
+    setValue,
   };
 }
+
+let getFilterValue = (criteria: QueryCriteria, key: string): any => {
+  if (!criteria || !criteria.filter) return null;
+  return criteria.filter[key];
+};

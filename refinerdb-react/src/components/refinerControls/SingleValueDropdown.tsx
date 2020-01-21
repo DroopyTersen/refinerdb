@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useCallback } from "react";
 import useRefiner from "../../hooks/useRefiner";
 
 function SingleValueDropdown({ indexKey, label }: SingleValueDropdownProps) {
-  let refiner = useRefiner(indexKey);
+  let refiner = useRefiner(indexKey, { debounce: 0 });
 
   if (!refiner || !refiner.options) {
     return null;
   }
-  let handleChange = (e) => {
-    refiner.update(e.currentTarget.value);
-    console.log();
-  };
+  let handleChange = useCallback(
+    (e) => {
+      refiner.setValue(e.currentTarget.value);
+    },
+    [refiner.setValue]
+  );
   return (
     <>
       <label>{label || indexKey}</label>
-      <select onChange={handleChange}>
+      <select onChange={handleChange} value={refiner.value + ""}>
         <option key="blank" value="">
           All
         </option>

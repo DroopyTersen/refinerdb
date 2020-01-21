@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useContext } from "react";
 import React from "react";
-import RefinerDB, { RefinerDBConfig, IndexState } from "refinerdb";
+import RefinerDB, { RefinerDBConfig, IndexState, QueryCriteria } from "refinerdb";
 
 declare global {
   interface Window {

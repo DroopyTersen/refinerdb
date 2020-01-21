@@ -8,18 +8,18 @@ let demos = {
   movies: Movies,
 };
 const App: React.FC = () => {
-  let [demoKey, setDemoKey] = usePersistedState("babynames", "refinerdb-demo-key");
+  let [demoKey, setDemoKey] = usePersistedState("movies", "refinerdb-demo-key");
   let Demo = demos[demoKey] || DemoNotFound;
   return (
     <>
       <nav>
         <h4 className="title">RefinerDB</h4>
         <div>
-          <a className="button button-clear" href="#" onClick={() => setDemoKey("babynames")}>
-            Baby Names
-          </a>
           <a className="button button-clear" href="#" onClick={() => setDemoKey("movies")}>
             Movies & TV
+          </a>
+          <a className="button button-clear" href="#" onClick={() => setDemoKey("babynames")}>
+            Baby Names
           </a>
         </div>
       </nav>

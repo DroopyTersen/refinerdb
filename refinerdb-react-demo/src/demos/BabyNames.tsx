@@ -37,7 +37,7 @@ let demo: DemoProps = {
         <Textbox indexKey="firstName" label="Name" />
         <SingleValueDropdown indexKey="ethnicity" />
         <SingleValueDropdown indexKey="gender" />
-        <NumberRangeRefiner indexKey="birthYear" label="Birth Year" delay={200} />
+        <NumberRangeRefiner indexKey="birthYear" label="Birth Year" debounce={200} />
         <NumberRangeRefiner indexKey="rank" label="Rank" />
       </>
     );

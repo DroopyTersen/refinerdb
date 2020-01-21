@@ -19,6 +19,12 @@ nav .title {
 
 .rdb-refiners {
   grid-area: Refiners;
+  position: relative;
+}
+.rdb-clear-refiners {
+  position: absolute;
+  top: -20px;
+  right: -30px;
 }
 
 .rdb-item-results {
@@ -43,4 +49,5 @@ nav .title {
   box-shadow: 1px 1px 4px #dddbdb;
   top: 67px;
   padding-bottom: 0;
+  z-index: 1;
 }

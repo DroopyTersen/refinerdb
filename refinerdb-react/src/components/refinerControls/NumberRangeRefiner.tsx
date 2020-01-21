@@ -3,27 +3,27 @@ import useRefiner from "../../hooks/useRefiner";
 import { MinMaxFilterValue } from "refinerdb";
 import useDebounce from "../../hooks/useDebounce";
 
-function NumberRangeRefiner({ indexKey, label, delay = 500 }: NumberRangeRefinerProps) {
-  let refiner = useRefiner(indexKey);
-  let [range, setRange] = useState<MinMaxFilterValue>(
-    refiner && refiner.filter ? (refiner.filter as MinMaxFilterValue) : { min: "", max: "" }
-  );
-
-  useDebounce(() => refiner.update(range), delay, [range]);
+function NumberRangeRefiner({ indexKey, label, debounce = 500 }: NumberRangeRefinerProps) {
+  let refiner = useRefiner<MinMaxFilterValue>(indexKey, { debounce });
 
   const onChange = useCallback(
     function(key, val) {
-      setRange((prev) => ({
+      refiner.setValue((prev) => ({
         ...prev,
         [key]: val,
       }));
     },
-    [setRange]
+    [refiner.setValue]
   );
 
   if (!refiner || !refiner.options) {
     return null;
   }
+  let range = {
+    min: "",
+    max: "",
+    ...refiner.value,
+  };
 
   return (
     <div className="rdb-refiner range number-range">
@@ -51,5 +51,5 @@ export default React.memo(NumberRangeRefiner);
 export interface NumberRangeRefinerProps {
   indexKey: string;
   label?: string;
-  delay?: number;
+  debounce?: number;
 }
