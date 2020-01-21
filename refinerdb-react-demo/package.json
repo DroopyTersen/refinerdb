@@ -14,8 +14,8 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-inspector": "^4.0.0",
-    "refinerdb": "^0.1.0",
-    "refinerdb-react": "^0.1.0"
+    "refinerdb": "^0.2.0",
+    "refinerdb-react": "^0.2.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
