@@ -12,14 +12,16 @@ export default function useQueryResult() {
     let isMounted = true;
     async function getNewResults() {
       let queryResult: QueryResult = await refinerDB.getQueryResult();
-      setResult(queryResult);
+      if (isMounted) {
+        setResult(queryResult);
+      }
     }
     // console.log("TCL: getNewResults -> queryResult", status);
     if (status === IndexState.IDLE) {
       getNewResults();
     }
     return () => (isMounted = false);
-  }, [status]);
+  }, [status, refinerDB]);
 
   return result;
 }

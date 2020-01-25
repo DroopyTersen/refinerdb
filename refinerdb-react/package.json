@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "main": "lib/index.js",
   "scripts": {
-    "start": "npm run watch",
+    "start": "tsc --build tsconfig.lib.json --watch",
     "build:app": "react-scripts build",
     "build": "tsc --build tsconfig.lib.json",
     "clean": "rimraf lib",

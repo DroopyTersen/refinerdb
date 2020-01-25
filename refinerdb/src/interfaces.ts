@@ -64,7 +64,7 @@ export interface IndexConfig {
 }
 
 export interface QueryCriteria {
-  filter: Filter;
+  filter?: Filter;
   sort?: string;
   sortDir?: "asc" | "desc";
   limit?: number;

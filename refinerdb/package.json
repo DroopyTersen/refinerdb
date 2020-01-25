@@ -8,6 +8,7 @@
     "dist": "dist"
   },
   "scripts": {
+    "start": "tsc --build tsconfig.lib.json --watch",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ui": "majestic",

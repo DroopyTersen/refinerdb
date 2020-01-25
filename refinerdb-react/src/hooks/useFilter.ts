@@ -11,14 +11,14 @@ export default function useFilter() {
   let clearFilter = useCallback(() => {
     criteria.filter = {};
     refinerDB.setCriteria(criteria);
-  }, [criteria]);
+  }, [criteria, refinerDB]);
 
   let setFilter = useCallback(
     (newFilter) => {
       criteria.filter = newFilter;
       refinerDB.setCriteria(newFilter);
     },
-    [criteria, filter]
+    [criteria, refinerDB]
   );
 
   return {

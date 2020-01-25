@@ -24,6 +24,7 @@ export default function useRefiner<T extends FilterValueType>(key: string, confi
   let result = useQueryResult();
 
   let criteria = useCriteria();
+  console.log("Criteria", criteria);
   let filterValue = getFilterValue(criteria, key);
 
   let updateCriteria = useCallback(
@@ -37,7 +38,7 @@ export default function useRefiner<T extends FilterValueType>(key: string, confi
       }
       refinerDB.setCriteria(criteria);
     },
-    [criteria]
+    [criteria, refinerDB, key]
   );
 
   let [value, setValue] = useState<T>(() => getFilterValue(criteria, key));
