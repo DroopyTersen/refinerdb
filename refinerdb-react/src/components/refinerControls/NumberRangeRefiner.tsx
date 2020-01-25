@@ -1,28 +1,24 @@
 import React, { useState, useCallback } from "react";
 import useRefiner from "../../hooks/useRefiner";
 import { MinMaxFilterValue } from "refinerdb";
-import useDebounce from "../../hooks/useDebounce";
 
 function NumberRangeRefiner({ indexKey, label, debounce = 500 }: NumberRangeRefinerProps) {
-  let refiner = useRefiner<MinMaxFilterValue>(indexKey, { debounce });
+  let { setValue, value } = useRefiner<MinMaxFilterValue>(indexKey, { debounce });
 
   const onChange = useCallback(
     function(key, val) {
-      refiner.setValue((prev) => ({
+      setValue((prev) => ({
         ...prev,
         [key]: val,
       }));
     },
-    [refiner.setValue]
+    [setValue]
   );
 
-  if (!refiner || !refiner.options) {
-    return null;
-  }
   let range = {
     min: "",
     max: "",
-    ...refiner.value,
+    ...value,
   };
 
   return (

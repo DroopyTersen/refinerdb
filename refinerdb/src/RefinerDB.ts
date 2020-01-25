@@ -213,20 +213,18 @@ export default class RefinerDB extends Dexie {
 
         let refiners = null;
 
-        if (this._criteria.includeRefiners !== false) {
-          let allRefinerOptions = this._indexRegistrations.map((indexRegistration, i) => {
-            if (indexRegistration.skipRefinerOptions) {
-              return [];
-            }
-            let index = allIndexes.find((i) => i.key === indexRegistration.key);
-            return finders.getRefinerOptions(index, filterResults);
-          });
+        let allRefinerOptions = this._indexRegistrations.map((indexRegistration, i) => {
+          if (indexRegistration.skipRefinerOptions) {
+            return [];
+          }
+          let index = allIndexes.find((i) => i.key === indexRegistration.key);
+          return finders.getRefinerOptions(index, filterResults);
+        });
 
-          refiners = allRefinerOptions.reduce((refiners, options, i) => {
-            refiners[this._indexRegistrations[i].key] = options;
-            return refiners;
-          }, {});
-        }
+        refiners = allRefinerOptions.reduce((refiners, options, i) => {
+          refiners[this._indexRegistrations[i].key] = options;
+          return refiners;
+        }, {});
 
         let itemIds: number[] = [];
         // If there are no filters, return all items

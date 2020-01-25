@@ -1,27 +1,22 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import useRefiner from "../../hooks/useRefiner";
 
 function Textbox({ indexKey, label, debounce = 500 }: TextboxProps) {
-  let refiner = useRefiner(indexKey, { debounce });
-  console.log("TCL: Textbox -> Textbox", indexKey, refiner.value);
+  let { value = "", setValue } = useRefiner<string>(indexKey, { debounce });
 
   let onChange = useCallback(
     (e) => {
       let val = e.currentTarget.value;
       if (val) val += "*";
-      refiner.setValue(val ? val : "");
+      setValue(val ? val : "");
     },
-    [refiner.setValue]
+    [setValue]
   );
 
   return (
     <div>
       <label>{label || indexKey}</label>
-      <input
-        type="text"
-        value={(refiner.value ? refiner.value + "" : "").replace("*", "")}
-        onChange={onChange}
-      />
+      <input type="text" value={(value || "").replace("*", "")} onChange={onChange} />
     </div>
   );
 }

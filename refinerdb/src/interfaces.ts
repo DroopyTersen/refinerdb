@@ -69,7 +69,6 @@ export interface QueryCriteria {
   sortDir?: "asc" | "desc";
   limit?: number;
   skip?: number;
-  includeRefiners?: boolean;
 }
 
 export interface FilterResult {

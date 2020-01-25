@@ -1,16 +1,8 @@
 import useQueryResult from "./useQueryResult";
-import {
-  IndexFilter,
-  StringFilterValue,
-  NumberFilterValue,
-  MinMaxFilterValue,
-  RefinerOption,
-  QueryCriteria,
-} from "refinerdb";
-import useRefinerDB from "./useRefinerDB";
+import { StringFilterValue, NumberFilterValue, MinMaxFilterValue, Filter } from "refinerdb";
 import { useCallback, useMemo, useState, useEffect } from "react";
-import useDebounce from "./useDebounce";
-import useCriteria from "./useCriteria";
+import useDebounce from "./utils/useDebounce";
+import useFilter from "./useFilter";
 
 export interface RefinerConfig {
   debounce: number;
@@ -20,40 +12,25 @@ const defaultConfig: RefinerConfig = {
 };
 export type FilterValueType = MinMaxFilterValue | StringFilterValue | NumberFilterValue;
 export default function useRefiner<T extends FilterValueType>(key: string, config = defaultConfig) {
-  let refinerDB = useRefinerDB();
   let result = useQueryResult();
 
-  let criteria = useCriteria();
-  console.log("Criteria", criteria);
-  let filterValue = getFilterValue(criteria, key);
+  let { filter, setFilter } = useFilter();
+  let [value, setValue] = useState<T>(() => getFilterValue(filter, key));
+  let filterValue = getFilterValue(filter, key);
 
-  let updateCriteria = useCallback(
-    (newVal: T) => {
-      if (!criteria.filter) {
-        criteria.filter = {};
-      }
-      criteria.filter[key] = newVal;
-      if (!criteria.filter[key]) {
-        delete criteria.filter[key];
-      }
-      refinerDB.setCriteria(criteria);
-    },
-    [criteria, refinerDB, key]
-  );
-
-  let [value, setValue] = useState<T>(() => getFilterValue(criteria, key));
-
+  // If a new filter value comes in from external, update state
   useEffect(() => {
-    console.log("NEW FILTER VALUE?", filterValue);
+    console.log("NEW FILTER VALUE", filterValue);
     setValue(filterValue);
   }, [filterValue]);
 
+  // Anytime the state filter value changes, debounce update refinerDB
   useDebounce(
     () => {
-      updateCriteria(value);
+      setFilter({ [key]: value });
     },
     config.debounce,
-    [value]
+    [value, key]
   );
 
   return {
@@ -63,7 +40,7 @@ export default function useRefiner<T extends FilterValueType>(key: string, confi
   };
 }
 
-let getFilterValue = (criteria: QueryCriteria, key: string): any => {
-  if (!criteria || !criteria.filter) return null;
-  return criteria.filter[key];
+let getFilterValue = (filter: Filter, key: string): any => {
+  if (!filter) return null;
+  return filter[key];
 };

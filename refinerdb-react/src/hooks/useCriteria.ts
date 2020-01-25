@@ -1,6 +1,6 @@
 import { QueryCriteria } from "refinerdb";
 import useRefinerDB from "./useRefinerDB";
-import { useCallback, useMemo, useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import useIndexState from "./useIndexState";
 
 export default function useCriteria() {
@@ -14,5 +14,16 @@ export default function useCriteria() {
     setCriteria(refinerDB.criteria || {});
   }, [status, refinerDB]);
 
-  return criteria;
+  let updateCriteria = useCallback(
+    (updates: QueryCriteria) => {
+      let newCriteria = {
+        ...refinerDB.criteria,
+        ...updates,
+      };
+      refinerDB.setCriteria(newCriteria);
+    },
+    [refinerDB]
+  );
+
+  return [criteria, updateCriteria] as [QueryCriteria, (updates: QueryCriteria) => void];
 }

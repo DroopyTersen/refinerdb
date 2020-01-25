@@ -1,44 +1,93 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# RefinerDB - React
 
-## Available Scripts
+## Components
 
-In the project directory, you can run:
+### `RefinerDBProvider`
 
-### `yarn start`
+## Hooks
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**! IMPORTANT !** - To use these hooks you need to wrap your components in a `RefinerDBProvider` component.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### `useRefiner(indexKey)`
 
-### `yarn test`
+You pass in the index key and this hook will provide the filter `value`, and `setValue` method for changing the filter value, and the refiner `options`.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```typescript
+// A mutli-value string refiner, with the refiner options
+let { value, setValue, options } = useRefiner<string[]>("genre");
+```
 
-### `yarn build`
+```typescript
+// A { min, max } refiner
+let { value, setValue } = useRefiner<MinMaxFilterValue>("score");
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+You can also pass an optional `RefinerConfig` as a second param to the hook.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+In this example we disable the `debounce`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```typescript
+let { value = "", setValue, options = [] } = useRefiner<string>(indexKey, { debounce: 0 });
+```
 
-### `yarn eject`
+### `useIndexState()`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Gives you the current `IndexState` (idle, stale, pending, etc...) of your database.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```typescript
+let { status } = useIndexState();
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### `useQueryResult()`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Keeps you up to date with the latest `QueryResult`. As soon as a query completes (after a filter change or a reindex), the useQueryResult state will update and you will re-render.
 
-## Learn More
+_Example component that takes a `renderItem` prop to call for each result item_
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```typescript
+function ItemResults({ renderItem }) {
+  let result = useQueryResult();
+  if (!result || !result.items) return null;
+  if (!result.items.length) return <>No Results</>;
+  return <div>{result.items.map(renderItem)}</div>;
+}
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```typescript
+export interface QueryResult {
+  key: string;
+  items: any[];
+  refiners: {
+    [key: string]: RefinerOption[];
+  };
+  totalCount: number;
+}
+```
+
+### `useCriteria()`
+
+Your `RefinerDB` instance keeps track of things like the filtering, sorting and paging in the `criteria`.
+
+Using this hook will give your back the `QueryCriteria` value on your `RefinerDB` instance, as well as an `updateCriteria` function that takes an updates object and merges in your changes (vs completely replacing the criteria).
+
+```typescript
+let [criteria, updateCriteria] = useCriteria();
+```
+
+```typescript
+export interface QueryCriteria {
+  filter?: Filter;
+  sort?: string;
+  sortDir?: "asc" | "desc";
+  limit?: number;
+  skip?: number;
+}
+```
+
+### `useRefinerDB()`
+
+You maybe don't need this one for most situations, but it is an escape hatch if you want to get at the actual `RefinerDB` instance. Most other hooks are built on top of this one.
+
+```typescript
+let refinerDB = useRefinerDB();
+```

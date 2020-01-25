@@ -1,24 +1,24 @@
-import useRefinerDB from "./useRefinerDB";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback } from "react";
 import useCriteria from "./useCriteria";
 
 export default function useFilter() {
-  let refinerDB = useRefinerDB();
-
-  let criteria = useCriteria();
+  let [criteria, setCriteria] = useCriteria();
   let filter = criteria?.filter || {};
 
   let clearFilter = useCallback(() => {
-    criteria.filter = {};
-    refinerDB.setCriteria(criteria);
-  }, [criteria, refinerDB]);
+    setCriteria({ filter: {} });
+  }, [setCriteria]);
 
   let setFilter = useCallback(
-    (newFilter) => {
-      criteria.filter = newFilter;
-      refinerDB.setCriteria(newFilter);
+    (updates) => {
+      setCriteria({
+        filter: {
+          ...filter,
+          ...updates,
+        },
+      });
     },
-    [criteria, refinerDB]
+    [filter, setCriteria]
   );
 
   return {
