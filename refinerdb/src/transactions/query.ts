@@ -96,7 +96,7 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
 
       let skip = db._criteria.skip || 0;
       let limit = db._criteria.limit || 1000;
-      let trimmedIds = itemIds; // itemIds.slice(skip, skip + limit);
+      let trimmedIds = itemIds.slice(skip, skip + limit);
 
       let items = await db.allItems.bulkGet(trimmedIds);
       // Check for a stale query id after every async activity
