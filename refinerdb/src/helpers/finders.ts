@@ -6,7 +6,7 @@ import intersection from "lodash/intersection";
 import { findNumberRange, findStringRange } from "./binarySearch";
 
 function findByNumber(index: SearchIndex, min?: number, max?: number) {
-  if (min === undefined && max === undefined) return null;
+  // if (min === undefined && max === undefined) return null;
 
   let hashes = findNumberRange(index.sortedKeys, min, max);
   return uniq(flatten(hashes.map((hash) => index.value[hash])));
@@ -18,7 +18,7 @@ function findByDate(
   min?: Date,
   max?: Date
 ) {
-  if (min === undefined && max === undefined) return null;
+  // if (min === undefined && max === undefined) return null;
 
   let minDateStr = min ? min.toISOString() : "";
   let maxDateStr = max ? max.toISOString() : "";
@@ -27,8 +27,8 @@ function findByDate(
   return uniq(flatten(hashes.map((hash) => index.value[hash])));
 }
 
-function findByString(index: SearchIndex, values: string[]) {
-  values = values.filter(Boolean);
+function findByString(index: SearchIndex, values: string[] = []) {
+  values = (values || []).filter(Boolean);
   let isExactEquals = !values.find((v) => v.indexOf("*") > -1);
 
   if (isExactEquals) {
@@ -64,11 +64,6 @@ function findByIndexFilter(
   index: SearchIndex
 ): number[] {
   if (!indexDefinition || !index) return [];
-
-  // return null if there is no filter value
-  if (values === undefined && min === undefined && max === undefined) {
-    return null;
-  }
 
   if (indexDefinition.type === IndexType.String) {
     return findByString(index, values as string[]);

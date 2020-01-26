@@ -25,6 +25,11 @@ describe("search.finders", () => {
       let resultKeys = finders.findByNumber(ratingIndex, 2, 5);
       expect(JSON.stringify(resultKeys)).toBe(JSON.stringify([21, 32, 54, 13]));
     });
+
+    it("Should return all results if there is not filter", () => {
+      let resultKeys = finders.findByNumber(ratingIndex);
+      expect(JSON.stringify(resultKeys)).toBe(JSON.stringify([100, 101, 1, 21, 32, 54, 13, 6, 11]));
+    });
   });
 
   describe("findByString", () => {
@@ -50,6 +55,8 @@ describe("search.finders", () => {
 
     it("Should return all results if for empty string filter", () => {
       let results = finders.findByString(genresIndex, [""]);
+      expect(results).toHaveLength(8);
+      results = finders.findByString(genresIndex);
       expect(results).toHaveLength(8);
     });
     it("Should come back sorted by the index hash values", () => {
@@ -102,6 +109,10 @@ describe("search.finders", () => {
     it("Should return result Ids sorted by hash key", () => {
       let results = finders.findByDate(bornIndex, new Date("1/1/1950"), new Date("1/1/1970"));
       expect(JSON.stringify(results)).toBe(JSON.stringify([1, 2, 8, 4, 5]));
+    });
+    it("Should return all items if there is no filter given", () => {
+      let results = finders.findByDate(bornIndex);
+      expect(JSON.stringify(results)).toBe(JSON.stringify([1, 2, 8, 4, 5, 6, 7, 11]));
     });
   });
 

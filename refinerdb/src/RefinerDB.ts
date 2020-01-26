@@ -8,18 +8,14 @@ import {
   QueryResult,
   FilterResult,
   QueryCriteria,
-  Filter,
 } from "./interfaces";
 import { spawn, Thread, Worker } from "threads";
 import { indexers, checkIfModifiedIndexes } from "./helpers/indexers";
 import { createStateMachine, createMachineConfig } from "./stateMachine";
-import { finders } from "./helpers/finders";
-import intersection from "lodash/intersection";
 import { Interpreter } from "xstate";
-import omit from "lodash/omit";
-import { parseFilter, filterToString } from "./helpers/filterParser";
 import { setCache, getCache } from "./helpers/cache";
 import reindex from "./transactions/reindex";
+import query from "./transactions/query";
 import { setItems, pushItems } from "./transactions/setItems";
 
 export default class RefinerDB extends Dexie {
@@ -34,8 +30,6 @@ export default class RefinerDB extends Dexie {
   _criteria: QueryCriteria = { filter: null };
   _indexRegistrations: IndexConfig[] = [];
   private stateMachine: Interpreter<any>;
-  private activeIndexingId = -1;
-  private activeQueryId = -1;
   private worker;
   private workerIsReady;
   config: RefinerDBConfig = {
@@ -128,11 +122,6 @@ export default class RefinerDB extends Dexie {
     this.stateMachine.send(IndexEvent.INVALIDATE);
   };
 
-  // deleteItems = async (filter?: Filter) => {
-  //   // TODO: query using the filter for a set of itemId's to delete
-
-  // }
-
   waitForState = (targetState: IndexState) => {
     return new Promise((resolve, reject) => {
       let handler = (state) => {
@@ -164,96 +153,7 @@ export default class RefinerDB extends Dexie {
   };
 
   _query = async (queryId: number = Date.now()): Promise<QueryResult> => {
-    this.activeQueryId = queryId;
-    let result: QueryResult = null;
-    let filters = parseFilter(this._criteria.filter);
-
-    let allIndexes: SearchIndex[] = (
-      await this.indexes.bulkGet(this._indexRegistrations.map((index) => index.key))
-    ).filter(Boolean) as any;
-
-    if (!allIndexes || !allIndexes.length) {
-      // this.stateMachine.send(IndexEvent.INVALIDATE);
-      return Promise.resolve(null);
-    }
-
-    // Check for a stale query id after every async activity
-    if (this.activeQueryId !== queryId) return;
-
-    await this.transaction(
-      "rw",
-      this.indexes,
-      this.allItems,
-      this.filterResults,
-      this.queryResults,
-      async () => {
-        // Get an array of arrays. where we store a set of itemId matches for each filter
-        let filterResults: FilterResult[] = [];
-        for (var i = 0; i < filters.length; i++) {
-          let filter = filters[i];
-          let filterKey = filterToString(filter);
-          let matches = [];
-          let indexDefinition = this._indexRegistrations.find((i) => i.key === filter.indexKey);
-          let cachedFilterResult = this.filterResults.get(filterKey) as any;
-          if (cachedFilterResult && cachedFilterResult.matches) {
-            matches = cachedFilterResult.itemIds;
-          } else {
-            matches = finders.findByIndexFilter(
-              { indexDefinition, ...filter },
-              allIndexes.find((i) => i.key === filter.indexKey)
-            );
-            this.filterResults.put({ key: filterKey, matches, indexKey: filter.indexKey });
-          }
-          filterResults.push({
-            indexKey: filter.indexKey,
-            key: filterKey,
-            matches,
-          });
-        }
-
-        let refiners = null;
-
-        let allRefinerOptions = this._indexRegistrations.map((indexRegistration, i) => {
-          if (indexRegistration.skipRefinerOptions) {
-            return [];
-          }
-          let index = allIndexes.find((i) => i.key === indexRegistration.key);
-          return finders.getRefinerOptions(index, filterResults);
-        });
-
-        refiners = allRefinerOptions.reduce((refiners, options, i) => {
-          refiners[this._indexRegistrations[i].key] = options;
-          return refiners;
-        }, {});
-
-        let itemIds: number[] = [];
-        // If there are no filters, return all items
-        if (filterResults.length === 0) {
-          itemIds = await this.allItems.toCollection().primaryKeys();
-          console.log("TCL: allItems itemIds", itemIds);
-        } else {
-          // There are filters so return the intersection of all the matches
-          itemIds = intersection(...filterResults.map((r) => r.matches).filter(Boolean));
-          console.log("TCL: filtered itemIds", itemIds, filterResults.length);
-        }
-        // TODO: how to handle sort?
-
-        let skip = this._criteria.skip || 0;
-        let limit = this._criteria.limit || 1000;
-        let trimmedIds = itemIds; // itemIds.slice(skip, skip + limit);
-
-        let items = await this.allItems.bulkGet(trimmedIds);
-        // Check for a stale query id after every async activity
-        if (this.activeQueryId !== queryId) return;
-
-        result = { items, refiners, totalCount: itemIds.length, key: this.getCriteriaKey() };
-        this.queryResults.put(result);
-      }
-    );
-
-    // Check for a stale query id after every async activity
-    if (this.activeQueryId !== queryId) return;
-    return result;
+    return query(this, queryId);
   };
 
   _reIndex = async (indexingId: number = Date.now()) => {

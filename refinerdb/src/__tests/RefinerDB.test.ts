@@ -193,19 +193,6 @@ describe("Querying - Basic", () => {
     expect(result.items[0].title).toBe("two");
   });
 
-  it("Should support 'includeRefiners' flag", async () => {
-    search.setItems(items);
-    search.setCriteria({ filter: { title: "two" }, includeRefiners: true });
-    let result = await search.getQueryResult();
-    expect(result).toBeTruthy();
-    expect(result).toHaveProperty("items");
-    expect(result.items).toHaveLength(1);
-    expect(result.items[0].title).toBe("two");
-    expect(result).toHaveProperty("refiners");
-    expect(result.refiners).toHaveProperty("title");
-    expect(result.refiners.title).toHaveLength(4);
-  });
-
   it("Should wait for a reIndex", async () => {
     search.setItems(items);
     search.setCriteria({ filter: { title: "two" } });
