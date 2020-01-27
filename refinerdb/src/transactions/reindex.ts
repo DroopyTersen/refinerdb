@@ -3,6 +3,7 @@ import { SearchIndex } from "..";
 import { indexers } from "../helpers/indexers";
 import Dexie from "dexie";
 import omit from "lodash/omit";
+import { IndexType } from "../interfaces";
 
 let activeQueryId = -1;
 
@@ -32,7 +33,14 @@ export default async function reindex(db: RefinerDB, queryId = Date.now()) {
       .then(() => {
         if (activeQueryId === queryId) {
           indexes.forEach((index) => {
-            index.sortedKeys = index.sortedKeys.sort();
+            if (index.key === "rank") {
+              console.log("RANK", index.sortedKeys);
+            }
+            if (index.type === IndexType.Number) {
+              index.sortedKeys = index.sortedKeys.sort((a, b) => a - b);
+            } else {
+              index.sortedKeys = index.sortedKeys.sort();
+            }
             db.indexes.put(index);
           });
         }
