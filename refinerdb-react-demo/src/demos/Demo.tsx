@@ -13,7 +13,7 @@ import Header from "components/Header";
 
 function Demo({ dbName, title, indexes, getItems, renderItem, renderRefiners }: DemoProps) {
   return (
-    <RefinerDBProvider name={dbName} workerPath={"/refinerdb.worker.js"}>
+    <RefinerDBProvider name={dbName}>
       <div className="App">
         <Header title={title}>
           <DataSetup indexes={indexes} getItems={getItems} />
