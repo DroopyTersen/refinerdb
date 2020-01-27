@@ -5,3 +5,4 @@ export { default as useQueryResult } from "./useQueryResult";
 export { default as useRefiner } from "./useRefiner";
 export { default as useFilter } from "./useFilter";
 export { default as useCriteria } from "./useCriteria";
+export { default as useSort } from "./useSort";

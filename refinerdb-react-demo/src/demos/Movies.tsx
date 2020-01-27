@@ -29,11 +29,11 @@ let demo: DemoProps = {
     return allItems;
   },
   indexes: [
-    { key: "title", type: IndexType.String, skipRefinerOptions: true },
+    { key: "title", label: "Title", type: IndexType.String, skipRefinerOptions: true },
     { key: "type", type: IndexType.String },
-    { key: "genre", path: "genres", type: IndexType.String },
-    { key: "score", type: IndexType.Number, skipRefinerOptions: true },
-    { key: "released", type: IndexType.Date, skipRefinerOptions: true },
+    { key: "genre", label: "Genre", path: "genres", type: IndexType.String },
+    { key: "score", label: "Score", type: IndexType.Number, skipRefinerOptions: true },
+    { key: "released", label: "Released", type: IndexType.Date, skipRefinerOptions: true },
   ],
   renderItem: function(item) {
     return (
@@ -45,7 +45,7 @@ let demo: DemoProps = {
           />
           <div>
             <h3>{item.title}</h3>
-            <div>{(item.genres || []).join(", ")}</div>
+            <div>{(item.genres || []).sort().join(", ")}</div>
             <p>{item.overview}</p>
           </div>
         </div>

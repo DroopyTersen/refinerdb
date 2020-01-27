@@ -3,6 +3,7 @@ import { parseFilter, filterToString } from "../helpers/filterParser";
 import { finders } from "../helpers/finders";
 import intersection from "lodash/intersection";
 import reverse from "lodash/reverse";
+import createMeasurement from "../utils/utils";
 let activeQueryId = -1;
 
 const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<QueryResult> => {
@@ -21,7 +22,7 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
 
   // Check for a stale query id after every async activity
   if (activeQueryId !== queryId) return;
-
+  console.log("QUERYING!", queryId);
   await db.transaction(
     "rw",
     db.indexes,
@@ -29,6 +30,14 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
     db.filterResults,
     db.queryResults,
     async () => {
+      // First check to see if there is a match
+      let criteriaKey = db.getCriteriaKey();
+      let cachedResult = (await db.queryResults.get(criteriaKey)) as any;
+      if (cachedResult) {
+        return cachedResult as QueryResult;
+      }
+      let filtersMeasure = createMeasurement("query:filters" + queryId);
+      filtersMeasure.start();
       // Get an array of arrays. where we store a set of itemId matches for each filter
       let filterResults: FilterResult[] = [];
       for (var i = 0; i < db._indexRegistrations.length; i++) {
@@ -38,9 +47,10 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
         };
         let filterKey = filterToString(filter);
         let matches = [];
-        let cachedFilterResult = db.filterResults.get(filterKey) as any;
+        let cachedFilterResult = await db.filterResults.get(filterKey);
+
         if (cachedFilterResult && cachedFilterResult.matches) {
-          matches = cachedFilterResult.itemIds;
+          matches = cachedFilterResult.matches;
         } else {
           matches = finders.findByIndexFilter(
             { indexDefinition, ...filter },
@@ -54,7 +64,10 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
           matches,
         });
       }
+      filtersMeasure.stop();
 
+      let refinersMeasure = createMeasurement("query:refiners" + queryId);
+      refinersMeasure.start();
       // console.log("TCL: filterResults", filterResults);
       let refiners = null;
 
@@ -71,6 +84,7 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
         return refiners;
       }, {});
 
+      refinersMeasure.stop();
       let itemIds: number[] = [];
       // If there are no filters, return all items
       if (filterResults.length === 0) {
@@ -78,18 +92,25 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
       } else {
         // There are filters so return the intersection of all the matches
         let orderedSets = filterResults;
-        if (db._criteria.sort) {
-          let target = orderedSets.find((r) => r.indexKey === db._criteria.sort);
-          // console.log("TARGET", target);
-          if (db._criteria.sortDir === "desc") {
-            target.matches = reverse(target.matches);
-          }
-          orderedSets = [
-            target,
-            ...orderedSets.filter((r) => r.indexKey !== db._criteria.sort),
-          ].filter(Boolean);
+        // Sorting, either use the specified sort or the first index key
+        db._criteria.sort = db._criteria.sort || db._indexRegistrations[0].key;
+        // Find the result set for the index we are supposed to sort by
+        let target = orderedSets.find((r) => r.indexKey === db._criteria.sort);
+        // If descending reverse the itemIds (they should already be sorted asc)
+        if (db._criteria.sortDir === "desc") {
+          target.matches = reverse(target.matches);
         }
+        // order the result sets by which indexes to sort by
+        // so those get used in the intersection
+        let intersectionMeasure = createMeasurement("query:intersection" + queryId);
+        intersectionMeasure.start();
+        orderedSets = [
+          target,
+          ...orderedSets.filter((r) => r.indexKey !== db._criteria.sort),
+        ].filter(Boolean);
         itemIds = intersection(...orderedSets.map((r) => r.matches).filter(Boolean));
+        intersectionMeasure.stop();
+
         // console.log("TCL: filtered itemIds", itemIds, filterResults.length);
       }
       // TODO: how to handle sort?
@@ -98,9 +119,12 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
       let limit = db._criteria.limit || 1000;
       let trimmedIds = itemIds.slice(skip, skip + limit);
 
+      let hydrateItemsMeasurement = createMeasurement("query:hydrateItems" + queryId);
+      hydrateItemsMeasurement.start();
       let items = await db.allItems.bulkGet(trimmedIds);
       // Check for a stale query id after every async activity
       if (activeQueryId !== queryId) return;
+      hydrateItemsMeasurement.stop();
 
       result = { items, refiners, totalCount: itemIds.length, key: db.getCriteriaKey() };
       db.queryResults.put(result);

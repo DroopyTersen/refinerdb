@@ -1,17 +1,34 @@
 import useRefinerDB from "./useRefinerDB";
 import { IndexConfig } from "refinerdb";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
+import useIndexState from "./useIndexState";
 
 export default function useIndexes(initialValue?: IndexConfig[]) {
   // Store the first value we get as a ref
   let initialValueRef = useRef(initialValue);
   let refinerDB = useRefinerDB();
+  let { status } = useIndexState();
 
-  let tuple = [null, null];
+  let [indexes, setIndexes] = useState<IndexConfig[]>(() => {
+    if (refinerDB && refinerDB.indexRegistrations) {
+      return refinerDB.indexRegistrations;
+    }
+    return [];
+  });
 
-  if (refinerDB) {
-    tuple = [refinerDB.indexRegistrations, refinerDB.setIndexes];
-  }
+  // when the Index state changes, check for new indexDefinitions
+  useEffect(() => {
+    // console.log("NEW Indexes", refinerDB.criteria);
+    setIndexes(refinerDB.indexRegistrations || []);
+  }, [status, refinerDB]);
+
+  const updateIndexes = useCallback(
+    (indexes: IndexConfig[]) => {
+      refinerDB.setIndexes(indexes || []);
+    },
+    [refinerDB]
+  );
+
   // Once the DB loads, check to see if we have an initial value to set
   useEffect(() => {
     console.log("Try Initial Index setup");
@@ -23,5 +40,5 @@ export default function useIndexes(initialValue?: IndexConfig[]) {
     }
   }, [refinerDB]);
 
-  return tuple as [IndexConfig[], (indexes: IndexConfig[]) => void];
+  return [indexes, updateIndexes] as [IndexConfig[], (indexes: IndexConfig[]) => void];
 }

@@ -59,6 +59,7 @@ export interface SearchIndex extends IndexConfig {
 export interface IndexConfig {
   key: string;
   type: IndexType;
+  label?: string;
   path?: string;
   skipRefinerOptions?: boolean;
 }

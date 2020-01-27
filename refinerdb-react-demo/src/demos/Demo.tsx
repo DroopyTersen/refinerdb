@@ -7,6 +7,7 @@ import {
   useRefinerDB,
   useIndexes,
   ClearRefinersButton,
+  SortControl,
 } from "refinerdb-react";
 import Header from "components/Header";
 
@@ -23,6 +24,7 @@ function Demo({ dbName, title, indexes, getItems, renderItem, renderRefiners }: 
           {renderRefiners()}
         </div>
         <div className="rdb-item-results">
+          <SortControl />
           <ItemResults renderItem={renderItem} />
         </div>
       </div>
