@@ -9,7 +9,7 @@ export interface HeaderProps {
 
 export default function Header({ title, children }) {
   let indexState = useIndexState();
-  console.log("RENDERING Header", indexState.status);
+  // console.log("RENDERING Header", indexState.status);
   return (
     <header
       className="rdb-header"

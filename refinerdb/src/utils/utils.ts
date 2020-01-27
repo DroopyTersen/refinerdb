@@ -15,7 +15,7 @@ export default function createMeasurement(name: string) {
   let stop = () => {
     performance.mark(stopKey);
     performance.measure(measureKey, startKey, stopKey);
-    let entries = window.performance.getEntriesByName(measureKey);
+    let entries = performance.getEntriesByName(measureKey);
     entries.forEach((entry) => console.log("MEASUREMENT", entry.name, entry.duration));
   };
 

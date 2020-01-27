@@ -39,16 +39,12 @@ export const IndexStateContext = React.createContext<{ status: IndexState }>({
 
 export interface RefinerDBProviderProps {
   name: string;
-  workerPath?: string;
+  worker?: any;
 }
-const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
-  name,
-  children,
-  workerPath = "",
-}) => {
+const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({ name, children, worker }) => {
   let [indexState, setIndexState] = useState(IndexState.IDLE);
   let dbConfig: RefinerDBConfig = {
-    workerPath,
+    worker,
     onTransition: (state) => {
       setIndexState(state);
     },

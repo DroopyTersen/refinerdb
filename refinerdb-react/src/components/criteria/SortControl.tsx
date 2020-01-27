@@ -7,7 +7,9 @@ export default function SortControl() {
     <div className="rdb-sort" style={{ display: "flex" }}>
       <select value={sort.sortKey} onChange={(e) => sort.setSortKey(e.currentTarget.value)}>
         {sort.options.map((o) => (
-          <option value={o.value}>{o.text}</option>
+          <option key={o.value} value={o.value}>
+            {o.text}
+          </option>
         ))}
       </select>
       <button

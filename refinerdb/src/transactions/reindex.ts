@@ -4,12 +4,14 @@ import { indexers } from "../helpers/indexers";
 import Dexie from "dexie";
 import omit from "lodash/omit";
 import { IndexType } from "../interfaces";
+import createMeasurement from "../utils/utils";
 
 let activeQueryId = -1;
 
 export default async function reindex(db: RefinerDB, queryId = Date.now()) {
   activeQueryId = queryId;
-
+  let measurement = createMeasurement("Reindexing" + Date.now());
+  measurement.start();
   return db.transaction("rw", db.allItems, db.indexes, db.filterResults, db.queryResults, () => {
     db.filterResults.clear();
     db.queryResults.clear();
@@ -33,14 +35,12 @@ export default async function reindex(db: RefinerDB, queryId = Date.now()) {
       .then(() => {
         if (activeQueryId === queryId) {
           indexes.forEach((index) => {
-            if (index.key === "rank") {
-              console.log("RANK", index.sortedKeys);
-            }
             if (index.type === IndexType.Number) {
               index.sortedKeys = index.sortedKeys.sort((a, b) => a - b);
             } else {
               index.sortedKeys = index.sortedKeys.sort();
             }
+            console.log("PUTTING", index.key);
             db.indexes.put(index);
           });
         }
@@ -49,5 +49,6 @@ export default async function reindex(db: RefinerDB, queryId = Date.now()) {
       console.log("ABORTING REINDEX TRANSACTION");
       Dexie.currentTransaction.abort();
     }
+    measurement.stop();
   });
 }

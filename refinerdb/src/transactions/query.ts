@@ -22,7 +22,7 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
 
   // Check for a stale query id after every async activity
   if (activeQueryId !== queryId) return;
-  console.log("QUERYING!", queryId);
+  let criteriaKey = db.getCriteriaKey();
   await db.transaction(
     "rw",
     db.indexes,
@@ -31,7 +31,6 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
     db.queryResults,
     async () => {
       // First check to see if there is a match
-      let criteriaKey = db.getCriteriaKey();
       let cachedResult = (await db.queryResults.get(criteriaKey)) as any;
       if (cachedResult) {
         return cachedResult as QueryResult;
@@ -126,7 +125,7 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
       if (activeQueryId !== queryId) return;
       hydrateItemsMeasurement.stop();
 
-      result = { items, refiners, totalCount: itemIds.length, key: db.getCriteriaKey() };
+      result = { items, refiners, totalCount: itemIds.length, key: criteriaKey };
       db.queryResults.put(result);
     }
   );
