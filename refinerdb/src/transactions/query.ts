@@ -55,7 +55,7 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
         });
       }
 
-      console.log("TCL: filterResults", filterResults);
+      // console.log("TCL: filterResults", filterResults);
       let refiners = null;
 
       let allRefinerOptions = db._indexRegistrations.map((indexRegistration, i) => {
@@ -80,7 +80,7 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
         let orderedSets = filterResults;
         if (db._criteria.sort) {
           let target = orderedSets.find((r) => r.indexKey === db._criteria.sort);
-          console.log("TARGET", target);
+          // console.log("TARGET", target);
           if (db._criteria.sortDir === "desc") {
             target.matches = reverse(target.matches);
           }

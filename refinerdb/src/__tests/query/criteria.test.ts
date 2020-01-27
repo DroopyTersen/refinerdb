@@ -92,4 +92,16 @@ describe("Sorting - Basic", () => {
     expect(result.items).toHaveLength(items.length);
     expect(result.items[0].title).toBe("one");
   });
+
+  it("Should respect the limit and skip", async () => {
+    search.setItems(items);
+    search.setCriteria({ limit: 1, sort: "title", filter: {} });
+    let result = await search.getQueryResult();
+    expect(result.items).toHaveLength(1);
+    expect(result.items[0].title).toBe("four");
+    search.setCriteria({ limit: 1, skip: 1, sort: "title", filter: {} });
+    result = await search.getQueryResult();
+    expect(result.items).toHaveLength(1);
+    expect(result.items[0].title).toBe("one");
+  });
 });
