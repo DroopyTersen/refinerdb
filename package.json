@@ -6,12 +6,13 @@
   "workspaces": [
     "refinerdb",
     "refinerdb-react",
-    "refinerdb-react-demo"
+    "refinerdb-react-demo",
+    "refinerdb-demo-mail"
   ],
   "scripts": {
     "start:core": "cd refinerdb && npm run start",
     "start:react": "cd refinerdb-react && npm run start",
-    "start:demo": "cd refinerdb-react-demo && npm run start",
+    "start:demo": "cd refinerdb-demo-mail && npm run start",
     "build": "cd refinerdb && npm run build && cd ../refinerdb-react && npm run build && cd ../refinerdb-react-demo && npm run build",
     "start": "npm-run-all --parallel start:core start:react start:demo"
   },
