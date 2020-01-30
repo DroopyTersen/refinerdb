@@ -95,8 +95,9 @@ describe("Sorting - Basic", () => {
 
   it("Should respect the limit and skip", async () => {
     search.setItems(items);
-    search.setCriteria({ limit: 1, sort: "title", filter: {} });
+    search.setCriteria({ limit: 1, sort: "title", sortDir: "asc", filter: {} });
     let result = await search.getQueryResult();
+    console.log(search.criteria);
     expect(result.items).toHaveLength(1);
     expect(result.items[0].title).toBe("four");
     search.setCriteria({ limit: 1, skip: 1, sort: "title", filter: {} });

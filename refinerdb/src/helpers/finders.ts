@@ -4,6 +4,7 @@ import uniq from "lodash/uniq";
 import intersection from "lodash/intersection";
 
 import { findNumberRange, findStringRange } from "./binarySearch";
+import { NULL_HASH } from "./indexers";
 
 function findByNumber(index: SearchIndex, min?: number, max?: number) {
   // if (min === undefined && max === undefined) return null;
@@ -43,6 +44,16 @@ function findByString(index: SearchIndex, values: string[] = []) {
           }
         });
       }
+      // If there are no filter values, then also return any items
+      // that don't have a value for this index
+      if (!values.length) {
+        // console.log(index);
+        let nullValueItemIds = index[NULL_HASH];
+        if (nullValueItemIds && nullValueItemIds.length) {
+          results = results.concat(nullValueItemIds);
+        }
+      }
+
       return results;
     }, []);
   } else {

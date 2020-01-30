@@ -1,5 +1,5 @@
 import { IndexType, SearchIndex } from "../interfaces";
-import { indexValues, indexers } from "../helpers/indexers";
+import { indexValues, indexers, NULL_HASH } from "../helpers/indexers";
 
 describe.only("search.indexers", () => {
   describe("indexValue", () => {
@@ -135,7 +135,8 @@ describe.only("search.indexers", () => {
       let items = [{ name: "Andrew", age: "blah" }];
       indexers[IndexType.Number](items[0], 0, ageIndex);
       // console.log(ageIndex);
-      expect(Object.keys(ageIndex.value)).toHaveLength(0);
+      expect(Object.keys(ageIndex.value)).toHaveLength(1);
+      expect(ageIndex.value[NULL_HASH]).toHaveLength(1);
     });
 
     it("Should properly handle invalid numbers", () => {
@@ -147,7 +148,40 @@ describe.only("search.indexers", () => {
       let items = [{ name: "Andrew", age: "blah" }];
       indexers[IndexType.Number](items[0], 0, ageIndex);
       // console.log(ageIndex);
-      expect(Object.keys(ageIndex.value)).toHaveLength(0);
+
+      expect(Object.keys(ageIndex.value)).toHaveLength(1);
+      expect(ageIndex.value[NULL_HASH]).toHaveLength(1);
+    });
+
+    it("Should create a NULL_HASH for items that don't have a value for an index", () => {
+      let items = [
+        { name: "Andrew", age: 32, gender: "male" },
+        { name: "Hannah", gender: "female" },
+        { name: "Mom", age: 58 },
+        { name: "Dad", age: 64 },
+      ];
+
+      let ageIndex: SearchIndex = { key: "age", type: IndexType.Number };
+      indexers[IndexType.Number](items[0], 0, ageIndex);
+      indexers[IndexType.Number](items[1], 1, ageIndex);
+      // There should be a hash for 32 and a null hash
+      expect(Object.keys(ageIndex.value)).toHaveLength(2);
+      expect(ageIndex.value[NULL_HASH]).toHaveLength(1);
+      // The first item in the null hash should be the
+      // second item, hannah which doesn't have an age
+      expect(ageIndex.value[NULL_HASH][0]).toBe(1);
+
+      let genderIndex: SearchIndex = { key: "gender", type: IndexType.String };
+      // Hannah, who has a gender
+      indexers[IndexType.String](items[1], 1, genderIndex);
+      // Mom who doesn't have a gender
+      indexers[IndexType.String](items[2], 2, genderIndex);
+      indexers[IndexType.String](items[3], 3, genderIndex);
+      // There should be a hash for 'female' and a null hash
+      expect(Object.keys(genderIndex.value)).toHaveLength(2);
+      expect(genderIndex.value[NULL_HASH]).toHaveLength(2);
+      // The only itemId in the null hash array should be mom's id
+      expect(genderIndex.value[NULL_HASH][0]).toBe(2);
     });
   });
 });

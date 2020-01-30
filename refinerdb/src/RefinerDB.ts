@@ -93,7 +93,10 @@ export default class RefinerDB extends Dexie {
     if (!criteria) {
       return;
     }
-    this._criteria = criteria;
+    this._criteria = {
+      ...this._criteria,
+      ...criteria,
+    };
     this.stateMachine.send(IndexEvent.QUERY_START);
   };
   getCriteriaKey = () => {
