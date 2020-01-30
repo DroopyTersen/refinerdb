@@ -47,8 +47,8 @@ function findByString(index: SearchIndex, values: string[] = []) {
       // If there are no filter values, then also return any items
       // that don't have a value for this index
       if (!values.length) {
-        // console.log(index);
-        let nullValueItemIds = index[NULL_HASH];
+        let nullValueItemIds = index.value[NULL_HASH];
+        console.log("NULL IDS", nullValueItemIds);
         if (nullValueItemIds && nullValueItemIds.length) {
           results = results.concat(nullValueItemIds);
         }
