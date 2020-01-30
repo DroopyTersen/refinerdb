@@ -28,7 +28,7 @@ export default class RefinerDB extends Dexie {
   filterResults: Dexie.Table<FilterResult, string>;
   queryResults: Dexie.Table<QueryResult, string>;
 
-  _criteria: QueryCriteria = { filter: null };
+  private _criteria: QueryCriteria = { filter: null };
   _indexRegistrations: IndexConfig[] = [];
   private stateMachine: Interpreter<any>;
   private worker = null;
@@ -78,8 +78,16 @@ export default class RefinerDB extends Dexie {
     this.filterResults = this.table("filterResults");
   };
 
-  get criteria() {
-    return this._criteria;
+  // use the getter to handle defaults
+  get criteria(): QueryCriteria {
+    return {
+      sort: this.indexRegistrations.length ? this.indexRegistrations[0].key : "",
+      filter: {},
+      sortDir: "asc",
+      limit: 1000,
+      skip: 0,
+      ...this._criteria,
+    };
   }
   setCriteria = (criteria: QueryCriteria) => {
     if (!criteria) {
@@ -89,7 +97,7 @@ export default class RefinerDB extends Dexie {
     this.stateMachine.send(IndexEvent.QUERY_START);
   };
   getCriteriaKey = () => {
-    return JSON.stringify(this._criteria);
+    return JSON.stringify(this.criteria);
   };
   get indexRegistrations() {
     return this._indexRegistrations;

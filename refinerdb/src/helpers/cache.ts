@@ -20,15 +20,15 @@ function localStorageTest() {
   }
 }
 
-let noLocalStorage = localStorageTest() === false;
-console.log("TCL: noLocalStorage", noLocalStorage);
+let hasLocalStorage = localStorageTest() === false;
+// console.log("TCL: noLocalStorage", noLocalStorage);
 
 let _isExpired = (cacheValue) => {
   return cacheValue.expiration && Date.now() > cacheValue.expiration;
 };
 
 let getOptions = function(cacheOpts: CacheOptions | string): CacheOptions {
-  if (noLocalStorage) return {};
+  if (!hasLocalStorage) return {};
   let defaultConfig = {
     duration: 1000 * 60 * 60 * 24 * 30 /* 30 days */,
     location: localStorage,
@@ -48,7 +48,7 @@ let getOptions = function(cacheOpts: CacheOptions | string): CacheOptions {
  *  So 'bustcache=false' would actually flag as true in "shouldBustCache"
  */
 let shouldBustCache = function(cbKey: string) {
-  if (noLocalStorage) return;
+  if (!hasLocalStorage) return;
   cbKey = cbKey.toLowerCase();
   try {
     if (window.location.search) {
@@ -67,7 +67,7 @@ let shouldBustCache = function(cbKey: string) {
 };
 
 export const getCache = (cacheOpts: CacheOptions | string) => {
-  if (noLocalStorage) return;
+  if (!hasLocalStorage) return;
   let opts = getOptions(cacheOpts);
   if (shouldBustCache(opts.cacheBustKey)) return null;
   let { location } = opts;
@@ -84,7 +84,7 @@ export const getCache = (cacheOpts: CacheOptions | string) => {
 };
 
 export const setCache = (cacheOpts: CacheOptions | string, payload: any) => {
-  if (noLocalStorage) return;
+  if (!hasLocalStorage) return;
   let opts = getOptions(cacheOpts);
   let { duration, location } = opts;
 

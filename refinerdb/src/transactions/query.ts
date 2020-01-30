@@ -9,7 +9,7 @@ let activeQueryId = -1;
 const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<QueryResult> => {
   activeQueryId = queryId;
   let result: QueryResult = null;
-  let filters = parseFilter(db._criteria.filter);
+  let filters = parseFilter(db.criteria.filter);
 
   let allIndexes: SearchIndex[] = (
     await db.indexes.bulkGet(db._indexRegistrations.map((index) => index.key))
@@ -91,12 +91,10 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
       } else {
         // There are filters so return the intersection of all the matches
         let orderedSets = filterResults;
-        // Sorting, either use the specified sort or the first index key
-        db._criteria.sort = db._criteria.sort || db._indexRegistrations[0].key;
         // Find the result set for the index we are supposed to sort by
-        let target = orderedSets.find((r) => r.indexKey === db._criteria.sort);
+        let target = orderedSets.find((r) => r.indexKey === db.criteria.sort);
         // If descending reverse the itemIds (they should already be sorted asc)
-        if (db._criteria.sortDir === "desc") {
+        if (db.criteria.sortDir === "desc") {
           target.matches = reverse(target.matches);
         }
         // order the result sets by which indexes to sort by
@@ -105,7 +103,7 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
         intersectionMeasure.start();
         orderedSets = [
           target,
-          ...orderedSets.filter((r) => r.indexKey !== db._criteria.sort),
+          ...orderedSets.filter((r) => r.indexKey !== db.criteria.sort),
         ].filter(Boolean);
         itemIds = intersection(...orderedSets.map((r) => r.matches).filter(Boolean));
         intersectionMeasure.stop();
@@ -114,9 +112,7 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
       }
       // TODO: how to handle sort?
 
-      let skip = db._criteria.skip || 0;
-      let limit = db._criteria.limit || 1000;
-      let trimmedIds = itemIds.slice(skip, skip + limit);
+      let trimmedIds = itemIds.slice(db.criteria.skip, db.criteria.skip + db.criteria.limit);
 
       let hydrateItemsMeasurement = createMeasurement("query:hydrateItems" + queryId);
       hydrateItemsMeasurement.start();

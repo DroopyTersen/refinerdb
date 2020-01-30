@@ -7,6 +7,12 @@
 // //This will log the measurement name and duration
 // measurement.stop();
 export default function createMeasurement(name: string) {
+  if (!performance || !performance.mark) {
+    return {
+      start: () => {},
+      stop: () => {},
+    };
+  }
   let startKey = name + ":start";
   let stopKey = name + ":stop";
   let measureKey = name + ":measure";
