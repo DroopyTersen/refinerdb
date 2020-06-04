@@ -28,7 +28,7 @@ let demo: DemoProps = {
     { key: "subject", label: "Subject", type: IndexType.String, skipRefinerOptions: true },
     { key: "from", label: "From", type: IndexType.String },
     { key: "toRecipients", label: "To", type: IndexType.String },
-    // { key: "ccRecipients", label: "CC", type: IndexType.String },
+    { key: "ccRecipients", label: "CC", type: IndexType.String },
     { key: "body", label: "Body", type: IndexType.String, skipRefinerOptions: true },
   ],
   renderItem: function(item) {

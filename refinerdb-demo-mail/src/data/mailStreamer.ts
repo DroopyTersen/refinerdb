@@ -52,7 +52,7 @@ const fetchMessages = async (incomingNextLink?: string) => {
 
   let url =
     incomingNextLink ||
-    `https://graph.microsoft.com//v1.0/me/MailFolders/Inbox/messages?$orderby=receivedDateTime+desc&$top=250`;
+    `https://graph.microsoft.com//v1.0/me/MailFolders/Inbox/messages?$orderby=receivedDateTime+desc&$top=50`;
   console.log("Fectching", url);
   let apiReq = graphClient
     .api(url)

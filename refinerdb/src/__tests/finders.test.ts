@@ -53,6 +53,11 @@ describe("search.finders", () => {
       expect(results).toHaveLength(7);
     });
 
+    it("Should support 'NOT' query if filter starts with 'NOT:'", () => {
+      let results = finders.findByString(genresIndex, ["NOT:Comedy"]);
+      expect(results).toHaveLength(6);
+    });
+
     it("Should return all results if for empty string filter", () => {
       let results = finders.findByString(genresIndex, [""]);
       expect(results).toHaveLength(8);

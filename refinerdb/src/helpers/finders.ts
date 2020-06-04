@@ -27,10 +27,9 @@ function findByDate(
   // console.log("TCL: hashes", startIndex, endIndex, hashes);
   return uniq(flatten(hashes.map((hash) => index.value[hash])));
 }
-
 function findByString(index: SearchIndex, values: string[] = []) {
   values = (values || []).filter(Boolean);
-  let isExactEquals = !values.find((v) => v.indexOf("*") > -1);
+  let isExactEquals = !values.find((v) => v.indexOf("*") > -1 || v.indexOf("NOT:") > -1);
 
   if (isExactEquals) {
     return index.sortedKeys.reduce((results, hashKey) => {
@@ -59,10 +58,19 @@ function findByString(index: SearchIndex, values: string[] = []) {
     let filterValues = values.map((value) => value.replace(/\*/gi, "").toLowerCase());
     let hashKeys = index.sortedKeys;
     let filteredHashes = hashKeys.filter((hashKey) => {
-      let matches = filterValues.filter(
-        (filterValue) => hashKey.toLowerCase().indexOf(filterValue) > -1
-      );
-      return matches.length;
+      let isMatch = false;
+      for (var i = 0; i < filterValues.length; i++) {
+        let filterValue = filterValues[i];
+        let isNegated = filterValue.substr(0, 4) === "not:";
+        filterValue = filterValue.replace("not:", "");
+        isMatch = hashKey.toLowerCase().indexOf(filterValue) > -1;
+        if (isNegated) isMatch = !isMatch;
+
+        console.log("findByString -> isNegated", isNegated);
+        console.log("findByString -> filterValue, hashKey, isMatch", filterValue, hashKey, isMatch);
+        if (isMatch) return true;
+      }
+      return false;
     });
     let itemKeys = filteredHashes.map((hash) => index.value[hash]);
     return uniq(flatten(itemKeys));
