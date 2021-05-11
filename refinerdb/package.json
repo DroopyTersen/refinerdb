@@ -31,7 +31,7 @@
   "dependencies": {
     "comlink": "^4.2.0",
     "dexie": "^3.0.0-rc.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "threads": "^1.0.0",
     "xstate": "^4.7.6"
   },
