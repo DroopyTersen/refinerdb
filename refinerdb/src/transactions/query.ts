@@ -92,9 +92,9 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
         // There are filters so return the intersection of all the matches
         let orderedSets = filterResults;
         // Sorting, either use the specified sort or the first index key
-        db._criteria.sort = db._criteria.sort || db._indexRegistrations[0].key;
+        let sortKey = db._criteria.sort || db._indexRegistrations[0].key;
         // Find the result set for the index we are supposed to sort by
-        let target = orderedSets.find((r) => r.indexKey === db._criteria.sort);
+        let target = orderedSets.find((r) => r.indexKey === sortKey);
         // If descending reverse the itemIds (they should already be sorted asc)
         if (db._criteria.sortDir === "desc") {
           target.matches = reverse(target.matches);
@@ -103,10 +103,9 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
         // so those get used in the intersection
         let intersectionMeasure = createMeasurement("query:intersection" + queryId);
         intersectionMeasure.start();
-        orderedSets = [
-          target,
-          ...orderedSets.filter((r) => r.indexKey !== db._criteria.sort),
-        ].filter(Boolean);
+        orderedSets = [target, ...orderedSets.filter((r) => r.indexKey !== sortKey)].filter(
+          Boolean
+        );
         itemIds = intersection(...orderedSets.map((r) => r.matches).filter(Boolean));
         intersectionMeasure.stop();
 
@@ -126,7 +125,7 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
       hydrateItemsMeasurement.stop();
 
       result = { items, refiners, totalCount: itemIds.length, key: criteriaKey };
-      db.queryResults.put(result);
+      await db.queryResults.put(result);
     }
   );
 

@@ -23,6 +23,7 @@ export default class RefinerDB extends Dexie {
   static destroy = (dbName: string) => {
     Dexie.delete(dbName);
   };
+  id: string = "";
   allItems: Dexie.Table<any, number>;
   indexes: Dexie.Table<SearchIndex, string>;
   filterResults: Dexie.Table<FilterResult, string>;
@@ -40,6 +41,7 @@ export default class RefinerDB extends Dexie {
 
   constructor(dbName: string, config?: RefinerDBConfig) {
     super(dbName);
+    this.id = new Date().getTime().toString();
     this.config = {
       ...this.config,
       ...config,
@@ -145,7 +147,8 @@ export default class RefinerDB extends Dexie {
 
   getQueryResult = async () => {
     await this.waitForState(IndexState.IDLE);
-    return this.queryResults.get(this.getCriteriaKey());
+    let result = await this.queryResults.get(this.getCriteriaKey());
+    return result;
   };
 
   query = async (criteria: QueryCriteria) => {

@@ -40,7 +40,6 @@ export default async function reindex(db: RefinerDB, queryId = Date.now()) {
             } else {
               index.sortedKeys = index.sortedKeys.sort();
             }
-            console.log("PUTTING", index.key);
             db.indexes.put(index);
           });
         }

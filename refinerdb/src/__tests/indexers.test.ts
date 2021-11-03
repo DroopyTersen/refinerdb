@@ -80,7 +80,7 @@ describe.only("search.indexers", () => {
       indexers[IndexType.Date](items[3], 3, bornIndex);
 
       expect(Object.keys(bornIndex.value)).toHaveLength(4);
-      expect(bornIndex.value["1987-09-12T05:00:00.000Z"]).toHaveLength(1);
+      expect(bornIndex.value[new Date("9/12/1987").toISOString()]).toHaveLength(1);
     });
 
     it("Should properly handle invalid dates", () => {

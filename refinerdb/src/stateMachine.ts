@@ -1,4 +1,4 @@
-import { Machine, interpret } from "xstate";
+import { interpret, createMachine } from "xstate";
 import { IndexState, IndexEvent } from "./interfaces";
 
 export function createStateMachine(
@@ -6,15 +6,15 @@ export function createStateMachine(
   onTransition: (state: IndexState) => void = (state) => {}
 ) {
   let interpreter = interpret(machine)
-    .onTransition((state) => onTransition(state?.value as IndexState))
     // .onTransition((state) => console.log("State Transition", state?.value))
+    .onTransition((state) => onTransition(state?.value as IndexState))
     .start();
 
   return interpreter;
 }
 
 export function createMachineConfig(reIndex, query, indexingDelay = 750) {
-  return Machine({
+  return createMachine({
     id: "indexer",
     initial: IndexState.IDLE,
     states: {
