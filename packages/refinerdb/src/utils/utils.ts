@@ -22,7 +22,9 @@ export default function createMeasurement(name: string) {
     performance?.mark?.(stopKey);
     performance?.measure?.(measureKey, startKey, stopKey);
     let entries = performance?.getEntriesByName?.(measureKey);
-    entries.forEach((entry) => console.log("MEASUREMENT", entry.name, entry.duration));
+    entries.forEach((entry) =>
+      console.log("MEASUREMENT (milliseconds)", entry.name, entry.duration)
+    );
   };
 
   return { start, stop };

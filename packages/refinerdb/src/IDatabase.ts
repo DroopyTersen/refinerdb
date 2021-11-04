@@ -1,10 +1,12 @@
 import { FilterResult, QueryResult, SearchIndex } from ".";
 
-export type DBItem = {
-  id: string | number;
-} | { key: string | number }
+export type DBItem =
+  | {
+      id: string | number;
+    }
+  | { key: string | number };
 
-export interface IDatabase<T extends DBItem }> {
+export interface IDatabase<T extends DBItem> {
   query: (params: {
     indexes: ITable<SearchIndex>;
     allItems: ITable<T>;

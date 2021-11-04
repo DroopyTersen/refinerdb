@@ -29,8 +29,8 @@ export default function useRefiner<T extends FilterValueType>(key: string, confi
     () => {
       setFilter({ [key]: value });
     },
-    config.debounce,
-    [value, key]
+    [value, key],
+    config.debounce
   );
 
   return {

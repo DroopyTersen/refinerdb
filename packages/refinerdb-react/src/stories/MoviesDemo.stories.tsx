@@ -9,6 +9,7 @@ import {
   Textbox,
   SingleValueDropdown,
   NumberRangeRefiner,
+  useQueryResult,
 } from "..";
 import type { IndexConfig } from "..";
 import movies from "../demo/movies/fixtures/movies";
@@ -28,27 +29,55 @@ function App() {
       style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "2rem", marginTop: "2rem" }}
     >
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <h2 style={{ margin: "0" }}>Refiners</h2>
-        <div>
-          <ClearRefinersButton>CLEAR</ClearRefinersButton>
-        </div>
-        <div>
-          <Textbox indexKey="title" label="Title" debounce={300} />
-        </div>
-        <div>
-          <SingleValueDropdown indexKey="type" label="Type" />
-        </div>
-        <div>
-          <SingleValueDropdown indexKey="genre" label="Genre" />
-        </div>
-        <div>
-          <NumberRangeRefiner indexKey="score" label="Score" debounce={200} />
-        </div>
+        <RefinerPanel />
       </div>
       <div>
-        <h2 style={{ margin: "0" }}>Results</h2>
+        <ResultsView />
       </div>
     </div>
+  );
+}
+
+function RefinerPanel() {
+  return (
+    <>
+      <h2 style={{ margin: "0" }}>Refiners</h2>
+      <div>
+        <ClearRefinersButton>CLEAR</ClearRefinersButton>
+      </div>
+      <div>
+        <Textbox indexKey="title" label="Title" debounce={300} />
+      </div>
+      <div>
+        <SingleValueDropdown indexKey="type" label="Type" />
+      </div>
+      <div>
+        <SingleValueDropdown indexKey="genre" label="Genre" />
+      </div>
+      <div>
+        <NumberRangeRefiner indexKey="score" label="Score" debounce={200} />
+      </div>
+    </>
+  );
+}
+
+function ResultsView() {
+  let results = useQueryResult();
+  console.log;
+  if (!results) return <div>Loading...</div>;
+  return (
+    <>
+      <h2 style={{ margin: "0" }}>Results ({results?.totalCount})</h2>
+      <div>
+        {results?.items
+          ?.slice(0, 25)
+          ?.filter((item) => item.__itemId)
+          ?.map((item) => (
+            <div key={item.__itemId}>{item.title}</div>
+          ))}
+      </div>
+      {results.totalCount > 25 && <div>...</div>}
+    </>
   );
 }
 export const Basic = () => {
