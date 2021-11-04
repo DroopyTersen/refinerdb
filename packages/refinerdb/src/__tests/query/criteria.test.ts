@@ -1,7 +1,5 @@
-import movies from "../fixtures/movies";
 import RefinerDB from "../..";
 import { IndexConfig, IndexType, QueryResult } from "../../interfaces";
-import { type } from "os";
 
 let items = [
   { title: "three", id: 3, color: "orange" },
@@ -16,8 +14,11 @@ let indexDefinitions: IndexConfig[] = [
 ];
 
 describe("Sorting - Basic", () => {
-  let search = new RefinerDB("test-sorting");
-  search.setIndexes(indexDefinitions);
+  let search: RefinerDB;
+  beforeAll(async () => {
+    search = new RefinerDB("test-sorting");
+    search.setIndexes(indexDefinitions);
+  });
 
   it("Should return all items if there is no filter", async () => {
     search.setItems(items);

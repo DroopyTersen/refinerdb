@@ -26,9 +26,10 @@ let indexes: IndexConfig[] = [
 ];
 
 describe("Query Tests - Movies Data Set", () => {
-  let search = new RefinerDB("movies", { indexDelay: 100 });
-  search.setIndexes(indexes);
+  let search: RefinerDB;
   beforeAll(async () => {
+    search = new RefinerDB("movies", { indexDelay: 100 });
+    search.setIndexes(indexes);
     await search.setItems(items);
   });
 
