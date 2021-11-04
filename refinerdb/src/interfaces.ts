@@ -78,9 +78,9 @@ export interface FilterResult {
   key: string;
   matches: number[];
 }
-export interface QueryResult {
+export interface QueryResult<T = any> {
   key: string;
-  items: any[];
+  items: T[];
   refiners: {
     [key: string]: RefinerOption[];
   };
