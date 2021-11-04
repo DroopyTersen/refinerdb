@@ -15872,6 +15872,25 @@ redent@^3.0.0:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
 
+refinerdb-react@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/refinerdb-react/-/refinerdb-react-0.2.0.tgz#3617f1d79131784f64b678bb51519072714bcddf"
+  integrity sha512-a+2Jv+mOLPzga2s5EheiU4KAGN1VU15knGA4HBLIR1PYjAshidcqiULGogb6JTd0aIEsvSuGnsn1/6KvqKL6Ng==
+  dependencies:
+    react "^16.12.0"
+    react-dom "^16.12.0"
+    react-inspector "^4.0.0"
+    refinerdb "^0.1.0"
+
+refinerdb@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/refinerdb/-/refinerdb-0.1.0.tgz#da579a9ff8bad425883ec2bd1ce2d0b995f49651"
+  integrity sha512-bA9CTHmpHoZR8+o1cP0CN6BA7HEuIWUuli42Kx3h/N+oZUi/k+JEwZ/L70aq7smj3ghq2ZYzlsDGU5jXs7nZjA==
+  dependencies:
+    dexie "^3.0.0-rc.1"
+    lodash "^4.17.15"
+    xstate "^4.7.6"
+
 refinerdb@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/refinerdb/-/refinerdb-0.2.1.tgz#75df2edf3b091b5a65d9034233065dc62155e2b6"

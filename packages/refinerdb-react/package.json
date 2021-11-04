@@ -1,6 +1,6 @@
 {
   "name": "refinerdb-react",
-  "version": "1.0.1-1",
+  "version": "1.0.2-1",
   "main": "lib/index.js",
   "scripts": {
     "start": "npm run storybook",
@@ -9,8 +9,8 @@
     "tsc:watch": "tsc --build tsconfig.lib.json --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prerelease": "npm run build",
-    "release": "np --any-branch --tag=beta --no-publish --skip-test && npm publish --tag beta"
+    "prerelease": "npm run build && npm version patch",
+    "release": "npm version prerelease && npm publish --tag beta"
   },
   "files": [
     "lib/"
@@ -18,7 +18,7 @@
   "dependencies": {
     "just-omit": "^1.4.1",
     "react-inspector": "^5.1.1",
-    "refinerdb": "^1.0.0"
+    "refinerdb": "^1.0.1-2"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
