@@ -1,6 +1,5 @@
-import { useState, useEffect, useMemo, useContext } from "react";
-import React from "react";
-import RefinerDB, { RefinerDBConfig, IndexState, QueryCriteria } from "refinerdb";
+import React, { useState } from "react";
+import RefinerDB, { IndexState, RefinerDBConfig } from "refinerdb";
 
 declare global {
   interface Window {
@@ -10,20 +9,20 @@ declare global {
   }
 }
 
-export const getDbByName = function(name): RefinerDB {
+export const getDbByName = function (name): RefinerDB {
   window.__refinerDBs = window.__refinerDBs || {};
   let db = window.__refinerDBs[name];
   return db;
 };
 
-const createDb = function(name, config: RefinerDBConfig) {
+const createDb = function (name, config: RefinerDBConfig) {
   let db = new RefinerDB(name, config);
   window.__refinerDBs = window.__refinerDBs || {};
   window.__refinerDBs[name] = db;
   console.log("HERE I AM", db);
 };
 
-const deleteDb = function(name) {
+const deleteDb = function (name) {
   let existingDb = getDbByName(name) as any;
 
   if (existingDb) {

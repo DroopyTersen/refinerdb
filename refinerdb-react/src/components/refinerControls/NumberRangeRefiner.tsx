@@ -6,7 +6,7 @@ function NumberRangeRefiner({ indexKey, label, debounce = 500 }: NumberRangeRefi
   let { setValue, value } = useRefiner<MinMaxFilterValue>(indexKey, { debounce });
 
   const onChange = useCallback(
-    function(key, val) {
+    function (key, val) {
       setValue((prev) => ({
         ...prev,
         [key]: val,
@@ -23,21 +23,25 @@ function NumberRangeRefiner({ indexKey, label, debounce = 500 }: NumberRangeRefi
 
   return (
     <div className="rdb-refiner range number-range">
-      <label>{label || indexKey}</label>
-      <div className="">
-        <input
-          placeholder="Min"
-          value={range.min + ""}
-          onChange={(e) => onChange("min", e.currentTarget.valueAsNumber)}
-          type="number"
-        />
-        <input
-          placeholder="Max"
-          value={range.max + ""}
-          onChange={(e) => onChange("max", e.currentTarget.valueAsNumber)}
-          type="number"
-        />
-      </div>
+      <label>
+        {label || indexKey}
+        <div className="">
+          <input
+            placeholder="Min"
+            value={range.min + ""}
+            onChange={(e) => onChange("min", e.currentTarget.valueAsNumber)}
+            type="number"
+            style={{ width: "5rem" }}
+          />
+          <input
+            placeholder="Max"
+            value={range.max + ""}
+            onChange={(e) => onChange("max", e.currentTarget.valueAsNumber)}
+            type="number"
+            style={{ width: "5rem" }}
+          />
+        </div>
+      </label>
     </div>
   );
 }

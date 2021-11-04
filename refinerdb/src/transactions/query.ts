@@ -111,7 +111,6 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
 
         // console.log("TCL: filtered itemIds", itemIds, filterResults.length);
       }
-      // TODO: how to handle sort?
 
       let skip = db._criteria.skip || 0;
       let limit = db._criteria.limit || 1000;

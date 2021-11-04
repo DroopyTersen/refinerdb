@@ -20,7 +20,9 @@ export default function useQueryResult() {
     if (status === IndexState.IDLE) {
       getNewResults();
     }
-    return () => (isMounted = false);
+    return () => {
+      isMounted = false;
+    };
   }, [status, refinerDB]);
 
   return result;

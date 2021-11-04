@@ -13,7 +13,7 @@ import Header from "components/Header";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 const RefinerWorker = require("worker-loader!../../node_modules/refinerdb/lib/workers/refinerdb.worker.js");
 let worker = new RefinerWorker();
-console.log("REFINER WORKER", RefinerWorker, worker);
+
 function Demo({ dbName, title, indexes, getItems, renderItem, renderRefiners }: DemoProps) {
   return (
     <RefinerDBProvider name={dbName} worker={worker}>

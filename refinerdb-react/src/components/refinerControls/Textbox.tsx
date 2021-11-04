@@ -15,8 +15,11 @@ function Textbox({ indexKey, label, debounce = 500 }: TextboxProps) {
 
   return (
     <div>
-      <label>{label || indexKey}</label>
-      <input type="text" value={(value || "").replace("*", "")} onChange={onChange} />
+      <label>
+        {label || indexKey}
+        <br />
+        <input type="text" value={(value || "").replace("*", "")} onChange={onChange} />
+      </label>
     </div>
   );
 }

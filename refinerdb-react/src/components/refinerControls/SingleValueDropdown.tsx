@@ -12,8 +12,9 @@ function SingleValueDropdown({ indexKey, label }: SingleValueDropdownProps) {
   );
 
   return (
-    <>
-      <label>{label || indexKey}</label>
+    <label>
+      {label || indexKey}
+      <br />
       <select onChange={handleChange} value={value + ""}>
         <option key="blank" value="">
           All
@@ -24,7 +25,7 @@ function SingleValueDropdown({ indexKey, label }: SingleValueDropdownProps) {
           </option>
         ))}
       </select>
-    </>
+    </label>
   );
 }
 
