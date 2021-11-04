@@ -1,6 +1,6 @@
 {
   "name": "refinerdb-react",
-  "version": "1.0.0",
+  "version": "1.0.1-2",
   "main": "lib/index.js",
   "scripts": {
     "start": "npm run storybook",
@@ -10,7 +10,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prerelease": "npm run build",
-    "release": "np --skip-test --no-publish && npm publish"
+    "release": "np --any-branch --tag=beta --skip-test"
   },
   "files": [
     "lib/"
