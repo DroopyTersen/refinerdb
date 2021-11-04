@@ -1,48 +1,37 @@
-import React, { useState, useCallback } from "react";
-import useRefiner from "../../hooks/useRefiner";
-import { MinMaxFilterValue } from "refinerdb";
+import React from "react";
+import { useNumberRangeRefiner } from "../../hooks/useNumberRangeRefiner";
 
 function NumberRangeRefiner({ indexKey, label, debounce = 500 }: NumberRangeRefinerProps) {
-  let { setValue, value } = useRefiner<MinMaxFilterValue>(indexKey, { debounce });
-
-  const onChange = useCallback(
-    function (key, val) {
-      setValue((prev) => ({
-        ...prev,
-        [key]: val,
-      }));
-    },
-    [setValue]
-  );
-
-  let range = {
-    min: "",
-    max: "",
-    ...value,
-  };
+  let range = useNumberRangeRefiner(indexKey, debounce);
 
   return (
-    <div className="rdb-refiner range number-range">
-      <label>
-        {label || indexKey}
-        <div className="">
-          <input
-            placeholder="Min"
-            value={range.min + ""}
-            onChange={(e) => onChange("min", e.currentTarget.valueAsNumber)}
-            type="number"
-            style={{ width: "5rem" }}
-          />
-          <input
-            placeholder="Max"
-            value={range.max + ""}
-            onChange={(e) => onChange("max", e.currentTarget.valueAsNumber)}
-            type="number"
-            style={{ width: "5rem" }}
-          />
-        </div>
-      </label>
-    </div>
+    <label>
+      {label || indexKey}
+      <div
+        style={{
+          width: "100%",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: ".5rem",
+          boxSizing: "border-box",
+        }}
+      >
+        <input
+          placeholder="Min"
+          value={range.min + ""}
+          onChange={(e) => range.setMin(e.currentTarget.value)}
+          type="number"
+          style={{ width: "100%", boxSizing: "border-box" }}
+        />
+        <input
+          placeholder="Max"
+          value={(range?.max && range?.max + "") || ""}
+          onChange={(e) => range.setMax(e.currentTarget.value)}
+          type="number"
+          style={{ width: "100%", boxSizing: "border-box" }}
+        />
+      </div>
+    </label>
   );
 }
 

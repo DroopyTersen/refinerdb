@@ -1,35 +1,7 @@
 import React, { useEffect, useState } from "react";
-import RefinerDB, { IndexState, RefinerDBConfig } from "refinerdb";
-
-// declare global {
-//   interface Window {
-//     __refinerDBs: {
-//       [key: string]: RefinerDB;
-//     };
-//   }
-// }
-
-// export const getDbByName = function (name): RefinerDB {
-//   window.__refinerDBs = window.__refinerDBs || {};
-//   let db = window.__refinerDBs[name];
-//   return db;
-// };
-
-// const createDb = function (name, config: RefinerDBConfig) {
-//   let db = new RefinerDB(name, config);
-//   window.__refinerDBs = window.__refinerDBs || {};
-//   window.__refinerDBs[name] = db;
-//   console.log("HERE I AM", db);
-// };
-
-// const deleteDb = function (name) {
-//   let existingDb = getDbByName(name) as any;
-
-//   if (existingDb) {
-//     delete window.__refinerDBs[name];
-//     RefinerDB.destroy(name);
-//   }
-// };
+import RefinerDB, { IndexConfig, IndexState, RefinerDBConfig } from "refinerdb";
+import { useRefinerDB } from ".";
+import { useUpdateEffect } from "./hooks/utils/useUpdateEffect";
 
 export const RefinerDBContext = React.createContext<RefinerDB>(null);
 export const IndexStateContext = React.createContext<{ status: IndexState }>({
@@ -39,8 +11,16 @@ export const IndexStateContext = React.createContext<{ status: IndexState }>({
 export interface RefinerDBProviderProps {
   name: string;
   worker?: any;
+  items: any[];
+  indexes?: IndexConfig[];
 }
-const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({ name, children, worker }) => {
+const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
+  name,
+  children,
+  worker,
+  items,
+  indexes,
+}) => {
   let [indexState, setIndexState] = useState(IndexState.IDLE);
   let [refinerDB] = useState<RefinerDB>(() => {
     let dbConfig: RefinerDBConfig = {
@@ -50,16 +30,62 @@ const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({ name, children, w
       },
       indexDelay: 500,
     };
-    return new RefinerDB(name, dbConfig);
+    let refinerDB = new RefinerDB(name, dbConfig);
+    if (items) {
+      refinerDB.setItems(items);
+    }
+    if (indexes) {
+      refinerDB.setIndexes(indexes);
+    }
+    return refinerDB;
   });
 
   return (
     <RefinerDBContext.Provider value={refinerDB}>
       <IndexStateContext.Provider value={{ status: indexState }}>
+        <ItemsWrapper items={items || null} />
+        <IndexesWrapper indexes={indexes || null} />
         {children}
       </IndexStateContext.Provider>
     </RefinerDBContext.Provider>
   );
 };
+
+function IndexesWrapper({ indexes }) {
+  let refinerDB = useRefinerDB();
+  useEffect(() => {
+    if (refinerDB && indexes) {
+      refinerDB.setIndexes(indexes);
+    }
+  }, [indexes]);
+  return null;
+}
+
+function ItemsWrapper({ items }) {
+  let refinerDB = useRefinerDB();
+  // TODO: do this better. only want the delay on mount
+  useUpdateEffect(() => {
+    let isUnmounted = false;
+    if (refinerDB && items) {
+      refinerDB.allItems.count().then((count) => {
+        if (isUnmounted) return;
+        if (!count) {
+          refinerDB.setItems(items);
+        } else {
+          setTimeout(() => {
+            if (!isUnmounted) {
+              refinerDB.setItems(items);
+            }
+          }, 2000);
+        }
+      });
+    }
+
+    return () => {
+      isUnmounted = true;
+    };
+  }, [items]);
+  return null;
+}
 
 export default RefinerDBProvider;

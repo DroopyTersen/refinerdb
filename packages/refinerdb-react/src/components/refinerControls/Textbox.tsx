@@ -1,26 +1,21 @@
 import React, { useCallback } from "react";
-import useRefiner from "../../hooks/useRefiner";
+import { useTextRefiner } from "../../hooks/useTextRefiner";
+import { Fieldset } from "./Fieldset";
 
 function Textbox({ indexKey, label, debounce = 500 }: TextboxProps) {
-  let { value = "", setValue } = useRefiner<string>(indexKey, { debounce });
-
-  let onChange = useCallback(
-    (e) => {
-      let val = e.currentTarget.value;
-      if (val) val += "*";
-      setValue(val ? val : "");
-    },
-    [setValue]
-  );
+  let { value = "", setValue } = useTextRefiner(indexKey, debounce);
 
   return (
-    <div>
-      <label>
-        {label || indexKey}
-        <br />
-        <input type="text" value={(value || "").replace("*", "")} onChange={onChange} />
-      </label>
-    </div>
+    <label>
+      {label || indexKey}
+      <br />
+      <input
+        type="text"
+        value={value || ""}
+        style={{ width: "100%", boxSizing: "border-box" }}
+        onChange={(e) => setValue(e.currentTarget.value)}
+      />
+    </label>
   );
 }
 
