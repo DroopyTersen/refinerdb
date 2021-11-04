@@ -20,24 +20,23 @@ export default function useRefiner<T extends FilterValueType>(key: string, confi
 
   // If a new filter value comes in from external, update state
   useEffect(() => {
-    console.log("NEW FILTER VALUE", filterValue);
     setValue(filterValue);
   }, [filterValue]);
 
   // Anytime the state filter value changes, debounce update refinerDB
   useDebounce(
     () => {
-      setFilter({ [key]: value });
+      if (value !== undefined) {
+        setFilter({ [key]: value });
+      }
     },
     [value, key],
     config.debounce
   );
 
-  return {
-    value,
-    options: result && result.refiners ? result.refiners[key] : [],
-    setValue,
-  };
+  const options = result?.refiners?.[key] || [];
+
+  return [value, setValue, options] as [typeof value, typeof setValue, typeof options];
 }
 
 let getFilterValue = (filter: Filter, key: string): any => {

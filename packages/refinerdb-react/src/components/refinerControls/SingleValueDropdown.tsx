@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import useRefiner from "../../hooks/useRefiner";
 
 function SingleValueDropdown({ indexKey, label }: SingleValueDropdownProps) {
-  let { value = "", setValue, options = [] } = useRefiner<string>(indexKey, { debounce: 0 });
+  let [value = "", setValue, options = []] = useRefiner<string>(indexKey, { debounce: 0 });
 
   let handleChange = useCallback(
     (e) => {
@@ -12,10 +12,10 @@ function SingleValueDropdown({ indexKey, label }: SingleValueDropdownProps) {
   );
 
   return (
-    <label>
+    <label style={{ width: "100%" }}>
       {label || indexKey}
       <br />
-      <select onChange={handleChange} value={value + ""}>
+      <select onChange={handleChange} value={value + ""} style={{ width: "100%" }}>
         <option key="blank" value="">
           All
         </option>

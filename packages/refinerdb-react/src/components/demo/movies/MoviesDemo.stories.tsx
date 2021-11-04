@@ -1,22 +1,14 @@
 import React, { useEffect } from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import {
-  RefinerDBProvider,
-  useRefinerDB,
-  IndexType,
-  useIndexes,
-  ClearRefinersButton,
-  Textbox,
-  SingleValueDropdown,
-  NumberRangeRefiner,
-  useQueryResult,
-} from "..";
-import type { IndexConfig } from "..";
-import movies from "../demo/movies/fixtures/movies";
-import { DataSetupButton } from "../demo/DataSetupButton";
-import { movieIndexes } from "../demo/movies/movies.indexes";
-import { getMoviesAndTv } from "../demo/movies/movies.data";
-import { DemoSetup } from "../demo/DemoSetup";
+import { ComponentMeta } from "@storybook/react";
+
+import { RefinerDBProvider, useQueryResult } from "../../..";
+import { movieIndexes } from "./movies.indexes";
+import { getMoviesAndTv } from "./movies.data";
+import { DemoSetup } from "../DemoSetup";
+import MultiValueSelect from "../../refinerControls/MultiValueSelect";
+import DateRangeRefiner from "../../refinerControls/DateRangeRefiner";
+import MultiValueCheckboxes from "../../refinerControls/MultiValueCheckboxes";
+import { ClearRefinersButton, NumberRangeRefiner, Textbox } from "../../refinerControls";
 
 export default {
   title: "Full Demos/Movies & TV",
@@ -28,7 +20,7 @@ function App() {
     <div
       style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "2rem", marginTop: "2rem" }}
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "250px" }}>
         <RefinerPanel />
       </div>
       <div>
@@ -49,10 +41,13 @@ function RefinerPanel() {
         <Textbox indexKey="title" label="Title" debounce={300} />
       </div>
       <div>
-        <SingleValueDropdown indexKey="type" label="Type" />
+        <MultiValueCheckboxes indexKey="type" label="Type" />
       </div>
       <div>
-        <SingleValueDropdown indexKey="genre" label="Genre" />
+        <MultiValueSelect indexKey="genre" label="Genres" />
+      </div>
+      <div>
+        <DateRangeRefiner indexKey="released" label="Release Date" />
       </div>
       <div>
         <NumberRangeRefiner indexKey="score" label="Score" debounce={200} />
