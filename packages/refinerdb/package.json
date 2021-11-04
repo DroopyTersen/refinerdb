@@ -12,11 +12,11 @@
     "lib/"
   ],
   "scripts": {
-    "start": "tsc -p tsconfig.json --watch",
+    "start": "npm run tsc:watch",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ui": "majestic",
-    "watch": "tsc -p tsconfig.json --watch",
+    "tsc:watch": "tsc -p tsconfig.json --watch",
     "prebuild": "npm run clean",
     "build": "npm run build:esm && npm run build:cjs && npm run build:worker",
     "postbuild": "npm run build:worker",
