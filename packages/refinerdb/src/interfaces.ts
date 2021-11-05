@@ -55,6 +55,7 @@ export interface SearchIndex extends IndexConfig {
     [key: string]: number[];
   };
   sortedKeys?: any[];
+  sortedIds?: number[];
 }
 
 export interface IndexConfig {
@@ -85,4 +86,38 @@ export interface QueryResult<T = any> {
     [key: string]: RefinerOption[];
   };
   totalCount: number;
+}
+
+export type DBItem =
+  | {
+      id: string | number;
+    }
+  | { key: string | number };
+
+export interface PersistedStore<T extends DBItem> {
+  query: () => Promise<void>;
+  reindex: () => Promise<void>;
+  setItems: (items: T[]) => Promise<void>;
+  pushItems: (items: T[]) => Promise<void>;
+  allItems: PersistedCollection<T>;
+  filterResults: PersistedCollection<FilterResult>;
+  queryResults: PersistedCollection<QueryResult<T>>;
+  indexes: PersistedCollection<IndexConfig>;
+}
+
+export interface PersistedCollection<T extends DBItem> {
+  /** Clear all rows in the table */
+  clear: () => Promise<void>;
+  /** remove a row from the table */
+  remove: (key: string) => Promise<void>;
+  /** Get a row by primary key */
+  get: (key: string) => Promise<T>;
+  /** Loop through all rows in the table */
+  each: (callback: (row: T, { primaryKey }) => void) => Promise<void>;
+  /** Replace all the items in the  */
+  bulkAdd: (items: T[]) => Promise<void>;
+  /** Ins */
+  bulkPut: (items: T[]) => Promise<void>;
+  /** Get a bunch of items by IDs */
+  bulkGet: (keys: string[]) => Promise<T[]>;
 }

@@ -37,9 +37,14 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
       }
       let filtersMeasure = createMeasurement("query:filters" + queryId);
       filtersMeasure.start();
+      let allItemIds = await db.allItems.toCollection().primaryKeys();
       // Get an array of arrays. where we store a set of itemId matches for each filter
       let filterResults: FilterResult[] = [];
+
+      // Foreach index registration
       for (var i = 0; i < db._indexRegistrations.length; i++) {
+        // Try to create a filter object from the active filters, otherwise
+        // create an empty filter (that will return all items);
         let indexDefinition = db._indexRegistrations[i];
         let filter = filters.find((f) => f.indexKey === indexDefinition.key) || {
           indexKey: indexDefinition.key,
@@ -51,10 +56,12 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
         if (cachedFilterResult && cachedFilterResult.matches) {
           matches = cachedFilterResult.matches;
         } else {
+          // Query the index for any matches based on the active filter value
           matches = finders.findByIndexFilter(
             { indexDefinition, ...filter },
             allIndexes.find((i) => i.key === filter.indexKey)
           );
+          // Cache the results for next time in case the filter key matches
           db.filterResults.put({ key: filterKey, matches, indexKey: filter.indexKey });
         }
         filterResults.push({
@@ -65,6 +72,7 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
       }
       filtersMeasure.stop();
 
+      /** Start Refiners */
       let refinersMeasure = createMeasurement("query:refiners" + queryId);
       refinersMeasure.start();
       // console.log("TCL: filterResults", filterResults);
@@ -84,8 +92,12 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
       }, {});
 
       refinersMeasure.stop();
+
+      /** End Refines */
+
       let itemIds: number[] = [];
       // If there are no filters, return all items
+      console.log("🚀 | filters", filters);
       if (filterResults.length === 0) {
         itemIds = await db.allItems.toCollection().primaryKeys();
       } else {

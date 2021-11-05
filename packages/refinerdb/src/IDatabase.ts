@@ -32,4 +32,6 @@ export interface ITable<T extends DBItem> {
   bulkAdd: (items: T[]) => Promise<void>;
   /** Ins */
   bulkPut: (items: T[]) => Promise<void>;
+  /** Get a bunch of items by IDs */
+  bulkGet: (keys: string[]) => Promise<T[]>;
 }
