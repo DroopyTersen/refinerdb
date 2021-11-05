@@ -16,11 +16,9 @@ import {
 } from "./interfaces";
 import { createMachineConfig, createStateMachine } from "./stateMachine";
 import { createDexieStore } from "./stores/dexie/DexieStore";
+import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
 
 export default class RefinerDB extends Dexie {
-  static destroy = (dbName: string) => {
-    Dexie.delete(dbName);
-  };
   store: PersistedStore;
 
   _criteria: QueryCriteria = { filter: null };
@@ -41,7 +39,8 @@ export default class RefinerDB extends Dexie {
       ...this.config,
       ...config,
     };
-    this.store = createDexieStore(dbName);
+    // this.store = createDexieStore(dbName);
+    this.store = createLocalStorageStore(dbName);
 
     // Setup StateMachine
     this.stateMachine = createStateMachine(
