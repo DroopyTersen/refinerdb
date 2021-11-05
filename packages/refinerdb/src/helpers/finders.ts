@@ -1,4 +1,10 @@
-import { IndexFilter, SearchIndex, IndexType, FilterResult, RefinerOption } from "../interfaces";
+import {
+  IndexFilter,
+  SearchIndex,
+  IndexType,
+  IndexFilterResult,
+  RefinerOption,
+} from "../interfaces";
 import flatten from "lodash/flatten";
 import uniq from "lodash/uniq";
 import intersection from "lodash/intersection";
@@ -76,14 +82,14 @@ function findByIndexFilter(
 
 function getRefinerOptions(
   index: SearchIndex,
-  filterResults: FilterResult[] = []
+  indexFilterResults: IndexFilterResult[] = []
 ): RefinerOption[] {
   // Figure out which filter result sets should be used to calculate the options
   // All results sets except the index being calculated
-  filterResults = filterResults || [];
+  indexFilterResults = indexFilterResults || [];
   // TODO: is this what should be returning? Or null?
   if (!index || !index.key) return [];
-  let nonTargetFilterResults = filterResults.filter((f) => f.indexKey !== index.key);
+  let nonTargetFilterResults = indexFilterResults.filter((f) => f.indexKey !== index.key);
   // Find all matches except for matches for this index
   let nonTargetMatches: number[] = intersection(...nonTargetFilterResults.map((f) => f.matches));
 

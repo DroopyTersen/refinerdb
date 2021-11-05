@@ -15901,6 +15901,16 @@ refinerdb@^0.2.1:
     threads "^1.0.0"
     xstate "^4.7.6"
 
+refinerdb@^1.0.1-2:
+  version "1.0.1-2"
+  resolved "https://registry.yarnpkg.com/refinerdb/-/refinerdb-1.0.1-2.tgz#c209cf5100b340b39b80f5d2477a23ef2709c23b"
+  integrity sha512-Dj0WKknPig+JjiC2f5ozdmBo3ebM/+fqx/3Ho97LxQqfTiVZkr8lq/VDJX2+dmARPUyzZyAQk22ev6/xIehJsg==
+  dependencies:
+    comlink "^4.3.1"
+    dexie "^3.0.3"
+    lodash "^4.17.15"
+    xstate "^4.26.0"
+
 refractor@^3.1.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/refractor/-/refractor-3.5.0.tgz#334586f352dda4beaf354099b48c2d18e0819aec"

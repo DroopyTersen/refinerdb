@@ -4,7 +4,7 @@ import { IndexConfig, IndexType, QueryResult } from "../../interfaces";
 
 let items = movies.map((item: any) => {
   item.released = new Date(item.released + " GMT-5000");
-  // TODO: randomize a watched boolean
+  // TODO: add boolean support and tack on a randomize a watched boolean
   return item;
 });
 
@@ -78,11 +78,16 @@ describe("Query Tests - Movies Data Set", () => {
   describe("Query for well scored Action movies", () => {
     let result: QueryResult = null;
     beforeAll(async () => {
-      result = await search.query({ filter: { genre: "Action", score: { min: 7 } } });
+      result = await search.query({
+        filter: { genre: "Action", score: { min: 7 } },
+        sort: "score",
+        sortDir: "desc",
+      });
     });
     it("Should only include action movies with a score >= 7", () => {
       expect(result.items.length).toBeGreaterThan(0);
       result.items.forEach((movie) => {
+        expect(movie).toHaveProperty("id");
         expect(movie.genres.indexOf("Action")).toBeGreaterThan(-1);
         expect(movie.score).toBeGreaterThanOrEqual(7);
       });

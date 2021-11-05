@@ -1,17 +1,9 @@
 import RefinerDB from "../..";
-import { IndexConfig, IndexType, QueryResult } from "../../interfaces";
+import { cloneBasicItems } from "../fixtures/basicItems";
 
-let items = [
-  { title: "three", id: 3, color: "orange" },
-  { title: "two", id: 2, color: "blue" },
-  { title: "one", id: 1, color: "red" },
-  { title: "four", id: 4, color: "purple" },
-];
-let indexDefinitions: IndexConfig[] = [
-  { key: "title", type: IndexType.String },
-  { key: "id", type: IndexType.Number },
-  { key: "color", type: IndexType.String },
-];
+let basicItems = cloneBasicItems();
+let items = JSON.parse(JSON.stringify(basicItems.items));
+let indexDefinitions = JSON.parse(JSON.stringify(basicItems.indexDefinitions));
 
 describe("Sorting - Basic", () => {
   let search: RefinerDB;
@@ -27,6 +19,18 @@ describe("Sorting - Basic", () => {
     expect(result).toBeTruthy();
     expect(result).toHaveProperty("items");
     expect(result.items).toHaveLength(items.length);
+  });
+
+  // Assumes 'title' is the first index of `basicItems`
+  it("Should sort by the first registered index if no specified filter", async () => {
+    search.setItems(items);
+    // clear out any sort
+    search.setCriteria({ limit: 100 });
+    let result = await search.getQueryResult();
+    expect(result).toBeTruthy();
+    expect(result).toHaveProperty("items");
+    expect(result.items).toHaveLength(items.length);
+    expect(result.items[0].title).toBe("four");
   });
 
   it("Should sort by the specified key, with no filter", async () => {

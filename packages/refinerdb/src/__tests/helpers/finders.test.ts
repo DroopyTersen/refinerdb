@@ -1,6 +1,6 @@
-import { finders } from "../helpers/finders";
+import { finders } from "../../helpers/finders";
 
-import { IndexType, FilterResult, SearchIndex } from "../interfaces";
+import { IndexType, IndexFilterResult, SearchIndex } from "../../interfaces";
 
 describe("search.finders", () => {
   describe("findByNumber", () => {
@@ -127,17 +127,17 @@ describe("search.finders", () => {
         Drama: [4, 6, 7, 8],
       },
     };
-    let indexResultsA: FilterResult = {
+    let indexResultsA: IndexFilterResult = {
       key: "",
       matches: [1, 2, 3, 4],
       indexKey: "A",
     };
-    let indexResultsB: FilterResult = {
+    let indexResultsB: IndexFilterResult = {
       key: "",
       matches: [1, 2],
       indexKey: "B",
     };
-    let genreIndexResults: FilterResult = {
+    let genreIndexResults: IndexFilterResult = {
       key: "",
       matches: [],
       indexKey: "genre",
@@ -161,7 +161,7 @@ describe("search.finders", () => {
     });
 
     it("Should return no options if another indexResult had zero matches", () => {
-      let indexResultsC: FilterResult = {
+      let indexResultsC: IndexFilterResult = {
         key: "",
         matches: [],
         indexKey: "C",

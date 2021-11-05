@@ -74,7 +74,7 @@ export interface QueryCriteria {
   skip?: number;
 }
 
-export interface FilterResult {
+export interface IndexFilterResult {
   indexKey: string;
   key: string;
   matches: number[];
@@ -86,6 +86,7 @@ export interface QueryResult<T = any> {
     [key: string]: RefinerOption[];
   };
   totalCount: number;
+  timestamp: number;
 }
 
 export type DBItem =
@@ -94,18 +95,18 @@ export type DBItem =
     }
   | { key: string | number };
 
-export interface PersistedStore<T extends DBItem> {
+export interface PersistedStore<T extends DBItem = any> {
   query: () => Promise<void>;
   reindex: () => Promise<void>;
   setItems: (items: T[]) => Promise<void>;
   pushItems: (items: T[]) => Promise<void>;
   allItems: PersistedCollection<T>;
-  filterResults: PersistedCollection<FilterResult>;
+  filterResults: PersistedCollection<IndexFilterResult>;
   queryResults: PersistedCollection<QueryResult<T>>;
   indexes: PersistedCollection<IndexConfig>;
 }
 
-export interface PersistedCollection<T extends DBItem> {
+export interface PersistedCollection<T extends DBItem = any> {
   /** Clear all rows in the table */
   clear: () => Promise<void>;
   /** Get a row by primary key */

@@ -1,5 +1,5 @@
-import { IndexFilter } from "../interfaces";
-import { parseFilter } from "../helpers/filterParser";
+import { IndexFilter } from "../../interfaces";
+import { parseFilter } from "../../helpers/filterParser";
 
 export {};
 

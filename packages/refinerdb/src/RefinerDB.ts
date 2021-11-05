@@ -1,23 +1,22 @@
-import Dexie from "dexie";
-import {
-  SearchIndex,
-  IndexConfig,
-  RefinerDBConfig,
-  IndexState,
-  IndexEvent,
-  QueryResult,
-  FilterResult,
-  QueryCriteria,
-} from "./interfaces";
 import * as Comlink from "comlink";
-import { indexers, checkIfModifiedIndexes } from "./helpers/indexers";
-import { createStateMachine, createMachineConfig } from "./stateMachine";
+import Dexie from "dexie";
 import { Interpreter } from "xstate";
-import { setCache, getCache } from "./helpers/cache";
+import { getCache, setCache } from "./helpers/cache";
+import { checkIfModifiedIndexes } from "./helpers/indexers";
+import {
+  IndexConfig,
+  IndexEvent,
+  IndexFilterResult,
+  IndexState,
+  QueryCriteria,
+  QueryResult,
+  RefinerDBConfig,
+  SearchIndex,
+} from "./interfaces";
+import { createMachineConfig, createStateMachine } from "./stateMachine";
+import { queryWithDexieTransaction } from "./transactions/query/queryWithDexieTransaction";
 import reindex from "./transactions/reindex";
-import query from "./transactions/query";
-import { setItems, pushItems } from "./transactions/setItems";
-import createMeasurement from "./utils/utils";
+import { pushItems, setItems } from "./transactions/setItems";
 
 export default class RefinerDB extends Dexie {
   static destroy = (dbName: string) => {
@@ -26,7 +25,7 @@ export default class RefinerDB extends Dexie {
   id: string = "";
   allItems: Dexie.Table<any, number>;
   indexes: Dexie.Table<SearchIndex, string>;
-  filterResults: Dexie.Table<FilterResult, string>;
+  filterResults: Dexie.Table<IndexFilterResult, string>;
   queryResults: Dexie.Table<QueryResult, string>;
 
   _criteria: QueryCriteria = { filter: null };
@@ -162,7 +161,7 @@ export default class RefinerDB extends Dexie {
     if (this.worker) {
       return this.worker.query(this.name, this._indexRegistrations, this.criteria);
     } else {
-      return query(this, queryId);
+      return queryWithDexieTransaction(this, queryId);
     }
   };
 

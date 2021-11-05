@@ -1,9 +1,8 @@
-import RefinerDB from "../RefinerDB";
+import Dexie from "dexie";
 import { SearchIndex } from "..";
 import { getSortedIds, indexers } from "../helpers/indexers";
-import Dexie from "dexie";
-import omit from "lodash/omit";
 import { IndexType } from "../interfaces";
+import RefinerDB from "../RefinerDB";
 import createMeasurement from "../utils/utils";
 
 let activeQueryId = -1;
