@@ -97,7 +97,6 @@ const query = async (db: RefinerDB, queryId: number = Date.now()): Promise<Query
 
       let itemIds: number[] = [];
       // If there are no filters, return all items
-      console.log("🚀 | filters", filters);
       if (filterResults.length === 0) {
         itemIds = await db.allItems.toCollection().primaryKeys();
       } else {

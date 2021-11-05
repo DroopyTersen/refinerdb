@@ -51,6 +51,24 @@ function indexDate(item, primaryKey: number, index: SearchIndex) {
   }
 }
 
+// TODO: unit test this
+// it("should return itemIds that are in order of sortedKeys")
+export const getSortedIds = (index: SearchIndex, values: string[]): number[] => {
+  return index.sortedKeys.reduce((results, hashKey) => {
+    // Is it a match? Or do we not have values?
+    if (values.indexOf(hashKey) > -1 || !values.length) {
+      //It's a match so push any items that aren't already in the results array
+      let hashMatches = index.value[hashKey];
+      hashMatches.forEach((itemId) => {
+        if (results.indexOf(itemId) < 0) {
+          results.push(itemId);
+        }
+      });
+    }
+    return results;
+  }, []);
+};
+
 export const indexers = {
   [IndexType.String]: indexString,
   [IndexType.Number]: indexNumber,

@@ -1,6 +1,6 @@
 import RefinerDB from "../RefinerDB";
 import { SearchIndex } from "..";
-import { indexers } from "../helpers/indexers";
+import { getSortedIds, indexers } from "../helpers/indexers";
 import Dexie from "dexie";
 import omit from "lodash/omit";
 import { IndexType } from "../interfaces";
@@ -40,6 +40,7 @@ export default async function reindex(db: RefinerDB, queryId = Date.now()) {
             } else {
               index.sortedKeys = index.sortedKeys.sort();
             }
+            index.sortedIds = Array.from(new Set(getSortedIds(index, [])));
             db.indexes.put(index);
           });
         }
