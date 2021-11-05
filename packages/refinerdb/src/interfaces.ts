@@ -1,3 +1,5 @@
+import RefinerDB from ".";
+
 export enum IndexType {
   String = "string",
   Number = "number",
@@ -95,30 +97,49 @@ export type DBItem =
     }
   | { key: string | number };
 
-export interface PersistedStore<T extends DBItem = any> {
-  query: () => Promise<void>;
-  reindex: () => Promise<void>;
-  setItems: (items: T[]) => Promise<void>;
-  pushItems: (items: T[]) => Promise<void>;
-  allItems: PersistedCollection<T>;
+export type PersistedStoreCollections = {
+  allItems: PersistedCollection;
   filterResults: PersistedCollection<IndexFilterResult>;
-  queryResults: PersistedCollection<QueryResult<T>>;
-  indexes: PersistedCollection<IndexConfig>;
+  queryResults: PersistedCollection<QueryResult>;
+  indexes: PersistedCollection<SearchIndex>;
+};
+
+export type QueryParams = {
+  indexRegistrations: IndexConfig[];
+  criteria: QueryCriteria;
+  queryId?: number;
+};
+
+export interface ReindexParams {
+  indexingId?: number;
+  indexRegistrations: IndexConfig[];
 }
+
+export type PersistedStoreMethods = {
+  query: (params: QueryParams) => Promise<QueryResult>;
+  reindex: (params: ReindexParams) => Promise<void>;
+  setItems: (items: any[]) => Promise<void>;
+  pushItems: (items: any[]) => Promise<void>;
+  destroy: () => Promise<void>;
+};
+
+export type PersistedStore = PersistedStoreCollections & PersistedStoreMethods;
 
 export interface PersistedCollection<T extends DBItem = any> {
   /** Clear all rows in the table */
   clear: () => Promise<void>;
   /** Get a row by primary key */
-  get: (key: string) => Promise<T>;
+  get: (key: string | number) => Promise<T>;
+  /** Get the total number of items */
+  count: () => Promise<number>;
   /** Put an item into the collection */
   put: (item: T) => Promise<any>;
   /** Loop through all rows in the table */
   each: (callback: (row: T, { primaryKey }) => void) => Promise<void>;
-  /** Replace all the items in the  */
+  /** Replace all the items in the collection */
   bulkAdd: (items: any[]) => Promise<any>;
   /** Ins */
   bulkPut: (items: T[]) => Promise<void>;
   /** Get a bunch of items by IDs */
-  bulkGet: (keys: string[]) => Promise<T[]>;
+  bulkGet: (keys: string[] | number[]) => Promise<T[]>;
 }

@@ -26,15 +26,10 @@ let indexDefinitions: IndexConfig[] = [
 describe("Constructor", () => {
   it("Should setup the proper data stores", () => {
     let search = new RefinerDb("test-db");
-    expect(search.table("allItems")).toBeTruthy();
-    expect(search.table("indexes")).toBeTruthy();
-    expect(search.table("filterResults")).toBeTruthy();
-    try {
-      search.table("INIDLE_TABLE");
-      expect("INVALID TABLE NAME").toBe("SHOULD HAVE THROWN");
-    } catch (err) {
-      // this should have happened
-    }
+    expect(search.store.allItems).toBeTruthy();
+    expect(search.store.filterResults).toBeTruthy();
+    expect(search.store.queryResults).toBeTruthy();
+    expect(search.store.indexes).toBeTruthy();
   });
 
   it("Should respect the passed in SearchIndexerConfig", () => {
@@ -82,9 +77,9 @@ describe("Set Items", function () {
   });
 
   it("Should store the items", async () => {
-    let count = await search.allItems.count();
+    let count = await search.store.allItems.count();
     expect(count).toBe(items.length);
-    let itemTwo = await search.allItems.get(2);
+    let itemTwo = await search.store.allItems.get(2);
     expect(itemTwo).toBeTruthy();
     expect(itemTwo).toHaveProperty("title");
 
@@ -107,8 +102,8 @@ describe("ReIndexing", () => {
     search.setIndexes(indexDefinitions);
     await search.setItems(items);
     await search.reIndex();
-    titleIndex = await search.indexes.get("title");
-    idIndex = await search.indexes.get("id");
+    titleIndex = await search.store.indexes.get("title");
+    idIndex = await search.store.indexes.get("id");
   });
 
   it("Should create a SearchIndex in the indexes store for each registered indexDefinition", () => {
@@ -149,8 +144,8 @@ describe("Auto Indexing", () => {
 
   it("Should automatically reindex when new items are added", async () => {
     search = new RefinerDb("test-auto-indexing", { indexDelay: 300 });
-    let titleIndex = await search.indexes.get("title");
-    let idIndex = await search.indexes.get("id");
+    let titleIndex = await search.store.indexes.get("title");
+    let idIndex = await search.store.indexes.get("id");
     expect(titleIndex).toBeFalsy();
     expect(idIndex).toBeFalsy();
 
@@ -165,8 +160,8 @@ describe("Auto Indexing", () => {
 
       // Wait for the auto index
       setTimeout(async () => {
-        titleIndex = await search.indexes.get("title");
-        idIndex = await search.indexes.get("id");
+        titleIndex = await search.store.indexes.get("title");
+        idIndex = await search.store.indexes.get("id");
 
         expect(search.getIndexState()).toBe(IndexState.IDLE);
         expect(titleIndex).toHaveProperty("value");

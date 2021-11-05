@@ -29,13 +29,11 @@ const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
         setIndexState(state);
       },
       indexDelay: 500,
+      indexes: indexes,
     };
     let refinerDB = new RefinerDB(name, dbConfig);
     if (items) {
       refinerDB.setItems(items);
-    }
-    if (indexes) {
-      refinerDB.setIndexes(indexes);
     }
     return refinerDB;
   });
