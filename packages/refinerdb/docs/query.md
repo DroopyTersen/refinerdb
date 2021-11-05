@@ -61,10 +61,6 @@ Foreach `db_indexRegistration`,
 
 - If not, call `finders.findByIndexFilter` and then persist the result
   - This call goes through an N\*M reduce function to get the itemIds by looping over each indexed hashed value, checking for a match, and creating a distinct list of itemids
-  - TODO: If there is not a value, can we short circuit and just return all ItemIds right away?
-    - can we store a itemId's reference before looping through?
-    - Would we have to create an automatic item id index?
-    - Or hash a value of "empty" when we index and set the values to
   ```ts
   matches = finders.findByIndexFilter(
     { indexDefinition, ...filter },
@@ -80,5 +76,76 @@ Foreach `db_indexRegistration`,
     matches,
   });
   ```
+
+### Create `refinerOptions`
+
+Loop through each index registration
+
+- If it has `skipRefinerOptions` return `[]`
+- Otherwise calculate refinerOptions
+  ```ts
+  let index = allIndexes.find((i) => i.key === indexRegistration.key);
+  return finders.getRefinerOptions(index, filterResults);
+  ```
+
+reduce them into an object
+
+```ts
+refiners = allRefinerOptions.reduce((refiners, options, i) => {
+  refiners[db._indexRegistrations[i].key] = options;
+  return refiners;
+}, {});
+```
+
+### Merge ordered `itemIds`
+
+Assumes `filteredResults` is an array of ordered itemIds, `orderedSets`
+
+Find the correct orderedSet (and maybe reverse it)
+
+```ts
+let itemIds: number[] = [];
+
+// Assumes `filteredResults` is an array of ordered itemIds,
+// each associated with an indexRegistration
+let orderedSets = filterResults;
+// Sorting, either use the specified sort or the first index key
+let sortKey = db._criteria.sort || db._indexRegistrations[0].key;
+// Find the result set for the index we are supposed to sort by
+let target = orderedSets.find((r) => r.indexKey === sortKey);
+// If descending reverse the itemIds (they should already be sorted asc)
+if (db._criteria.sortDir === "desc") {
+  target.matches = reverse(target.matches);
+}
+```
+
+### Apply an intersection logic
+
+```ts
+// move the targeted ordered set to the front
+orderedSets = [target, ...orderedSets.filter((r) => r.indexKey !== sortKey)].filter(Boolean);
+// In order to be a valid result, the itemId needs to appear in EVERY orderedSet
+// The intersection utility function wil use the first set's order to determine the order
+itemIds = intersection(...orderedSets.map((r) => r.matches).filter(Boolean));
+```
+
+### Hydrate Items based `trimmedIds`
+
+```ts
+// Apply any pagination
+let skip = db._criteria.skip || 0;
+let limit = db._criteria.limit || 1000;
+let trimmedIds = itemIds.slice(skip, skip + limit);
+
+// Hydrate the items based in the array of itemIds
+let items = await db.allItems.bulkGet(trimmedIds);
+```
+
+### Persist the QueryResult
+
+```ts
+result = { items, refiners, totalCount: itemIds.length, key: criteriaKey };
+await db.queryResults.put(result);
+```
 
 END DEXIE TRANSACTION

@@ -108,14 +108,14 @@ export interface PersistedStore<T extends DBItem> {
 export interface PersistedCollection<T extends DBItem> {
   /** Clear all rows in the table */
   clear: () => Promise<void>;
-  /** remove a row from the table */
-  remove: (key: string) => Promise<void>;
   /** Get a row by primary key */
   get: (key: string) => Promise<T>;
+  /** Put an item into the collection */
+  put: (item: T) => Promise<any>;
   /** Loop through all rows in the table */
   each: (callback: (row: T, { primaryKey }) => void) => Promise<void>;
   /** Replace all the items in the  */
-  bulkAdd: (items: T[]) => Promise<void>;
+  bulkAdd: (items: any[]) => Promise<any>;
   /** Ins */
   bulkPut: (items: T[]) => Promise<void>;
   /** Get a bunch of items by IDs */
