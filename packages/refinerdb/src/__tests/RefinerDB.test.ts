@@ -115,7 +115,7 @@ describe("RefinerDB", () => {
       idIndex = await search.store.indexes.get("id");
     });
 
-    it("Should create a SearchIndex in the indexes store for each registered indexDefinition", () => {
+    it("Should create a SearchIndex in the indexes store for each registered indexDefinition", async () => {
       expect(titleIndex).toBeTruthy();
       expect(titleIndex).toHaveProperty("key");
       expect(titleIndex).toHaveProperty("value");

@@ -63,25 +63,9 @@ function ItemsWrapper({ items }) {
   let refinerDB = useRefinerDB();
   // TODO: do this better. only want the delay on mount
   useUpdateEffect(() => {
-    let isUnmounted = false;
     if (refinerDB && items) {
-      refinerDB.allItems.count().then((count) => {
-        if (isUnmounted) return;
-        if (!count) {
-          refinerDB.setItems(items);
-        } else {
-          setTimeout(() => {
-            if (!isUnmounted) {
-              refinerDB.setItems(items);
-            }
-          }, 2000);
-        }
-      });
+      refinerDB.setItems(items);
     }
-
-    return () => {
-      isUnmounted = true;
-    };
   }, [items]);
   return null;
 }

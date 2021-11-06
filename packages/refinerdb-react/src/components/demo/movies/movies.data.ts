@@ -13,6 +13,6 @@ export const getMoviesAndTv = async () => {
     item.type = "TV Show";
     return item;
   });
-  let allItems = [...movies, ...tvShows].map((item) => omit(item, "id"));
+  let allItems = [...movies, ...tvShows];
   return allItems;
 };

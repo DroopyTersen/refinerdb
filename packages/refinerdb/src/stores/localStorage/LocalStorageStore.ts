@@ -1,16 +1,16 @@
-import { BasePersistedStore } from "../BasePersistedStore";
-import Dexie from "dexie";
-import { QueryParams, QueryResult, PersistedStore, ReindexParams } from "../..";
+import { PersistedStore, QueryParams, QueryResult, ReindexParams } from "../..";
+import { indexItems } from "../../transactions/indexItems";
 import _query from "../../transactions/query/_query";
+import { BasePersistedStore } from "../BasePersistedStore";
 import { LocalStorageCollection } from "./LocalStorageCollection";
 
 export class LocalStorageStore extends BasePersistedStore implements PersistedStore {
-  constructor(dbName) {
+  constructor(dbName, idProperty = "id") {
     super();
-    this.allItems = new LocalStorageCollection(dbName, "allItems");
-    this.indexes = new LocalStorageCollection(dbName, "indexes");
-    this.filterResults = new LocalStorageCollection(dbName, "filterResults");
-    this.queryResults = new LocalStorageCollection(dbName, "queryResults");
+    this.allItems = new LocalStorageCollection(dbName, "allItems", idProperty);
+    this.indexes = new LocalStorageCollection(dbName, "indexes", "key");
+    this.filterResults = new LocalStorageCollection(dbName, "filterResults", "key");
+    this.queryResults = new LocalStorageCollection(dbName, "queryResults", "key");
   }
 
   destroy = async () => {
@@ -21,7 +21,12 @@ export class LocalStorageStore extends BasePersistedStore implements PersistedSt
     return _query(this, params);
   };
 
-  reindex = async (params: ReindexParams) => {};
+  reindex = async (params: ReindexParams) => {
+    this.filterResults.clear();
+    this.queryResults.clear();
+    this.indexes.clear();
+    await indexItems(this, params);
+  };
 
   setItems = async (items: any[]) => {
     await Promise.all([

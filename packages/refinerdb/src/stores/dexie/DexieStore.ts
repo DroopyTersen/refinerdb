@@ -2,7 +2,7 @@ import { BasePersistedStore } from "../BasePersistedStore";
 import Dexie from "dexie";
 import { QueryParams, QueryResult, PersistedStore, ReindexParams } from "../..";
 import _query from "../../transactions/query/_query";
-import { indexItems } from "./dexie.indexItems";
+import { indexItems } from "../../transactions/indexItems";
 
 export class DexieStore extends BasePersistedStore implements PersistedStore {
   db: Dexie;

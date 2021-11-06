@@ -1,6 +1,6 @@
-import { IndexConfig, PersistedStoreCollections, ReindexParams, SearchIndex } from "../..";
-import { getSortedIds, indexers } from "../../helpers/indexers";
-import { IndexType } from "../../interfaces";
+import { IndexConfig, PersistedStoreCollections, ReindexParams, SearchIndex } from "..";
+import { getSortedIds, indexers } from "../helpers/indexers";
+import { IndexType } from "../interfaces";
 
 let transactionId = -1;
 
@@ -29,7 +29,7 @@ export async function indexItems(
         }
       });
     })
-    .then(() => {
+    .then(async () => {
       if (transactionId === indexingId) {
         // Finalize the indexes by sorting keys and ids to help optimize queries
         indexes.forEach((index) => {
@@ -41,7 +41,7 @@ export async function indexItems(
           index.sortedIds = Array.from(new Set(getSortedIds(index, [])));
         });
         // Persist the indexes
-        store.indexes.bulkPut(indexes);
+        await store.indexes.bulkPut(indexes);
       }
     })
     .catch((err) => {

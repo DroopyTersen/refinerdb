@@ -1,5 +1,6 @@
 import RefinerDB from "../..";
 import { cloneBasicItems } from "../fixtures/basicItems";
+import { resetMockStorage, setupMockStorageApis, teardownMockStorageApis } from "../storageMocks";
 
 let basicItems = cloneBasicItems();
 let items = JSON.parse(JSON.stringify(basicItems.items));
@@ -7,9 +8,15 @@ let indexDefinitions = JSON.parse(JSON.stringify(basicItems.indexDefinitions));
 
 describe.only("Querying - Basic", () => {
   let search: RefinerDB;
+
   beforeAll(async () => {
+    setupMockStorageApis();
     search = new RefinerDB("test-sorting");
     search.setIndexes(indexDefinitions);
+  });
+
+  afterEach(() => {
+    resetMockStorage();
   });
 
   it("Should return items with an 'id' property if the original item had an 'id'", async () => {
@@ -41,5 +48,9 @@ describe.only("Querying - Basic", () => {
     expect(result).toBeTruthy();
     expect(result).toHaveProperty("timestamp");
     expect(result.timestamp).not.toEqual(prevTimestamp);
+  });
+
+  afterAll(() => {
+    teardownMockStorageApis();
   });
 });

@@ -1,4 +1,5 @@
 import { PersistedCollection } from "../..";
+import createMeasurement from "../../utils/utils";
 
 export class LocalStorageCollection implements PersistedCollection {
   key = "";
@@ -13,29 +14,39 @@ export class LocalStorageCollection implements PersistedCollection {
   clear = async () => {
     localStorage.removeItem(this.key);
   };
-  getAllItems = () => {
+
+  private getItemsMap = () => {
     try {
-      let items = JSON.parse(localStorage.getItem(this.key));
-      return items;
+      let itemsMap = JSON.parse(localStorage.getItem(this.key));
+      return itemsMap;
     } catch (err) {
-      return null;
+      return {};
     }
   };
+  private getAllItems = () => {
+    let itemsMap = this.getItemsMap() || {};
+    return Object.values(itemsMap);
+  };
+
   private setAllItems = (items: any[]) => {
-    localStorage.setItem(this.key, JSON.stringify(items));
+    let objMap = items.reduce((map, item) => {
+      map[item[this.idProperty]] = item;
+      return map;
+    }, {});
+    localStorage.setItem(this.key, JSON.stringify(objMap));
   };
+
   get = async (id: string | number) => {
-    let items = this.getAllItems();
-    return items?.find?.((item) => item[this.idProperty] === id);
+    let itemsMap = this.getItemsMap() || {};
+    return itemsMap[id];
   };
+
   put = async (item: any) => {
-    let items = this.getAllItems();
-    if (!items) {
-      items = [];
-    }
-    items.push(item);
-    this.setAllItems(items);
+    let itemsMap = this.getItemsMap() || {};
+    itemsMap[item[this.idProperty]] = item;
+    localStorage.setItem(this.key, JSON.stringify(itemsMap));
   };
+
   count = async () => {
     return this.getAllItems()?.length || 0;
   };
@@ -52,9 +63,10 @@ export class LocalStorageCollection implements PersistedCollection {
     this.setAllItems(newItems);
   };
   bulkGet = async (ids: string[] | number[]) => {
-    let items = this.getAllItems();
-    return items.filter((item: any) => {
-      return (ids as any).includes(item[this.idProperty]);
-    });
+    let bulkGetMeasurement = createMeasurement("bulkGet Measurement");
+    bulkGetMeasurement.start();
+    let itemsMap = this.getItemsMap();
+    bulkGetMeasurement.stop();
+    return ids.map((id) => itemsMap[id]).filter(Boolean);
   };
 }

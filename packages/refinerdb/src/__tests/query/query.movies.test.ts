@@ -1,6 +1,7 @@
 import movies from "../fixtures/movies";
 import RefinerDB from "../..";
 import { IndexConfig, IndexType, QueryResult } from "../../interfaces";
+import { resetMockStorage, setupMockStorageApis, teardownMockStorageApis } from "../storageMocks";
 
 let items = movies.map((item: any) => {
   item.released = new Date(item.released + " GMT-5000");
@@ -27,7 +28,10 @@ let indexes: IndexConfig[] = [
 
 describe("Query Tests - Movies Data Set", () => {
   let search: RefinerDB;
+
   beforeAll(async () => {
+    setupMockStorageApis();
+    resetMockStorage();
     search = new RefinerDB("movies", { indexDelay: 100 });
     search.setIndexes(indexes);
     await search.setItems(items);
@@ -106,5 +110,9 @@ describe("Query Tests - Movies Data Set", () => {
         expect(movie.score).toBeGreaterThanOrEqual(7);
       });
     });
+  });
+
+  afterAll(() => {
+    teardownMockStorageApis();
   });
 });

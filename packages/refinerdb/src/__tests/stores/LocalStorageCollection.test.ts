@@ -52,7 +52,6 @@ describe("LocalStorageCollection", () => {
 
     it("Should allow specifying a custom 'idProperty'", async () => {
       let collection = new LocalStorageCollection("testDB", "testCollection", "_id");
-      console.log(collection.idProperty);
       let item = { _id: "123", name: "one" };
       let item2 = { _id: "456", name: "two" };
       await collection.put(item);
@@ -63,6 +62,63 @@ describe("LocalStorageCollection", () => {
       expect(fetchedItem1._id).toEqual(item._id);
       expect(fetchedItem2).toBeTruthy();
       expect(fetchedItem2._id).toEqual(item2._id);
+    });
+  });
+
+  describe("Count", () => {
+    it("Should return the correct count", async () => {
+      let collection = new LocalStorageCollection("testDB", "testCollection");
+      let item = { id: 1, name: "one" };
+      let item2 = { id: 2, name: "two" };
+      collection.put(item);
+      collection.put(item2);
+      let count = await collection.count();
+      expect(count).toEqual(2);
+    });
+  });
+
+  describe("Each", () => {
+    it("Should get called for each item", async () => {
+      let ids = [];
+      let collection = new LocalStorageCollection("testDB", "testCollection");
+      let item = { id: 1, name: "one" };
+      let item2 = { id: 2, name: "two" };
+      collection.put(item);
+      collection.put(item2);
+
+      await collection.each((item) => {
+        ids.push(item.id);
+      });
+
+      expect(ids).toHaveLength(2);
+      expect(ids[0]).toEqual(1);
+      expect(ids[1]).toEqual(2);
+    });
+  });
+
+  describe("Bulk operations", () => {
+    it("Should allow bulk inserts", async () => {
+      let collection = new LocalStorageCollection("testDB", "testCollection");
+      let items = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+        { id: 3, name: "three" },
+      ];
+      await collection.bulkAdd(items);
+      let count = await collection.count();
+      expect(count).toEqual(3);
+    });
+
+    it("Should allow bulk retrievals", async () => {
+      let collection = new LocalStorageCollection("testDB", "testCollection");
+      let items = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+        { id: 3, name: "three" },
+      ];
+      await collection.bulkAdd(items);
+      let retrievedItems = await collection.bulkGet(items.map((item) => item.id));
+      expect(retrievedItems.length).toEqual(items.length);
     });
   });
 

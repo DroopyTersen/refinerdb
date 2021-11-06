@@ -1,5 +1,6 @@
 import RefinerDB from "../..";
 import { cloneBasicItems } from "../fixtures/basicItems";
+import { resetMockStorage, setupMockStorageApis, teardownMockStorageApis } from "../storageMocks";
 
 let basicItems = cloneBasicItems();
 let items = JSON.parse(JSON.stringify(basicItems.items));
@@ -8,8 +9,13 @@ let indexDefinitions = JSON.parse(JSON.stringify(basicItems.indexDefinitions));
 describe("Sorting - Basic", () => {
   let search: RefinerDB;
   beforeAll(async () => {
+    setupMockStorageApis();
     search = new RefinerDB("test-sorting");
     search.setIndexes(indexDefinitions);
+  });
+
+  afterEach(() => {
+    resetMockStorage();
   });
 
   it("Should return all items if there is no filter", async () => {
@@ -108,5 +114,9 @@ describe("Sorting - Basic", () => {
     result = await search.getQueryResult();
     expect(result.items).toHaveLength(1);
     expect(result.items[0].title).toBe("one");
+  });
+
+  afterAll(() => {
+    teardownMockStorageApis();
   });
 });
