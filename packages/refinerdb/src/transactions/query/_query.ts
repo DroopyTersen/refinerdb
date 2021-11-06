@@ -88,6 +88,10 @@ const _query = async (
   // Check for a stale query id after every async activity
   if (activeQueryId !== queryId) return;
 
+  // TODO: only store the itemIds in cache to save space?
+  // Would have to hydrate everytime them but that might be
+  // an okay tradeoff to save on space?
+
   result = {
     items,
     refiners,
