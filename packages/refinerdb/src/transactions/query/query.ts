@@ -79,7 +79,7 @@ const query = async (
   );
   intersectionMeasure.stop();
 
-  let hydrateItemsMeasurement = createMeasurement("query:hydrateItems!" + queryId);
+  let hydrateItemsMeasurement = createMeasurement("query:hydrateItems!XX" + queryId);
   hydrateItemsMeasurement.start();
   // Hydrate the items based in the array of itemIds
   let items = await store.allItems.bulkGet(trimmedIds);

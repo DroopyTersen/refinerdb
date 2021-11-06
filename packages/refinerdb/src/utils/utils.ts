@@ -29,3 +29,19 @@ export default function createMeasurement(name: string) {
 
   return { start, stop };
 }
+
+export function intersection(...allArrays) {
+  let [firstArray, ...arrays] = allArrays;
+  let result = [];
+  firstArray = firstArray || [];
+  arrays = arrays || [];
+
+  for (let i = 0; i < firstArray.length; i++) {
+    let currentItem = firstArray[i];
+    let isInEveryArray = arrays.every((array) => array.includes(currentItem));
+    if (isInEveryArray) {
+      result.push(currentItem);
+    }
+  }
+  return result;
+}

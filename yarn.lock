@@ -9675,10 +9675,25 @@ junk@^3.1.0:
   resolved "https://registry.yarnpkg.com/junk/-/junk-3.1.0.tgz#31499098d902b7e98c5d9b9c80f43457a88abfa1"
   integrity sha512-pBxcB3LFc8QVgdggvZWyeys+hnrNWg4OcZIU/1X59k5jQdLBlCsYGRQaz234SqoRLTCgMH00fY0xRJH+F9METQ==
 
+just-flatten-it@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/just-flatten-it/-/just-flatten-it-4.2.1.tgz#2866fcbf9db00092b8c5632bb6507081eaabbb73"
+  integrity sha512-ORN9souHU0RpfOjRZXC2hkYBt1VcKdU4nLrwiOpqvb8R1dxsxeBvYngDDLi44JNuBBGZOiU3lTQ+8rGt9MpOlA==
+
 just-omit@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/just-omit/-/just-omit-1.4.1.tgz#4808511c75223ed9c9051353a81a29cbe4226935"
   integrity sha512-NS9DXMye6FcovMyf4q+mROFRkb+fKvp4YfHdo0VC0a6V2jbRCMh1/3Uy1OfvrBVpaA55S2PeCCSoumW3/9FxDQ==
+
+just-safe-get@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/just-safe-get/-/just-safe-get-3.1.1.tgz#2d4b85522fedd26d964e5e84c2ded5d740abe2c2"
+  integrity sha512-KdDlQZVScxBClIiauvDHz7VaZlYeABO69nXJjrOveiUvMjcaVs6fjaOBd0M6GtxAsOyeq6/BDMtKdM4W7RiztQ==
+
+just-unique@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/just-unique/-/just-unique-3.4.1.tgz#eefb2c2260c58d15895473ebadd8af95c9367e78"
+  integrity sha512-Kwqzu0HSNw1sGA1phF/tylmcDLrr6107A1xu4r+Rk3yWPQG02EOx1n+0cMQz+5gQkqMc91nOxDq7986BZ54I8w==
 
 keyv@^3.0.0:
   version "3.1.0"

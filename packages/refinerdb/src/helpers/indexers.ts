@@ -1,5 +1,5 @@
 import { IndexType, SearchIndex, IndexConfig } from "../interfaces";
-import get from "lodash/get";
+import get from "just-safe-get";
 export function indexValues(hashValues: string[] | number[], primaryKey, index: SearchIndex) {
   if (!index.value) index.value = {};
   hashValues.forEach((hash) => {

@@ -5,12 +5,12 @@ import {
   IndexFilterResult,
   RefinerOption,
 } from "../interfaces";
-import flatten from "lodash/flatten";
-import uniq from "lodash/uniq";
-import intersection from "lodash/intersection";
+import flatten from "just-flatten-it";
+import uniq from "just-unique";
 
 import { findNumberRange, findStringRange } from "./binarySearch";
 import { getSortedIds } from "./indexers";
+import { intersection } from "../utils/utils";
 
 function findByNumber(index: SearchIndex, min?: number, max?: number) {
   if (min === undefined && max === undefined && index?.sortedIds?.length) return index.sortedIds;
