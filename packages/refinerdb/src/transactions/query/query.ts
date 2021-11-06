@@ -15,7 +15,7 @@ import { getRefiners } from "./getRefiners";
 
 let activeQueryId = -1;
 
-const _query = async (
+const query = async (
   store: PersistedStoreCollections,
   { indexRegistrations, criteria, queryId }: QueryParams
 ): Promise<QueryResult> => {
@@ -107,4 +107,4 @@ const _query = async (
   return result;
 };
 
-export default _query;
+export default query;

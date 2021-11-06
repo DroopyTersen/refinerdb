@@ -12679,7 +12679,7 @@ redent@^3.0.0:
     strip-indent "^3.0.0"
 
 refinerdb@../refinerdb:
-  version "0.2.0"
+  version "1.0.2-1"
 
 refractor@^3.1.0:
   version "3.5.0"

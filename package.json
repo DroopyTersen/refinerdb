@@ -4,10 +4,7 @@
   "description": "Monorepo fo refinerdb and it's supplemental packages",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "refinerdb",
-    "refinerdb-react",
-    "refinerdb-react-demo"
+    "packages/*"
   ],
   "scripts": {
     "core": "yarn workspace refinerdb",
@@ -15,7 +12,6 @@
     "start": "npm-run-all --parallel start:core start:react",
     "start:core": "yarn core start",
     "start:react": "yarn react start",
-    "start:demo": "yarn demo start",
     "build": "yarn build:core && yarn build:react",
     "build:core": "yarn core build",
     "build:react": "yarn react build",

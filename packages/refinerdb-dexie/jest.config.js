@@ -7,6 +7,7 @@ const config = {
   },
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  setupFiles: ["fake-indexeddb/auto"],
   preset: "ts-jest/presets/default-esm",
 };
 

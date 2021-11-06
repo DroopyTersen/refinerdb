@@ -1,26 +1,22 @@
 import * as Comlink from "comlink";
-import Dexie from "dexie";
 import { Interpreter } from "xstate";
-import { PersistedCollection, PersistedStore, PersistedStoreCollections } from ".";
+import { PersistedStore } from ".";
 import { getCache, setCache } from "./helpers/cache";
 import { checkIfModifiedIndexes } from "./helpers/indexers";
 import {
   IndexConfig,
   IndexEvent,
-  IndexFilterResult,
   IndexState,
   QueryCriteria,
   QueryResult,
   RefinerDBConfig,
-  SearchIndex,
 } from "./interfaces";
 import { createMachineConfig, createStateMachine } from "./stateMachine";
-import { createDexieStore } from "./stores/dexie/DexieStore";
 import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
 
-export default class RefinerDB extends Dexie {
+export default class RefinerDB {
   store: PersistedStore;
-
+  name: string;
   _criteria: QueryCriteria = { filter: null };
   _indexRegistrations: IndexConfig[] = [];
 
@@ -34,11 +30,11 @@ export default class RefinerDB extends Dexie {
   };
 
   constructor(dbName: string, config?: RefinerDBConfig) {
-    super(dbName);
     this.config = {
       ...this.config,
       ...config,
     };
+    this.name = dbName;
     // this.store = createDexieStore(dbName);
     this.store = createLocalStorageStore(dbName);
 

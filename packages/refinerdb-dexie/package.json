@@ -1,6 +1,6 @@
 {
-  "name": "refinerdb",
-  "description": "A browser database (indexeddb wrapper) used to support advanced search scenarios. An engine that could power an Amazon Refiner-like search experience.",
+  "name": "refinerdb-dexie",
+  "description": "An IndexedDB persisted storage plugin for RefinerDB. Built on top of Dexie.js.",
   "version": "1.1.0-0",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -18,10 +18,8 @@
     "postbuild": "npm run build:worker",
     "build:esm": "tsc -p tsconfig.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
-    "build:worker": "esbuild src/workers/refinerdb.worker.ts --bundle --minify --sourcemap --outfile=lib/refinderdb.worker.js",
-    "clean": "rimraf lib",
-    "prerelease": "npm run build",
-    "release": "np --any-branch --tag=beta"
+    "build:worker": "esbuild src/workers/refinerdb.worker.ts --bundle --minify --sourcemap --outfile=lib/refinderdb.dexie.worker.js",
+    "clean": "rimraf lib"
   },
   "repository": {
     "type": "git",
@@ -34,19 +32,22 @@
   "homepage": "https://github.com/DroopyTersen/refinerdb#readme",
   "dependencies": {
     "comlink": "^4.3.1",
-    "lodash": "^4.17.15",
-    "xstate": "^4.26.0"
+    "dexie": "^3.0.3"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",
     "esbuild": "^0.13.12",
+    "fake-indexeddb": "^3.1.7",
     "jest": "^27.3.1",
     "majestic": "^1.8.1",
-    "np": "^7.5.0",
+    "refinerdb": "../refinerdb",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.7",
     "typescript": "4.4.4"
+  },
+  "peerDependencies": {
+    "refinerdb": "../refinerdb"
   },
   "license": "MIT",
   "keywords": [

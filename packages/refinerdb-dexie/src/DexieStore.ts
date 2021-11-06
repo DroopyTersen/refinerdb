@@ -1,8 +1,11 @@
-import { BasePersistedStore } from "../BasePersistedStore";
 import Dexie from "dexie";
-import { QueryParams, QueryResult, PersistedStore, ReindexParams } from "../..";
-import _query from "../../transactions/query/_query";
-import { indexItems } from "../../transactions/indexItems";
+import type {
+  QueryParams,
+  QueryResult,
+  PersistedStore,
+  ReindexParams,
+} from "refinerdb";
+import { query, indexItems, BasePersistedStore } from "refinerdb";
 
 export class DexieStore extends BasePersistedStore implements PersistedStore {
   db: Dexie;
@@ -46,7 +49,7 @@ export class DexieStore extends BasePersistedStore implements PersistedStore {
   };
 
   query = async (params: QueryParams): Promise<QueryResult> => {
-    return this.transaction(() => _query(this, params));
+    return this.transaction(() => query(this, params));
   };
 
   reindex = async (params: ReindexParams) => {

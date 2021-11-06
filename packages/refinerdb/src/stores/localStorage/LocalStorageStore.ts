@@ -1,6 +1,6 @@
 import { PersistedStore, QueryParams, QueryResult, ReindexParams } from "../..";
 import { indexItems } from "../../transactions/indexItems";
-import _query from "../../transactions/query/_query";
+import _query from "../../transactions/query/query";
 import { BasePersistedStore } from "../BasePersistedStore";
 import { LocalStorageCollection } from "./LocalStorageCollection";
 
