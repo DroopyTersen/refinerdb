@@ -1,6 +1,6 @@
 import { PersistedCollection } from "../..";
 
-export class LocalStorageCollection<T = any> implements PersistedCollection {
+export class LocalStorageCollection implements PersistedCollection {
   key = "";
   name = "";
   idProperty = "id";
@@ -13,7 +13,7 @@ export class LocalStorageCollection<T = any> implements PersistedCollection {
   clear = async () => {
     localStorage.removeItem(this.key);
   };
-  private getAllItems = () => {
+  getAllItems = () => {
     try {
       let items = JSON.parse(localStorage.getItem(this.key));
       return items;
