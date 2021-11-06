@@ -21,6 +21,7 @@
     "build:react": "yarn react build",
     "test": "yarn test:core",
     "test:core": "yarn core test",
+    "release:alpha": "lerna publish -y --canary --preid alpha --npm-tag=alpha",
     "release": "yarn release:core && yarn release:react",
     "release:core": "yarn core release",
     "release:react": "yarn react release"
