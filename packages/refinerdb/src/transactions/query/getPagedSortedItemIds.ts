@@ -1,6 +1,5 @@
-import intersection from "lodash/intersection";
-import reverse from "lodash/reverse";
 import { IndexFilterResult, IndexConfig, QueryCriteria } from "../..";
+import { intersection } from "../../utils/utils";
 
 /**
 Turns an array of sorted sets of itemIds (per index) into a single array of itemIds
@@ -25,7 +24,7 @@ export function getPagedSortedItemIds(
   let target = orderedSets.find((r) => r.indexKey === sortKey);
   // If descending reverse the itemIds (they should already be sorted asc)
   if (criteria.sortDir === "desc") {
-    target.matches = reverse(target.matches);
+    target.matches = target.matches.reverse();
   }
   // order the result sets by which indexes to sort by
   // so those get used in the intersection

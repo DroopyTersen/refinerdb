@@ -46,7 +46,7 @@
     "typescript": "4.4.4"
   },
   "peerDependencies": {
-    "refinerdb": "../refinerdb"
+    "refinerdb": "*"
   },
   "license": "MIT",
   "keywords": [

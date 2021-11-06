@@ -52,3 +52,6 @@ typings/
 coverage
 
 lib
+
+.yarn/*
+.yarn/cache

@@ -30,6 +30,22 @@ export default function createMeasurement(name: string) {
   return { start, stop };
 }
 
+export function intersection(...allArrays) {
+  let [firstArray, ...arrays] = allArrays;
+  firstArray = firstArray || [];
+  arrays = arrays || [];
+  let result = [];
+
+  for (let i = 0; i < firstArray.length; i++) {
+    let currentValue = firstArray[i];
+    let isInAllArrays = arrays.every((array) => array.includes(currentValue));
+    if (isInAllArrays) {
+      result.push(currentValue);
+    }
+  }
+  return result;
+}
+
 export async function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

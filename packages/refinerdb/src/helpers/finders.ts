@@ -5,18 +5,18 @@ import {
   IndexFilterResult,
   RefinerOption,
 } from "../interfaces";
-import flatten from "lodash/flatten";
-import uniq from "lodash/uniq";
-import intersection from "lodash/intersection";
 
 import { findNumberRange, findStringRange } from "./binarySearch";
 import { getSortedIds } from "./indexers";
+import { intersection } from "../utils/utils";
+import flatten from "just-flatten-it";
+import unique from "just-unique";
 
 function findByNumber(index: SearchIndex, min?: number, max?: number) {
   if (min === undefined && max === undefined && index?.sortedIds?.length) return index.sortedIds;
 
   let hashes = findNumberRange(index.sortedKeys, min, max);
-  return uniq(flatten(hashes.map((hash) => index.value[hash])));
+  return unique(flatten(hashes.map((hash) => index.value[hash])));
 }
 
 function findByDate(
@@ -34,7 +34,7 @@ function findByDate(
 
   let hashes = findStringRange(index.sortedKeys, minDateStr, maxDateStr);
   // console.log("TCL: hashes", startIndex, endIndex, hashes);
-  return uniq(flatten(hashes.map((hash) => index.value[hash])));
+  return unique(flatten(hashes.map((hash) => index.value[hash])));
 }
 
 function findByString(index: SearchIndex, values: string[] = []) {
@@ -55,7 +55,7 @@ function findByString(index: SearchIndex, values: string[] = []) {
       return matches.length;
     });
     let itemKeys = filteredHashes.map((hash) => index.value[hash]);
-    return uniq(flatten(itemKeys));
+    return unique(flatten(itemKeys));
   }
 }
 
