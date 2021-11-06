@@ -29,3 +29,7 @@ export default function createMeasurement(name: string) {
 
   return { start, stop };
 }
+
+export async function wait(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

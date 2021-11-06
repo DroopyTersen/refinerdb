@@ -1,5 +1,5 @@
 import * as Comlink from "comlink";
-import { Interpreter } from "xstate";
+import type { Interpreter } from "xstate";
 import { PersistedStore } from ".";
 import { getCache, setCache } from "./helpers/cache";
 import { checkIfModifiedIndexes } from "./helpers/indexers";
