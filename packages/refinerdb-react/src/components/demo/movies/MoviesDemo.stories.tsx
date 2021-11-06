@@ -58,7 +58,6 @@ function RefinerPanel() {
 
 function ResultsView() {
   let results = useQueryResult();
-  console.log;
   if (!results) return <div>Loading...</div>;
   return (
     <>
@@ -66,9 +65,9 @@ function ResultsView() {
       <div>
         {results?.items
           ?.slice(0, 25)
-          ?.filter((item) => item.__itemId)
+          ?.filter((item) => item.id)
           ?.map((item) => (
-            <div key={item.__itemId}>{item.title}</div>
+            <div key={item.id}>{item.title}</div>
           ))}
       </div>
       {results.totalCount > 25 && <div>...</div>}
