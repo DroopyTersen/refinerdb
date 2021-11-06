@@ -1,38 +1,32 @@
-import Dexie from "dexie";
-import {
-  SearchIndex,
-  IndexConfig,
-  RefinerDBConfig,
-  IndexState,
-  IndexEvent,
-  QueryResult,
-  FilterResult,
-  QueryCriteria,
-} from "./interfaces";
 import * as Comlink from "comlink";
-import { indexers, checkIfModifiedIndexes } from "./helpers/indexers";
-import { createStateMachine, createMachineConfig } from "./stateMachine";
+import Dexie from "dexie";
 import { Interpreter } from "xstate";
-import { setCache, getCache } from "./helpers/cache";
-import reindex from "./transactions/reindex";
-import query from "./transactions/query";
-import { setItems, pushItems } from "./transactions/setItems";
-import createMeasurement from "./utils/utils";
+import { PersistedCollection, PersistedStore, PersistedStoreCollections } from ".";
+import { getCache, setCache } from "./helpers/cache";
+import { checkIfModifiedIndexes } from "./helpers/indexers";
+import {
+  IndexConfig,
+  IndexEvent,
+  IndexFilterResult,
+  IndexState,
+  QueryCriteria,
+  QueryResult,
+  RefinerDBConfig,
+  SearchIndex,
+} from "./interfaces";
+import { createMachineConfig, createStateMachine } from "./stateMachine";
+import { createDexieStore } from "./stores/dexie/DexieStore";
+import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
 
 export default class RefinerDB extends Dexie {
-  static destroy = (dbName: string) => {
-    Dexie.delete(dbName);
-  };
-  id: string = "";
-  allItems: Dexie.Table<any, number>;
-  indexes: Dexie.Table<SearchIndex, string>;
-  filterResults: Dexie.Table<FilterResult, string>;
-  queryResults: Dexie.Table<QueryResult, string>;
+  store: PersistedStore;
 
   _criteria: QueryCriteria = { filter: null };
   _indexRegistrations: IndexConfig[] = [];
+
   private stateMachine: Interpreter<any>;
   private worker = null;
+
   config: RefinerDBConfig = {
     indexDelay: 750,
     itemsIndexSchema: "++__itemId",
@@ -41,12 +35,13 @@ export default class RefinerDB extends Dexie {
 
   constructor(dbName: string, config?: RefinerDBConfig) {
     super(dbName);
-    this.id = new Date().getTime().toString();
     this.config = {
       ...this.config,
       ...config,
     };
-    this.initDB();
+    // this.store = createDexieStore(dbName);
+    this.store = createLocalStorageStore(dbName);
+
     // Setup StateMachine
     this.stateMachine = createStateMachine(
       createMachineConfig(this._reIndex, this._query, this.config.indexDelay),
@@ -67,18 +62,6 @@ export default class RefinerDB extends Dexie {
       console.log("TCL: RefinerDB -> constructor -> worker", this.worker);
     }
   }
-
-  initDB = () => {
-    this.version(1).stores({
-      allItems: this.config.itemsIndexSchema,
-      indexes: "key",
-      filterResults: "key",
-      queryResults: "key",
-    });
-    this.allItems = this.table("allItems");
-    this.indexes = this.table("indexes");
-    this.filterResults = this.table("filterResults");
-  };
 
   get criteria() {
     return this._criteria;
@@ -116,14 +99,15 @@ export default class RefinerDB extends Dexie {
     if (this.worker) {
       await this.worker.setItems(this.name, items);
     } else {
-      await setItems(this, items);
+      await this.store.setItems(items);
     }
     this.stateMachine.send(IndexEvent.INVALIDATE);
   };
 
+  // TODO: test for worker support
   pushItems = async (items: any[]) => {
     this.stateMachine.send(IndexEvent.INVALIDATE);
-    await pushItems(this, items);
+    await this.store.pushItems(items);
     this.stateMachine.send(IndexEvent.INVALIDATE);
   };
 
@@ -147,7 +131,7 @@ export default class RefinerDB extends Dexie {
 
   getQueryResult = async () => {
     await this.waitForState(IndexState.IDLE);
-    let result = await this.queryResults.get(this.getCriteriaKey());
+    let result = await this.store.queryResults.get(this.getCriteriaKey());
     return result;
   };
 
@@ -162,7 +146,11 @@ export default class RefinerDB extends Dexie {
     if (this.worker) {
       return this.worker.query(this.name, this._indexRegistrations, this.criteria);
     } else {
-      return query(this, queryId);
+      return this.store.query({
+        queryId,
+        indexRegistrations: this.indexRegistrations,
+        criteria: this.criteria,
+      });
     }
   };
 
@@ -170,7 +158,10 @@ export default class RefinerDB extends Dexie {
     if (this.worker) {
       await this.worker.reindex(this.name, this._indexRegistrations);
     } else {
-      await reindex(this, indexingId);
+      await this.store.reindex({
+        indexingId,
+        indexRegistrations: this.indexRegistrations,
+      });
     }
   };
 }

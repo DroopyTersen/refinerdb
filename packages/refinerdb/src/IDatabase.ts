@@ -1,4 +1,4 @@
-import { FilterResult, QueryResult, SearchIndex } from ".";
+import { IndexFilterResult, QueryResult, SearchIndex } from ".";
 
 export type DBItem =
   | {
@@ -10,7 +10,7 @@ export interface IDatabase<T extends DBItem> {
   query: (params: {
     indexes: ITable<SearchIndex>;
     allItems: ITable<T>;
-    filterResults: ITable<FilterResult>;
+    filterResults: ITable<IndexFilterResult>;
     queryResults: ITable<QueryResult<T>>;
   }) => Promise<void>;
   reindex: () => Promise<void>;
@@ -32,4 +32,6 @@ export interface ITable<T extends DBItem> {
   bulkAdd: (items: T[]) => Promise<void>;
   /** Ins */
   bulkPut: (items: T[]) => Promise<void>;
+  /** Get a bunch of items by IDs */
+  bulkGet: (keys: string[]) => Promise<T[]>;
 }

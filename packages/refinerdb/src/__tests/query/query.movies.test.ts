@@ -1,10 +1,11 @@
 import movies from "../fixtures/movies";
 import RefinerDB from "../..";
 import { IndexConfig, IndexType, QueryResult } from "../../interfaces";
+import { resetMockStorage, setupMockStorageApis, teardownMockStorageApis } from "../storageMocks";
 
 let items = movies.map((item: any) => {
   item.released = new Date(item.released + " GMT-5000");
-  // TODO: randomize a watched boolean
+  // TODO: add boolean support and tack on a randomize a watched boolean
   return item;
 });
 
@@ -27,7 +28,10 @@ let indexes: IndexConfig[] = [
 
 describe("Query Tests - Movies Data Set", () => {
   let search: RefinerDB;
+
   beforeAll(async () => {
+    setupMockStorageApis();
+    resetMockStorage();
     search = new RefinerDB("movies", { indexDelay: 100 });
     search.setIndexes(indexes);
     await search.setItems(items);
@@ -78,11 +82,16 @@ describe("Query Tests - Movies Data Set", () => {
   describe("Query for well scored Action movies", () => {
     let result: QueryResult = null;
     beforeAll(async () => {
-      result = await search.query({ filter: { genre: "Action", score: { min: 7 } } });
+      result = await search.query({
+        filter: { genre: "Action", score: { min: 7 } },
+        sort: "score",
+        sortDir: "desc",
+      });
     });
     it("Should only include action movies with a score >= 7", () => {
       expect(result.items.length).toBeGreaterThan(0);
       result.items.forEach((movie) => {
+        expect(movie).toHaveProperty("id");
         expect(movie.genres.indexOf("Action")).toBeGreaterThan(-1);
         expect(movie.score).toBeGreaterThanOrEqual(7);
       });
@@ -101,5 +110,9 @@ describe("Query Tests - Movies Data Set", () => {
         expect(movie.score).toBeGreaterThanOrEqual(7);
       });
     });
+  });
+
+  afterAll(() => {
+    teardownMockStorageApis();
   });
 });

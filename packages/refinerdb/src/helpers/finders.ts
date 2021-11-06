@@ -1,12 +1,19 @@
-import { IndexFilter, SearchIndex, IndexType, FilterResult, RefinerOption } from "../interfaces";
+import {
+  IndexFilter,
+  SearchIndex,
+  IndexType,
+  IndexFilterResult,
+  RefinerOption,
+} from "../interfaces";
 import flatten from "lodash/flatten";
 import uniq from "lodash/uniq";
 import intersection from "lodash/intersection";
 
 import { findNumberRange, findStringRange } from "./binarySearch";
+import { getSortedIds } from "./indexers";
 
 function findByNumber(index: SearchIndex, min?: number, max?: number) {
-  // if (min === undefined && max === undefined) return null;
+  if (min === undefined && max === undefined && index?.sortedIds?.length) return index.sortedIds;
 
   let hashes = findNumberRange(index.sortedKeys, min, max);
   return uniq(flatten(hashes.map((hash) => index.value[hash])));
@@ -22,6 +29,9 @@ function findByDate(
 
   let minDateStr = min ? min.toISOString() : "";
   let maxDateStr = max ? max.toISOString() : "";
+
+  if (!minDateStr && !maxDateStr && index?.sortedIds?.length) return index.sortedIds;
+
   let hashes = findStringRange(index.sortedKeys, minDateStr, maxDateStr);
   // console.log("TCL: hashes", startIndex, endIndex, hashes);
   return uniq(flatten(hashes.map((hash) => index.value[hash])));
@@ -32,19 +42,9 @@ function findByString(index: SearchIndex, values: string[] = []) {
   let isExactEquals = !values.find((v) => v.indexOf("*") > -1);
 
   if (isExactEquals) {
-    return index.sortedKeys.reduce((results, hashKey) => {
-      // Is it a match? Or do we not have values?
-      if (values.indexOf(hashKey) > -1 || !values.length) {
-        //It's a match so push any items that aren't already in the results array
-        let hashMatches = index.value[hashKey];
-        hashMatches.forEach((itemId) => {
-          if (results.indexOf(itemId) < 0) {
-            results.push(itemId);
-          }
-        });
-      }
-      return results;
-    }, []);
+    return !values?.length && index?.sortedIds?.length
+      ? index.sortedIds
+      : getSortedIds(index, values);
   } else {
     let filterValues = values.map((value) => value.replace(/\*/gi, "").toLowerCase());
     let hashKeys = index.sortedKeys;
@@ -59,6 +59,8 @@ function findByString(index: SearchIndex, values: string[] = []) {
   }
 }
 
+//TODO: is there a way to short circuit and return all itemIds
+// if there is no values or min/max?
 function findByIndexFilter(
   { indexDefinition, values, min, max }: IndexFilter,
   index: SearchIndex
@@ -80,14 +82,14 @@ function findByIndexFilter(
 
 function getRefinerOptions(
   index: SearchIndex,
-  filterResults: FilterResult[] = []
+  indexFilterResults: IndexFilterResult[] = []
 ): RefinerOption[] {
   // Figure out which filter result sets should be used to calculate the options
   // All results sets except the index being calculated
-  filterResults = filterResults || [];
+  indexFilterResults = indexFilterResults || [];
   // TODO: is this what should be returning? Or null?
   if (!index || !index.key) return [];
-  let nonTargetFilterResults = filterResults.filter((f) => f.indexKey !== index.key);
+  let nonTargetFilterResults = indexFilterResults.filter((f) => f.indexKey !== index.key);
   // Find all matches except for matches for this index
   let nonTargetMatches: number[] = intersection(...nonTargetFilterResults.map((f) => f.matches));
 

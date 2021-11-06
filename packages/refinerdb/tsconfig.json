@@ -17,6 +17,6 @@
     "incremental": true,
     "declaration": true
   },
-  "include": ["src"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "lib", "src/**/*test.tsx", "src/**/*test.ts", "src/__tests"]
 }
