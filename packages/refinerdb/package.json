@@ -15,7 +15,6 @@
     "tsc:watch": "tsc -p tsconfig.json --watch",
     "prebuild": "npm run clean",
     "build": "npm run build:esm && npm run build:cjs && npm run build:worker",
-    "postbuild": "npm run build:worker",
     "build:esm": "tsc -p tsconfig.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:worker": "esbuild src/workers/refinerdb.worker.ts --bundle --minify --sourcemap --outfile=lib/refinderdb.worker.js",

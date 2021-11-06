@@ -9,12 +9,14 @@
   "scripts": {
     "core": "yarn workspace refinerdb",
     "react": "yarn workspace refinerdb-react",
+    "dexie": "yarn workspace refinerdb-dexie",
     "start": "npm-run-all --parallel start:core start:react",
     "start:core": "yarn core start",
     "start:react": "yarn react start",
     "build": "yarn build:core && yarn build:react",
     "build:core": "yarn core build",
     "build:react": "yarn react build",
+    "build:dexie": "yarn dexie build",
     "test": "yarn test:core",
     "test:core": "yarn core test",
     "release": "lerna publish --dist-tag next"
