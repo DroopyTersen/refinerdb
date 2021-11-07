@@ -16,7 +16,6 @@
     "lib/"
   ],
   "dependencies": {
-    "just-omit": "^1.4.1",
     "refinerdb": "^1.1.3-alpha.0"
   },
   "devDependencies": {

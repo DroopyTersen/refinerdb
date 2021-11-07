@@ -1,6 +1,5 @@
 import moviesData from "./fixtures/movies";
 import tvShowData from "./fixtures/tvShows";
-import omit from "just-omit";
 
 export const getMoviesAndTv = async () => {
   let movies = moviesData.map((item: any) => {
