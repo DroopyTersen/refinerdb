@@ -1,12 +1,8 @@
-import RefinerDB, {
-  IndexConfig,
+import {
   IndexFilterResult,
   PersistedQueryResult,
-  PersistedStore,
   PersistedStoreCollections,
-  QueryCriteria,
   QueryParams,
-  QueryResult,
   SearchIndex,
 } from "../..";
 import createMeasurement from "../../utils/utils";

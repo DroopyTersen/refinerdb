@@ -10,8 +10,6 @@ export interface RefinerDBConfig {
   indexDelay?: number;
   itemsIndexSchema?: string;
   onTransition?: (state: IndexState) => void;
-  // Let consumers pass in an instance of refinerdb.worker.js
-  worker?: Worker;
   isWebWorker?: boolean;
   indexes?: IndexConfig[];
 }

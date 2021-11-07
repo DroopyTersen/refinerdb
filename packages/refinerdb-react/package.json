@@ -13,7 +13,7 @@
     "release": "npm version prerelease && npm publish --tag beta"
   },
   "files": [
-    "lib/"
+    "lib/**/*"
   ],
   "dependencies": {
     "refinerdb": "^1.1.3-alpha.0"

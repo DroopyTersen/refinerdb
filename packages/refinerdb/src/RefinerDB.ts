@@ -1,4 +1,3 @@
-import * as Comlink from "comlink";
 import { Interpreter } from "xstate";
 import { PersistedQueryResult, PersistedStore, QueryResult } from ".";
 import { getCache, setCache } from "./helpers/cache";
@@ -20,12 +19,10 @@ export default class RefinerDB {
   _indexRegistrations: IndexConfig[] = [];
 
   private stateMachine: Interpreter<any>;
-  private worker = null;
 
   config: RefinerDBConfig = {
     indexDelay: 750,
     itemsIndexSchema: "++__itemId",
-    isWebWorker: false,
   };
 
   constructor(dbName: string, config?: RefinerDBConfig) {
@@ -50,11 +47,6 @@ export default class RefinerDB {
     // Set index registrations if they are passed in
     if (this.config.indexes && this.config.indexes.length) {
       this._indexRegistrations = this.config.indexes;
-    }
-    // Try to setup the comlink webworker
-    if (this.config.worker) {
-      this.worker = Comlink.wrap(this.config.worker);
-      console.log("TCL: RefinerDB -> constructor -> worker", this.worker);
     }
   }
 
@@ -90,12 +82,7 @@ export default class RefinerDB {
 
   setItems = async (items: any[]) => {
     this.stateMachine.send(IndexEvent.INVALIDATE);
-    // use the WebWorker if there is one
-    if (this.worker) {
-      await this.worker.setItems(this.name, items);
-    } else {
-      await this.store.setItems(items);
-    }
+    await this.store.setItems(items);
     this.stateMachine.send(IndexEvent.INVALIDATE);
   };
 
@@ -167,25 +154,17 @@ export default class RefinerDB {
   };
 
   _query = async (queryId: number = Date.now()): Promise<PersistedQueryResult> => {
-    if (this.worker) {
-      return this.worker.query(this.name, this._indexRegistrations, this.criteria);
-    } else {
-      return this.store.query({
-        queryId,
-        indexRegistrations: this.indexRegistrations,
-        criteria: this.criteria,
-      });
-    }
+    return this.store.query({
+      queryId,
+      indexRegistrations: this.indexRegistrations,
+      criteria: this.criteria,
+    });
   };
 
   _reIndex = async (indexingId: number = Date.now()) => {
-    if (this.worker) {
-      await this.worker.reindex(this.name, this._indexRegistrations);
-    } else {
-      await this.store.reindex({
-        indexingId,
-        indexRegistrations: this.indexRegistrations,
-      });
-    }
+    await this.store.reindex({
+      indexingId,
+      indexRegistrations: this.indexRegistrations,
+    });
   };
 }

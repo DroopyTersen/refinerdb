@@ -19,6 +19,7 @@
     "build:dexie": "yarn dexie build",
     "test": "yarn test:core",
     "test:core": "yarn core test",
+    "prerelease": "npm run build",
     "release": "lerna publish --dist-tag next"
   },
   "repository": {
