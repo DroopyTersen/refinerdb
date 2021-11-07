@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { IndexConfig } from "refinerdb";
+import { IndexConfig, PersistedStore } from "refinerdb";
 import { RefinerDBProvider } from "../..";
 import { ResultInspector } from "../results";
 
@@ -9,6 +9,7 @@ export interface DemoSetupProps {
   indexes: IndexConfig[];
   children: React.ReactNode;
   hydrateItems?: boolean;
+  store?: PersistedStore;
 }
 
 function useAsyncData<T>(getItems: () => Promise<T[]>) {
@@ -43,7 +44,14 @@ function useAsyncData<T>(getItems: () => Promise<T[]>) {
   return [items, refreshData] as [T[], () => void];
 }
 
-export function DemoSetup({ dbName, getItems, indexes, children, hydrateItems }: DemoSetupProps) {
+export function DemoSetup({
+  dbName,
+  getItems,
+  indexes,
+  children,
+  hydrateItems,
+  store,
+}: DemoSetupProps) {
   let [items, refreshData] = useAsyncData(getItems);
   return (
     <RefinerDBProvider name={dbName} indexes={indexes} items={items}>

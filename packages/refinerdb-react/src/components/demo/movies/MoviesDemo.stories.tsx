@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
 import { ComponentMeta } from "@storybook/react";
-
+import React from "react";
 import { RefinerDBProvider, useQueryResult } from "../../..";
-import { movieIndexes } from "./movies.indexes";
-import { getMoviesAndTv } from "./movies.data";
-import { DemoSetup } from "../DemoSetup";
-import MultiValueSelect from "../../refinerControls/MultiValueSelect";
+import { ClearRefinersButton, NumberRangeRefiner, Textbox } from "../../refinerControls";
 import DateRangeRefiner from "../../refinerControls/DateRangeRefiner";
 import MultiValueCheckboxes from "../../refinerControls/MultiValueCheckboxes";
-import { ClearRefinersButton, NumberRangeRefiner, Textbox } from "../../refinerControls";
+import MultiValueSelect from "../../refinerControls/MultiValueSelect";
+import { DemoSetup } from "../DemoSetup";
 import movies from "./fixtures/movies";
 import tvShows from "./fixtures/tvShows";
+import { getMoviesAndTv } from "./movies.data";
+import { movieIndexes } from "./movies.indexes";
+const Worker = require("worker-loader!refinerdb/lib/refinderdb.localStorage.worker");
+import { createLocalStorageStore } from "refinerdb";
 
 export default {
   title: "Full Demos/Movies & TV",
@@ -108,6 +109,29 @@ export const SkipHydrateItems = () => {
       indexes={movieIndexes}
       getItems={getMoviesAndTv}
       hydrateItems={false}
+    >
+      <div
+        style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "2rem", marginTop: "2rem" }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "250px" }}>
+          <RefinerPanel />
+        </div>
+        <div>
+          <ResultsViewSkipHydrateItems />
+        </div>
+      </div>
+    </DemoSetup>
+  );
+};
+
+export const WebWorker = () => {
+  let storeRef = React.useRef(createLocalStorageStore("movies-and-tv", { worker: Worker }));
+  return (
+    <DemoSetup
+      dbName="movies-and-tv"
+      indexes={movieIndexes}
+      getItems={getMoviesAndTv}
+      store={storeRef.current}
     >
       <div
         style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "2rem", marginTop: "2rem" }}

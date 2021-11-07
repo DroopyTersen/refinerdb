@@ -32,7 +32,7 @@ export default class RefinerDB {
     };
     this.name = dbName;
     // this.store = createDexieStore(dbName);
-    this.store = createLocalStorageStore(dbName);
+    this.store = config.store || createLocalStorageStore(dbName);
 
     // Setup StateMachine
     this.stateMachine = createStateMachine(

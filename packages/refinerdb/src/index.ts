@@ -7,3 +7,4 @@ export { default as query } from "./transactions/query/query";
 export * from "./transactions/indexItems";
 
 export * from "./stores/BasePersistedStore";
+export * from "./stores/localStorage";

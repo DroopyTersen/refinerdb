@@ -22,7 +22,7 @@ export class LocalStorageStore extends BasePersistedStore implements PersistedSt
     this.dbName = dbName;
     this.idProperty = idProperty;
     if (worker) {
-      console.log("Setting up worker");
+      console.log("Setting up worker", worker);
       this.worker = Comlink.wrap(worker);
     }
 
@@ -76,6 +76,9 @@ export class LocalStorageStore extends BasePersistedStore implements PersistedSt
   };
 }
 
-export const createLocalStorageStore = (dbName: string) => {
-  return new LocalStorageStore(dbName);
+export const createLocalStorageStore = (
+  dbName: string,
+  { idProperty = "id", worker = null } = {}
+) => {
+  return new LocalStorageStore(dbName, { idProperty, worker });
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RefinerDB, { IndexConfig, IndexState, RefinerDBConfig } from "refinerdb";
+import RefinerDB, { IndexConfig, IndexState, PersistedStore, RefinerDBConfig } from "refinerdb";
 import { useRefinerDB } from ".";
 import { useUpdateEffect } from "./hooks/utils/useUpdateEffect";
 
@@ -11,12 +11,14 @@ export const IndexStateContext = React.createContext<{ status: IndexState }>({
 export interface RefinerDBProviderProps {
   name: string;
   items: any[];
+  store?: PersistedStore;
   indexes?: IndexConfig[];
 }
 const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
   name,
   children,
   items,
+  store,
   indexes,
 }) => {
   let [indexState, setIndexState] = useState(IndexState.IDLE);
@@ -27,6 +29,7 @@ const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
       },
       indexDelay: 500,
       indexes: indexes,
+      store,
     };
     let refinerDB = new RefinerDB(name, dbConfig);
     if (items) {

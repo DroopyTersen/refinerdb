@@ -12,6 +12,7 @@ export interface RefinerDBConfig {
   onTransition?: (state: IndexState) => void;
   isWebWorker?: boolean;
   indexes?: IndexConfig[];
+  store?: PersistedStore;
 }
 
 export enum IndexState {
