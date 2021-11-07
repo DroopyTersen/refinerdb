@@ -40,7 +40,7 @@
     "fake-indexeddb": "^3.1.7",
     "jest": "^27.3.1",
     "majestic": "^1.8.1",
-    "refinerdb": "../refinerdb",
+    "refinerdb": "^1.1.2-alpha.0",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.7",
     "typescript": "4.4.4"
@@ -53,5 +53,6 @@
     "indexeddb",
     "refiners",
     "search"
-  ]
+  ],
+  "gitHead": "ce9b19b6b2da5f8895d42fc644eb9fece51f5e6b"
 }
