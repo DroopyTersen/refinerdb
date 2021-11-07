@@ -1,22 +1,21 @@
 import * as Comlink from "comlink";
 import { Interpreter } from "xstate";
-import { PersistedStore } from ".";
+import { PersistedQueryResult, PersistedStore, QueryResult } from ".";
 import { getCache, setCache } from "./helpers/cache";
 import { checkIfModifiedIndexes } from "./helpers/indexers";
-import {
-  IndexConfig,
-  IndexEvent,
-  IndexState,
-  QueryCriteria,
-  QueryResult,
-  RefinerDBConfig,
-} from "./interfaces";
+import { IndexConfig, IndexEvent, IndexState, QueryCriteria, RefinerDBConfig } from "./interfaces";
 import { createMachineConfig, createStateMachine } from "./stateMachine";
 import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
+import createMeasurement from "./utils/utils";
 
 export default class RefinerDB {
   store: PersistedStore;
   name: string;
+  queryResultRequest: {
+    hydrateItems: boolean;
+    criteriaKey: string;
+    promise: Promise<QueryResult>;
+  };
   _criteria: QueryCriteria = { filter: null };
   _indexRegistrations: IndexConfig[] = [];
 
@@ -125,10 +124,39 @@ export default class RefinerDB {
     return;
   };
 
-  getQueryResult = async () => {
+  _getQueryResult = async (hydrateItems = true) => {
     await this.waitForState(IndexState.IDLE);
-    let result = await this.store.queryResults.get(this.getCriteriaKey());
-    return result;
+    let persistedQueryResult = await this.store.queryResults.get(this.getCriteriaKey());
+    if (hydrateItems === false) {
+      return persistedQueryResult;
+    }
+
+    let hydrateItemsMeasurement = createMeasurement("query:hydrateItems - " + Date.now());
+    hydrateItemsMeasurement.start();
+    // Hydrate the items based in the array of itemIds
+    let items = await this.store.allItems.bulkGet(persistedQueryResult.itemIds);
+    hydrateItemsMeasurement.stop();
+
+    return {
+      ...persistedQueryResult,
+      items,
+    };
+  };
+  getQueryResult = async (hydrateItems = true): Promise<QueryResult> => {
+    let currentKey = this.getCriteriaKey();
+    if (
+      !this?.queryResultRequest?.promise ||
+      this?.queryResultRequest?.criteriaKey !== currentKey ||
+      (hydrateItems && !this?.queryResultRequest?.hydrateItems)
+    ) {
+      this.queryResultRequest = {
+        hydrateItems,
+        criteriaKey: currentKey,
+        promise: this._getQueryResult(hydrateItems),
+      };
+    }
+
+    return this.queryResultRequest.promise;
   };
 
   query = async (criteria: QueryCriteria) => {
@@ -138,7 +166,7 @@ export default class RefinerDB {
     return this.getQueryResult();
   };
 
-  _query = async (queryId: number = Date.now()): Promise<QueryResult> => {
+  _query = async (queryId: number = Date.now()): Promise<PersistedQueryResult> => {
     if (this.worker) {
       return this.worker.query(this.name, this._indexRegistrations, this.criteria);
     } else {

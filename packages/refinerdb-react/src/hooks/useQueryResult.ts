@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { QueryResult, IndexState } from "refinerdb";
 import useRefinerDB from "./useRefinerDB";
 
-export default function useQueryResult() {
+export default function useQueryResult({ hydrateItems = true } = {}) {
   let { status } = useIndexState();
   let refinerDB = useRefinerDB();
   let [result, setResult] = useState<QueryResult>(null);
@@ -11,7 +11,7 @@ export default function useQueryResult() {
   useEffect(() => {
     let isMounted = true;
     async function getNewResults() {
-      let queryResult: QueryResult = await refinerDB.getQueryResult();
+      let queryResult: QueryResult = await refinerDB.getQueryResult(hydrateItems);
       if (isMounted) {
         setResult(queryResult);
       }

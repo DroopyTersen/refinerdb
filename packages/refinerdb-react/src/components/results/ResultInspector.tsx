@@ -2,8 +2,8 @@ import React from "react";
 import { ObjectInspector, TableInspector } from "react-inspector";
 import useQueryResult from "../../hooks/useQueryResult";
 
-function ResultInspector({}: ResultInspectorProps) {
-  let result = useQueryResult();
+function ResultInspector({ hydrateItems = true }: ResultInspectorProps) {
+  let result = useQueryResult({ hydrateItems });
 
   if (!result) return null;
   return (
@@ -16,5 +16,5 @@ function ResultInspector({}: ResultInspectorProps) {
 export default React.memo(ResultInspector);
 
 export interface ResultInspectorProps {
-  //props
+  hydrateItems?: boolean;
 }

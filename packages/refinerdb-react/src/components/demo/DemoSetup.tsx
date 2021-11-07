@@ -9,6 +9,7 @@ export interface DemoSetupProps {
   getItems: () => Promise<any[]>;
   indexes: IndexConfig[];
   children: React.ReactNode;
+  hydrateItems?: boolean;
 }
 
 function useAsyncData<T>(getItems: () => Promise<T[]>) {
@@ -43,13 +44,20 @@ function useAsyncData<T>(getItems: () => Promise<T[]>) {
   return [items, refreshData] as [T[], () => void];
 }
 
-export function DemoSetup({ dbName, worker, getItems, indexes, children }: DemoSetupProps) {
+export function DemoSetup({
+  dbName,
+  worker,
+  getItems,
+  indexes,
+  children,
+  hydrateItems,
+}: DemoSetupProps) {
   let [items, refreshData] = useAsyncData(getItems);
   return (
     <RefinerDBProvider name={dbName} worker={worker} indexes={indexes} items={items}>
       <header>
         <button onClick={() => refreshData()}>Refresh Data</button>
-        <ResultInspector />
+        <ResultInspector hydrateItems={hydrateItems} />
       </header>
       {children}
     </RefinerDBProvider>

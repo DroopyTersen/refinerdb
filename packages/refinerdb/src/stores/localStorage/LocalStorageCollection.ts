@@ -63,10 +63,10 @@ export class LocalStorageCollection implements PersistedCollection {
     this.setAllItems(newItems);
   };
   bulkGet = async (ids: string[] | number[]) => {
-    let bulkGetMeasurement = createMeasurement("bulkGet Measurement");
-    bulkGetMeasurement.start();
+    // let bulkGetMeasurement = createMeasurement("bulkGet Measurement - " + Date.now());
+    // bulkGetMeasurement.start();
     let itemsMap = this.getItemsMap();
-    bulkGetMeasurement.stop();
+    // bulkGetMeasurement.stop();
     return ids.map((id) => itemsMap[id]).filter(Boolean);
   };
 }

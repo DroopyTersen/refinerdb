@@ -81,14 +81,19 @@ export interface IndexFilterResult {
   key: string;
   matches: number[];
 }
-export interface QueryResult<T = any> {
+
+export interface PersistedQueryResult {
   key: string;
-  items: T[];
+  itemIds: string[] | number[];
   refiners: {
     [key: string]: RefinerOption[];
   };
   totalCount: number;
   timestamp: number;
+}
+
+export interface QueryResult<T = any> extends PersistedQueryResult {
+  items?: T[];
 }
 
 export type DBItem =
@@ -100,7 +105,7 @@ export type DBItem =
 export type PersistedStoreCollections = {
   allItems: PersistedCollection;
   filterResults: PersistedCollection<IndexFilterResult>;
-  queryResults: PersistedCollection<QueryResult>;
+  queryResults: PersistedCollection<PersistedQueryResult>;
   indexes: PersistedCollection<SearchIndex>;
 };
 
@@ -116,7 +121,7 @@ export interface ReindexParams {
 }
 
 export type PersistedStoreMethods = {
-  query: (params: QueryParams) => Promise<QueryResult>;
+  query: (params: QueryParams) => Promise<PersistedQueryResult>;
   reindex: (params: ReindexParams) => Promise<void>;
   setItems: (items: any[]) => Promise<void>;
   pushItems: (items: any[]) => Promise<void>;

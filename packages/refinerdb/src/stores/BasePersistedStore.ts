@@ -1,8 +1,8 @@
 import {
   IndexFilterResult,
   PersistedCollection,
+  PersistedQueryResult,
   PersistedStoreCollections,
-  QueryResult,
   SearchIndex,
 } from "..";
 
@@ -10,5 +10,5 @@ export abstract class BasePersistedStore implements PersistedStoreCollections {
   allItems: PersistedCollection;
   indexes: PersistedCollection<SearchIndex>;
   filterResults: PersistedCollection<IndexFilterResult>;
-  queryResults: PersistedCollection<QueryResult>;
+  queryResults: PersistedCollection<PersistedQueryResult>;
 }

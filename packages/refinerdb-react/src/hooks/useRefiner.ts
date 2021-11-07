@@ -12,7 +12,7 @@ const defaultConfig: RefinerConfig = {
 };
 export type FilterValueType = MinMaxFilterValue | StringFilterValue | NumberFilterValue;
 export default function useRefiner<T extends FilterValueType>(key: string, config = defaultConfig) {
-  let result = useQueryResult();
+  let result = useQueryResult({ hydrateItems: false });
 
   let { filter, setFilter } = useFilter();
   let [value, setValue] = useState<T>(() => getFilterValue(filter, key));

@@ -1,4 +1,4 @@
-import { PersistedStore, QueryParams, QueryResult, ReindexParams } from "../..";
+import { PersistedQueryResult, PersistedStore, QueryParams, ReindexParams } from "../..";
 import { indexItems } from "../../transactions/indexItems";
 import _query from "../../transactions/query/query";
 import { BasePersistedStore } from "../BasePersistedStore";
@@ -17,7 +17,7 @@ export class LocalStorageStore extends BasePersistedStore implements PersistedSt
     localStorage.clear();
   };
 
-  query = async (params: QueryParams): Promise<QueryResult> => {
+  query = async (params: QueryParams): Promise<PersistedQueryResult> => {
     return _query(this, params);
   };
 
