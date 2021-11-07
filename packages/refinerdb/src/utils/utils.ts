@@ -31,17 +31,8 @@ export default function createMeasurement(name: string) {
 }
 
 export function intersection(...allArrays) {
-  let [firstArray, ...arrays] = allArrays;
-  let result = [];
-  firstArray = firstArray || [];
+  let [firstArray = [], ...arrays] = allArrays;
   arrays = arrays || [];
 
-  for (let i = 0; i < firstArray.length; i++) {
-    let currentItem = firstArray[i];
-    let isInEveryArray = arrays.every((array) => array.includes(currentItem));
-    if (isInEveryArray) {
-      result.push(currentItem);
-    }
-  }
-  return result;
+  return firstArray.filter((currentItem) => arrays.every((array) => array.includes(currentItem)));
 }
