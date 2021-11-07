@@ -10,9 +10,21 @@ import movies from "./fixtures/movies";
 import tvShows from "./fixtures/tvShows";
 import { getMoviesAndTv } from "./movies.data";
 import { movieIndexes } from "./movies.indexes";
-const Worker = require("worker-loader!refinerdb/lib/refinderdb.localStorage.worker");
-import { createLocalStorageStore } from "refinerdb";
+import setupLocalStorageWorker from "refinerdb/lib/refinerdb.localStorage.worker";
+console.log(
+  "🚀 | setupLocalStorageWorker",
+  setupLocalStorageWorker?.setupLocalStorageWorker?.toString()
+);
 
+// let localStorageWorker = new Worker(
+//   URL.createObjectURL(
+//     new Blob(["(" + (window as any).__rdb_setupLocalStorageWorker.toString() + ")()"], {
+//       type: "text/javascript",
+//     })
+//   )
+// );
+
+// console.log((window as any).__rdb_setupLocalStorageWorker.toString());
 export default {
   title: "Full Demos/Movies & TV",
   component: RefinerDBProvider,
@@ -124,25 +136,27 @@ export const SkipHydrateItems = () => {
   );
 };
 
-export const WebWorker = () => {
-  let storeRef = React.useRef(createLocalStorageStore("movies-and-tv", { worker: Worker }));
-  return (
-    <DemoSetup
-      dbName="movies-and-tv"
-      indexes={movieIndexes}
-      getItems={getMoviesAndTv}
-      store={storeRef.current}
-    >
-      <div
-        style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "2rem", marginTop: "2rem" }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "250px" }}>
-          <RefinerPanel />
-        </div>
-        <div>
-          <ResultsViewSkipHydrateItems />
-        </div>
-      </div>
-    </DemoSetup>
-  );
-};
+// export const WebWorker = () => {
+//   let storeRef = React.useRef(
+//     createLocalStorageStore("movies-and-tv", { worker: localStorageWorker })
+//   );
+//   return (
+//     <DemoSetup
+//       dbName="movies-and-tv"
+//       indexes={movieIndexes}
+//       getItems={getMoviesAndTv}
+//       store={storeRef.current}
+//     >
+//       <div
+//         style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "2rem", marginTop: "2rem" }}
+//       >
+//         <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "250px" }}>
+//           <RefinerPanel />
+//         </div>
+//         <div>
+//           <ResultsViewSkipHydrateItems />
+//         </div>
+//       </div>
+//     </DemoSetup>
+//   );
+// };

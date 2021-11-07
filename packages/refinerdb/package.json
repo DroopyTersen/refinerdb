@@ -16,7 +16,7 @@
     "build": "npm run build:esm && npm run build:cjs && npm run build:worker",
     "build:esm": "tsc -p tsconfig.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
-    "build:worker": "esbuild src/stores/localStorage/refinerdb.localStorage.worker.ts --bundle --minify --sourcemap --outfile=lib/refinerdb.localStorage.worker.js",
+    "build:worker": "esbuild src/stores/localStorage/refinerdb.localStorage.worker.ts --bundle --outfile=lib/refinerdb.localStorage.worker.js",
     "clean": "rimraf lib",
     "prerelease": "npm run build",
     "release": "np --any-branch --tag=beta"
