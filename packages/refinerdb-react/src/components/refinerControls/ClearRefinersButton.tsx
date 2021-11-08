@@ -14,11 +14,10 @@ const ClearRefinersButton: React.FC<ClearRefinersButtonProps> = ({
   className = "",
   ...additionalProps
 }) => {
-  let cssClass = [CLASS_NAME, className].filter(Boolean).join(" ");
   let { filter, clearFilter } = useFilter();
   if (Object.keys(filter).length < 1) return null;
   return (
-    <button {...additionalProps} className={cssClass} type="button" onClick={clearFilter}>
+    <button {...additionalProps} className={"btn btn-sm"} type="button" onClick={clearFilter}>
       {children}
     </button>
   );

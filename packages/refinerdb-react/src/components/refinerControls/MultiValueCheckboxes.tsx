@@ -8,24 +8,18 @@ export interface Props {
 }
 
 function MultiValueCheckboxes({ indexKey, label = "" }: Props) {
-  let [values = [], , options = [], events] = useMultiselectRefiner(indexKey, 0);
+  let { getCheckboxProps, options } = useMultiselectRefiner(indexKey, 0);
 
   return (
-    <Fieldset label={label || indexKey}>
+    <div className="form-group">
+      <label className="form-label">{label || indexKey}</label>
       {options.map((option) => (
-        <div key={option.key}>
-          <label>
-            <input
-              type="checkbox"
-              value={option.key}
-              checked={values.includes(option.key)}
-              onChange={events.checkboxOnChange}
-            />
-            {option.key} - {option.count}
-          </label>
-        </div>
+        <label key={option.key} className="form-checkbox">
+          <input {...getCheckboxProps(option)} />
+          <i className="form-icon"></i> {option.key} - {option.count}
+        </label>
       ))}
-    </Fieldset>
+    </div>
   );
 }
 

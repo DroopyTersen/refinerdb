@@ -5,7 +5,7 @@ function NumberRangeRefiner({ indexKey, label, debounce = 500 }: NumberRangeRefi
   let range = useNumberRangeRefiner(indexKey, debounce);
 
   return (
-    <label>
+    <label className="form-label">
       {label || indexKey}
       <div
         style={{
@@ -21,14 +21,14 @@ function NumberRangeRefiner({ indexKey, label, debounce = 500 }: NumberRangeRefi
           value={range.min + ""}
           onChange={(e) => range.setMin(e.currentTarget.value)}
           type="number"
-          style={{ width: "100%", boxSizing: "border-box" }}
+          className="form-input"
         />
         <input
           placeholder="Max"
           value={(range?.max && range?.max + "") || ""}
           onChange={(e) => range.setMax(e.currentTarget.value)}
           type="number"
-          style={{ width: "100%", boxSizing: "border-box" }}
+          className="form-input"
         />
       </div>
     </label>

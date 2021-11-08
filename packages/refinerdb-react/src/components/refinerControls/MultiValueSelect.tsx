@@ -8,18 +8,13 @@ export interface Props {
 }
 
 function MultiValueSelect({ indexKey, label }: Props) {
-  let [values = [], , options = [], events] = useMultiselectRefiner(indexKey, 0);
+  let { options, getSelectProps } = useMultiselectRefiner(indexKey, 0);
 
   return (
-    <label style={{ width: "100%" }}>
+    <label className="form-label">
       {label || indexKey}
       <br />
-      <select
-        multiple
-        onChange={events.selectOnChange}
-        value={values}
-        style={{ width: "100%", minHeight: "200px" }}
-      >
+      <select {...getSelectProps()} className="form-select" style={{ minHeight: "200px" }}>
         <option key="blank" value="">
           All
         </option>

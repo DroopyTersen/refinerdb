@@ -12,25 +12,24 @@ function DateRangeRefiner({ indexKey, label, debounce = 500 }: Props) {
   let range = useDateRangeRefiner(indexKey, debounce);
 
   return (
-    <Fieldset label={label || indexKey}>
-      <div className="">
-        <input
-          placeholder="Min"
-          value={range.min}
-          onChange={(e) => range.setMin(e.currentTarget.valueAsDate)}
-          type="date"
-          style={{ width: "100%" }}
-        />
-        <div>to</div>
-        <input
-          placeholder="Max"
-          value={range.max}
-          onChange={(e) => range.setMax(e.currentTarget.valueAsDate)}
-          type="date"
-          style={{ width: "100%" }}
-        />
-      </div>
-    </Fieldset>
+    <div className="form-group">
+      <label className="form-label">{label || indexKey}</label>
+      <input
+        placeholder="Min"
+        value={range.min}
+        onChange={(e) => range.setMin(e.currentTarget.valueAsDate)}
+        type="date"
+        className="form-input"
+      />
+      <div className="text-muted">to</div>
+      <input
+        placeholder="Max"
+        value={range.max}
+        onChange={(e) => range.setMax(e.currentTarget.valueAsDate)}
+        type="date"
+        className="form-input"
+      />
+    </div>
   );
 }
 

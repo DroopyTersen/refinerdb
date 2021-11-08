@@ -32,11 +32,11 @@ export default {
 
 function RefinerPanel() {
   return (
-    <>
+    <div style={{ position: "relative" }}>
       <h2 style={{ margin: "0" }}>Refiners</h2>
-      <div>
-        <ClearRefinersButton>CLEAR</ClearRefinersButton>
-      </div>
+      <ClearRefinersButton style={{ position: "absolute", right: "0", top: ".5rem" }}>
+        CLEAR
+      </ClearRefinersButton>
       <div>
         <Textbox indexKey="title" label="Title" debounce={300} />
       </div>
@@ -52,7 +52,7 @@ function RefinerPanel() {
       <div>
         <NumberRangeRefiner indexKey="score" label="Score" debounce={200} />
       </div>
-    </>
+    </div>
   );
 }
 
@@ -65,6 +65,20 @@ function ResultsViewWithHydratedItems() {
       <ItemsList items={results?.items} />
       {results.totalCount > 25 && <div>...</div>}
     </>
+  );
+}
+function MovieResultItem({ item }: { item: any }) {
+  return (
+    <div className="card" style={{ marginBottom: "1rem" }}>
+      <div className="card-header">
+        <h4 className="card-title">{item.title}</h4>
+      </div>
+      <div className="card-body">
+        {item.genres.map((genre) => (
+          <span className="chip">{genre}</span>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -92,7 +106,7 @@ function ItemsList({ items }) {
         ?.slice(0, 25)
         ?.filter((item) => item.id)
         ?.map((item) => (
-          <div key={item.id}>{item.title}</div>
+          <MovieResultItem key={item.id} item={item} />
         ))}
     </div>
   );

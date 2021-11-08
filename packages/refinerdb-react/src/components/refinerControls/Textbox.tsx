@@ -6,10 +6,10 @@ function Textbox({ indexKey, label, debounce = 500 }: TextboxProps) {
   let { value = "", setValue } = useTextRefiner(indexKey, debounce);
 
   return (
-    <label>
+    <label className="form-label">
       {label || indexKey}
-      <br />
       <input
+        className="form-input"
         type="text"
         value={value || ""}
         style={{ width: "100%", boxSizing: "border-box" }}
