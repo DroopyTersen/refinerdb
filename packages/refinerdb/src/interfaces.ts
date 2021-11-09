@@ -13,6 +13,7 @@ export interface RefinerDBConfig {
   isWebWorker?: boolean;
   indexes?: IndexConfig[];
   store?: PersistedStore;
+  criteria?: QueryCriteria;
 }
 
 export enum IndexState {

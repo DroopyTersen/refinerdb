@@ -1,18 +1,21 @@
 import React, { useCallback } from "react";
-import { useMultiselectRefiner } from "../../hooks/useMultiselectRefiner";
-import { Fieldset } from "./Fieldset";
+import {
+  useMultiselectRefiner,
+  MultiSelectRefinerOptions,
+} from "../../hooks/useMultiselectRefiner";
 
 export interface Props {
   indexKey: string;
   label?: string;
+  options?: MultiSelectRefinerOptions;
 }
 
-function MultiValueCheckboxes({ indexKey, label = "" }: Props) {
-  let { getCheckboxProps, options } = useMultiselectRefiner(indexKey, 0);
+function MultiValueCheckboxes({ indexKey, label = "", ...props }: Props) {
+  let { getCheckboxProps, options } = useMultiselectRefiner(indexKey, props.options);
 
   return (
     <div className="form-group">
-      <label className="form-label">{label || indexKey}</label>
+      <label className="form-label">{label ?? indexKey}</label>
       {options.map((option) => (
         <label key={option.key} className="form-checkbox">
           <input {...getCheckboxProps(option)} />

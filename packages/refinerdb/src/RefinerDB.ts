@@ -43,7 +43,9 @@ export default class RefinerDB {
     if (!this.config.isWebWorker) {
       this._indexRegistrations = getCache(this.name + "-indexes") || [];
     }
-
+    if (this.config.criteria) {
+      this._criteria = this.config.criteria;
+    }
     // Set index registrations if they are passed in
     if (this.config.indexes && this.config.indexes.length) {
       this._indexRegistrations = this.config.indexes;

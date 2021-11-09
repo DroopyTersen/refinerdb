@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import RefinerDB, { IndexConfig, IndexState, PersistedStore, RefinerDBConfig } from "refinerdb";
+import RefinerDB, {
+  IndexConfig,
+  IndexState,
+  PersistedStore,
+  QueryCriteria,
+  RefinerDBConfig,
+} from "refinerdb";
 import { useRefinerDB } from ".";
 import { useUpdateEffect } from "./hooks/utils/useUpdateEffect";
 
@@ -13,6 +19,7 @@ export interface RefinerDBProviderProps {
   items: any[];
   store?: PersistedStore;
   indexes?: IndexConfig[];
+  criteria?: QueryCriteria;
 }
 const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
   name,
@@ -20,6 +27,7 @@ const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
   items,
   store,
   indexes,
+  criteria,
 }) => {
   let [indexState, setIndexState] = useState(IndexState.IDLE);
   let [refinerDB] = useState<RefinerDB>(() => {
@@ -30,6 +38,7 @@ const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
       indexDelay: 500,
       indexes: indexes,
       store,
+      criteria,
     };
     let refinerDB = new RefinerDB(name, dbConfig);
     if (items) {

@@ -1,14 +1,18 @@
 import React, { useCallback } from "react";
-import { useMultiselectRefiner } from "../../hooks/useMultiselectRefiner";
+import {
+  useMultiselectRefiner,
+  MultiSelectRefinerOptions,
+} from "../../hooks/useMultiselectRefiner";
 import useRefiner from "../../hooks/useRefiner";
 
 export interface Props {
   indexKey: string;
   label?: string;
+  options?: MultiSelectRefinerOptions;
 }
 
-function MultiValueSelect({ indexKey, label }: Props) {
-  let { options, getSelectProps } = useMultiselectRefiner(indexKey, 0);
+function MultiValueSelect({ indexKey, label, ...props }: Props) {
+  let { options, getSelectProps } = useMultiselectRefiner(indexKey, props.options);
 
   return (
     <label className="form-label">

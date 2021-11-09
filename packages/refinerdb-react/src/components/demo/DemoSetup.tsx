@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { IndexConfig, PersistedStore } from "refinerdb";
+import { IndexConfig, PersistedStore, QueryCriteria } from "refinerdb";
 import { RefinerDBProvider } from "../..";
 import { ResultInspector } from "../results";
 
@@ -10,6 +10,7 @@ export interface DemoSetupProps {
   children: React.ReactNode;
   hydrateItems?: boolean;
   store?: PersistedStore;
+  criteria?: QueryCriteria;
 }
 
 function useAsyncData<T>(getItems: () => Promise<T[]>) {
@@ -51,10 +52,17 @@ export function DemoSetup({
   children,
   hydrateItems,
   store,
+  criteria,
 }: DemoSetupProps) {
   let [items, refreshData] = useAsyncData(getItems);
   return (
-    <RefinerDBProvider name={dbName} indexes={indexes} items={items}>
+    <RefinerDBProvider
+      name={dbName}
+      indexes={indexes}
+      items={items}
+      criteria={criteria}
+      store={store}
+    >
       <header>
         <button onClick={() => refreshData()}>Refresh Data</button>
         <ResultInspector hydrateItems={hydrateItems} />

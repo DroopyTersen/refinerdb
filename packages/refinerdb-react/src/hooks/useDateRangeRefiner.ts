@@ -23,7 +23,7 @@ export function useDateRangeRefiner(indexKey: string, debounce = 500) {
   };
 }
 
-const formatDateForInput = (dateish) => {
+export const formatDateForInput = (dateish) => {
   var d = new Date(dateish),
     month = "" + (d.getMonth() + 1),
     day = "" + d.getDate(),
