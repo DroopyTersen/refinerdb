@@ -1,7 +1,7 @@
 import { IndexConfig, IndexType } from "refinerdb";
 
 const fetchPosts = async (tag = "javascript", per_page = 500, page = 1) => {
-  let url = `https://dev.to/api/articles?state=rising&page=${page}&per_page=${per_page}&tag=${tag}`;
+  let url = `https://dev.to/api/articles?top=20&page=${page}&per_page=${per_page}&tag=${tag}`;
   return fetch(url).then((resp) => resp.json());
 };
 
@@ -22,6 +22,7 @@ export async function getDevToArticles(tag = "javascript") {
     fetchPosts(tag, 500, 1),
     fetchPosts(tag, 500, 2),
     fetchPosts(tag, 500, 3),
+    fetchPosts(tag, 500, 4),
   ]);
   let rawArticles = pagedResults.flat();
 
@@ -52,7 +53,7 @@ export const devToIndexes: IndexConfig[] = [
   {
     key: "author",
     type: IndexType.String,
-    path: "user.username",
+    path: "user.name",
     skipRefinerOptions: true,
     label: "Author",
   },

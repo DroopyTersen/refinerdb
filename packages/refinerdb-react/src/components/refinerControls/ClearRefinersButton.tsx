@@ -1,5 +1,5 @@
 import React from "react";
-import useFilter from "../../hooks/useFilter";
+import { useFilter } from "../../hooks/useFilter";
 
 const CLASS_NAME = "button button-outline rdb-clear-refiners";
 

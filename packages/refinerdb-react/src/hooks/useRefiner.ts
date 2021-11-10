@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
+import { Filter, MinMaxFilterValue, NumberFilterValue, StringFilterValue } from "refinerdb";
+import { useFilter } from "./useFilter";
 import useQueryResult from "./useQueryResult";
-import { StringFilterValue, NumberFilterValue, MinMaxFilterValue, Filter } from "refinerdb";
-import { useCallback, useMemo, useState, useEffect } from "react";
 import useDebounce from "./utils/useDebounce";
-import useFilter from "./useFilter";
 
 export interface RefinerConfig {
   debounce: number;
@@ -11,7 +11,7 @@ const defaultConfig: RefinerConfig = {
   debounce: 250,
 };
 export type FilterValueType = MinMaxFilterValue | StringFilterValue | NumberFilterValue;
-export default function useRefiner<T extends FilterValueType>(key: string, config = defaultConfig) {
+export function useRefiner<T extends FilterValueType>(key: string, config = defaultConfig) {
   let result = useQueryResult({ hydrateItems: false });
 
   let { filter, setFilter } = useFilter();
@@ -27,7 +27,7 @@ export default function useRefiner<T extends FilterValueType>(key: string, confi
   useDebounce(
     () => {
       if (value !== undefined) {
-        setFilter({ [key]: value });
+        setFilter((prev) => ({ ...prev, [key]: value }));
       }
     },
     [value, key],

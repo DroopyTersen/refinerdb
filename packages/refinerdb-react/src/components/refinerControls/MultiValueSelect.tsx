@@ -3,7 +3,6 @@ import {
   useMultiselectRefiner,
   MultiSelectRefinerOptions,
 } from "../../hooks/useMultiselectRefiner";
-import useRefiner from "../../hooks/useRefiner";
 
 export interface Props {
   indexKey: string;
@@ -24,7 +23,7 @@ function MultiValueSelect({ indexKey, label, ...props }: Props) {
         </option>
         {options.map((option) => (
           <option key={option.key} value={option.key}>
-            {option.key} - {option.count}
+            {option.key} ({option.count})
           </option>
         ))}
       </select>

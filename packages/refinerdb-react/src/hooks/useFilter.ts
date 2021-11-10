@@ -1,28 +1,37 @@
-import { useCallback } from "react";
-import useCriteria from "./useCriteria";
+import { useEffect, useMemo, useState } from "react";
+import { useIndexState, useRefinerDB } from "..";
 
-export default function useFilter() {
-  let [criteria, setCriteria] = useCriteria();
-  let filter = criteria?.filter || {};
+export function useSetFilter() {
+  let refinerDB = useRefinerDB();
 
-  let clearFilter = useCallback(() => {
-    setCriteria({ filter: {} });
-  }, [setCriteria]);
+  let setFilter = useMemo(() => {
+    return (setter: (prev) => any) => {
+      let newCriteria = {
+        ...refinerDB.criteria,
+        filter: setter(refinerDB.criteria.filter),
+      };
+      refinerDB.setCriteria(newCriteria);
+    };
+  }, [refinerDB]);
 
-  let setFilter = useCallback(
-    (updates) => {
-      setCriteria({
-        filter: {
-          ...filter,
-          ...updates,
-        },
-      });
-    },
-    [filter, setCriteria]
-  );
+  return setFilter;
+}
+
+export function useFilter() {
+  let { status } = useIndexState();
+  let refinerDB = useRefinerDB();
+  let [filterState, _setFilterState] = useState(() => refinerDB?.criteria?.filter || {});
+  let clearFilter = () => setFilter(() => ({}));
+  let setFilter = useSetFilter();
+
+  useEffect(() => {
+    if (JSON.stringify(filterState || {}) !== JSON.stringify(refinerDB?.criteria?.filter || {})) {
+      _setFilterState(refinerDB?.criteria?.filter || {});
+    }
+  }, [status, refinerDB]);
 
   return {
-    filter,
+    filter: filterState,
     setFilter,
     clearFilter,
   };

@@ -1,20 +1,58 @@
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { RefinerOption } from "refinerdb";
 import { useRefiner } from ".";
+import { useSetFilter } from "..";
 
 export interface MultiSelectRefinerOptions {
   /** Defaults to 100 */
-  debounce: number;
+  debounce?: number;
   /** Defaults to all */
   maxRefinersOptions?: number;
   /** Sort alphabetically or by count */
-  sort: "alpha" | "count";
+  sort?: "alpha" | "count";
 }
 
 const defaultOptions: MultiSelectRefinerOptions = {
   debounce: 100,
   sort: "alpha",
 };
+
+export function useMultiSelectSetters(indexKey: string, debounce = 0) {
+  let setFilter = useSetFilter();
+
+  let setters = useMemo(() => {
+    const appendValue = (value: string) => {
+      setFilter((prevFilter) => {
+        let newFilter = { ...prevFilter };
+        let prevValues = newFilter[indexKey] || [];
+        let newValues = prevValues.filter((v) => v !== value);
+        newValues.push(value);
+        newFilter[indexKey] = newValues;
+        return newFilter;
+      });
+    };
+    const toggleValue = (value: string) => {
+      setFilter((prevFilter = {}) => {
+        let newFilter = { ...prevFilter };
+        let prevValues = newFilter[indexKey] || [];
+        let alreadyThere = prevValues.includes(value);
+        let newValues = prevValues.filter((v) => v !== value);
+        if (!alreadyThere) {
+          newValues.push(value);
+        }
+        newFilter[indexKey] = newValues;
+        return newFilter;
+      });
+    };
+    return {
+      appendValue,
+      toggleValue,
+    };
+  }, [setFilter, indexKey]);
+
+  return setters;
+}
+
 export function useMultiselectRefiner(
   indexKey: string,
   refinerOptions?: MultiSelectRefinerOptions
@@ -64,6 +102,7 @@ export function useMultiselectRefiner(
     };
   }, [setValues, values]);
 
+  // TODO: make sure selected values are included if sliced
   let processedOptions = useMemo(() => {
     return [...options]
       .sort((a, b) => {

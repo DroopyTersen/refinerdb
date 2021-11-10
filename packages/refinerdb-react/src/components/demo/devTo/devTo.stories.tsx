@@ -54,9 +54,28 @@ function ItemResult({ item }) {
         </a>
       </div>
       <div className="card-header">
-        <div className="card-title h5">{item.title}</div>
+        <div className="card-title d-flex" style={{ justifyContent: "space-between", gap: "1rem" }}>
+          <h5>{item.title}</h5>
+        </div>
+        <div
+          className="d-flex mt-2"
+          style={{ justifyContent: "space-between", alignItems: "center" }}
+        >
+          <div>
+            <div className="chip">
+              <img src={item?.user?.profile_image_90} className="avatar avatar-sm" />
+              {item?.user?.name}
+            </div>
+            <div className="text-muted text-small mt-1">{item.published_date}</div>
+          </div>
+          <div className="center text-muted">
+            <span className="badge" data-badge={item.reactions_count}>
+              <i style={{ fontSize: "1.4rem" }} className="icon icon-emoji"></i>
+            </span>
+          </div>
+        </div>
       </div>
-      <div className="card-body">{item.description}</div>
+      <div className="card-body text-small">{item.description}</div>
     </div>
   );
 }

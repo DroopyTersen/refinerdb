@@ -1,4 +1,4 @@
-import useCriteria from "./useCriteria";
+import { useCriteria } from "./useCriteria";
 import useIndexes from "./useIndexes";
 import { useCallback, useMemo } from "react";
 import { IndexConfig } from "refinerdb";

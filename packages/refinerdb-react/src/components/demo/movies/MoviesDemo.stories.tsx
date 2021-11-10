@@ -1,6 +1,6 @@
 import { ComponentMeta } from "@storybook/react";
 import React from "react";
-import { RefinerDBProvider, useQueryResult } from "../../..";
+import { RefinerDBProvider, useMultiSelectSetters, useQueryResult } from "../../..";
 import { ClearRefinersButton, NumberRangeRefiner, Textbox } from "../../refinerControls";
 import DateRangeRefiner from "../../refinerControls/DateRangeRefiner";
 import MultiValueCheckboxes from "../../refinerControls/MultiValueCheckboxes";
@@ -67,7 +67,8 @@ function ResultsViewWithHydratedItems() {
     </>
   );
 }
-function MovieResultItem({ item }: { item: any }) {
+const MovieResultItem = React.memo(function MovieResultItem({ item }: { item: any }) {
+  let genreRefiner = useMultiSelectSetters("genre");
   return (
     <div className="card" style={{ marginBottom: "1rem" }}>
       <div className="card-header">
@@ -75,12 +76,19 @@ function MovieResultItem({ item }: { item: any }) {
       </div>
       <div className="card-body">
         {item.genres.map((genre) => (
-          <span className="chip">{genre}</span>
+          <button
+            type="button"
+            className="chip c-hand text-primary"
+            style={{ border: "none", outline: "none" }}
+            onClick={() => genreRefiner.appendValue(genre)}
+          >
+            {genre}
+          </button>
         ))}
       </div>
     </div>
   );
-}
+});
 
 function ResultsViewSkipHydrateItems() {
   let results = useQueryResult({ hydrateItems: false });
