@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { RefinerDBContext } from "../RefinerDBProvider";
 
-export default function useRefinerDB() {
+export function useRefinerDB() {
   return useContext(RefinerDBContext);
 }

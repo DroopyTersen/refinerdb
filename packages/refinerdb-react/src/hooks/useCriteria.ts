@@ -1,7 +1,9 @@
 import { QueryCriteria } from "refinerdb";
-import useRefinerDB from "./useRefinerDB";
+import deepEqual from "just-compare";
+
+import { useRefinerDB } from "./useRefinerDB";
 import { useMemo, useState, useEffect } from "react";
-import useIndexState from "./useIndexState";
+import { useIndexState } from "./useIndexState";
 
 export function useSetCriteria() {
   let refinerDB = useRefinerDB();
@@ -23,10 +25,10 @@ export function useCriteria() {
 
   // when the Index state changes, check for new criteria
   useEffect(() => {
-    if (JSON.stringify(criteriaState) !== JSON.stringify(refinerDB.criteria)) {
+    if (!deepEqual(criteriaState, refinerDB.criteria)) {
       setCriteriaState(refinerDB.criteria);
     }
   }, [status, refinerDB]);
 
-  return [criteriaState, setCriteria] as [QueryCriteria, (updates: QueryCriteria) => void];
+  return [criteriaState, setCriteria] as [QueryCriteria, typeof setCriteria];
 }

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { MinMaxFilterValue } from "refinerdb";
-import { useRefiner } from ".";
+import { useRefiner } from "./useRefiner";
 
 export function useDateRangeRefiner(indexKey: string, debounce = 500) {
   let [value, setValue] = useRefiner<MinMaxFilterValue>(indexKey, { debounce });
@@ -17,8 +17,8 @@ export function useDateRangeRefiner(indexKey: string, debounce = 500) {
   }, [setValue]);
 
   return {
-    min: value?.min ? formatDateForInput(value.min) : undefined,
-    max: value?.max ? formatDateForInput(value.max) : undefined,
+    min: value?.min ? formatDateForInput(value.min) : "",
+    max: value?.max ? formatDateForInput(value.max) : "",
     ...actions,
   };
 }

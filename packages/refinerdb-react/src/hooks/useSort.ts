@@ -1,5 +1,5 @@
 import { useCriteria } from "./useCriteria";
-import useIndexes from "./useIndexes";
+import { useIndexes } from "./useIndexes";
 import { useCallback, useMemo } from "react";
 import { IndexConfig } from "refinerdb";
 
@@ -9,21 +9,28 @@ export default function useSort() {
 
   const setSortKey = useCallback(
     (indexKey: string) => {
-      setCriteria({ sort: indexKey || "" });
+      setCriteria((prev) => ({
+        ...prev,
+        sort: indexKey,
+      }));
     },
     [setCriteria]
   );
 
   const setSortDir = useCallback(
     (sortDir: "asc" | "desc") => {
-      setCriteria({ sortDir });
+      setCriteria((prev) => ({
+        ...prev,
+        sortDir,
+      }));
     },
     [setCriteria]
   );
 
   const toggleDir = useCallback(() => {
-    setCriteria({ sortDir: criteria.sortDir === "desc" ? "asc" : "desc" });
-  }, [criteria, setCriteria]);
+    let direction: "asc" | "desc" = criteria.sortDir === "desc" ? "asc" : "desc";
+    setSortDir(direction);
+  }, [criteria, setSortDir]);
 
   const options = useMemo(() => {
     return indexes.map((indexConfig: IndexConfig) => {

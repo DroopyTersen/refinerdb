@@ -1,44 +1,38 @@
-import useRefinerDB from "./useRefinerDB";
+import deepEqual from "just-compare";
+import { useEffect, useMemo, useState } from "react";
 import { IndexConfig } from "refinerdb";
-import { useRef, useEffect, useState, useCallback } from "react";
-import useIndexState from "./useIndexState";
+import { useIndexState } from "./useIndexState";
+import { useRefinerDB } from "./useRefinerDB";
 
-export default function useIndexes(initialValue?: IndexConfig[]) {
+export function useSetIndexes() {
+  let refinerDB = useRefinerDB();
+
+  let setIndexRegistrations = useMemo(() => {
+    return (setter: (prev: IndexConfig[]) => IndexConfig[] | IndexConfig[]) => {
+      let newVal = typeof setter === "function" ? setter(refinerDB.indexRegistrations) : setter;
+      refinerDB.setIndexes(newVal);
+    };
+  }, [refinerDB]);
+
+  return setIndexRegistrations;
+}
+export function useIndexes() {
   // Store the first value we get as a ref
-  let initialValueRef = useRef(initialValue);
   let refinerDB = useRefinerDB();
   let { status } = useIndexState();
+  let setIndexes = useSetIndexes();
 
-  let [indexes, setIndexes] = useState<IndexConfig[]>(() => {
-    if (refinerDB && refinerDB.indexRegistrations) {
-      return refinerDB.indexRegistrations;
-    }
-    return [];
+  let [indexes, _setIndexes] = useState<IndexConfig[]>(() => {
+    return refinerDB?.indexRegistrations || [];
   });
 
   // when the Index state changes, check for new indexDefinitions
   useEffect(() => {
     // console.log("NEW Indexes", refinerDB.criteria);
-    setIndexes(refinerDB.indexRegistrations || []);
+    if (!deepEqual(refinerDB.indexRegistrations || [], indexes)) {
+      _setIndexes(refinerDB.indexRegistrations || []);
+    }
   }, [status, refinerDB]);
 
-  const updateIndexes = useCallback(
-    (indexes: IndexConfig[]) => {
-      refinerDB.setIndexes(indexes || []);
-    },
-    [refinerDB]
-  );
-
-  // Once the DB loads, check to see if we have an initial value to set
-  useEffect(() => {
-    console.log("Try Initial Index setup");
-    if (refinerDB && initialValueRef.current) {
-      console.log("Initial Index setup", initialValueRef.current);
-      refinerDB.setIndexes(initialValueRef.current);
-      // Clear out the initial value ref so we don't keep re-setting it
-      initialValueRef.current = null;
-    }
-  }, [refinerDB]);
-
-  return [indexes, updateIndexes] as [IndexConfig[], (indexes: IndexConfig[]) => void];
+  return [indexes, setIndexes] as [IndexConfig[], typeof setIndexes];
 }

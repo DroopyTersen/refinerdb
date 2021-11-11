@@ -24,9 +24,9 @@ export function useMultiSelectSetters(indexKey: string, debounce = 0) {
     const appendValue = (value: string) => {
       setFilter((prevFilter) => {
         let newFilter = { ...prevFilter };
-        let prevValues = newFilter[indexKey] || [];
-        let newValues = prevValues.filter((v) => v !== value);
-        newValues.push(value);
+        let prevValues = (newFilter[indexKey] as string[]) || [];
+        let newValues = prevValues?.filter((v) => v !== value);
+        newValues?.push(value);
         newFilter[indexKey] = newValues;
         return newFilter;
       });
@@ -34,8 +34,8 @@ export function useMultiSelectSetters(indexKey: string, debounce = 0) {
     const toggleValue = (value: string) => {
       setFilter((prevFilter = {}) => {
         let newFilter = { ...prevFilter };
-        let prevValues = newFilter[indexKey] || [];
-        let alreadyThere = prevValues.includes(value);
+        let prevValues = (newFilter[indexKey] as string[]) || [];
+        let alreadyThere = prevValues?.includes(value);
         let newValues = prevValues.filter((v) => v !== value);
         if (!alreadyThere) {
           newValues.push(value);

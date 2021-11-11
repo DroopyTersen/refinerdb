@@ -9675,6 +9675,11 @@ junk@^3.1.0:
   resolved "https://registry.yarnpkg.com/junk/-/junk-3.1.0.tgz#31499098d902b7e98c5d9b9c80f43457a88abfa1"
   integrity sha512-pBxcB3LFc8QVgdggvZWyeys+hnrNWg4OcZIU/1X59k5jQdLBlCsYGRQaz234SqoRLTCgMH00fY0xRJH+F9METQ==
 
+just-compare@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/just-compare/-/just-compare-2.0.0.tgz#22b700bccb39dbb76da608e2b0b7cfc832668ff9"
+  integrity sha512-TREfoIS7fB02I+qCrplMcDpxZSIwvg+nY6vGi7tApc0EKdvGBBqrRuV/QY22gXG9Y2KIhQNTD+YClvGeex2OPw==
+
 just-flatten-it@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/just-flatten-it/-/just-flatten-it-4.2.1.tgz#2866fcbf9db00092b8c5632bb6507081eaabbb73"

@@ -1,9 +1,9 @@
-import useIndexState from "./useIndexState";
+import { useIndexState } from "./useIndexState";
 import { useEffect, useState } from "react";
 import { QueryResult, IndexState } from "refinerdb";
-import useRefinerDB from "./useRefinerDB";
+import { useRefinerDB } from "./useRefinerDB";
 
-export default function useQueryResult({ hydrateItems = true } = {}) {
+export function useQueryResult({ hydrateItems = true } = {}) {
   let { status } = useIndexState();
   let refinerDB = useRefinerDB();
   let [result, setResult] = useState<QueryResult>(null);
@@ -16,7 +16,6 @@ export default function useQueryResult({ hydrateItems = true } = {}) {
         setResult(queryResult);
       }
     }
-    // console.log("TCL: getNewResults -> queryResult", status);
     if (status === IndexState.IDLE) {
       getNewResults();
     }

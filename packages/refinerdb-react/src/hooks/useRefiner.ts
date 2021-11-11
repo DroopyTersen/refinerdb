@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Filter, MinMaxFilterValue, NumberFilterValue, StringFilterValue } from "refinerdb";
 import { useFilter } from "./useFilter";
-import useQueryResult from "./useQueryResult";
+import { useQueryResult } from "./useQueryResult";
 import useDebounce from "./utils/useDebounce";
 
 export interface RefinerConfig {

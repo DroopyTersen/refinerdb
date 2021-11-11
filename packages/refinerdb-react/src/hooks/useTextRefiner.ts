@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useRefiner } from ".";
+import { useRefiner } from "./useRefiner";
 
 /** Appends the refiner value with an asterisk to perform a "Contains" query */
 export function useTextRefiner(indexKey, debounce = 500) {

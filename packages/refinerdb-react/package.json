@@ -16,6 +16,7 @@
     "lib/**/*"
   ],
   "dependencies": {
+    "just-compare": "^2.0.0",
     "refinerdb": "^1.1.4-alpha.0"
   },
   "devDependencies": {

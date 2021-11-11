@@ -1,12 +1,6 @@
 import { ComponentMeta } from "@storybook/react";
 import React from "react";
-import {
-  RefinerDBProvider,
-  useMultiselectRefiner,
-  useMultiSelectSetters,
-  useQueryResult,
-  useSort,
-} from "../../..";
+import { RefinerDBProvider, useMultiSelectSetters, useQueryResult } from "../../..";
 import { ClearRefinersButton, Textbox } from "../../refinerControls";
 import MultiValueCheckboxes from "../../refinerControls/MultiValueCheckboxes";
 import { DemoSetup } from "../DemoSetup";

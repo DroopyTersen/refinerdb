@@ -1,6 +1,6 @@
 import React from "react";
 import { ObjectInspector, TableInspector } from "react-inspector";
-import useQueryResult from "../../hooks/useQueryResult";
+import { useQueryResult } from "../../hooks/useQueryResult";
 
 function ResultInspector({ hydrateItems = true }: ResultInspectorProps) {
   let result = useQueryResult({ hydrateItems });
