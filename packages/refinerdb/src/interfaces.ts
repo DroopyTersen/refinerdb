@@ -61,11 +61,29 @@ export interface SearchIndex extends IndexConfig {
 }
 
 export interface IndexConfig {
+  /**
+   * Unique identifier for the index.
+   * If no "path" is provided, it is assumed the "key" matches the
+   * property name on the item.
+   */
   key: string;
+  /** String, Number, Date, etc... */
   type: IndexType;
-  label?: string;
+  /**
+   * If the key doesn't match the item's property name, use path.
+   * Allows nested paths like "author.name"
+   */
   path?: string;
+  /**
+   * For things like dates with timestamps, or really long strings,
+   * do you really need to calculate refiner option?
+   */
   skipRefinerOptions?: boolean;
+  /**
+   * A convenience property so you can build dynammic controls like
+   * a "Sort Options Dropwdown"
+   */
+  label?: string;
 }
 
 export interface QueryCriteria {

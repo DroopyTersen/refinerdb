@@ -8,20 +8,25 @@ A browser database (indexeddb wrapper) used to support advanced search scenarios
 npm install refinerdb
 ```
 
-## Quick Start 
+## Quick Start
 
 [![Edit refinerdb-vanilla](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/refinerdb-vanilla-9vijf?fontsize=14&hidenavigation=1&theme=dark)
 
 ```javascript
-import RefinerDB, { IndexType } from "refinerdb";
+import { RefinerDB, IndexType } from "refinerdb";
 
-// Setup DB
+// Create an instance of RefinerDB and register the indexes
 let refinerDB = new RefinerDB("movies-db");
 refinerDB.setIndexes([
-  { key: "title", type: IndexType.String, hashFn: (item) => item.title },
-  { key: "genre", type: IndexType.String, hashFn: (item) => item.genres },
-  { key: "released", type: IndexType.Date, hashFn: (item) => item.released_date },
-  { key: "score", type: IndexType.Number, hashFn: (item) => item.vote_average },
+  { key: "title", type: IndexType.String },
+  // An index where the key doesn't match the property name on the item
+  { key: "genre", type: IndexType.String, path: "genres" },
+  // A date index
+  { key: "released", type: IndexType.Date, path: "released_date" },
+  // A number index
+  { key: "score", type: IndexType.Number, path: "vote_average" },
+  // A nested 'path' is supported as well
+  { key: "director", type: IndexType.String, path: "director.name" },
 ]);
 
 // Add data
@@ -51,8 +56,6 @@ let { items, refiners, itemCount, totalCount } = await refinerDB.query({
 // }
 ```
 
-TOOD: Show a quick example of using it
-
 ## Setup
 
 ### Create the Database
@@ -63,7 +66,7 @@ import RefinerDB from "refinerdb";
 // OPTION 1: Just pass a database name
 let refinerDB = new RefinerDB("my-db");
 
-// OPTION 2: Pass a config
+// OPTION 2: Pass a config with any or all of the following options
 let dbConfig = {
     // How long to wait to reindex after data has changed
     indexDelay: 500,
@@ -89,15 +92,15 @@ let items = [
 ];
 ```
 
-We would create a `RefinerDB` instance then setup two `IndexConfig` definitions, one for `title`, and one for `id`.
+We would create a `RefinerDB` instance then define two indexes, one for `title`, and one for `id`.
 
 ```javascript
 import RefinerDB, { IndexType } from "refinerdb";
 
 let refinerDB = new RefinerDB("my-db");
 let indexDefinitions = [
-  { key: "title", hashFn: (item) => item.title, type: IndexType.String },
-  { key: "id", hashFn: (item) => item.id, type: IndexType.Number, skipRefinerOptions: true },
+  { key: "title", type: IndexType.String },
+  { key: "id", type: IndexType.Number, skipRefinerOptions: true },
 ];
 refinerDB.setIndexes(indexDefinitions);
 ```
@@ -105,18 +108,42 @@ refinerDB.setIndexes(indexDefinitions);
 Here are the available `IndexType` options, as well as the full type definition of `IndexConfig`.
 
 ```typescript
-export enum IndexType {
+enum IndexType {
   String = "string",
   Number = "number",
   Date = "Date",
 }
 
-export interface IndexConfig {
+interface IndexConfig {
+  /**
+   * Unique identifier for the index.
+   * If no "path" is provided, it is assumed the "key" matches the
+   * property name on the item.
+   */
   key: string;
+
+  /**
+   * String, Number, Date, etc...
+   */
   type: IndexType;
-  hashFn: (item: any) => any;
-  // For things like dates with timestamps, or really long strings, do you really need to calculate refiner option?
+
+  /**
+   * If the key doesn't match the item's property name, use path.
+   * Allows nested paths like "author.name"
+   */
+  path?: string;
+
+  /**
+   * For things like dates with timestamps, or really long strings,
+   * do you really need to calculate refiner option?
+   */
   skipRefinerOptions?: boolean;
+
+  /**
+   * A convenience property so you can build dynammic controls like
+   * a "Sort Dropwdown"
+   */
+  label?: string;
 }
 ```
 
