@@ -6,7 +6,7 @@ let basicItems = cloneBasicItems();
 let items = JSON.parse(JSON.stringify(basicItems.items));
 let indexDefinitions = JSON.parse(JSON.stringify(basicItems.indexDefinitions));
 
-describe.only("Querying - Basic", () => {
+describe("Querying - Basic", () => {
   let search: RefinerDB;
 
   beforeAll(async () => {

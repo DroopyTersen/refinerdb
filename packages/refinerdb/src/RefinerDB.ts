@@ -1,9 +1,8 @@
-import { Interpreter } from "xstate";
 import { PersistedQueryResult, PersistedStore, QueryResult } from ".";
 import { getCache, setCache } from "./helpers/cache";
 import { checkIfModifiedIndexes } from "./helpers/indexers";
 import { IndexConfig, IndexEvent, IndexState, QueryCriteria, RefinerDBConfig } from "./interfaces";
-import { createMachineConfig, createStateMachine } from "./stateMachine";
+import { createRobotStateMachine, RefinerDBStateMachine } from "./stateMachine";
 import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
 import createMeasurement from "./utils/utils";
 
@@ -18,7 +17,7 @@ export default class RefinerDB {
   _criteria: QueryCriteria = { filter: null };
   _indexRegistrations: IndexConfig[] = [];
 
-  private stateMachine: Interpreter<any>;
+  private stateMachine: RefinerDBStateMachine;
 
   config: RefinerDBConfig = {
     indexDelay: 750,
@@ -35,10 +34,12 @@ export default class RefinerDB {
     this.store = config?.store || createLocalStorageStore(dbName);
 
     // Setup StateMachine
-    this.stateMachine = createStateMachine(
-      createMachineConfig(this._reIndex, this._query, this.config.indexDelay),
-      this.config.onTransition
-    );
+    this.stateMachine = createRobotStateMachine({
+      reindex: () => this._reIndex(),
+      query: () => this._query(),
+      onTransition: this?.config?.onTransition,
+      indexingDelay: this?.config?.indexDelay,
+    });
     // If it's not a webworker, pull index registrations from localstorage
     if (!this.config.isWebWorker) {
       this._indexRegistrations = getCache(this.name + "-indexes") || [];
@@ -96,9 +97,12 @@ export default class RefinerDB {
   };
 
   waitForState = (targetState: IndexState) => {
+    if (this.stateMachine.state.value === targetState) {
+      return Promise.resolve(true);
+    }
     return new Promise((resolve, reject) => {
-      let handler = (state) => {
-        if (state?.value === targetState) {
+      let handler = (state: IndexState) => {
+        if (state === targetState) {
           this.stateMachine.off(handler);
           resolve(true);
         }
@@ -115,6 +119,7 @@ export default class RefinerDB {
 
   _getQueryResult = async (hydrateItems = true) => {
     await this.waitForState(IndexState.IDLE);
+
     let persistedQueryResult = await this.store.queryResults.get(this.getCriteriaKey());
     if (hydrateItems === false) {
       return persistedQueryResult;

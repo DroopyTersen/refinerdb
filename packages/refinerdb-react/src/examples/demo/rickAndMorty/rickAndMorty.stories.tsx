@@ -45,7 +45,6 @@ export const Characters = () => {
 const ItemResult = React.memo(function ItemResult({ item }: any) {
   let speciesRefiner = useMultiSelectSetters("species");
   let originRefiner = useMultiSelectSetters("origin");
-  console.log("rendering", item?.origin.name);
   return (
     <div className="card">
       <div className="card-image">

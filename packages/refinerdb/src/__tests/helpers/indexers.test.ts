@@ -1,7 +1,7 @@
 import { IndexType, SearchIndex } from "../../interfaces";
 import { indexValues, indexers } from "../../helpers/indexers";
 
-describe.only("search.indexers", () => {
+describe("search.indexers", () => {
   describe("indexValue", () => {
     let stringIndex: SearchIndex = {
       key: "genres",

@@ -9,7 +9,7 @@ export enum IndexType {
 export interface RefinerDBConfig {
   indexDelay?: number;
   itemsIndexSchema?: string;
-  onTransition?: (state: IndexState) => void;
+  onTransition?: (value: IndexState) => void;
   isWebWorker?: boolean;
   indexes?: IndexConfig[];
   store?: PersistedStore;
