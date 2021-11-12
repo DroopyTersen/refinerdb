@@ -1,6 +1,6 @@
 {
   "name": "refinerdb-react",
-  "version": "1.1.4-alpha.0",
+  "version": "1.1.5-alpha.0",
   "main": "lib/index.js",
   "scripts": {
     "start": "npm run storybook",
@@ -17,7 +17,7 @@
   ],
   "dependencies": {
     "just-compare": "^2.0.0",
-    "refinerdb": "^1.1.4-alpha.0"
+    "refinerdb": "^1.1.5-alpha.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
