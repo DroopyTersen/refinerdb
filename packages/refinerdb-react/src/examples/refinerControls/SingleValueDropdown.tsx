@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import useRefiner from "../../hooks/useRefiner";
+import { useRefiner } from "../../hooks/useRefiner";
 
 function SingleValueDropdown({ indexKey, label }: SingleValueDropdownProps) {
   let [value = "", setValue, options = []] = useRefiner<string>(indexKey, { debounce: 0 });

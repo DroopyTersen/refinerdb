@@ -3,7 +3,7 @@ import { useIndexes } from "./useIndexes";
 import { useCallback, useMemo } from "react";
 import { IndexConfig } from "refinerdb";
 
-export default function useSort() {
+export function useSort() {
   let [criteria, setCriteria] = useCriteria();
   let [indexes] = useIndexes();
 
