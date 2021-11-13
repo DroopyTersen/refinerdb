@@ -19,14 +19,14 @@ export default class RefinerDB {
 
   private stateMachine: RefinerDBStateMachine;
 
-  private config: RefinerDBConfig = {
+  _config: RefinerDBConfig = {
     indexDelay: 750,
     itemsIndexSchema: "++__itemId",
   };
 
   constructor(dbName: string, config?: RefinerDBConfig) {
-    this.config = {
-      ...this.config,
+    this._config = {
+      ...this._config,
       ...config,
     };
     this.name = dbName;
@@ -37,19 +37,19 @@ export default class RefinerDB {
     this.stateMachine = createRobotStateMachine({
       reindex: () => this._reIndex(),
       query: () => this._query(),
-      onTransition: this?.config?.onTransition,
-      indexingDelay: this?.config?.indexDelay,
+      onTransition: this?._config?.onTransition,
+      indexingDelay: this?._config?.indexDelay,
     });
     // If it's not a webworker, pull index registrations from localstorage
-    if (!this.config.isWebWorker) {
+    if (!this._config.isWebWorker) {
       this._indexRegistrations = getCache(this.name + "-indexes") || [];
     }
-    if (this.config.criteria) {
-      this._criteria = this.config.criteria;
+    if (this._config.criteria) {
+      this._criteria = this._config.criteria;
     }
     // Set index registrations if they are passed in
-    if (this.config.indexes && this.config.indexes.length) {
-      this._indexRegistrations = this.config.indexes;
+    if (this._config.indexes && this._config.indexes.length) {
+      this._indexRegistrations = this._config.indexes;
     }
   }
 
@@ -72,7 +72,7 @@ export default class RefinerDB {
   setIndexes = (indexes: IndexConfig[], forceReindex = false) => {
     if (forceReindex === true || checkIfModifiedIndexes(this._indexRegistrations, indexes)) {
       this._indexRegistrations = indexes;
-      if (!this.config.isWebWorker) {
+      if (!this._config.isWebWorker) {
         setCache(this.name + "-indexes", this._indexRegistrations);
       }
       this.stateMachine.send(IndexEvent.INVALIDATE);

@@ -47,7 +47,7 @@ describe("RefinerDB", () => {
         indexDelay: 500,
       };
       let search = new RefinerDB("test-db2", config);
-      expect(search.config.indexDelay).toBe(config.indexDelay);
+      expect(search._config.indexDelay).toBe(config.indexDelay);
     });
 
     it("Should setup the state machine", () => {

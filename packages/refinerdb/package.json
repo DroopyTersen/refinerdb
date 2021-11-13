@@ -5,7 +5,8 @@
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "public/**/*"
   ],
   "scripts": {
     "start": "npm run tsc:watch",
