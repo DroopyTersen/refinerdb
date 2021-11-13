@@ -1,6 +1,6 @@
 # RefinerDB
 
-A browser database (indexeddb wrapper) used to support advanced search scenarios. An engine that could power an Amazon Refiner-like search experience.
+A browser database used to support advanced search scenarios. An engine that could power an Amazon Refiner-like search experience.
 
 ## Install
 
@@ -12,7 +12,7 @@ npm install refinerdb
 
 [![Edit refinerdb-vanilla](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/refinerdb-vanilla-9vijf?fontsize=14&hidenavigation=1&theme=dark)
 
-```javascript
+```javascript id:core-quick-start
 import { RefinerDB, IndexType } from "refinerdb";
 
 // Create an instance of RefinerDB and register the indexes
@@ -34,9 +34,11 @@ let movies = await fetchMovies();
 refinerDB.setItems(movies);
 
 // Query Data
+// A 7+ rated 'Action' or 'Comedy' with 'day' in the title
 let filter = {
+  title: "day*",
   genre: ["Action", "Comedy"],
-  score: { min: 6.5 },
+  score: { min: 7 },
 };
 let { items, refiners, itemCount, totalCount } = await refinerDB.query({
   filter,
@@ -56,12 +58,10 @@ let { items, refiners, itemCount, totalCount } = await refinerDB.query({
 // }
 ```
 
-## Setup
-
-### Create the Database
+## Create the Database
 
 ```javascript
-import RefinerDB from "refinerdb";
+import { RefinerDB } from "refinerdb";
 
 // OPTION 1: Just pass a database name
 let refinerDB = new RefinerDB("my-db");
@@ -76,7 +76,11 @@ let dbConfig = {
 let refinerDB = new RefinerDB("my-db", dbConfig);
 ```
 
-### Define your indexes
+## Add items to the database
+
+TODO: Describe `refinderDB.setItems(items)`
+
+## Creating indexes
 
 What is the shape of your data? For any properties you want to filter/refine, you need to define an `IndexConfig`.
 
@@ -95,7 +99,7 @@ let items = [
 We would create a `RefinerDB` instance then define two indexes, one for `title`, and one for `id`.
 
 ```javascript
-import RefinerDB, { IndexType } from "refinerdb";
+import { RefinerDB, IndexType } from "refinerdb";
 
 let refinerDB = new RefinerDB("my-db");
 let indexDefinitions = [
@@ -147,9 +151,9 @@ interface IndexConfig {
 }
 ```
 
-## Query Syntax
+## Querying the database
 
-To query, you create a `filter` object, where each each property on the object maps to a registered Index key.
+To query, create a `filter` object, where each each property on the object maps to a registered Index key.
 
 In this example the are looking for movies where:
 
@@ -158,13 +162,14 @@ In this example the are looking for movies where:
 - `score` is greater or equal to 6
 
 ```javascript
+// Each property on the filter should match a registered index key
 let filter = {
   genre: ["Action", "Comedy"],
   title: "day*",
   score: { min: 6 },
 };
 
-// You then pass your filter to the query method inside the QueryCriteria object
+// Pass the filter to the `query(criteria)` method
 let { items, refiners } = await refinerDB.query({ filter });
 ```
 
@@ -175,7 +180,7 @@ let { items, refiners } = await refinerDB.query({ filter });
 let filter = { genre: "Action" };
 ```
 
-You can pass multiple values to the to match on any they will be `OR`'d together.
+Pass multiple values and they will be `OR`'d together.
 
 ```javascript
 // Find movies with a genre of Action or Comedy
@@ -196,21 +201,25 @@ Number Indexes work the same way
 let filter = { score: 7.1 };
 ```
 
+_See below for the min/max filter that may be more useful for Number indexes_
+
 ### String contains
 
-You can query string indexes using a 'contains' by including an `*` (asterisk) in your filter value.
+You can query `IndexType.String` indexes using a 'contains' by including an `*` (asterisk) in your filter value.
 
 ```javascript
-// Query a string Index by "contains". Put as asterisk at the end
-//   Find any movies with 'day' anywhere in the title
+// Put an asterisk at the end to do a "contains" query
+
+// Find any movies with 'day' anywhere in the title
 let filter = { title: "day*" };
-//   Find any movies with 'day' or 'night' anywhere in the title
+
+// Find any movies with 'day' or 'night' anywhere in the title
 let filter = { title: ["day*", "night*"] };
 ```
 
-### Min / Max
+### Min Max
 
-You can query number and date indexes using a min/max range.
+You can query `IndexType.Number` and `IndexType.Date` indexes using a min/max range.
 
 ```javascript
 // Find all movies with a score greater or equal to 7
@@ -227,3 +236,15 @@ let filter = {
   score: { max: 5 },
 };
 ```
+
+### Sorting
+
+TODO: describe `sort` and `sortDir`
+
+### Paging
+
+TODO: describe `limit` and `skip`
+
+## Displaying query results
+
+TODO: describe shape of `QueryResult`

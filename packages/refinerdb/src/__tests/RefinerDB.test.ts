@@ -2,7 +2,8 @@
  * @jest-environment jsdom
  */
 
-import RefinerDb, {
+import {
+  RefinerDB,
   IndexType,
   RefinerDBConfig,
   IndexState,
@@ -34,30 +35,30 @@ describe("RefinerDB", () => {
 
   describe("Constructor", () => {
     it("Should setup the proper data stores", () => {
-      let search = new RefinerDb("test-db");
-      expect(search.store.allItems).toBeTruthy();
-      expect(search.store.filterResults).toBeTruthy();
-      expect(search.store.queryResults).toBeTruthy();
-      expect(search.store.indexes).toBeTruthy();
+      let search = new RefinerDB("test-db");
+      expect(search._store.allItems).toBeTruthy();
+      expect(search._store.filterResults).toBeTruthy();
+      expect(search._store.queryResults).toBeTruthy();
+      expect(search._store.indexes).toBeTruthy();
     });
 
     it("Should respect the passed in SearchIndexerConfig", () => {
       let config: RefinerDBConfig = {
         indexDelay: 500,
       };
-      let search = new RefinerDb("test-db2", config);
+      let search = new RefinerDB("test-db2", config);
       expect(search.config.indexDelay).toBe(config.indexDelay);
     });
 
     it("Should setup the state machine", () => {
-      let search = new RefinerDb("test-db");
+      let search = new RefinerDB("test-db");
       expect(search.getIndexState()).toBe(IndexState.IDLE);
     });
   });
 
   describe("Set Indexes", () => {
     it("Should go to stale if there are new indexes being set", async () => {
-      let search = new RefinerDb("test-indexes", { indexDelay: 200 });
+      let search = new RefinerDB("test-indexes", { indexDelay: 200 });
       expect(search.getIndexState()).toBe(IndexState.IDLE);
       search.setIndexes(indexDefinitions);
       await wait(100);
@@ -65,7 +66,7 @@ describe("RefinerDB", () => {
     });
 
     it("Should NOT go stale if you repeatedly set the same indexes", async () => {
-      let search = new RefinerDb("test-indexes-2", { indexDelay: 200 });
+      let search = new RefinerDB("test-indexes-2", { indexDelay: 200 });
       expect(search.getIndexState()).toBe(IndexState.IDLE);
       search.setIndexes(indexDefinitions);
       await wait(100);
@@ -78,17 +79,17 @@ describe("RefinerDB", () => {
   });
 
   describe("Set Items", function () {
-    let search: RefinerDb = null;
+    let search: RefinerDB = null;
     beforeAll(async () => {
-      search = new RefinerDb("test-items");
+      search = new RefinerDB("test-items");
       search.setIndexes(indexDefinitions);
       await search.setItems(items);
     });
 
     it("Should store the items", async () => {
-      let count = await search.store.allItems.count();
+      let count = await search._store.allItems.count();
       expect(count).toBe(items.length);
-      let itemTwo = await search.store.allItems.get(2);
+      let itemTwo = await search._store.allItems.get(2);
       expect(itemTwo).toBeTruthy();
       expect(itemTwo).toHaveProperty("title");
 
@@ -102,17 +103,17 @@ describe("RefinerDB", () => {
   });
 
   describe("ReIndexing", () => {
-    let search: RefinerDb = null;
+    let search: RefinerDB = null;
     let titleIndex: SearchIndex;
     let idIndex: SearchIndex;
 
     beforeAll(async () => {
-      search = new RefinerDb("test-indexing");
+      search = new RefinerDB("test-indexing");
       search.setIndexes(indexDefinitions);
       await search.setItems(items);
-      await search.reIndex();
-      titleIndex = await search.store.indexes.get("title");
-      idIndex = await search.store.indexes.get("id");
+      await search.reindex();
+      titleIndex = await search._store.indexes.get("title");
+      idIndex = await search._store.indexes.get("id");
     });
 
     it("Should create a SearchIndex in the indexes store for each registered indexDefinition", async () => {
@@ -147,14 +148,14 @@ describe("RefinerDB", () => {
   });
 
   describe("Auto Indexing", () => {
-    let search: RefinerDb;
+    let search: RefinerDB;
 
     beforeEach(async () => {});
 
     it("Should automatically reindex when new items are added", async () => {
-      search = new RefinerDb("test-auto-indexing", { indexDelay: 300 });
-      let titleIndex = await search.store.indexes.get("title");
-      let idIndex = await search.store.indexes.get("id");
+      search = new RefinerDB("test-auto-indexing", { indexDelay: 300 });
+      let titleIndex = await search._store.indexes.get("title");
+      let idIndex = await search._store.indexes.get("id");
       expect(titleIndex).toBeFalsy();
       expect(idIndex).toBeFalsy();
 
@@ -169,8 +170,8 @@ describe("RefinerDB", () => {
 
         // Wait for the auto index
         setTimeout(async () => {
-          titleIndex = await search.store.indexes.get("title");
-          idIndex = await search.store.indexes.get("id");
+          titleIndex = await search._store.indexes.get("title");
+          idIndex = await search._store.indexes.get("id");
 
           expect(search.getIndexState()).toBe(IndexState.IDLE);
           expect(titleIndex).toHaveProperty("value");
@@ -190,7 +191,7 @@ describe("RefinerDB", () => {
 
   describe("Querying - Basic", () => {
     it("Should return the correct item with a single exact equals string filter", async () => {
-      let search = new RefinerDb("test-querying");
+      let search = new RefinerDB("test-querying");
       search.setIndexes(indexDefinitions);
       search.setItems(items);
       search.setCriteria({ filter: { title: "two" } });
@@ -203,7 +204,7 @@ describe("RefinerDB", () => {
     });
 
     it("Should wait for a reIndex", async () => {
-      let search = new RefinerDb("test-querying");
+      let search = new RefinerDB("test-querying");
       search.setIndexes(indexDefinitions);
       search.setItems(items);
       search.setCriteria({ filter: { title: "two" } });

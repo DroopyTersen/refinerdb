@@ -1,4 +1,4 @@
-import RefinerDB from "../..";
+import { RefinerDB } from "../..";
 import { cloneBasicItems } from "../fixtures/basicItems";
 import { resetMockStorage, setupMockStorageApis, teardownMockStorageApis } from "../storageMocks";
 

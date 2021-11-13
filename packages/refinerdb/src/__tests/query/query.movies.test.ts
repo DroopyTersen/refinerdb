@@ -1,5 +1,5 @@
 import movies from "../fixtures/movies";
-import RefinerDB from "../..";
+import { RefinerDB } from "../..";
 import { IndexConfig, IndexType, QueryResult } from "../../interfaces";
 import { resetMockStorage, setupMockStorageApis, teardownMockStorageApis } from "../storageMocks";
 

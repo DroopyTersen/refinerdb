@@ -7,19 +7,19 @@ import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore
 import createMeasurement from "./utils/utils";
 
 export default class RefinerDB {
-  store: PersistedStore;
+  _store: PersistedStore;
   name: string;
-  queryResultRequest: {
+  private queryResultRequest: {
     hydrateItems: boolean;
     criteriaKey: string;
     promise: Promise<QueryResult>;
   };
-  _criteria: QueryCriteria = { filter: null };
-  _indexRegistrations: IndexConfig[] = [];
+  private _criteria: QueryCriteria = { filter: null };
+  private _indexRegistrations: IndexConfig[] = [];
 
   private stateMachine: RefinerDBStateMachine;
 
-  config: RefinerDBConfig = {
+  private config: RefinerDBConfig = {
     indexDelay: 750,
     itemsIndexSchema: "++__itemId",
   };
@@ -31,7 +31,7 @@ export default class RefinerDB {
     };
     this.name = dbName;
     // this.store = createDexieStore(dbName);
-    this.store = config?.store || createLocalStorageStore(dbName);
+    this._store = config?.store || createLocalStorageStore(dbName);
 
     // Setup StateMachine
     this.stateMachine = createRobotStateMachine({
@@ -85,14 +85,14 @@ export default class RefinerDB {
 
   setItems = async (items: any[]) => {
     this.stateMachine.send(IndexEvent.INVALIDATE);
-    await this.store.setItems(items);
+    await this._store.setItems(items);
     this.stateMachine.send(IndexEvent.INVALIDATE);
   };
 
   // TODO: test for worker support
   pushItems = async (items: any[]) => {
     this.stateMachine.send(IndexEvent.INVALIDATE);
-    await this.store.pushItems(items);
+    await this._store.pushItems(items);
     this.stateMachine.send(IndexEvent.INVALIDATE);
   };
 
@@ -111,16 +111,16 @@ export default class RefinerDB {
     });
   };
 
-  reIndex = async () => {
+  reindex = async () => {
     this.stateMachine.send(IndexEvent.INDEX_START);
     await this.waitForState(IndexState.IDLE);
     return;
   };
 
-  _getQueryResult = async (hydrateItems = true) => {
+  private _getQueryResult = async (hydrateItems = true) => {
     await this.waitForState(IndexState.IDLE);
 
-    let persistedQueryResult = await this.store.queryResults.get(this.getCriteriaKey());
+    let persistedQueryResult = await this._store.queryResults.get(this.getCriteriaKey());
     if (hydrateItems === false) {
       return persistedQueryResult;
     }
@@ -128,7 +128,7 @@ export default class RefinerDB {
     let hydrateItemsMeasurement = createMeasurement("query:hydrateItems - " + Date.now());
     hydrateItemsMeasurement.start();
     // Hydrate the items based in the array of itemIds
-    let items = await this.store.allItems.bulkGet(persistedQueryResult?.itemIds || []);
+    let items = await this._store.allItems.bulkGet(persistedQueryResult?.itemIds || []);
     hydrateItemsMeasurement.stop();
 
     return {
@@ -160,16 +160,16 @@ export default class RefinerDB {
     return this.getQueryResult();
   };
 
-  _query = async (queryId: number = Date.now()): Promise<PersistedQueryResult> => {
-    return this.store.query({
+  private _query = async (queryId: number = Date.now()): Promise<PersistedQueryResult> => {
+    return this._store.query({
       queryId,
       indexRegistrations: this.indexRegistrations,
       criteria: this.criteria,
     });
   };
 
-  _reIndex = async (indexingId: number = Date.now()) => {
-    await this.store.reindex({
+  private _reIndex = async (indexingId: number = Date.now()) => {
+    await this._store.reindex({
       indexingId,
       indexRegistrations: this.indexRegistrations,
     });

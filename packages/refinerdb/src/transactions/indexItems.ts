@@ -1,4 +1,4 @@
-import { IndexConfig, PersistedStoreCollections, ReindexParams, SearchIndex } from "..";
+import { PersistedStoreCollections, ReindexParams, SearchIndex } from "..";
 import { getSortedIds, indexers } from "../helpers/indexers";
 import { IndexType } from "../interfaces";
 

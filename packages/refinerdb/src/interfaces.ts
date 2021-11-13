@@ -1,5 +1,3 @@
-import RefinerDB from ".";
-
 export enum IndexType {
   String = "string",
   Number = "number",

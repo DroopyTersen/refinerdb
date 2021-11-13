@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import RefinerDB, {
+import {
+  RefinerDB,
   IndexConfig,
   IndexState,
   PersistedStore,
