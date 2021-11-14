@@ -2,6 +2,20 @@
 
 A browser database used to support advanced search scenarios. An engine that could power an Amazon Refiner-like search experience.
 
+- [Install](#install)
+- [Quick Start](#quick-start)
+- [Create a database](#create-a-database)
+- [Add items to the database](#add-items-to-the-database)
+- [Creating indexes](#creating-indexes)
+- [Querying the database](#querying-the-database)
+  - [Exact Equals](#exact-equals)
+  - [String contains](#string-contains)
+  - [Min Max](#min-max)
+  - [Sorting](#sorting)
+  - [Paging](#paging)
+- [Displaying query results](#displaying-query-results)
+- [Further Docs](#further-docs)
+
 ## Install
 
 ```sh
@@ -40,13 +54,13 @@ let filter = {
   genre: ["Action", "Comedy"],
   score: { min: 7 },
 };
-let { items, refiners, itemCount, totalCount } = await refinerDB.query({
+let { items, refiners, totalCount } = await refinerDB.query({
   filter,
   sort: "released",
   sortDir: "desc",
 });
 
-// items will be an array of movies
+// items will be an array of movies matching the criteria
 // refiners will be an object of like
 // {
 //     "genre": [
@@ -58,7 +72,7 @@ let { items, refiners, itemCount, totalCount } = await refinerDB.query({
 // }
 ```
 
-## Create the Database
+## Create a database
 
 ```javascript
 import { RefinerDB } from "refinerdb";
@@ -78,33 +92,51 @@ let refinerDB = new RefinerDB("my-db", dbConfig);
 
 ## Add items to the database
 
-TODO: Describe `refinderDB.setItems(items)`
+Once you have a database instance you can seed it with an array of items.
+
+```ts
+let refinerDB = new RefinerDB("movies");
+let movies = await getMovies();
+refinerDB.setItems(movies);
+```
+
+- The items can be in any shape. But each item needs to have a property that represents the primary key.
+  - The primary key can be an `string` or a `number`
+- By default RefinerDB assumes that property is `id`
+- When creating a database, you can explicitely tell RefinerDB what the primary key is using the `idProperty` setting.
+
+```ts
+let refinerDB = new RefinerDB("bookmarks", { idProperty: "__id" });
+```
 
 ## Creating indexes
 
-What is the shape of your data? For any properties you want to filter/refine, you need to define an `IndexConfig`.
+What is the shape of your data? For any properties you want to filter/refine, you need to define an Index.
 
 Imagine we had data that looked like this:
 
 ```javascript
 let items = [
-  { title: "one", id: 1 },
-  { title: "two", id: 2 },
-  { title: "four", id: 4 },
-  { title: "three", id: 3 },
-  { title: "one", id: 11 },
+  { title: "Watch the new Matrix", id: 1, tags: ["fun"] },
+  { title: "Cut the grass", id: 2, ["chore", "lawn"] },
+  { title: "Buy fetilizer", id: 4, tags: ["lawn", "shopping"] },
+  { title: "Build RefinerDB", id: 3, ["fun", "code] },
+  { title: "Document RefinerDB", id: 11, ["chore", "code"] },
 ];
 ```
 
-We would create a `RefinerDB` instance then define two indexes, one for `title`, and one for `id`.
+We would create a `RefinerDB` instance then define two indexes, one for `title`, and one for `tags`. We won't need to filter or sort by `id`, so we dont' need an Index for it.
 
 ```javascript
 import { RefinerDB, IndexType } from "refinerdb";
 
 let refinerDB = new RefinerDB("my-db");
 let indexDefinitions = [
-  { key: "title", type: IndexType.String },
-  { key: "id", type: IndexType.Number, skipRefinerOptions: true },
+  { key: "tags", type: IndexType.String },
+  // Because all of the titles are generally unique, generating a list of
+  // refiner options and their counts is not that useful. We can improve
+  // performance by skipping that step.
+  { key: "title", type: IndexType.String, skipRefinerOptions: true },
 ];
 refinerDB.setIndexes(indexDefinitions);
 ```
@@ -155,10 +187,10 @@ interface IndexConfig {
 
 To query, create a `filter` object, where each each property on the object maps to a registered Index key.
 
-In this example the are looking for movies where:
+In the following example, we are looking for movies where:
 
 - `genre` is "Action" or "Comedy"
-- `title` includes the text "day"
+- `title` includes "day"
 - `score` is greater or equal to 6
 
 ```javascript
@@ -248,3 +280,7 @@ TODO: describe `limit` and `skip`
 ## Displaying query results
 
 TODO: describe shape of `QueryResult`
+
+## Further Docs
+
+- [Persisted Stores](docs/persisted-stores.md)

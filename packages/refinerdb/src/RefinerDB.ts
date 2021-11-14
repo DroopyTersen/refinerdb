@@ -21,7 +21,8 @@ export default class RefinerDB {
 
   _config: RefinerDBConfig = {
     indexDelay: 750,
-    itemsIndexSchema: "++__itemId",
+    idProperty: "id",
+    // itemsIndexSchema: "++__itemId",
   };
 
   constructor(dbName: string, config?: RefinerDBConfig) {
@@ -41,7 +42,7 @@ export default class RefinerDB {
       indexingDelay: this?._config?.indexDelay,
     });
     // If it's not a webworker, pull index registrations from localstorage
-    if (!this._config.isWebWorker) {
+    if (!this._config._isWebWorker) {
       this._indexRegistrations = getCache(this.name + "-indexes") || [];
     }
     if (this._config.criteria) {
@@ -72,7 +73,7 @@ export default class RefinerDB {
   setIndexes = (indexes: IndexConfig[], forceReindex = false) => {
     if (forceReindex === true || checkIfModifiedIndexes(this._indexRegistrations, indexes)) {
       this._indexRegistrations = indexes;
-      if (!this._config.isWebWorker) {
+      if (!this._config._isWebWorker) {
         setCache(this.name + "-indexes", this._indexRegistrations);
       }
       this.stateMachine.send(IndexEvent.INVALIDATE);

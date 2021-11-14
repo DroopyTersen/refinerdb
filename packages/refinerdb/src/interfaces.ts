@@ -5,20 +5,65 @@ export enum IndexType {
 }
 
 export interface RefinerDBConfig {
+  /**
+   * How long in ms to wait before automatically triggering
+   * a reindex. Defaults to 500ms.
+   */
   indexDelay?: number;
-  itemsIndexSchema?: string;
+  /**
+   * The item property to use as the primary key.
+   * Defaults to 'id'
+   * */
+  idProperty?: string;
+  /**
+   * Subscribe to changes in the indexing state
+   * */
   onTransition?: (value: IndexState) => void;
-  isWebWorker?: boolean;
-  indexes?: IndexConfig[];
+  /**
+   * The PersistedStore (localStorage, indexedDB, etc...)
+   * Defaults to localStorage.
+   */
   store?: PersistedStore;
+  /**
+   * Initialize the db with indexes so you don't
+   * have to manually call setIndexes
+   */
+  indexes?: IndexConfig[];
+  /**
+   * Initialize the db with criteria so you don't
+   * have to manually call setCriteria
+   */
   criteria?: QueryCriteria;
+  /**
+   * Used internally to avoid having a Web Worker
+   * spawn another Web Worker
+   */
+  _isWebWorker?: boolean;
 }
 
+/**
+ * Use by an internal state machine to manage the logic
+ * of when to reindex and requery.
+ */
 export enum IndexState {
+  /**
+   * Everything is up to date
+   */
   IDLE = "idle",
+  /**
+   * There are new indexes, criteria, or items and we are waiting on a reindex. */
   STALE = "stale",
+  /**
+   * Reindex is in progress
+   */
   PENDING = "pending",
+  /**
+   * A query is in progress
+   */
   QUERYING = "querying",
+  /**
+   * An error occured
+   */
   FAILED = "error",
 }
 
@@ -46,7 +91,13 @@ export interface Filter {
 }
 
 export interface RefinerOption {
+  /**
+   * The refiner option value
+   */
   key: string;
+  /**
+   * The number of results that match this value
+   */
   count: number;
 }
 
@@ -85,10 +136,25 @@ export interface IndexConfig {
 }
 
 export interface QueryCriteria {
+  /**
+   * An object where each property matches an index key
+   */
   filter?: Filter;
+  /**
+   * The index key to sort by
+   */
   sort?: string;
+  /**
+   * The sort direction
+   */
   sortDir?: "asc" | "desc";
+  /**
+   * The max number of matching results to return
+   */
   limit?: number;
+  /**
+   * Pair with 'limit' to implement paging
+   */
   skip?: number;
 }
 
@@ -99,15 +165,39 @@ export interface IndexFilterResult {
 }
 
 export interface PersistedQueryResult {
+  /**
+   * The serialized criteria
+   */
   key: string;
+  /**
+   * An array of Ids for the items that match the criteria.
+   * If you already have the full items array in memory, you can
+   * use that and improve performance with 'skipHydrateItems'
+   */
   itemIds: string[] | number[];
+  /**
+   * An op
+   */
   refiners: {
+    /**
+     * Each property will map to a registered index.
+     */
     [key: string]: RefinerOption[];
   };
+  /**
+   * Totol number of results regardless of 'limit'
+   */
   totalCount: number;
+  /**
+   * The timestamp when the query was executed
+   */
   timestamp: number;
 }
 
+/**
+ * The result of a query that include things like the
+ * matched items and dynamic refiner options.
+ */
 export interface QueryResult<T = any> extends PersistedQueryResult {
   items?: T[];
 }

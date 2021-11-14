@@ -18,6 +18,7 @@
     "build:esm": "tsc -p tsconfig.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:worker": "esbuild src/stores/localStorage/refinerdb.localStorage.worker.ts --bundle --outfile=lib/refinerdb.localStorage.worker.js",
+    "generateTypes": "node tasks/generateTypes.js",
     "clean": "rimraf lib",
     "prerelease": "npm run build",
     "release": "np --any-branch --tag=beta"
@@ -40,6 +41,7 @@
     "robot3": "^0.2.21"
   },
   "devDependencies": {
+    "@documentalist/compiler": "^3.0.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",
     "esbuild": "^0.13.12",
