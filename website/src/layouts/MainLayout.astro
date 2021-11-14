@@ -14,100 +14,67 @@ const title = Astro.props?.title || content?.title || "RefinerDB"
 	<title>{title}</title>
      <style>
       body {
+        --header-height: 3rem;
         width: 100%;
         display: grid;
-        grid-template-rows: var(--theme-navbar-height) 1fr;
+        height: 100vh;
+        --max-width: 100vw;
         --gutter: 0.5rem;
         --doc-padding: 2rem;
       }
       .layout {
         display: grid;
-        grid-auto-flow: column;
-        grid-template-columns: 
-          minmax(var(--gutter), 1fr) 
-          minmax(0, var(--max-width)) 
-          minmax(var(--gutter), 1fr);
+        grid-template-areas: 
+        "leftsidebar      header    header"
+        "leftsidebar      main      rightsidebar";
+        grid-template-rows: var(--header-height) 1fr;
+        grid-template-columns: 260px 1fr 220px;
+        gap: 2rem;
         overflow-x: hidden;
+      }
+      header {
+        grid-area: header;
       }
       .layout :global(> *) {
         width: 100%;
         height: 100%;
       }
       .grid-sidebar {
-        height: 100vh;
         position: sticky;
         top: 0;
         padding: 0;
       }
       #grid-left {
-        position: fixed;
-        background-color: var(--theme-bg);
+        grid-area: leftsidebar;
         z-index: 10;
-        display: none;
+      }
+      #grid-right {
+        grid-area: rightsidebar;
+        z-index: 10;
       }
       #grid-main {
-        padding: var(--doc-padding) var(--gutter);
-        grid-column: 2;
+        grid-area: main;
         display: flex;
         flex-direction: column;
         height: 100%;
       }
-      #grid-right {
-        display: none;
-      }   
-      :global(.mobile-sidebar-toggle) {
-        overflow: hidden;
-      }
-      :global(.mobile-sidebar-toggle #grid-left) {
-        display: block;
-        top: 2rem;
-      }
-      @media (min-width: 50em) {
-        .layout {
-          overflow: initial;
-          grid-template-columns: 
-            20rem 
-            minmax(0, var(--max-width));
-          gap: 1em;
-        }
-        #grid-left {
-          display: flex;
-          padding-left: 2rem;
-          position: sticky;
-          grid-column: 1;
-        }
-      }
-      @media (min-width: 72em) {
-        .layout {
-          grid-template-columns: 
-            20rem 
-            minmax(0, var(--max-width)) 
-            18rem;
-          padding-left: 0;
-          padding-right: 0;
-          margin: 0 auto;
-        }
-        #grid-right {
-          grid-column: 3;
-          display: flex;
-        }
-      }
+
     </style>
 </head>
 
   <body>
     <!-- <Header currentPage={currentPage} /> -->
-    <main class="layout prose">
-      <aside id="grid-left" class="grid-sidebar" title="Site Navigation">
-        <!-- <LeftSidebar currentPage={currentPage} /> -->
-        <h2>SITE NAV</h2>
+    <div class="layout">
+    <header>Header</header>
+      <aside id="grid-left" class="grid-sidebar bg-gray-700" title="Site Navigation">
       </aside>
-      <div id="grid-main">
+      <main id="grid-main" class='prose'>
           <slot />
-      </div>
+      </main>
       <aside id="grid-right" class="grid-sidebar" title="Table of Contents">
         {!hideRightSidebar && <slot name='right-sidebar' />}
+
       </aside>
-    </main>
+    </div>
   </body>
 </html>
