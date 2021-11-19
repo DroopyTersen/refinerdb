@@ -4,13 +4,13 @@ let { properties } = Astro.props;
 
 <div class="props-table">
   {properties.map(({ name, description, type, isRequired }) => (
-    <div class="text-sm row" key={name}>
-      <div class="name">{name}</div>
+    <div class=" row" key={name}>
+      <div class="text-lg name">{name}</div>
       <div class={isRequired}>{isRequired}</div>
-      <div class="text-xs type">
+      <div class="text-sm type">
         <code>{type?.replace(/blah/g,	"&lt;")?.replace(/blah/g, "&gt;")}</code>
       </div>
-      <div class="description">{description}</div>
+      <div class="text-sm description">{description}</div>
     </div>
   ))}
 </div>
@@ -20,8 +20,9 @@ let { properties } = Astro.props;
   margin: 1rem 0 2rem 0;
   .row {
     display: grid;
-    // gap: 10px;
-    grid-template-columns: 150px 90px 250px 1fr;
+    gap: 10px;
+          grid-template-columns: 200px 120px 1fr;
+      grid-template-rows: 40px 1fr;
     align-items: center;
     border-bottom: 1px solid #eee;
     min-height: 40px;
@@ -30,7 +31,13 @@ let { properties } = Astro.props;
       display: flex;
       align-items: center;
     }
+    .description {
+        grid-area: 2 / 1 / 3 / 4;
+        padding-bottom: 10px;
+        max-width: 80ch;
+      }
     .name {
+      // font-size: 1.1em;
       font-weight: bold;
       letter-spacing: 0.5px;
     }
@@ -42,14 +49,11 @@ let { properties } = Astro.props;
       font-weight: bold;
     }
 
-    @media (max-width: 900px) {
-      grid-template-columns: 120px 120px 1fr;
-      grid-template-rows: 40px 1fr;
-      .description {
-        grid-area: 2 / 1 / 3 / 4;
-        padding-bottom: 10px;
-      }
-    }
+    // @media (max-width: 1900px) {
+    //   grid-template-columns: 200px 120px 1fr;
+    //   grid-template-rows: 40px 1fr;
+
+    // }
   }
 }
 </style>
