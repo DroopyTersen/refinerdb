@@ -1,6 +1,10 @@
+/** Map your data's properties to one of these available Indexing data types */
 export enum IndexType {
+  /** For indexing strings or arrays of strings */
   String = "string",
+  /** For indexing numbers (float or int) or arrays of numbers */
   Number = "number",
+  /** For indexing a date. If it's not a real JS Date, it will try to parse a string as a date. */
   Date = "Date",
 }
 
@@ -42,10 +46,7 @@ export interface RefinerDBConfig {
   _isWebWorker?: boolean;
 }
 
-/**
- * Use by an internal state machine to manage the logic
- * of when to reindex and requery.
- */
+/** Use by an internal state machine to manage the logic of when to reindex and requery. */
 export enum IndexState {
   /**
    * Everything is up to date

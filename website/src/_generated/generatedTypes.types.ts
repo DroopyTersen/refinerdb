@@ -48,6 +48,13 @@ export namespace GT {
     methods: Method[];
     properties: Property[];
   }
+  export interface EnumMember extends Base {
+    kind: "enum-member";
+  }
+  export interface Enum extends Base {
+    kind: "enum";
+    members: EnumMember[];
+  }
   export interface Class extends Base {
     flags: Flags;
     kind: "class";

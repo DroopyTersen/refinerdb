@@ -3,7 +3,7 @@ import MainLayout from "../../layouts/MainLayout.astro"
 import { Markdown } from "astro/components"
 import ClassDocumenation from "../../_generated/DocumentClass.astro";
 import InterfaceDocumentation from "../../_generated/DocumentInterface.astro";
-
+import EnumDocumentation from "../../_generated/DocumentEnum.astro";
 ---
 
 <MainLayout>
@@ -12,6 +12,7 @@ import InterfaceDocumentation from "../../_generated/DocumentInterface.astro";
   <ClassDocumenation name="RefinerDB" />
   <InterfaceDocumentation name="RefinerDBConfig" />
   <InterfaceDocumentation name="IndexConfig" />
+  <EnumDocumentation name="IndexType" />
   <InterfaceDocumentation name="QueryCriteria" />
   <InterfaceDocumentation name="QueryResult" />
   <InterfaceDocumentation name="RefinerOption" />
@@ -30,6 +31,9 @@ import InterfaceDocumentation from "../../_generated/DocumentInterface.astro";
         <a href="#indexconfig">IndexConfig</a>
       </li>
       <li>
+        <a href="#indextype">IndexType</a>
+      </li>
+      <li>
         <a href="#querycriteria">QueryCriteria</a>
       </li>
       <li>
@@ -38,6 +42,7 @@ import InterfaceDocumentation from "../../_generated/DocumentInterface.astro";
       <li>
         <a href="#refineroption">RefinerOption</a>
       </li>
+
     </ul>
   </div>
 </MainLayout>

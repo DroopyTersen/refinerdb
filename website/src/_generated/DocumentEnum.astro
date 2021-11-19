@@ -1,0 +1,26 @@
+---
+// import type  {GT} from "./generatedTypes.types";
+import PropsTable from "../components/PropsTable/PropsTable.astro";
+import generatedTypes from "./generatedTypes.json";
+// console.log("🚀 | generatedTypes", generatedTypes.typescript);
+let name: string = Astro.props.name;
+console.log("🚀 | name", name)
+
+let gtEnum = generatedTypes?.typescript?.[name];
+let tableProperties = gtEnum.members.map(member => {
+  return {
+    name: member.name,
+    type: "IndexType." + member.name,
+    isRequired: "",
+    description: member?.documentation?.contentsRaw
+  };
+}).filter(Boolean)
+---
+
+<h2 id={name.toLowerCase()} class='mt-12 mb-4 text-2xl font-bold'>{name}</h2>
+
+{gtEnum?.documentation?.contentsRaw && <p class='mt-4 mb-8'>
+{gtEnum?.documentation?.contentsRaw}
+</p>}
+
+<PropsTable properties={tableProperties} />
