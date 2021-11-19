@@ -21,7 +21,7 @@
       },
       "kind": "class",
       "name": "BasePersistedStore",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/BasePersistedStore.ts#L10",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/BasePersistedStore.ts#L10",
       "implements": [
         ""
       ],
@@ -41,7 +41,7 @@
           },
           "kind": "property",
           "name": "allItems",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/BasePersistedStore.ts#L11",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/BasePersistedStore.ts#L11",
           "type": "PersistedCollection"
         },
         {
@@ -58,7 +58,7 @@
           },
           "kind": "property",
           "name": "filterResults",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/BasePersistedStore.ts#L13",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/BasePersistedStore.ts#L13",
           "type": "PersistedCollection&lt;IndexFilterResult&gt;"
         },
         {
@@ -75,7 +75,7 @@
           },
           "kind": "property",
           "name": "indexes",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/BasePersistedStore.ts#L12",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/BasePersistedStore.ts#L12",
           "type": "PersistedCollection&lt;SearchIndex&gt;"
         },
         {
@@ -92,7 +92,7 @@
           },
           "kind": "property",
           "name": "queryResults",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/BasePersistedStore.ts#L14",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/BasePersistedStore.ts#L14",
           "type": "PersistedCollection&lt;PersistedQueryResult&gt;"
         }
       ],
@@ -112,7 +112,7 @@
       },
       "kind": "class",
       "name": "LocalStorageCollection",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L4",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L4",
       "implements": [
         "PersistedCollection"
       ],
@@ -131,13 +131,13 @@
           },
           "kind": "method",
           "name": "bulkAdd",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L57",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L57",
           "signatures": [
             {
               "fileName": "src/stores/localStorage/LocalStorageCollection.ts",
               "kind": "signature",
               "name": "bulkAdd",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L57",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L57",
               "parameters": [
                 {
                   "flags": {
@@ -174,13 +174,13 @@
           },
           "kind": "method",
           "name": "bulkGet",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L65",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L65",
           "signatures": [
             {
               "fileName": "src/stores/localStorage/LocalStorageCollection.ts",
               "kind": "signature",
               "name": "bulkGet",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L65",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L65",
               "parameters": [
                 {
                   "flags": {
@@ -217,13 +217,13 @@
           },
           "kind": "method",
           "name": "bulkPut",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L60",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L60",
           "signatures": [
             {
               "fileName": "src/stores/localStorage/LocalStorageCollection.ts",
               "kind": "signature",
               "name": "bulkPut",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L60",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L60",
               "parameters": [
                 {
                   "flags": {
@@ -260,13 +260,13 @@
           },
           "kind": "method",
           "name": "clear",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L14",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L14",
           "signatures": [
             {
               "fileName": "src/stores/localStorage/LocalStorageCollection.ts",
               "kind": "signature",
               "name": "clear",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L14",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L14",
               "parameters": [],
               "returnType": "Promise&lt;void&gt;",
               "type": "() =&gt; Promise&lt;void&gt;"
@@ -287,13 +287,13 @@
           },
           "kind": "method",
           "name": "count",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L50",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L50",
           "signatures": [
             {
               "fileName": "src/stores/localStorage/LocalStorageCollection.ts",
               "kind": "signature",
               "name": "count",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L50",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L50",
               "parameters": [],
               "returnType": "Promise&lt;number&gt;",
               "type": "() =&gt; Promise&lt;number&gt;"
@@ -314,13 +314,13 @@
           },
           "kind": "method",
           "name": "each",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L53",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L53",
           "signatures": [
             {
               "fileName": "src/stores/localStorage/LocalStorageCollection.ts",
               "kind": "signature",
               "name": "each",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L53",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L53",
               "parameters": [
                 {
                   "flags": {
@@ -357,13 +357,13 @@
           },
           "kind": "method",
           "name": "get",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L39",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L39",
           "signatures": [
             {
               "fileName": "src/stores/localStorage/LocalStorageCollection.ts",
               "kind": "signature",
               "name": "get",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L39",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L39",
               "parameters": [
                 {
                   "flags": {
@@ -400,13 +400,13 @@
           },
           "kind": "method",
           "name": "put",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L44",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L44",
           "signatures": [
             {
               "fileName": "src/stores/localStorage/LocalStorageCollection.ts",
               "kind": "signature",
               "name": "put",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L44",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L44",
               "parameters": [
                 {
                   "flags": {
@@ -445,7 +445,7 @@
           },
           "kind": "property",
           "name": "idProperty",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L7",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L7",
           "defaultValue": "\"id\"",
           "type": "string"
         },
@@ -463,7 +463,7 @@
           },
           "kind": "property",
           "name": "key",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L5",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L5",
           "defaultValue": "\"\"",
           "type": "string"
         },
@@ -481,7 +481,7 @@
           },
           "kind": "property",
           "name": "name",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L6",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L6",
           "defaultValue": "\"\"",
           "type": "string"
         }
@@ -501,13 +501,13 @@
         },
         "kind": "constructor",
         "name": "constructor",
-        "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L7",
+        "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L7",
         "signatures": [
           {
             "fileName": "src/stores/localStorage/LocalStorageCollection.ts",
             "kind": "signature",
             "name": "new LocalStorageCollection",
-            "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L7",
+            "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L7",
             "parameters": [
               {
                 "flags": {
@@ -576,7 +576,7 @@
       },
       "kind": "class",
       "name": "LocalStorageStore",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L12",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L12",
       "extends": [
         "BasePersistedStore"
       ],
@@ -599,13 +599,13 @@
           },
           "kind": "method",
           "name": "destroy",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L36",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L36",
           "signatures": [
             {
               "fileName": "src/stores/localStorage/LocalStorageStore.ts",
               "kind": "signature",
               "name": "destroy",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L36",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L36",
               "parameters": [],
               "returnType": "Promise&lt;void&gt;",
               "type": "() =&gt; Promise&lt;void&gt;"
@@ -626,13 +626,13 @@
           },
           "kind": "method",
           "name": "pushItems",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L69",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L69",
           "signatures": [
             {
               "fileName": "src/stores/localStorage/LocalStorageStore.ts",
               "kind": "signature",
               "name": "pushItems",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L69",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L69",
               "parameters": [
                 {
                   "flags": {
@@ -669,13 +669,13 @@
           },
           "kind": "method",
           "name": "query",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L40",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L40",
           "signatures": [
             {
               "fileName": "src/stores/localStorage/LocalStorageStore.ts",
               "kind": "signature",
               "name": "query",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L40",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L40",
               "parameters": [
                 {
                   "flags": {
@@ -712,13 +712,13 @@
           },
           "kind": "method",
           "name": "reindex",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L48",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L48",
           "signatures": [
             {
               "fileName": "src/stores/localStorage/LocalStorageStore.ts",
               "kind": "signature",
               "name": "reindex",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L48",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L48",
               "parameters": [
                 {
                   "flags": {
@@ -755,13 +755,13 @@
           },
           "kind": "method",
           "name": "setItems",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L59",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L59",
           "signatures": [
             {
               "fileName": "src/stores/localStorage/LocalStorageStore.ts",
               "kind": "signature",
               "name": "setItems",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L59",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L59",
               "parameters": [
                 {
                   "flags": {
@@ -800,7 +800,7 @@
           },
           "kind": "property",
           "name": "allItems",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/BasePersistedStore.ts#L11",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/BasePersistedStore.ts#L11",
           "inheritedFrom": "BasePersistedStore.allItems",
           "type": "PersistedCollection"
         },
@@ -818,7 +818,7 @@
           },
           "kind": "property",
           "name": "filterResults",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/BasePersistedStore.ts#L13",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/BasePersistedStore.ts#L13",
           "inheritedFrom": "BasePersistedStore.filterResults",
           "type": "PersistedCollection&lt;IndexFilterResult&gt;"
         },
@@ -836,7 +836,7 @@
           },
           "kind": "property",
           "name": "indexes",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/BasePersistedStore.ts#L12",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/BasePersistedStore.ts#L12",
           "inheritedFrom": "BasePersistedStore.indexes",
           "type": "PersistedCollection&lt;SearchIndex&gt;"
         },
@@ -854,7 +854,7 @@
           },
           "kind": "property",
           "name": "queryResults",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/BasePersistedStore.ts#L14",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/BasePersistedStore.ts#L14",
           "inheritedFrom": "BasePersistedStore.queryResults",
           "type": "PersistedCollection&lt;PersistedQueryResult&gt;"
         }
@@ -874,13 +874,13 @@
         },
         "kind": "constructor",
         "name": "constructor",
-        "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L15",
+        "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L15",
         "signatures": [
           {
             "fileName": "src/stores/localStorage/LocalStorageStore.ts",
             "kind": "signature",
             "name": "new LocalStorageStore",
-            "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L15",
+            "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L15",
             "parameters": [
               {
                 "flags": {
@@ -941,7 +941,7 @@
       },
       "kind": "class",
       "name": "RefinerDB",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L10",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L10",
       "methods": [
         {
           "documentation": {
@@ -964,7 +964,7 @@
           },
           "kind": "method",
           "name": "getCriteriaKey",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L72",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L72",
           "signatures": [
             {
               "documentation": {
@@ -977,7 +977,7 @@
               "fileName": "src/RefinerDB.ts",
               "kind": "signature",
               "name": "getCriteriaKey",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L72",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L72",
               "parameters": [],
               "returnType": "string",
               "type": "() =&gt; string"
@@ -1005,7 +1005,7 @@
           },
           "kind": "method",
           "name": "getQueryResult",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L151",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L151",
           "signatures": [
             {
               "documentation": {
@@ -1018,7 +1018,7 @@
               "fileName": "src/RefinerDB.ts",
               "kind": "signature",
               "name": "getQueryResult",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L151",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L151",
               "parameters": [
                 {
                   "flags": {
@@ -1056,13 +1056,13 @@
           },
           "kind": "method",
           "name": "pushItems",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L103",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L103",
           "signatures": [
             {
               "fileName": "src/RefinerDB.ts",
               "kind": "signature",
               "name": "pushItems",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L103",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L103",
               "parameters": [
                 {
                   "flags": {
@@ -1106,7 +1106,7 @@
           },
           "kind": "method",
           "name": "query",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L169",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L169",
           "signatures": [
             {
               "documentation": {
@@ -1119,7 +1119,7 @@
               "fileName": "src/RefinerDB.ts",
               "kind": "signature",
               "name": "query",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L169",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L169",
               "parameters": [
                 {
                   "flags": {
@@ -1156,13 +1156,13 @@
           },
           "kind": "method",
           "name": "reindex",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L124",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L124",
           "signatures": [
             {
               "fileName": "src/RefinerDB.ts",
               "kind": "signature",
               "name": "reindex",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L124",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L124",
               "parameters": [],
               "returnType": "Promise&lt;void&gt;",
               "type": "() =&gt; Promise&lt;void&gt;"
@@ -1190,7 +1190,7 @@
           },
           "kind": "method",
           "name": "setCriteria",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L64",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L64",
           "signatures": [
             {
               "documentation": {
@@ -1203,7 +1203,7 @@
               "fileName": "src/RefinerDB.ts",
               "kind": "signature",
               "name": "setCriteria",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L64",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L64",
               "parameters": [
                 {
                   "flags": {
@@ -1247,7 +1247,7 @@
           },
           "kind": "method",
           "name": "setIndexes",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L80",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L80",
           "signatures": [
             {
               "documentation": {
@@ -1260,7 +1260,7 @@
               "fileName": "src/RefinerDB.ts",
               "kind": "signature",
               "name": "setIndexes",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L80",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L80",
               "parameters": [
                 {
                   "flags": {
@@ -1320,7 +1320,7 @@
           },
           "kind": "method",
           "name": "setItems",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L96",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L96",
           "signatures": [
             {
               "documentation": {
@@ -1333,7 +1333,7 @@
               "fileName": "src/RefinerDB.ts",
               "kind": "signature",
               "name": "setItems",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L96",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L96",
               "parameters": [
                 {
                   "flags": {
@@ -1370,13 +1370,13 @@
           },
           "kind": "method",
           "name": "waitForState",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L109",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L109",
           "signatures": [
             {
               "fileName": "src/RefinerDB.ts",
               "kind": "signature",
               "name": "waitForState",
-              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L109",
+              "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L109",
               "parameters": [
                 {
                   "flags": {
@@ -1415,7 +1415,7 @@
           },
           "kind": "property",
           "name": "_store",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L11",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L11",
           "type": "PersistedStore"
         },
         {
@@ -1439,7 +1439,7 @@
           },
           "kind": "property",
           "name": "name",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L13",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L13",
           "type": "string"
         }
       ],
@@ -1465,7 +1465,7 @@
           },
           "kind": "accessor",
           "name": "criteria",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L60",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L60",
           "getDocumentation": {
             "contents": [
               "&lt;p&gt;The active QueryCriteria&lt;/p&gt;\n"
@@ -1496,7 +1496,7 @@
           },
           "kind": "accessor",
           "name": "indexRegistrations",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L76",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L76",
           "getDocumentation": {
             "contents": [
               "&lt;p&gt;The active index registrations&lt;/p&gt;\n"
@@ -1521,13 +1521,13 @@
         },
         "kind": "constructor",
         "name": "constructor",
-        "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L28",
+        "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L28",
         "signatures": [
           {
             "fileName": "src/RefinerDB.ts",
             "kind": "signature",
             "name": "new RefinerDB",
-            "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/RefinerDB.ts#L28",
+            "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/RefinerDB.ts#L28",
             "parameters": [
               {
                 "flags": {
@@ -1587,7 +1587,7 @@
       },
       "kind": "enum",
       "name": "IndexType",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L2",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L2",
       "members": [
         {
           "documentation": {
@@ -1610,7 +1610,7 @@
           },
           "kind": "enum member",
           "name": "Date",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L8",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L8",
           "defaultValue": "\"Date\""
         },
         {
@@ -1634,7 +1634,7 @@
           },
           "kind": "enum member",
           "name": "Number",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L6",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L6",
           "defaultValue": "\"number\""
         },
         {
@@ -1658,7 +1658,7 @@
           },
           "kind": "enum member",
           "name": "String",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L4",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L4",
           "defaultValue": "\"string\""
         }
       ]
@@ -1677,7 +1677,7 @@
       },
       "kind": "enum",
       "name": "IndexEvent",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L72",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L72",
       "members": [
         {
           "fileName": "src/interfaces.ts",
@@ -1693,7 +1693,7 @@
           },
           "kind": "enum member",
           "name": "INDEX_START",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L73",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L73",
           "defaultValue": "\"index:start\""
         },
         {
@@ -1710,7 +1710,7 @@
           },
           "kind": "enum member",
           "name": "INVALIDATE",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L74",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L74",
           "defaultValue": "\"index:invalidate\""
         },
         {
@@ -1727,7 +1727,7 @@
           },
           "kind": "enum member",
           "name": "QUERY_START",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L76",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L76",
           "defaultValue": "\"query:start\""
         },
         {
@@ -1744,7 +1744,7 @@
           },
           "kind": "enum member",
           "name": "RETRY",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L75",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L75",
           "defaultValue": "\"index:retry\""
         }
       ]
@@ -1763,13 +1763,13 @@
       },
       "kind": "method",
       "name": "indexValues",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/indexers.ts#L3",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/indexers.ts#L3",
       "signatures": [
         {
           "fileName": "src/helpers/indexers.ts",
           "kind": "signature",
           "name": "indexValues",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/indexers.ts#L3",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/indexers.ts#L3",
           "parameters": [
             {
               "flags": {
@@ -1836,13 +1836,13 @@
       },
       "kind": "method",
       "name": "getSortedIds",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/indexers.ts#L56",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/indexers.ts#L56",
       "signatures": [
         {
           "fileName": "src/helpers/indexers.ts",
           "kind": "signature",
           "name": "getSortedIds",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/indexers.ts#L56",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/indexers.ts#L56",
           "parameters": [
             {
               "flags": {
@@ -1894,13 +1894,13 @@
       },
       "kind": "method",
       "name": "checkIfModifiedIndexes",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/indexers.ts#L78",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/indexers.ts#L78",
       "signatures": [
         {
           "fileName": "src/helpers/indexers.ts",
           "kind": "signature",
           "name": "checkIfModifiedIndexes",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/indexers.ts#L78",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/indexers.ts#L78",
           "parameters": [
             {
               "flags": {
@@ -1952,13 +1952,13 @@
       },
       "kind": "method",
       "name": "indexItems",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/transactions/indexItems.ts#L7",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/transactions/indexItems.ts#L7",
       "signatures": [
         {
           "fileName": "src/transactions/indexItems.ts",
           "kind": "signature",
           "name": "indexItems",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/transactions/indexItems.ts#L7",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/transactions/indexItems.ts#L7",
           "parameters": [
             {
               "flags": {
@@ -2010,13 +2010,13 @@
       },
       "kind": "method",
       "name": "createMeasurement",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/utils/utils.ts#L9",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/utils/utils.ts#L9",
       "signatures": [
         {
           "fileName": "src/utils/utils.ts",
           "kind": "signature",
           "name": "createMeasurement",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/utils/utils.ts#L9",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/utils/utils.ts#L9",
           "parameters": [
             {
               "flags": {
@@ -2053,13 +2053,13 @@
       },
       "kind": "method",
       "name": "start",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/utils/utils.ts#L12",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/utils/utils.ts#L12",
       "signatures": [
         {
           "fileName": "src/utils/utils.ts",
           "kind": "signature",
           "name": "start",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/utils/utils.ts#L12",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/utils/utils.ts#L12",
           "parameters": [],
           "returnType": "void",
           "type": "() =&gt; void"
@@ -2080,13 +2080,13 @@
       },
       "kind": "method",
       "name": "stop",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/utils/utils.ts#L13",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/utils/utils.ts#L13",
       "signatures": [
         {
           "fileName": "src/utils/utils.ts",
           "kind": "signature",
           "name": "stop",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/utils/utils.ts#L13",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/utils/utils.ts#L13",
           "parameters": [],
           "returnType": "void",
           "type": "() =&gt; void"
@@ -2107,13 +2107,13 @@
       },
       "kind": "method",
       "name": "intersection",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/utils/utils.ts#L33",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/utils/utils.ts#L33",
       "signatures": [
         {
           "fileName": "src/utils/utils.ts",
           "kind": "signature",
           "name": "intersection",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/utils/utils.ts#L33",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/utils/utils.ts#L33",
           "parameters": [
             {
               "flags": {
@@ -2150,13 +2150,13 @@
       },
       "kind": "method",
       "name": "parseFilter",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/filterParser.ts#L4",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/filterParser.ts#L4",
       "signatures": [
         {
           "fileName": "src/helpers/filterParser.ts",
           "kind": "signature",
           "name": "parseFilter",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/filterParser.ts#L4",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/filterParser.ts#L4",
           "parameters": [
             {
               "flags": {
@@ -2193,13 +2193,13 @@
       },
       "kind": "method",
       "name": "filterToString",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/filterParser.ts#L28",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/filterParser.ts#L28",
       "signatures": [
         {
           "fileName": "src/helpers/filterParser.ts",
           "kind": "signature",
           "name": "filterToString",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/filterParser.ts#L28",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/filterParser.ts#L28",
           "parameters": [
             {
               "flags": {
@@ -2236,13 +2236,13 @@
       },
       "kind": "method",
       "name": "binarySearch",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/binarySearch.ts#L2",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/binarySearch.ts#L2",
       "signatures": [
         {
           "fileName": "src/helpers/binarySearch.ts",
           "kind": "signature",
           "name": "binarySearch",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/binarySearch.ts#L2",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/binarySearch.ts#L2",
           "parameters": [
             {
               "flags": {
@@ -2324,13 +2324,13 @@
       },
       "kind": "method",
       "name": "findRange",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/binarySearch.ts#L48",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/binarySearch.ts#L48",
       "signatures": [
         {
           "fileName": "src/helpers/binarySearch.ts",
           "kind": "signature",
           "name": "findRange",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/binarySearch.ts#L48",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/binarySearch.ts#L48",
           "parameters": [
             {
               "flags": {
@@ -2412,13 +2412,13 @@
       },
       "kind": "method",
       "name": "findNumberRange",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/binarySearch.ts#L73",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/binarySearch.ts#L73",
       "signatures": [
         {
           "fileName": "src/helpers/binarySearch.ts",
           "kind": "signature",
           "name": "findNumberRange",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/binarySearch.ts#L73",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/binarySearch.ts#L73",
           "parameters": [
             {
               "flags": {
@@ -2485,13 +2485,13 @@
       },
       "kind": "method",
       "name": "findStringRange",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/binarySearch.ts#L77",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/binarySearch.ts#L77",
       "signatures": [
         {
           "fileName": "src/helpers/binarySearch.ts",
           "kind": "signature",
           "name": "findStringRange",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/binarySearch.ts#L77",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/binarySearch.ts#L77",
           "parameters": [
             {
               "flags": {
@@ -2558,13 +2558,13 @@
       },
       "kind": "method",
       "name": "compareStrings",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/binarySearch.ts#L80",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/binarySearch.ts#L80",
       "signatures": [
         {
           "fileName": "src/helpers/binarySearch.ts",
           "kind": "signature",
           "name": "compareStrings",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/binarySearch.ts#L80",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/binarySearch.ts#L80",
           "parameters": [
             {
               "flags": {
@@ -2616,13 +2616,13 @@
       },
       "kind": "method",
       "name": "compareNumbers",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/binarySearch.ts#L85",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/binarySearch.ts#L85",
       "signatures": [
         {
           "fileName": "src/helpers/binarySearch.ts",
           "kind": "signature",
           "name": "compareNumbers",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/binarySearch.ts#L85",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/binarySearch.ts#L85",
           "parameters": [
             {
               "flags": {
@@ -2674,7 +2674,7 @@
       },
       "kind": "method",
       "name": "getIndexFilterResults",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/transactions/query/getIndexFilterResults.ts#L14",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/transactions/query/getIndexFilterResults.ts#L14",
       "signatures": [
         {
           "documentation": {
@@ -2687,7 +2687,7 @@
           "fileName": "src/transactions/query/getIndexFilterResults.ts",
           "kind": "signature",
           "name": "getIndexFilterResults",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/transactions/query/getIndexFilterResults.ts#L14",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/transactions/query/getIndexFilterResults.ts#L14",
           "parameters": [
             {
               "flags": {
@@ -2769,7 +2769,7 @@
       },
       "kind": "method",
       "name": "getPagedSortedItemIds",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/transactions/query/getPagedSortedItemIds.ts#L12",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/transactions/query/getPagedSortedItemIds.ts#L12",
       "signatures": [
         {
           "documentation": {
@@ -2782,7 +2782,7 @@
           "fileName": "src/transactions/query/getPagedSortedItemIds.ts",
           "kind": "signature",
           "name": "getPagedSortedItemIds",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/transactions/query/getPagedSortedItemIds.ts#L12",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/transactions/query/getPagedSortedItemIds.ts#L12",
           "parameters": [
             {
               "flags": {
@@ -2849,7 +2849,7 @@
       },
       "kind": "method",
       "name": "getRefiners",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/transactions/query/getRefiners.ts#L13",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/transactions/query/getRefiners.ts#L13",
       "signatures": [
         {
           "documentation": {
@@ -2862,7 +2862,7 @@
           "fileName": "src/transactions/query/getRefiners.ts",
           "kind": "signature",
           "name": "getRefiners",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/transactions/query/getRefiners.ts#L13",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/transactions/query/getRefiners.ts#L13",
           "parameters": [
             {
               "flags": {
@@ -2929,13 +2929,13 @@
       },
       "kind": "method",
       "name": "query",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/transactions/query/query.ts#L15",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/transactions/query/query.ts#L15",
       "signatures": [
         {
           "fileName": "src/transactions/query/query.ts",
           "kind": "signature",
           "name": "query",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/transactions/query/query.ts#L15",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/transactions/query/query.ts#L15",
           "parameters": [
             {
               "flags": {
@@ -2987,13 +2987,13 @@
       },
       "kind": "method",
       "name": "createLocalStorageStore",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L79",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L79",
       "signatures": [
         {
           "fileName": "src/stores/localStorage/LocalStorageStore.ts",
           "kind": "signature",
           "name": "createLocalStorageStore",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L79",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L79",
           "parameters": [
             {
               "flags": {
@@ -3046,13 +3046,13 @@
       },
       "kind": "method",
       "name": "setupLocalStorageWorker",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/refinerdb.localStorage.worker.ts#L5",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/refinerdb.localStorage.worker.ts#L5",
       "signatures": [
         {
           "fileName": "src/stores/localStorage/refinerdb.localStorage.worker.ts",
           "kind": "signature",
           "name": "setupLocalStorageWorker",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stores/localStorage/refinerdb.localStorage.worker.ts#L5",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stores/localStorage/refinerdb.localStorage.worker.ts#L5",
           "parameters": [],
           "returnType": "void",
           "type": "() =&gt; void"
@@ -3073,13 +3073,13 @@
       },
       "kind": "method",
       "name": "getCache",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/cache.ts#L68",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/cache.ts#L68",
       "signatures": [
         {
           "fileName": "src/helpers/cache.ts",
           "kind": "signature",
           "name": "getCache",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/cache.ts#L68",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/cache.ts#L68",
           "parameters": [
             {
               "flags": {
@@ -3116,13 +3116,13 @@
       },
       "kind": "method",
       "name": "setCache",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/cache.ts#L85",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/cache.ts#L85",
       "signatures": [
         {
           "fileName": "src/helpers/cache.ts",
           "kind": "signature",
           "name": "setCache",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/cache.ts#L85",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/cache.ts#L85",
           "parameters": [
             {
               "flags": {
@@ -3174,13 +3174,13 @@
       },
       "kind": "method",
       "name": "cachify",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/cache.ts#L98",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/cache.ts#L98",
       "signatures": [
         {
           "fileName": "src/helpers/cache.ts",
           "kind": "signature",
           "name": "cachify",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/cache.ts#L98",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/cache.ts#L98",
           "parameters": [
             {
               "flags": {
@@ -3248,13 +3248,13 @@
       },
       "kind": "method",
       "name": "createRobotStateMachine",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stateMachine.ts#L16",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stateMachine.ts#L16",
       "signatures": [
         {
           "fileName": "src/stateMachine.ts",
           "kind": "signature",
           "name": "createRobotStateMachine",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stateMachine.ts#L16",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stateMachine.ts#L16",
           "parameters": [
             {
               "flags": {
@@ -3298,7 +3298,7 @@
       },
       "kind": "interface",
       "name": "RefinerDBConfig",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L12",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L12",
       "methods": [],
       "properties": [
         {
@@ -3322,7 +3322,7 @@
           },
           "kind": "property",
           "name": "_isWebWorker",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L46",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L46",
           "type": "boolean"
         },
         {
@@ -3346,7 +3346,7 @@
           },
           "kind": "property",
           "name": "criteria",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L41",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L41",
           "type": "QueryCriteria"
         },
         {
@@ -3370,7 +3370,7 @@
           },
           "kind": "property",
           "name": "idProperty",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L22",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L22",
           "type": "string"
         },
         {
@@ -3394,7 +3394,7 @@
           },
           "kind": "property",
           "name": "indexDelay",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L17",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L17",
           "type": "number"
         },
         {
@@ -3418,7 +3418,7 @@
           },
           "kind": "property",
           "name": "indexes",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L36",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L36",
           "type": "IndexConfig[]"
         },
         {
@@ -3442,7 +3442,7 @@
           },
           "kind": "property",
           "name": "onTransition",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L26",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L26",
           "type": "(value: IndexState) =&gt; void"
         },
         {
@@ -3466,7 +3466,7 @@
           },
           "kind": "property",
           "name": "store",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L31",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L31",
           "type": "PersistedStore"
         }
       ]
@@ -3485,7 +3485,7 @@
       },
       "kind": "interface",
       "name": "IndexFilter",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L79",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L79",
       "methods": [],
       "properties": [
         {
@@ -3502,7 +3502,7 @@
           },
           "kind": "property",
           "name": "indexDefinition",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L81",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L81",
           "type": "IndexConfig"
         },
         {
@@ -3519,7 +3519,7 @@
           },
           "kind": "property",
           "name": "indexKey",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L80",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L80",
           "type": "string"
         },
         {
@@ -3536,7 +3536,7 @@
           },
           "kind": "property",
           "name": "max",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L84",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L84",
           "type": "string | number | Date"
         },
         {
@@ -3553,7 +3553,7 @@
           },
           "kind": "property",
           "name": "min",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L83",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L83",
           "type": "string | number | Date"
         },
         {
@@ -3570,7 +3570,7 @@
           },
           "kind": "property",
           "name": "values",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L82",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L82",
           "type": "string[] | number[]"
         }
       ]
@@ -3589,12 +3589,12 @@
       },
       "kind": "interface",
       "name": "Filter",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L91",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L91",
       "indexSignature": {
         "fileName": "src/interfaces.ts",
         "kind": "signature",
         "name": "__index",
-        "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L91",
+        "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L91",
         "parameters": [
           {
             "flags": {
@@ -3632,7 +3632,7 @@
       },
       "kind": "interface",
       "name": "RefinerOption",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L95",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L95",
       "methods": [],
       "properties": [
         {
@@ -3656,7 +3656,7 @@
           },
           "kind": "property",
           "name": "count",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L103",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L103",
           "type": "number"
         },
         {
@@ -3680,7 +3680,7 @@
           },
           "kind": "property",
           "name": "key",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L99",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L99",
           "type": "string"
         }
       ]
@@ -3699,7 +3699,7 @@
       },
       "kind": "interface",
       "name": "SearchIndex",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L106",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L106",
       "extends": [
         "IndexConfig"
       ],
@@ -3726,7 +3726,7 @@
           },
           "kind": "property",
           "name": "key",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L121",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L121",
           "inheritedFrom": "IndexConfig.key",
           "type": "string"
         },
@@ -3751,7 +3751,7 @@
           },
           "kind": "property",
           "name": "label",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L138",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L138",
           "inheritedFrom": "IndexConfig.label",
           "type": "string"
         },
@@ -3776,7 +3776,7 @@
           },
           "kind": "property",
           "name": "path",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L128",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L128",
           "inheritedFrom": "IndexConfig.path",
           "type": "string"
         },
@@ -3801,7 +3801,7 @@
           },
           "kind": "property",
           "name": "skipRefinerOptions",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L133",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L133",
           "inheritedFrom": "IndexConfig.skipRefinerOptions",
           "type": "boolean"
         },
@@ -3819,7 +3819,7 @@
           },
           "kind": "property",
           "name": "sortedIds",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L111",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L111",
           "type": "number[]"
         },
         {
@@ -3836,7 +3836,7 @@
           },
           "kind": "property",
           "name": "sortedKeys",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L110",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L110",
           "type": "any[]"
         },
         {
@@ -3860,7 +3860,7 @@
           },
           "kind": "property",
           "name": "type",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L123",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L123",
           "inheritedFrom": "IndexConfig.type",
           "type": "IndexType"
         },
@@ -3878,7 +3878,7 @@
           },
           "kind": "property",
           "name": "value",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L107",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L107",
           "type": "{ [key: string]: number[] }"
         }
       ]
@@ -3904,7 +3904,7 @@
       },
       "kind": "interface",
       "name": "IndexConfig",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L115",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L115",
       "methods": [],
       "properties": [
         {
@@ -3928,7 +3928,7 @@
           },
           "kind": "property",
           "name": "key",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L121",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L121",
           "type": "string"
         },
         {
@@ -3952,7 +3952,7 @@
           },
           "kind": "property",
           "name": "label",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L138",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L138",
           "type": "string"
         },
         {
@@ -3976,7 +3976,7 @@
           },
           "kind": "property",
           "name": "path",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L128",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L128",
           "type": "string"
         },
         {
@@ -4000,7 +4000,7 @@
           },
           "kind": "property",
           "name": "skipRefinerOptions",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L133",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L133",
           "type": "boolean"
         },
         {
@@ -4024,7 +4024,7 @@
           },
           "kind": "property",
           "name": "type",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L123",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L123",
           "type": "IndexType"
         }
       ]
@@ -4043,7 +4043,7 @@
       },
       "kind": "interface",
       "name": "QueryCriteria",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L141",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L141",
       "methods": [],
       "properties": [
         {
@@ -4067,7 +4067,7 @@
           },
           "kind": "property",
           "name": "filter",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L145",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L145",
           "type": "Filter"
         },
         {
@@ -4091,7 +4091,7 @@
           },
           "kind": "property",
           "name": "limit",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L157",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L157",
           "type": "number"
         },
         {
@@ -4115,7 +4115,7 @@
           },
           "kind": "property",
           "name": "skip",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L161",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L161",
           "type": "number"
         },
         {
@@ -4139,7 +4139,7 @@
           },
           "kind": "property",
           "name": "sort",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L149",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L149",
           "type": "string"
         },
         {
@@ -4163,7 +4163,7 @@
           },
           "kind": "property",
           "name": "sortDir",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L153",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L153",
           "type": "\"asc\" | \"desc\""
         }
       ]
@@ -4182,7 +4182,7 @@
       },
       "kind": "interface",
       "name": "IndexFilterResult",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L164",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L164",
       "methods": [],
       "properties": [
         {
@@ -4199,7 +4199,7 @@
           },
           "kind": "property",
           "name": "indexKey",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L165",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L165",
           "type": "string"
         },
         {
@@ -4216,7 +4216,7 @@
           },
           "kind": "property",
           "name": "key",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L166",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L166",
           "type": "string"
         },
         {
@@ -4233,7 +4233,7 @@
           },
           "kind": "property",
           "name": "matches",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L167",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L167",
           "type": "number[]"
         }
       ]
@@ -4252,7 +4252,7 @@
       },
       "kind": "interface",
       "name": "PersistedQueryResult",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L170",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L170",
       "methods": [],
       "properties": [
         {
@@ -4276,7 +4276,7 @@
           },
           "kind": "property",
           "name": "itemIds",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L180",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L180",
           "type": "string[] | number[]"
         },
         {
@@ -4300,15 +4300,15 @@
           },
           "kind": "property",
           "name": "key",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L174",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L174",
           "type": "string"
         },
         {
           "documentation": {
             "contents": [
-              "&lt;p&gt;An op&lt;/p&gt;\n"
+              "&lt;p&gt;Each key on the refiners object will map to an index key.&lt;/p&gt;\n"
             ],
-            "contentsRaw": "An op",
+            "contentsRaw": "Each key on the refiners object will map to an index key.",
             "metadata": {}
           },
           "fileName": "src/interfaces.ts",
@@ -4324,7 +4324,7 @@
           },
           "kind": "property",
           "name": "refiners",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L184",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L184",
           "type": "{ [key: string]: RefinerOption[] }"
         },
         {
@@ -4348,7 +4348,7 @@
           },
           "kind": "property",
           "name": "timestamp",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L197",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L194",
           "type": "number"
         },
         {
@@ -4372,7 +4372,7 @@
           },
           "kind": "property",
           "name": "totalCount",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L193",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L190",
           "type": "number"
         }
       ]
@@ -4398,7 +4398,7 @@
       },
       "kind": "interface",
       "name": "QueryResult",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L204",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L201",
       "extends": [
         "PersistedQueryResult"
       ],
@@ -4425,7 +4425,7 @@
           },
           "kind": "property",
           "name": "itemIds",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L180",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L180",
           "inheritedFrom": "PersistedQueryResult.itemIds",
           "type": "string[] | number[]"
         },
@@ -4443,7 +4443,7 @@
           },
           "kind": "property",
           "name": "items",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L205",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L202",
           "type": "T[]"
         },
         {
@@ -4467,16 +4467,16 @@
           },
           "kind": "property",
           "name": "key",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L174",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L174",
           "inheritedFrom": "PersistedQueryResult.key",
           "type": "string"
         },
         {
           "documentation": {
             "contents": [
-              "&lt;p&gt;An op&lt;/p&gt;\n"
+              "&lt;p&gt;Each key on the refiners object will map to an index key.&lt;/p&gt;\n"
             ],
-            "contentsRaw": "An op",
+            "contentsRaw": "Each key on the refiners object will map to an index key.",
             "metadata": {}
           },
           "fileName": "src/interfaces.ts",
@@ -4492,7 +4492,7 @@
           },
           "kind": "property",
           "name": "refiners",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L184",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L184",
           "inheritedFrom": "PersistedQueryResult.refiners",
           "type": "{ [key: string]: RefinerOption[] }"
         },
@@ -4517,7 +4517,7 @@
           },
           "kind": "property",
           "name": "timestamp",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L197",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L194",
           "inheritedFrom": "PersistedQueryResult.timestamp",
           "type": "number"
         },
@@ -4542,7 +4542,7 @@
           },
           "kind": "property",
           "name": "totalCount",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L193",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L190",
           "inheritedFrom": "PersistedQueryResult.totalCount",
           "type": "number"
         }
@@ -4562,7 +4562,7 @@
       },
       "kind": "interface",
       "name": "ReindexParams",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L227",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L224",
       "methods": [],
       "properties": [
         {
@@ -4579,7 +4579,7 @@
           },
           "kind": "property",
           "name": "indexRegistrations",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L229",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L226",
           "type": "IndexConfig[]"
         },
         {
@@ -4596,7 +4596,7 @@
           },
           "kind": "property",
           "name": "indexingId",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L228",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L225",
           "type": "number"
         }
       ]
@@ -4615,7 +4615,7 @@
       },
       "kind": "interface",
       "name": "PersistedCollection",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L242",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L239",
       "methods": [],
       "properties": [
         {
@@ -4639,7 +4639,7 @@
           },
           "kind": "property",
           "name": "bulkAdd",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L254",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L251",
           "type": "(items: any[]) =&gt; Promise&lt;any&gt;"
         },
         {
@@ -4663,7 +4663,7 @@
           },
           "kind": "property",
           "name": "bulkGet",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L258",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L255",
           "type": "(keys: string[] | number[]) =&gt; Promise&lt;T[]&gt;"
         },
         {
@@ -4687,7 +4687,7 @@
           },
           "kind": "property",
           "name": "bulkPut",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L256",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L253",
           "type": "(items: T[]) =&gt; Promise&lt;void&gt;"
         },
         {
@@ -4711,7 +4711,7 @@
           },
           "kind": "property",
           "name": "clear",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L244",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L241",
           "type": "() =&gt; Promise&lt;void&gt;"
         },
         {
@@ -4735,7 +4735,7 @@
           },
           "kind": "property",
           "name": "count",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L248",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L245",
           "type": "() =&gt; Promise&lt;number&gt;"
         },
         {
@@ -4759,7 +4759,7 @@
           },
           "kind": "property",
           "name": "each",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L252",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L249",
           "type": "(callback: (row: T, __namedParameters: ) =&gt; void) =&gt; Promise&lt;void&gt;"
         },
         {
@@ -4783,7 +4783,7 @@
           },
           "kind": "property",
           "name": "get",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L246",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L243",
           "type": "(key: string | number) =&gt; Promise&lt;T&gt;"
         },
         {
@@ -4807,7 +4807,7 @@
           },
           "kind": "property",
           "name": "put",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L250",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L247",
           "type": "(item: T) =&gt; Promise&lt;any&gt;"
         }
       ]
@@ -4826,7 +4826,7 @@
       },
       "kind": "interface",
       "name": "CacheOptions",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/cache.ts#L3",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/cache.ts#L3",
       "methods": [],
       "properties": [
         {
@@ -4843,7 +4843,7 @@
           },
           "kind": "property",
           "name": "cacheBustKey",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/cache.ts#L9",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/cache.ts#L9",
           "type": "string"
         },
         {
@@ -4860,7 +4860,7 @@
           },
           "kind": "property",
           "name": "duration",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/cache.ts#L4",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/cache.ts#L4",
           "type": "number"
         },
         {
@@ -4877,7 +4877,7 @@
           },
           "kind": "property",
           "name": "getCacheKey",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/cache.ts#L8",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/cache.ts#L8",
           "type": "(...providedParams: any[]) =&gt; string"
         },
         {
@@ -4894,7 +4894,7 @@
           },
           "kind": "property",
           "name": "key",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/cache.ts#L6",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/cache.ts#L6",
           "type": "string"
         },
         {
@@ -4911,7 +4911,7 @@
           },
           "kind": "property",
           "name": "location",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/helpers/cache.ts#L5",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/helpers/cache.ts#L5",
           "type": "Storage"
         }
       ]
@@ -4930,7 +4930,7 @@
       },
       "kind": "interface",
       "name": "RefinerDBStateMachine",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stateMachine.ts#L4",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stateMachine.ts#L4",
       "methods": [],
       "properties": [
         {
@@ -4947,7 +4947,7 @@
           },
           "kind": "property",
           "name": "off",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stateMachine.ts#L7",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stateMachine.ts#L7",
           "type": "(handler: (value: IndexState) =&gt; void) =&gt; void"
         },
         {
@@ -4964,7 +4964,7 @@
           },
           "kind": "property",
           "name": "onTransition",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stateMachine.ts#L6",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stateMachine.ts#L6",
           "type": "(handler: OnTransitionHandler) =&gt; void"
         },
         {
@@ -4981,7 +4981,7 @@
           },
           "kind": "property",
           "name": "send",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stateMachine.ts#L5",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stateMachine.ts#L5",
           "type": "(event: IndexEvent) =&gt; void"
         },
         {
@@ -4998,7 +4998,7 @@
           },
           "kind": "property",
           "name": "state",
-          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stateMachine.ts#L8",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stateMachine.ts#L8",
           "type": ""
         }
       ]
@@ -5017,7 +5017,7 @@
       },
       "kind": "type alias",
       "name": "MinMaxFilterValue",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L87",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L87",
       "type": ""
     },
     "StringFilterValue": {
@@ -5034,7 +5034,7 @@
       },
       "kind": "type alias",
       "name": "StringFilterValue",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L88",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L88",
       "type": "string | string[]"
     },
     "NumberFilterValue": {
@@ -5051,7 +5051,7 @@
       },
       "kind": "type alias",
       "name": "NumberFilterValue",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L89",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L89",
       "type": "number | number[]"
     },
     "DBItem": {
@@ -5068,7 +5068,7 @@
       },
       "kind": "type alias",
       "name": "DBItem",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L208",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L205",
       "type": " | "
     },
     "PersistedStoreCollections": {
@@ -5085,7 +5085,7 @@
       },
       "kind": "type alias",
       "name": "PersistedStoreCollections",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L214",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L211",
       "type": ""
     },
     "QueryParams": {
@@ -5102,7 +5102,7 @@
       },
       "kind": "type alias",
       "name": "QueryParams",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L221",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L218",
       "type": ""
     },
     "PersistedStoreMethods": {
@@ -5119,7 +5119,7 @@
       },
       "kind": "type alias",
       "name": "PersistedStoreMethods",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L232",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L229",
       "type": ""
     },
     "PersistedStore": {
@@ -5136,7 +5136,7 @@
       },
       "kind": "type alias",
       "name": "PersistedStore",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/interfaces.ts#L240",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/interfaces.ts#L237",
       "type": "PersistedStoreCollections & PersistedStoreMethods"
     },
     "OnTransitionHandler": {
@@ -5153,7 +5153,7 @@
       },
       "kind": "type alias",
       "name": "OnTransitionHandler",
-      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/d889e15/packages/refinerdb/src/stateMachine.ts#L13",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/0075cab/packages/refinerdb/src/stateMachine.ts#L13",
       "type": "(value: IndexState) =&gt; void"
     }
   }

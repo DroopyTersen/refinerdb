@@ -3,7 +3,7 @@
 ## Install
 
 ```
-npm install refinderdb-react
+npm install refinerdb-react
 ```
 
 ## Quick start

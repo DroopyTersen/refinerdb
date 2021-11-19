@@ -179,12 +179,9 @@ export interface PersistedQueryResult {
    */
   itemIds: string[] | number[];
   /**
-   * An op
+   * Each key on the refiners object will map to an index key.
    */
   refiners: {
-    /**
-     * Each property will map to a registered index.
-     */
     [key: string]: RefinerOption[];
   };
   /**
