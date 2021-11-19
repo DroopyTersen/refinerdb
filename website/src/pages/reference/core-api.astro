@@ -1,0 +1,43 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro"
+import { Markdown } from "astro/components"
+import ClassDocumenation from "../../_generated/DocumentClass.astro";
+import InterfaceDocumentation from "../../_generated/DocumentInterface.astro";
+
+---
+
+<MainLayout>
+<h1 class='text-4xl font-extrabold'>Core API</h1>
+
+  <ClassDocumenation name="RefinerDB" />
+  <InterfaceDocumentation name="RefinerDBConfig" />
+  <InterfaceDocumentation name="IndexConfig" />
+  <InterfaceDocumentation name="QueryCriteria" />
+  <InterfaceDocumentation name="QueryResult" />
+  <InterfaceDocumentation name="RefinerOption" />
+
+  
+  <div slot="right-sidebar" class="prose-sm prose">
+    <h3>On this page</h3>
+    <ul>
+      <li>
+        <a href="#refinerdb">RefinerDB Class</a>
+      </li>
+      <li>
+        <a href="#refinerdbconfig">RefinerDBConfig</a>
+      </li>
+      <li>
+        <a href="#indexconfig">IndexConfig</a>
+      </li>
+      <li>
+        <a href="#querycriteria">QueryCriteria</a>
+      </li>
+      <li>
+        <a href="#queryresult">QueryResult</a>
+      </li>
+      <li>
+        <a href="#refineroption">RefinerOption</a>
+      </li>
+    </ul>
+  </div>
+</MainLayout>

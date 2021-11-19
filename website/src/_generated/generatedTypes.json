@@ -3,7 +3,7 @@
     "BasePersistedStore": {
       "documentation": {
         "contents": [
-          "<p>An abstract base class for all Persisted Store impelementation to inherit from</p>\n"
+          "&lt;p&gt;An abstract base class for all Persisted Store impelementation to inherit from&lt;/p&gt;\n"
         ],
         "contentsRaw": "An abstract base class for all Persisted Store impelementation to inherit from",
         "metadata": {}
@@ -59,7 +59,7 @@
           "kind": "property",
           "name": "filterResults",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stores/BasePersistedStore.ts#L13",
-          "type": "PersistedCollection<IndexFilterResult>"
+          "type": "PersistedCollection&lt;IndexFilterResult&gt;"
         },
         {
           "fileName": "src/stores/BasePersistedStore.ts",
@@ -76,7 +76,7 @@
           "kind": "property",
           "name": "indexes",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stores/BasePersistedStore.ts#L12",
-          "type": "PersistedCollection<SearchIndex>"
+          "type": "PersistedCollection&lt;SearchIndex&gt;"
         },
         {
           "fileName": "src/stores/BasePersistedStore.ts",
@@ -93,7 +93,7 @@
           "kind": "property",
           "name": "queryResults",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stores/BasePersistedStore.ts#L14",
-          "type": "PersistedCollection<PersistedQueryResult>"
+          "type": "PersistedCollection&lt;PersistedQueryResult&gt;"
         }
       ],
       "accessors": []
@@ -155,8 +155,8 @@
                   "type": "any[]"
                 }
               ],
-              "returnType": "Promise<void>",
-              "type": "(items: any[]) => Promise<void>"
+              "returnType": "Promise&lt;void&gt;",
+              "type": "(items: any[]) =&gt; Promise&lt;void&gt;"
             }
           ]
         },
@@ -198,8 +198,8 @@
                   "type": "string[] | number[]"
                 }
               ],
-              "returnType": "Promise<any[]>",
-              "type": "(ids: string[] | number[]) => Promise<any[]>"
+              "returnType": "Promise&lt;any[]&gt;",
+              "type": "(ids: string[] | number[]) =&gt; Promise&lt;any[]&gt;"
             }
           ]
         },
@@ -241,8 +241,8 @@
                   "type": "any[]"
                 }
               ],
-              "returnType": "Promise<void>",
-              "type": "(items: any[]) => Promise<void>"
+              "returnType": "Promise&lt;void&gt;",
+              "type": "(items: any[]) =&gt; Promise&lt;void&gt;"
             }
           ]
         },
@@ -268,8 +268,8 @@
               "name": "clear",
               "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L14",
               "parameters": [],
-              "returnType": "Promise<void>",
-              "type": "() => Promise<void>"
+              "returnType": "Promise&lt;void&gt;",
+              "type": "() =&gt; Promise&lt;void&gt;"
             }
           ]
         },
@@ -295,8 +295,8 @@
               "name": "count",
               "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stores/localStorage/LocalStorageCollection.ts#L50",
               "parameters": [],
-              "returnType": "Promise<number>",
-              "type": "() => Promise<number>"
+              "returnType": "Promise&lt;number&gt;",
+              "type": "() =&gt; Promise&lt;number&gt;"
             }
           ]
         },
@@ -335,11 +335,11 @@
                   },
                   "kind": "parameter",
                   "name": "callback",
-                  "type": "(item: any, extra: any) => void"
+                  "type": "(item: any, extra: any) =&gt; void"
                 }
               ],
-              "returnType": "Promise<void>",
-              "type": "(callback: (item: any, extra: any) => void) => Promise<void>"
+              "returnType": "Promise&lt;void&gt;",
+              "type": "(callback: (item: any, extra: any) =&gt; void) =&gt; Promise&lt;void&gt;"
             }
           ]
         },
@@ -381,8 +381,8 @@
                   "type": "string | number"
                 }
               ],
-              "returnType": "Promise<any>",
-              "type": "(id: string | number) => Promise<any>"
+              "returnType": "Promise&lt;any&gt;",
+              "type": "(id: string | number) =&gt; Promise&lt;any&gt;"
             }
           ]
         },
@@ -424,8 +424,8 @@
                   "type": "any"
                 }
               ],
-              "returnType": "Promise<void>",
-              "type": "(item: any) => Promise<void>"
+              "returnType": "Promise&lt;void&gt;",
+              "type": "(item: any) =&gt; Promise&lt;void&gt;"
             }
           ]
         }
@@ -557,7 +557,7 @@
               }
             ],
             "returnType": "LocalStorageCollection",
-            "type": "(dbName: any, collectionName: any, idProperty?: string) => LocalStorageCollection"
+            "type": "(dbName: any, collectionName: any, idProperty?: string) =&gt; LocalStorageCollection"
           }
         ]
       }
@@ -607,8 +607,8 @@
               "name": "destroy",
               "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stores/localStorage/LocalStorageStore.ts#L36",
               "parameters": [],
-              "returnType": "Promise<void>",
-              "type": "() => Promise<void>"
+              "returnType": "Promise&lt;void&gt;",
+              "type": "() =&gt; Promise&lt;void&gt;"
             }
           ]
         },
@@ -650,8 +650,8 @@
                   "type": "any[]"
                 }
               ],
-              "returnType": "Promise<void>",
-              "type": "(items: any[]) => Promise<void>"
+              "returnType": "Promise&lt;void&gt;",
+              "type": "(items: any[]) =&gt; Promise&lt;void&gt;"
             }
           ]
         },
@@ -693,8 +693,8 @@
                   "type": "QueryParams"
                 }
               ],
-              "returnType": "Promise<PersistedQueryResult>",
-              "type": "(params: QueryParams) => Promise<PersistedQueryResult>"
+              "returnType": "Promise&lt;PersistedQueryResult&gt;",
+              "type": "(params: QueryParams) =&gt; Promise&lt;PersistedQueryResult&gt;"
             }
           ]
         },
@@ -736,8 +736,8 @@
                   "type": "ReindexParams"
                 }
               ],
-              "returnType": "Promise<void>",
-              "type": "(params: ReindexParams) => Promise<void>"
+              "returnType": "Promise&lt;void&gt;",
+              "type": "(params: ReindexParams) =&gt; Promise&lt;void&gt;"
             }
           ]
         },
@@ -779,8 +779,8 @@
                   "type": "any[]"
                 }
               ],
-              "returnType": "Promise<void>",
-              "type": "(items: any[]) => Promise<void>"
+              "returnType": "Promise&lt;void&gt;",
+              "type": "(items: any[]) =&gt; Promise&lt;void&gt;"
             }
           ]
         }
@@ -820,7 +820,7 @@
           "name": "filterResults",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stores/BasePersistedStore.ts#L13",
           "inheritedFrom": "BasePersistedStore.filterResults",
-          "type": "PersistedCollection<IndexFilterResult>"
+          "type": "PersistedCollection&lt;IndexFilterResult&gt;"
         },
         {
           "fileName": "src/stores/BasePersistedStore.ts",
@@ -838,7 +838,7 @@
           "name": "indexes",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stores/BasePersistedStore.ts#L12",
           "inheritedFrom": "BasePersistedStore.indexes",
-          "type": "PersistedCollection<SearchIndex>"
+          "type": "PersistedCollection&lt;SearchIndex&gt;"
         },
         {
           "fileName": "src/stores/BasePersistedStore.ts",
@@ -856,7 +856,7 @@
           "name": "queryResults",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stores/BasePersistedStore.ts#L14",
           "inheritedFrom": "BasePersistedStore.queryResults",
-          "type": "PersistedCollection<PersistedQueryResult>"
+          "type": "PersistedCollection&lt;PersistedQueryResult&gt;"
         }
       ],
       "accessors": [],
@@ -915,7 +915,7 @@
               }
             ],
             "returnType": "LocalStorageStore",
-            "type": "(dbName: any, __namedParameters?: ) => LocalStorageStore"
+            "type": "(dbName: any, __namedParameters?: ) =&gt; LocalStorageStore"
           }
         ]
       }
@@ -923,7 +923,7 @@
     "RefinerDB": {
       "documentation": {
         "contents": [
-          "<p>The big daddy class. Almost everything hinges off of this class.</p>\n"
+          "&lt;p&gt;The big daddy class. Almost everything hinges off of this class.&lt;/p&gt;\n"
         ],
         "contentsRaw": "The big daddy class. Almost everything hinges off of this class.",
         "metadata": {}
@@ -946,7 +946,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>Return the JSON stringified criteria</p>\n"
+              "&lt;p&gt;Return the JSON stringified criteria&lt;/p&gt;\n"
             ],
             "contentsRaw": "Return the JSON stringified criteria",
             "metadata": {}
@@ -969,7 +969,7 @@
             {
               "documentation": {
                 "contents": [
-                  "<p>Return the JSON stringified criteria</p>\n"
+                  "&lt;p&gt;Return the JSON stringified criteria&lt;/p&gt;\n"
                 ],
                 "contentsRaw": "Return the JSON stringified criteria",
                 "metadata": {}
@@ -980,14 +980,14 @@
               "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/RefinerDB.ts#L72",
               "parameters": [],
               "returnType": "string",
-              "type": "() => string"
+              "type": "() =&gt; string"
             }
           ]
         },
         {
           "documentation": {
             "contents": [
-              "<p>Waits for querying to complete then returns results based on the active criteria.</p>\n"
+              "&lt;p&gt;Waits for querying to complete then returns results based on the active criteria.&lt;/p&gt;\n"
             ],
             "contentsRaw": "Waits for querying to complete then returns results based on the active criteria.",
             "metadata": {}
@@ -1010,7 +1010,7 @@
             {
               "documentation": {
                 "contents": [
-                  "<p>Waits for querying to complete then returns results based on the active criteria.</p>\n"
+                  "&lt;p&gt;Waits for querying to complete then returns results based on the active criteria.&lt;/p&gt;\n"
                 ],
                 "contentsRaw": "Waits for querying to complete then returns results based on the active criteria.",
                 "metadata": {}
@@ -1037,8 +1037,8 @@
                   "type": "boolean"
                 }
               ],
-              "returnType": "Promise<QueryResult>",
-              "type": "(hydrateItems?: boolean) => Promise<QueryResult>"
+              "returnType": "Promise&lt;QueryResult&gt;",
+              "type": "(hydrateItems?: boolean) =&gt; Promise&lt;QueryResult&gt;"
             }
           ]
         },
@@ -1080,15 +1080,15 @@
                   "type": "any[]"
                 }
               ],
-              "returnType": "Promise<void>",
-              "type": "(items: any[]) => Promise<void>"
+              "returnType": "Promise&lt;void&gt;",
+              "type": "(items: any[]) =&gt; Promise&lt;void&gt;"
             }
           ]
         },
         {
           "documentation": {
             "contents": [
-              "<p>Updates the active criteria then waits for a query to complete and returns the result</p>\n"
+              "&lt;p&gt;Updates the active criteria then waits for a query to complete and returns the result&lt;/p&gt;\n"
             ],
             "contentsRaw": "Updates the active criteria then waits for a query to complete and returns the result",
             "metadata": {}
@@ -1111,7 +1111,7 @@
             {
               "documentation": {
                 "contents": [
-                  "<p>Updates the active criteria then waits for a query to complete and returns the result</p>\n"
+                  "&lt;p&gt;Updates the active criteria then waits for a query to complete and returns the result&lt;/p&gt;\n"
                 ],
                 "contentsRaw": "Updates the active criteria then waits for a query to complete and returns the result",
                 "metadata": {}
@@ -1137,8 +1137,8 @@
                   "type": "QueryCriteria"
                 }
               ],
-              "returnType": "Promise<QueryResult<any>>",
-              "type": "(criteria: QueryCriteria) => Promise<QueryResult<any>>"
+              "returnType": "Promise&lt;QueryResult&lt;any&gt;&gt;",
+              "type": "(criteria: QueryCriteria) =&gt; Promise&lt;QueryResult&lt;any&gt;&gt;"
             }
           ]
         },
@@ -1164,15 +1164,15 @@
               "name": "reindex",
               "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/RefinerDB.ts#L124",
               "parameters": [],
-              "returnType": "Promise<void>",
-              "type": "() => Promise<void>"
+              "returnType": "Promise&lt;void&gt;",
+              "type": "() =&gt; Promise&lt;void&gt;"
             }
           ]
         },
         {
           "documentation": {
             "contents": [
-              "<p>Update the QueryCriteria. This will trigger a requery</p>\n"
+              "&lt;p&gt;Update the QueryCriteria. This will trigger a requery&lt;/p&gt;\n"
             ],
             "contentsRaw": "Update the QueryCriteria. This will trigger a requery",
             "metadata": {}
@@ -1195,7 +1195,7 @@
             {
               "documentation": {
                 "contents": [
-                  "<p>Update the QueryCriteria. This will trigger a requery</p>\n"
+                  "&lt;p&gt;Update the QueryCriteria. This will trigger a requery&lt;/p&gt;\n"
                 ],
                 "contentsRaw": "Update the QueryCriteria. This will trigger a requery",
                 "metadata": {}
@@ -1222,14 +1222,14 @@
                 }
               ],
               "returnType": "void",
-              "type": "(criteria: QueryCriteria) => void"
+              "type": "(criteria: QueryCriteria) =&gt; void"
             }
           ]
         },
         {
           "documentation": {
             "contents": [
-              "<p>Update the index registrations. This will trigger both a reindex and a requery</p>\n"
+              "&lt;p&gt;Update the index registrations. This will trigger both a reindex and a requery&lt;/p&gt;\n"
             ],
             "contentsRaw": "Update the index registrations. This will trigger both a reindex and a requery",
             "metadata": {}
@@ -1252,7 +1252,7 @@
             {
               "documentation": {
                 "contents": [
-                  "<p>Update the index registrations. This will trigger both a reindex and a requery</p>\n"
+                  "&lt;p&gt;Update the index registrations. This will trigger both a reindex and a requery&lt;/p&gt;\n"
                 ],
                 "contentsRaw": "Update the index registrations. This will trigger both a reindex and a requery",
                 "metadata": {}
@@ -1295,14 +1295,14 @@
                 }
               ],
               "returnType": "void",
-              "type": "(indexes: IndexConfig[], forceReindex?: boolean) => void"
+              "type": "(indexes: IndexConfig[], forceReindex?: boolean) =&gt; void"
             }
           ]
         },
         {
           "documentation": {
             "contents": [
-              "<p>Set the items that should be indexed and queried.</p>\n"
+              "&lt;p&gt;Set the items that should be indexed and queried.&lt;/p&gt;\n"
             ],
             "contentsRaw": "Set the items that should be indexed and queried.",
             "metadata": {}
@@ -1325,7 +1325,7 @@
             {
               "documentation": {
                 "contents": [
-                  "<p>Set the items that should be indexed and queried.</p>\n"
+                  "&lt;p&gt;Set the items that should be indexed and queried.&lt;/p&gt;\n"
                 ],
                 "contentsRaw": "Set the items that should be indexed and queried.",
                 "metadata": {}
@@ -1351,8 +1351,8 @@
                   "type": "any[]"
                 }
               ],
-              "returnType": "Promise<void>",
-              "type": "(items: any[]) => Promise<void>"
+              "returnType": "Promise&lt;void&gt;",
+              "type": "(items: any[]) =&gt; Promise&lt;void&gt;"
             }
           ]
         },
@@ -1394,8 +1394,8 @@
                   "type": "IndexState"
                 }
               ],
-              "returnType": "Promise<unknown>",
-              "type": "(targetState: IndexState) => Promise<unknown>"
+              "returnType": "Promise&lt;unknown&gt;",
+              "type": "(targetState: IndexState) =&gt; Promise&lt;unknown&gt;"
             }
           ]
         }
@@ -1421,7 +1421,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>The database name</p>\n"
+              "&lt;p&gt;The database name&lt;/p&gt;\n"
             ],
             "contentsRaw": "The database name",
             "metadata": {}
@@ -1447,7 +1447,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>The active QueryCriteria</p>\n"
+              "&lt;p&gt;The active QueryCriteria&lt;/p&gt;\n"
             ],
             "contentsRaw": "The active QueryCriteria",
             "metadata": {}
@@ -1468,7 +1468,7 @@
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/RefinerDB.ts#L60",
           "getDocumentation": {
             "contents": [
-              "<p>The active QueryCriteria</p>\n"
+              "&lt;p&gt;The active QueryCriteria&lt;/p&gt;\n"
             ],
             "contentsRaw": "The active QueryCriteria",
             "metadata": {}
@@ -1478,7 +1478,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>The active index registrations</p>\n"
+              "&lt;p&gt;The active index registrations&lt;/p&gt;\n"
             ],
             "contentsRaw": "The active index registrations",
             "metadata": {}
@@ -1499,7 +1499,7 @@
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/RefinerDB.ts#L76",
           "getDocumentation": {
             "contents": [
-              "<p>The active index registrations</p>\n"
+              "&lt;p&gt;The active index registrations&lt;/p&gt;\n"
             ],
             "contentsRaw": "The active index registrations",
             "metadata": {}
@@ -1561,7 +1561,7 @@
               }
             ],
             "returnType": "RefinerDB",
-            "type": "(dbName: string, config?: RefinerDBConfig) => RefinerDB"
+            "type": "(dbName: string, config?: RefinerDBConfig) =&gt; RefinerDB"
           }
         ]
       }
@@ -1790,7 +1790,7 @@
             }
           ],
           "returnType": "SearchIndex",
-          "type": "(hashValues: string[] | number[], primaryKey: any, index: SearchIndex) => SearchIndex"
+          "type": "(hashValues: string[] | number[], primaryKey: any, index: SearchIndex) =&gt; SearchIndex"
         }
       ]
     },
@@ -1848,7 +1848,7 @@
             }
           ],
           "returnType": "number[]",
-          "type": "(index: SearchIndex, values: string[]) => number[]"
+          "type": "(index: SearchIndex, values: string[]) =&gt; number[]"
         }
       ]
     },
@@ -1906,7 +1906,7 @@
             }
           ],
           "returnType": "boolean",
-          "type": "(current: IndexConfig[], next: IndexConfig[]) => boolean"
+          "type": "(current: IndexConfig[], next: IndexConfig[]) =&gt; boolean"
         }
       ]
     },
@@ -1963,8 +1963,8 @@
               "type": ""
             }
           ],
-          "returnType": "Promise<void>",
-          "type": "(store: PersistedStoreCollections, __namedParameters: ) => Promise<void>"
+          "returnType": "Promise&lt;void&gt;",
+          "type": "(store: PersistedStoreCollections, __namedParameters: ) =&gt; Promise&lt;void&gt;"
         }
       ]
     },
@@ -2007,7 +2007,7 @@
             }
           ],
           "returnType": "",
-          "type": "(name: string) => "
+          "type": "(name: string) =&gt; "
         }
       ]
     },
@@ -2034,7 +2034,7 @@
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/utils/utils.ts#L12",
           "parameters": [],
           "returnType": "void",
-          "type": "() => void"
+          "type": "() =&gt; void"
         }
       ]
     },
@@ -2061,7 +2061,7 @@
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/utils/utils.ts#L13",
           "parameters": [],
           "returnType": "void",
-          "type": "() => void"
+          "type": "() =&gt; void"
         }
       ]
     },
@@ -2104,7 +2104,7 @@
             }
           ],
           "returnType": "any",
-          "type": "(...allArrays: any[]) => any"
+          "type": "(...allArrays: any[]) =&gt; any"
         }
       ]
     },
@@ -2147,7 +2147,7 @@
             }
           ],
           "returnType": "IndexFilter[]",
-          "type": "(filter: Filter) => IndexFilter[]"
+          "type": "(filter: Filter) =&gt; IndexFilter[]"
         }
       ]
     },
@@ -2190,7 +2190,7 @@
             }
           ],
           "returnType": "string",
-          "type": "(filter: IndexFilter) => string"
+          "type": "(filter: IndexFilter) =&gt; string"
         }
       ]
     },
@@ -2259,7 +2259,7 @@
               },
               "kind": "parameter",
               "name": "comparator",
-              "type": "(item: T, target: T) => number"
+              "type": "(item: T, target: T) =&gt; number"
             },
             {
               "flags": {
@@ -2278,7 +2278,7 @@
             }
           ],
           "returnType": "any",
-          "type": "(sortedArray: T[], target: T, comparator: (item: T, target: T) => number, round?: \"up\" | \"down\") => any"
+          "type": "(sortedArray: T[], target: T, comparator: (item: T, target: T) =&gt; number, round?: \"up\" | \"down\") =&gt; any"
         }
       ]
     },
@@ -2332,7 +2332,7 @@
               },
               "kind": "parameter",
               "name": "comparator",
-              "type": "(item: T, target: T) => number"
+              "type": "(item: T, target: T) =&gt; number"
             },
             {
               "flags": {
@@ -2366,7 +2366,7 @@
             }
           ],
           "returnType": "T[]",
-          "type": "(sortedArray: T[], comparator: (item: T, target: T) => number, min?: T, max?: T) => T[]"
+          "type": "(sortedArray: T[], comparator: (item: T, target: T) =&gt; number, min?: T, max?: T) =&gt; T[]"
         }
       ]
     },
@@ -2439,7 +2439,7 @@
             }
           ],
           "returnType": "number[]",
-          "type": "(sortedArray: number[], min?: number, max?: number) => number[]"
+          "type": "(sortedArray: number[], min?: number, max?: number) =&gt; number[]"
         }
       ]
     },
@@ -2512,7 +2512,7 @@
             }
           ],
           "returnType": "string[]",
-          "type": "(sortedArray: string[], min?: string, max?: string) => string[]"
+          "type": "(sortedArray: string[], min?: string, max?: string) =&gt; string[]"
         }
       ]
     },
@@ -2570,7 +2570,7 @@
             }
           ],
           "returnType": "1 | -1 | 0",
-          "type": "(a: string, b: string) => 1 | -1 | 0"
+          "type": "(a: string, b: string) =&gt; 1 | -1 | 0"
         }
       ]
     },
@@ -2628,7 +2628,7 @@
             }
           ],
           "returnType": "number",
-          "type": "(a: number, b: number) => number"
+          "type": "(a: number, b: number) =&gt; number"
         }
       ]
     },
@@ -2651,7 +2651,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>For each indexRegistration, we want to build an ordered set of itemIds that match the\nfilter value for that index.</p>\n<ul>\n<li>If there is no active filter for the index, return all indexed itemIds(sorted).</li>\n<li>Eventually we&#39;ll then apply an &quot;intersection&quot; operation to all of the sets to come up with the filtered itemIds</li>\n<li>We need do create results per index so the we can quickly calculate refiner options and counts</li>\n<li>Each refiner requires removing the active refiner from the filter</li>\n</ul>\n"
+              "&lt;p&gt;For each indexRegistration, we want to build an ordered set of itemIds that match the\nfilter value for that index.&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;If there is no active filter for the index, return all indexed itemIds(sorted).&lt;/li&gt;\n&lt;li&gt;Eventually we&#39;ll then apply an &quot;intersection&quot; operation to all of the sets to come up with the filtered itemIds&lt;/li&gt;\n&lt;li&gt;We need do create results per index so the we can quickly calculate refiner options and counts&lt;/li&gt;\n&lt;li&gt;Each refiner requires removing the active refiner from the filter&lt;/li&gt;\n&lt;/ul&gt;\n"
             ],
             "contentsRaw": "For each indexRegistration, we want to build an ordered set of itemIds that match the\nfilter value for that index.\n- If there is no active filter for the index, return all indexed itemIds(sorted).\n- Eventually we'll then apply an \"intersection\" operation to all of the sets to come up with the filtered itemIds\n- We need do create results per index so the we can quickly calculate refiner options and counts\n- Each refiner requires removing the active refiner from the filter",
             "metadata": {}
@@ -2704,7 +2704,7 @@
               },
               "kind": "parameter",
               "name": "persistedFilterResults",
-              "type": "PersistedCollection<IndexFilterResult>"
+              "type": "PersistedCollection&lt;IndexFilterResult&gt;"
             },
             {
               "flags": {
@@ -2722,8 +2722,8 @@
               "type": "SearchIndex[]"
             }
           ],
-          "returnType": "Promise<IndexFilterResult[]>",
-          "type": "(indexRegistrations: IndexConfig[], filter: Filter, persistedFilterResults: PersistedCollection<IndexFilterResult>, allIndexes: SearchIndex[]) => Promise<IndexFilterResult[]>"
+          "returnType": "Promise&lt;IndexFilterResult[]&gt;",
+          "type": "(indexRegistrations: IndexConfig[], filter: Filter, persistedFilterResults: PersistedCollection&lt;IndexFilterResult&gt;, allIndexes: SearchIndex[]) =&gt; Promise&lt;IndexFilterResult[]&gt;"
         }
       ]
     },
@@ -2746,7 +2746,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>Turns an array of sorted sets of itemIds (per index) into a single array of itemIds</p>\n<ul>\n<li>Applies an &#39;intersection&#39; to the sets to only show items that appear in each index&#39;s filter result</li>\n<li>Handles sorting</li>\n<li>Finds the sorted set associated with the sortKey</li>\n<li>Puts that sorted set first in the intersection operation so it will be used to order the output</li>\n<li>Applies any skip and limit to slice the output</li>\n</ul>\n"
+              "&lt;p&gt;Turns an array of sorted sets of itemIds (per index) into a single array of itemIds&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Applies an &#39;intersection&#39; to the sets to only show items that appear in each index&#39;s filter result&lt;/li&gt;\n&lt;li&gt;Handles sorting&lt;/li&gt;\n&lt;li&gt;Finds the sorted set associated with the sortKey&lt;/li&gt;\n&lt;li&gt;Puts that sorted set first in the intersection operation so it will be used to order the output&lt;/li&gt;\n&lt;li&gt;Applies any skip and limit to slice the output&lt;/li&gt;\n&lt;/ul&gt;\n"
             ],
             "contentsRaw": "Turns an array of sorted sets of itemIds (per index) into a single array of itemIds\n- Applies an 'intersection' to the sets to only show items that appear in each index's filter result\n- Handles sorting\n- Finds the sorted set associated with the sortKey\n- Puts that sorted set first in the intersection operation so it will be used to order the output\n- Applies any skip and limit to slice the output",
             "metadata": {}
@@ -2803,7 +2803,7 @@
             }
           ],
           "returnType": "",
-          "type": "(orderedSets: IndexFilterResult[], criteria: QueryCriteria, indexRegistrations: IndexConfig[]) => "
+          "type": "(orderedSets: IndexFilterResult[], criteria: QueryCriteria, indexRegistrations: IndexConfig[]) =&gt; "
         }
       ]
     },
@@ -2826,7 +2826,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>For each index registration, calculate the refiner options</p>\n<ul>\n<li>To calculate refiner options we need to run a filter that omits the active indexFilter</li>\n<li>filterResults is an array of ordered Sets of itemIds (that have been already been filtered)</li>\n</ul>\n"
+              "&lt;p&gt;For each index registration, calculate the refiner options&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;To calculate refiner options we need to run a filter that omits the active indexFilter&lt;/li&gt;\n&lt;li&gt;filterResults is an array of ordered Sets of itemIds (that have been already been filtered)&lt;/li&gt;\n&lt;/ul&gt;\n"
             ],
             "contentsRaw": "For each index registration, calculate the refiner options\n- To calculate refiner options we need to run a filter that omits the active indexFilter\n- filterResults is an array of ordered Sets of itemIds (that have been already been filtered)",
             "metadata": {}
@@ -2883,7 +2883,7 @@
             }
           ],
           "returnType": "RefinerOptionsMap",
-          "type": "(indexRegistrations: IndexConfig[], allIndexes: SearchIndex[], indexFilterResults: IndexFilterResult[]) => RefinerOptionsMap"
+          "type": "(indexRegistrations: IndexConfig[], allIndexes: SearchIndex[], indexFilterResults: IndexFilterResult[]) =&gt; RefinerOptionsMap"
         }
       ]
     },
@@ -2940,8 +2940,8 @@
               "type": ""
             }
           ],
-          "returnType": "Promise<PersistedQueryResult>",
-          "type": "(store: PersistedStoreCollections, __namedParameters: ) => Promise<PersistedQueryResult>"
+          "returnType": "Promise&lt;PersistedQueryResult&gt;",
+          "type": "(store: PersistedStoreCollections, __namedParameters: ) =&gt; Promise&lt;PersistedQueryResult&gt;"
         }
       ]
     },
@@ -2999,8 +2999,8 @@
               "type": ""
             }
           ],
-          "returnType": "LocalStorageStore<>",
-          "type": "(dbName: string, __namedParameters?: ) => LocalStorageStore<>"
+          "returnType": "LocalStorageStore&lt;&gt;",
+          "type": "(dbName: string, __namedParameters?: ) =&gt; LocalStorageStore&lt;&gt;"
         }
       ]
     },
@@ -3027,7 +3027,7 @@
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stores/localStorage/refinerdb.localStorage.worker.ts#L5",
           "parameters": [],
           "returnType": "void",
-          "type": "() => void"
+          "type": "() =&gt; void"
         }
       ]
     },
@@ -3070,7 +3070,7 @@
             }
           ],
           "returnType": "any",
-          "type": "(cacheOpts: CacheOptions | string) => any"
+          "type": "(cacheOpts: CacheOptions | string) =&gt; any"
         }
       ]
     },
@@ -3128,7 +3128,7 @@
             }
           ],
           "returnType": "any",
-          "type": "(cacheOpts: CacheOptions | string, payload: any) => any"
+          "type": "(cacheOpts: CacheOptions | string, payload: any) =&gt; any"
         }
       ]
     },
@@ -3202,7 +3202,7 @@
             }
           ],
           "returnType": "(Anonymous function)",
-          "type": "(asyncFn: any, cacheConfig: CacheOptions, context?: any) => (Anonymous function)"
+          "type": "(asyncFn: any, cacheConfig: CacheOptions, context?: any) =&gt; (Anonymous function)"
         }
       ]
     },
@@ -3245,14 +3245,14 @@
             }
           ],
           "returnType": "RefinerDBStateMachine",
-          "type": "(__namedParameters: ) => RefinerDBStateMachine"
+          "type": "(__namedParameters: ) =&gt; RefinerDBStateMachine"
         }
       ]
     },
     "RefinerDBConfig": {
       "documentation": {
         "contents": [
-          "<p>The options you can pass to the RefinerDB constructor.</p>\n"
+          "&lt;p&gt;The options you can pass to the RefinerDB constructor.&lt;/p&gt;\n"
         ],
         "contentsRaw": "The options you can pass to the RefinerDB constructor.",
         "metadata": {}
@@ -3276,7 +3276,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>Used internally to avoid having a Web Worker\nspawn another Web Worker</p>\n"
+              "&lt;p&gt;Used internally to avoid having a Web Worker\nspawn another Web Worker&lt;/p&gt;\n"
             ],
             "contentsRaw": "Used internally to avoid having a Web Worker\nspawn another Web Worker",
             "metadata": {}
@@ -3300,7 +3300,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>Initialize the db with criteria so you don&#39;t\nhave to manually call setCriteria</p>\n"
+              "&lt;p&gt;Initialize the db with criteria so you don&#39;t\nhave to manually call setCriteria&lt;/p&gt;\n"
             ],
             "contentsRaw": "Initialize the db with criteria so you don't\nhave to manually call setCriteria",
             "metadata": {}
@@ -3324,7 +3324,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>The item property to use as the primary key.\nDefaults to &#39;id&#39;</p>\n"
+              "&lt;p&gt;The item property to use as the primary key.\nDefaults to &#39;id&#39;&lt;/p&gt;\n"
             ],
             "contentsRaw": "The item property to use as the primary key.\nDefaults to 'id'",
             "metadata": {}
@@ -3348,7 +3348,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>How long in ms to wait before automatically triggering\na reindex. Defaults to 500ms.</p>\n"
+              "&lt;p&gt;How long in ms to wait before automatically triggering\na reindex. Defaults to 500ms.&lt;/p&gt;\n"
             ],
             "contentsRaw": "How long in ms to wait before automatically triggering\na reindex. Defaults to 500ms.",
             "metadata": {}
@@ -3372,7 +3372,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>Initialize the db with indexes so you don&#39;t\nhave to manually call setIndexes</p>\n"
+              "&lt;p&gt;Initialize the db with indexes so you don&#39;t\nhave to manually call setIndexes&lt;/p&gt;\n"
             ],
             "contentsRaw": "Initialize the db with indexes so you don't\nhave to manually call setIndexes",
             "metadata": {}
@@ -3396,7 +3396,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>Subscribe to changes in the indexing state</p>\n"
+              "&lt;p&gt;Subscribe to changes in the indexing state&lt;/p&gt;\n"
             ],
             "contentsRaw": "Subscribe to changes in the indexing state",
             "metadata": {}
@@ -3415,12 +3415,12 @@
           "kind": "property",
           "name": "onTransition",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/interfaces.ts#L22",
-          "type": "(value: IndexState) => void"
+          "type": "(value: IndexState) =&gt; void"
         },
         {
           "documentation": {
             "contents": [
-              "<p>The PersistedStore (localStorage, indexedDB, etc...)\nDefaults to localStorage.</p>\n"
+              "&lt;p&gt;The PersistedStore (localStorage, indexedDB, etc...)\nDefaults to localStorage.&lt;/p&gt;\n"
             ],
             "contentsRaw": "The PersistedStore (localStorage, indexedDB, etc...)\nDefaults to localStorage.",
             "metadata": {}
@@ -3610,7 +3610,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>The number of results that match this value</p>\n"
+              "&lt;p&gt;The number of results that match this value&lt;/p&gt;\n"
             ],
             "contentsRaw": "The number of results that match this value",
             "metadata": {}
@@ -3634,7 +3634,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>The refiner option value</p>\n"
+              "&lt;p&gt;The refiner option value&lt;/p&gt;\n"
             ],
             "contentsRaw": "The refiner option value",
             "metadata": {}
@@ -3680,7 +3680,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>Unique identifier for the index.\nIf no &quot;path&quot; is provided, it is assumed the &quot;key&quot; matches the\nproperty name on the item.</p>\n"
+              "&lt;p&gt;Unique identifier for the index.\nIf no &quot;path&quot; is provided, it is assumed the &quot;key&quot; matches the\nproperty name on the item.&lt;/p&gt;\n"
             ],
             "contentsRaw": "Unique identifier for the index.\nIf no \"path\" is provided, it is assumed the \"key\" matches the\nproperty name on the item.",
             "metadata": {}
@@ -3705,7 +3705,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>A convenience property so you can build dynammic controls like\na &quot;Sort Options Dropwdown&quot;</p>\n"
+              "&lt;p&gt;A convenience property so you can build dynammic controls like\na &quot;Sort Options Dropwdown&quot;&lt;/p&gt;\n"
             ],
             "contentsRaw": "A convenience property so you can build dynammic controls like\na \"Sort Options Dropwdown\"",
             "metadata": {}
@@ -3730,7 +3730,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>If the key doesn&#39;t match the item&#39;s property name, use path.\nAllows nested paths like &quot;author.name&quot;</p>\n"
+              "&lt;p&gt;If the key doesn&#39;t match the item&#39;s property name, use path.\nAllows nested paths like &quot;author.name&quot;&lt;/p&gt;\n"
             ],
             "contentsRaw": "If the key doesn't match the item's property name, use path.\nAllows nested paths like \"author.name\"",
             "metadata": {}
@@ -3755,7 +3755,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>For things like dates with timestamps, or really long strings,\ndo you really need to calculate refiner option?</p>\n"
+              "&lt;p&gt;For things like dates with timestamps, or really long strings,\ndo you really need to calculate refiner option?&lt;/p&gt;\n"
             ],
             "contentsRaw": "For things like dates with timestamps, or really long strings,\ndo you really need to calculate refiner option?",
             "metadata": {}
@@ -3814,7 +3814,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>String, Number, Date, etc...</p>\n"
+              "&lt;p&gt;String, Number, Date, etc...&lt;/p&gt;\n"
             ],
             "contentsRaw": "String, Number, Date, etc...",
             "metadata": {}
@@ -3858,7 +3858,7 @@
     "IndexConfig": {
       "documentation": {
         "contents": [
-          "<p>The shape of an Index registration</p>\n"
+          "&lt;p&gt;The shape of an Index registration&lt;/p&gt;\n"
         ],
         "contentsRaw": "The shape of an Index registration",
         "metadata": {}
@@ -3882,7 +3882,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>Unique identifier for the index.\nIf no &quot;path&quot; is provided, it is assumed the &quot;key&quot; matches the\nproperty name on the item.</p>\n"
+              "&lt;p&gt;Unique identifier for the index.\nIf no &quot;path&quot; is provided, it is assumed the &quot;key&quot; matches the\nproperty name on the item.&lt;/p&gt;\n"
             ],
             "contentsRaw": "Unique identifier for the index.\nIf no \"path\" is provided, it is assumed the \"key\" matches the\nproperty name on the item.",
             "metadata": {}
@@ -3906,7 +3906,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>A convenience property so you can build dynammic controls like\na &quot;Sort Options Dropwdown&quot;</p>\n"
+              "&lt;p&gt;A convenience property so you can build dynammic controls like\na &quot;Sort Options Dropwdown&quot;&lt;/p&gt;\n"
             ],
             "contentsRaw": "A convenience property so you can build dynammic controls like\na \"Sort Options Dropwdown\"",
             "metadata": {}
@@ -3930,7 +3930,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>If the key doesn&#39;t match the item&#39;s property name, use path.\nAllows nested paths like &quot;author.name&quot;</p>\n"
+              "&lt;p&gt;If the key doesn&#39;t match the item&#39;s property name, use path.\nAllows nested paths like &quot;author.name&quot;&lt;/p&gt;\n"
             ],
             "contentsRaw": "If the key doesn't match the item's property name, use path.\nAllows nested paths like \"author.name\"",
             "metadata": {}
@@ -3954,7 +3954,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>For things like dates with timestamps, or really long strings,\ndo you really need to calculate refiner option?</p>\n"
+              "&lt;p&gt;For things like dates with timestamps, or really long strings,\ndo you really need to calculate refiner option?&lt;/p&gt;\n"
             ],
             "contentsRaw": "For things like dates with timestamps, or really long strings,\ndo you really need to calculate refiner option?",
             "metadata": {}
@@ -3978,7 +3978,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>String, Number, Date, etc...</p>\n"
+              "&lt;p&gt;String, Number, Date, etc...&lt;/p&gt;\n"
             ],
             "contentsRaw": "String, Number, Date, etc...",
             "metadata": {}
@@ -4021,7 +4021,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>An object where each property matches an index key</p>\n"
+              "&lt;p&gt;An object where each property matches an index key&lt;/p&gt;\n"
             ],
             "contentsRaw": "An object where each property matches an index key",
             "metadata": {}
@@ -4045,7 +4045,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>The max number of matching results to return</p>\n"
+              "&lt;p&gt;The max number of matching results to return&lt;/p&gt;\n"
             ],
             "contentsRaw": "The max number of matching results to return",
             "metadata": {}
@@ -4069,7 +4069,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>Pair with &#39;limit&#39; to implement paging</p>\n"
+              "&lt;p&gt;Pair with &#39;limit&#39; to implement paging&lt;/p&gt;\n"
             ],
             "contentsRaw": "Pair with 'limit' to implement paging",
             "metadata": {}
@@ -4093,7 +4093,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>The index key to sort by</p>\n"
+              "&lt;p&gt;The index key to sort by&lt;/p&gt;\n"
             ],
             "contentsRaw": "The index key to sort by",
             "metadata": {}
@@ -4117,7 +4117,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>The sort direction</p>\n"
+              "&lt;p&gt;The sort direction&lt;/p&gt;\n"
             ],
             "contentsRaw": "The sort direction",
             "metadata": {}
@@ -4230,7 +4230,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>An array of Ids for the items that match the criteria.\nIf you already have the full items array in memory, you can\nuse that and improve performance with &#39;skipHydrateItems&#39;</p>\n"
+              "&lt;p&gt;An array of Ids for the items that match the criteria.\nIf you already have the full items array in memory, you can\nuse that and improve performance with &#39;skipHydrateItems&#39;&lt;/p&gt;\n"
             ],
             "contentsRaw": "An array of Ids for the items that match the criteria.\nIf you already have the full items array in memory, you can\nuse that and improve performance with 'skipHydrateItems'",
             "metadata": {}
@@ -4254,7 +4254,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>The serialized criteria</p>\n"
+              "&lt;p&gt;The serialized criteria&lt;/p&gt;\n"
             ],
             "contentsRaw": "The serialized criteria",
             "metadata": {}
@@ -4278,7 +4278,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>An op</p>\n"
+              "&lt;p&gt;An op&lt;/p&gt;\n"
             ],
             "contentsRaw": "An op",
             "metadata": {}
@@ -4302,7 +4302,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>The timestamp when the query was executed</p>\n"
+              "&lt;p&gt;The timestamp when the query was executed&lt;/p&gt;\n"
             ],
             "contentsRaw": "The timestamp when the query was executed",
             "metadata": {}
@@ -4326,7 +4326,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>Totol number of results regardless of &#39;limit&#39;</p>\n"
+              "&lt;p&gt;Totol number of results regardless of &#39;limit&#39;&lt;/p&gt;\n"
             ],
             "contentsRaw": "Totol number of results regardless of 'limit'",
             "metadata": {}
@@ -4352,7 +4352,7 @@
     "QueryResult": {
       "documentation": {
         "contents": [
-          "<p>The result of a query that include things like the\nmatched items and dynamic refiner options.</p>\n"
+          "&lt;p&gt;The result of a query that include things like the\nmatched items and dynamic refiner options.&lt;/p&gt;\n"
         ],
         "contentsRaw": "The result of a query that include things like the\nmatched items and dynamic refiner options.",
         "metadata": {}
@@ -4379,7 +4379,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>An array of Ids for the items that match the criteria.\nIf you already have the full items array in memory, you can\nuse that and improve performance with &#39;skipHydrateItems&#39;</p>\n"
+              "&lt;p&gt;An array of Ids for the items that match the criteria.\nIf you already have the full items array in memory, you can\nuse that and improve performance with &#39;skipHydrateItems&#39;&lt;/p&gt;\n"
             ],
             "contentsRaw": "An array of Ids for the items that match the criteria.\nIf you already have the full items array in memory, you can\nuse that and improve performance with 'skipHydrateItems'",
             "metadata": {}
@@ -4421,7 +4421,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>The serialized criteria</p>\n"
+              "&lt;p&gt;The serialized criteria&lt;/p&gt;\n"
             ],
             "contentsRaw": "The serialized criteria",
             "metadata": {}
@@ -4446,7 +4446,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>An op</p>\n"
+              "&lt;p&gt;An op&lt;/p&gt;\n"
             ],
             "contentsRaw": "An op",
             "metadata": {}
@@ -4471,7 +4471,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>The timestamp when the query was executed</p>\n"
+              "&lt;p&gt;The timestamp when the query was executed&lt;/p&gt;\n"
             ],
             "contentsRaw": "The timestamp when the query was executed",
             "metadata": {}
@@ -4496,7 +4496,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>Totol number of results regardless of &#39;limit&#39;</p>\n"
+              "&lt;p&gt;Totol number of results regardless of &#39;limit&#39;&lt;/p&gt;\n"
             ],
             "contentsRaw": "Totol number of results regardless of 'limit'",
             "metadata": {}
@@ -4593,7 +4593,7 @@
         {
           "documentation": {
             "contents": [
-              "<p>Replace all the items in the collection</p>\n"
+              "&lt;p&gt;Replace all the items in the collection&lt;/p&gt;\n"
             ],
             "contentsRaw": "Replace all the items in the collection",
             "metadata": {}
@@ -4612,12 +4612,12 @@
           "kind": "property",
           "name": "bulkAdd",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/interfaces.ts#L253",
-          "type": "(items: any[]) => Promise<any>"
+          "type": "(items: any[]) =&gt; Promise&lt;any&gt;"
         },
         {
           "documentation": {
             "contents": [
-              "<p>Get a bunch of items by IDs</p>\n"
+              "&lt;p&gt;Get a bunch of items by IDs&lt;/p&gt;\n"
             ],
             "contentsRaw": "Get a bunch of items by IDs",
             "metadata": {}
@@ -4636,12 +4636,12 @@
           "kind": "property",
           "name": "bulkGet",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/interfaces.ts#L257",
-          "type": "(keys: string[] | number[]) => Promise<T[]>"
+          "type": "(keys: string[] | number[]) =&gt; Promise&lt;T[]&gt;"
         },
         {
           "documentation": {
             "contents": [
-              "<p>Ins</p>\n"
+              "&lt;p&gt;Ins&lt;/p&gt;\n"
             ],
             "contentsRaw": "Ins",
             "metadata": {}
@@ -4660,12 +4660,12 @@
           "kind": "property",
           "name": "bulkPut",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/interfaces.ts#L255",
-          "type": "(items: T[]) => Promise<void>"
+          "type": "(items: T[]) =&gt; Promise&lt;void&gt;"
         },
         {
           "documentation": {
             "contents": [
-              "<p>Clear all rows in the table</p>\n"
+              "&lt;p&gt;Clear all rows in the table&lt;/p&gt;\n"
             ],
             "contentsRaw": "Clear all rows in the table",
             "metadata": {}
@@ -4684,12 +4684,12 @@
           "kind": "property",
           "name": "clear",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/interfaces.ts#L243",
-          "type": "() => Promise<void>"
+          "type": "() =&gt; Promise&lt;void&gt;"
         },
         {
           "documentation": {
             "contents": [
-              "<p>Get the total number of items</p>\n"
+              "&lt;p&gt;Get the total number of items&lt;/p&gt;\n"
             ],
             "contentsRaw": "Get the total number of items",
             "metadata": {}
@@ -4708,12 +4708,12 @@
           "kind": "property",
           "name": "count",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/interfaces.ts#L247",
-          "type": "() => Promise<number>"
+          "type": "() =&gt; Promise&lt;number&gt;"
         },
         {
           "documentation": {
             "contents": [
-              "<p>Loop through all rows in the table</p>\n"
+              "&lt;p&gt;Loop through all rows in the table&lt;/p&gt;\n"
             ],
             "contentsRaw": "Loop through all rows in the table",
             "metadata": {}
@@ -4732,12 +4732,12 @@
           "kind": "property",
           "name": "each",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/interfaces.ts#L251",
-          "type": "(callback: (row: T, __namedParameters: ) => void) => Promise<void>"
+          "type": "(callback: (row: T, __namedParameters: ) =&gt; void) =&gt; Promise&lt;void&gt;"
         },
         {
           "documentation": {
             "contents": [
-              "<p>Get a row by primary key</p>\n"
+              "&lt;p&gt;Get a row by primary key&lt;/p&gt;\n"
             ],
             "contentsRaw": "Get a row by primary key",
             "metadata": {}
@@ -4756,12 +4756,12 @@
           "kind": "property",
           "name": "get",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/interfaces.ts#L245",
-          "type": "(key: string | number) => Promise<T>"
+          "type": "(key: string | number) =&gt; Promise&lt;T&gt;"
         },
         {
           "documentation": {
             "contents": [
-              "<p>Put an item into the collection</p>\n"
+              "&lt;p&gt;Put an item into the collection&lt;/p&gt;\n"
             ],
             "contentsRaw": "Put an item into the collection",
             "metadata": {}
@@ -4780,7 +4780,7 @@
           "kind": "property",
           "name": "put",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/interfaces.ts#L249",
-          "type": "(item: T) => Promise<any>"
+          "type": "(item: T) =&gt; Promise&lt;any&gt;"
         }
       ]
     },
@@ -4850,7 +4850,7 @@
           "kind": "property",
           "name": "getCacheKey",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/helpers/cache.ts#L8",
-          "type": "(...providedParams: any[]) => string"
+          "type": "(...providedParams: any[]) =&gt; string"
         },
         {
           "fileName": "src/helpers/cache.ts",
@@ -4920,7 +4920,7 @@
           "kind": "property",
           "name": "off",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stateMachine.ts#L7",
-          "type": "(handler: (value: IndexState) => void) => void"
+          "type": "(handler: (value: IndexState) =&gt; void) =&gt; void"
         },
         {
           "fileName": "src/stateMachine.ts",
@@ -4937,7 +4937,7 @@
           "kind": "property",
           "name": "onTransition",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stateMachine.ts#L6",
-          "type": "(handler: OnTransitionHandler) => void"
+          "type": "(handler: OnTransitionHandler) =&gt; void"
         },
         {
           "fileName": "src/stateMachine.ts",
@@ -4954,7 +4954,7 @@
           "kind": "property",
           "name": "send",
           "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stateMachine.ts#L5",
-          "type": "(event: IndexEvent) => void"
+          "type": "(event: IndexEvent) =&gt; void"
         },
         {
           "fileName": "src/stateMachine.ts",
@@ -5126,7 +5126,7 @@
       "kind": "type alias",
       "name": "OnTransitionHandler",
       "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/e5796c2/packages/refinerdb/src/stateMachine.ts#L13",
-      "type": "(value: IndexState) => void"
+      "type": "(value: IndexState) =&gt; void"
     }
   }
 }

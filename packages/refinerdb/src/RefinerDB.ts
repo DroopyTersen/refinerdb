@@ -6,9 +6,11 @@ import { createRobotStateMachine, RefinerDBStateMachine } from "./stateMachine";
 import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
 import createMeasurement from "./utils/utils";
 
+/** The big daddy class. Almost everything hinges off of this class. */
 export default class RefinerDB {
   _store: PersistedStore;
-  name: string;
+  /** The database name */
+  public name: string;
   private queryResultRequest: {
     hydrateItems: boolean;
     criteriaKey: string;
@@ -54,23 +56,28 @@ export default class RefinerDB {
     }
   }
 
-  get criteria() {
+  /** The active QueryCriteria */
+  public get criteria() {
     return this._criteria;
   }
-  setCriteria = (criteria: QueryCriteria) => {
+  /** Update the QueryCriteria. This will trigger a requery */
+  public setCriteria = (criteria: QueryCriteria) => {
     if (!criteria) {
       return;
     }
     this._criteria = criteria;
     this.stateMachine.send(IndexEvent.QUERY_START);
   };
+  /** Return the JSON stringified criteria */
   getCriteriaKey = () => {
     return JSON.stringify(this._criteria);
   };
-  get indexRegistrations() {
+  /** The active index registrations */
+  public get indexRegistrations() {
     return this._indexRegistrations;
   }
-  setIndexes = (indexes: IndexConfig[], forceReindex = false) => {
+  /** Update the index registrations. This will trigger both a reindex and a requery */
+  public setIndexes = (indexes: IndexConfig[], forceReindex = false) => {
     if (forceReindex === true || checkIfModifiedIndexes(this._indexRegistrations, indexes)) {
       this._indexRegistrations = indexes;
       if (!this._config._isWebWorker) {
@@ -80,11 +87,13 @@ export default class RefinerDB {
     }
   };
 
-  getIndexState = (): IndexState => {
+  /** Gets the current status of the internal state machine */
+  public getIndexState = (): IndexState => {
     return this.stateMachine?.state?.value as IndexState;
   };
 
-  setItems = async (items: any[]) => {
+  /** Set the items that should be indexed and queried. */
+  public setItems = async (items: any[]) => {
     this.stateMachine.send(IndexEvent.INVALIDATE);
     await this._store.setItems(items);
     this.stateMachine.send(IndexEvent.INVALIDATE);
@@ -137,7 +146,9 @@ export default class RefinerDB {
       items,
     };
   };
-  getQueryResult = async (hydrateItems = true): Promise<QueryResult> => {
+
+  /** Waits for querying to complete then returns results based on the active criteria. */
+  public getQueryResult = async (hydrateItems = true): Promise<QueryResult> => {
     let currentKey = this.getCriteriaKey();
     if (
       !this?.queryResultRequest?.promise ||
@@ -154,7 +165,8 @@ export default class RefinerDB {
     return this.queryResultRequest.promise;
   };
 
-  query = async (criteria: QueryCriteria) => {
+  /** Updates the active criteria then waits for a query to complete and returns the result */
+  public query = async (criteria: QueryCriteria) => {
     if (criteria) {
       this.setCriteria(criteria);
     }

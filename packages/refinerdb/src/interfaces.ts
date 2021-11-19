@@ -4,6 +4,7 @@ export enum IndexType {
   Date = "Date",
 }
 
+/** The options you can pass to the RefinerDB constructor. */
 export interface RefinerDBConfig {
   /**
    * How long in ms to wait before automatically triggering
@@ -109,6 +110,7 @@ export interface SearchIndex extends IndexConfig {
   sortedIds?: number[];
 }
 
+/** The shape of an Index registration */
 export interface IndexConfig {
   /**
    * Unique identifier for the index.

@@ -12,6 +12,7 @@ export interface Props {
 
 function MultiValueCheckboxes({ indexKey, label = "", ...props }: Props) {
   let { getCheckboxProps, options } = useMultiselectRefiner(indexKey, props.options);
+
   return (
     <div className="form-group">
       <label className="form-label">{label ?? indexKey}</label>

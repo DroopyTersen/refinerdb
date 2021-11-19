@@ -1,0 +1,21 @@
+---
+// import type  {GT} from "./generatedTypes.types";
+import MethodsTable from "./DocumentMethods.astro";
+import PropertiesTable from "./DocumentProperties.astro";
+import generatedTypes from "./generatedTypes.json";
+// console.log("🚀 | generatedTypes", generatedTypes.typescript);
+let name: string = Astro.props.name;
+console.log("🚀 | name", name)
+
+let gtClass = generatedTypes?.typescript?.[name];
+
+---
+
+<h2 id={name.toLowerCase()} class='mt-12 mb-4 text-2xl font-bold'>{name}</h2>
+
+{gtClass?.documentation?.contentsRaw && <p class='mt-4 mb-8'>
+{gtClass?.documentation?.contentsRaw}
+</p>}
+
+<MethodsTable methods={[gtClass?.constructorType, ...(gtClass?.methods?.filter(method => method.flags.isPublic) || []) ]} />
+<PropertiesTable properties={[...gtClass?.properties?.filter(property => property.flags.isPublic), ...(gtClass?.accessors?.filter(property => property.flags.isPublic) || [])]} />

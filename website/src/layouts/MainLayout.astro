@@ -3,6 +3,7 @@ import "../styles/global.css";
 
 const { content = {}, hideRightSidebar = false } = Astro.props;
 const title = Astro.props?.title || content?.title || "RefinerDB"
+import Navigation from "./components/Navigation.astro";
 ---
 
 <html lang="en" data-theme="light">
@@ -29,7 +30,7 @@ const title = Astro.props?.title || content?.title || "RefinerDB"
         "leftsidebar      main      rightsidebar";
         grid-template-rows: var(--header-height) 1fr;
         grid-template-columns: 260px 1fr 220px;
-        gap: 2rem;
+        /* gap: 2rem; */
         overflow-x: hidden;
       }
       header {
@@ -42,7 +43,6 @@ const title = Astro.props?.title || content?.title || "RefinerDB"
       .grid-sidebar {
         position: sticky;
         top: 0;
-        padding: 0;
       }
       #grid-left {
         grid-area: leftsidebar;
@@ -65,16 +65,17 @@ const title = Astro.props?.title || content?.title || "RefinerDB"
   <body>
     <!-- <Header currentPage={currentPage} /> -->
     <div class="layout">
-    <header>Header</header>
-      <aside id="grid-left" class="grid-sidebar bg-gray-700" title="Site Navigation">
+    <header  class='flex items-center px-8 py-4 bg-gray-100'>Header</header>
+      <aside id="grid-left" class="bg-gray-700 grid-sidebar" title="Site Navigation">
+        <Navigation />
       </aside>
-      <main id="grid-main" class='prose'>
+      <main id="grid-main" class='p-8'>
           <slot />
       </main>
-      <aside id="grid-right" class="grid-sidebar" title="Table of Contents">
+      <aside id="grid-right" class="p-8 grid-sidebar" title="Table of Contents">
         {!hideRightSidebar && <slot name='right-sidebar' />}
-
+        
       </aside>
     </div>
   </body>
-</html>
+</html> 
