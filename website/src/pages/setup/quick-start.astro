@@ -1,0 +1,11 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro"
+import { Markdown } from "astro/components";
+import InteractiveEditor from "../../components/InteractiveEditor/InteractiveEditor.tsx";
+---
+<MainLayout title="Quick Start">
+<h1>Quick Start</h1>
+
+<InteractiveEditor client:only />
+
+</MainLayout>
