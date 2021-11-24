@@ -13,5 +13,5 @@ new Documentalist()
     let contents = readFileSync(FILEPATH, { encoding: "utf-8" });
     // contents = "export default " + contents;
     writeFileSync(FILEPATH, contents);
-    writeFileSync(WEBSITE_PATH, contents.replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+    writeFileSync(WEBSITE_PATH, contents);
   });

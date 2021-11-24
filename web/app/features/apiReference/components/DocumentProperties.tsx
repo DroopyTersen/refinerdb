@@ -3,9 +3,13 @@ import { PropsTable, PropsTableProperty } from "./PropsTable";
 
 interface DocumentPropertiesProps {
   properties: GT.Property[];
+  className?: string;
 }
 
-export function DocumentProperties({ properties }: DocumentPropertiesProps) {
+export function DocumentProperties({
+  properties,
+  className = "",
+}: DocumentPropertiesProps) {
   let propTableProperties: PropsTableProperty[] = properties.map((typeProperty) => {
     return {
       name: typeProperty.name,
@@ -15,9 +19,9 @@ export function DocumentProperties({ properties }: DocumentPropertiesProps) {
     };
   });
   return (
-    <>
-      <h3 className="mt-3 text-xl">Properties</h3>
+    <div className={className}>
+      <h3 className="mt-3 text-xl text-accent">Properties</h3>
       <PropsTable properties={propTableProperties} />
-    </>
+    </div>
   );
 }

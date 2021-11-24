@@ -14,7 +14,11 @@ export interface SandpackSetup {
 
 export const loader: LoaderFunction = async (context) => {
   let slug = context?.params?.slug || "";
-  let demos = await fetch("/generated/demos.json").then((res) => res.json());
+  let urlParts = new URL(context?.request.url || "");
+  let demos = await fetch(urlParts.origin + "/generated/demos.json").then((res) =>
+    res.json()
+  );
+  // console.log("🚀 | constloader:LoaderFunction= | demos", demos);
   let demo = demos[slug];
-  return { slug, demo };
+  return { slug, url: context.request.url, demo };
 };

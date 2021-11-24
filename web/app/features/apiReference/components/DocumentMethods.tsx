@@ -3,9 +3,10 @@ import { PropsTable, PropsTableProperty } from "./PropsTable";
 
 interface DocumentMethodsProps {
   methods: GT.Method[];
+  className?: string;
 }
 
-export function DocumentMethods({ methods }: DocumentMethodsProps) {
+export function DocumentMethods({ methods, className = "" }: DocumentMethodsProps) {
   let tableProperties: PropsTableProperty[] = methods.filter(Boolean).map((method) => {
     let tableProperty: PropsTableProperty = {
       name: method.name,
@@ -17,10 +18,10 @@ export function DocumentMethods({ methods }: DocumentMethodsProps) {
   });
 
   return (
-    <>
-      <h3 className="mt-3 text-xl">Methods</h3>
+    <div className={className}>
+      <h3 className="mt-3 text-xl text-accent">Methods</h3>
 
       <PropsTable properties={tableProperties} />
-    </>
+    </div>
   );
 }

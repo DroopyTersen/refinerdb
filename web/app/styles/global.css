@@ -972,8 +972,28 @@ html {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+.my-8 {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+.my-12 {
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+}
 .mt-3 {
 	margin-top: 0.75rem;
+}
+.mt-12 {
+	margin-top: 3rem;
+}
+.mb-4 {
+	margin-bottom: 1rem;
+}
+.mt-4 {
+	margin-top: 1rem;
+}
+.mb-8 {
+	margin-bottom: 2rem;
 }
 .flex {
 	display: flex;
@@ -1056,6 +1076,10 @@ html {
 	padding-top: 0.75rem;
 	padding-bottom: 0.75rem;
 }
+.py-6 {
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+}
 .pl-1 {
 	padding-left: 0.25rem;
 }
@@ -1088,6 +1112,10 @@ html {
 	font-size: 0.875rem;
 	line-height: 1.25rem;
 }
+.text-2xl {
+	font-size: 1.5rem;
+	line-height: 2rem;
+}
 .font-bold {
 	font-weight: 700;
 }
@@ -1106,6 +1134,18 @@ html {
 .text-red-800 {
 	--tw-text-opacity: 1;
 	color: rgba(153, 27, 27, var(--tw-text-opacity));
+}
+.text-red-400 {
+	--tw-text-opacity: 1;
+	color: rgba(248, 113, 113, var(--tw-text-opacity));
+}
+.text-red-500 {
+	--tw-text-opacity: 1;
+	color: rgba(239, 68, 68, var(--tw-text-opacity));
+}
+.text-primary {
+	--tw-text-opacity: 1;
+	color: hsla(var(--p) / var(--tw-text-opacity));
 }
 .opacity-90 {
 	opacity: 0.9;
