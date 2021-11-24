@@ -1,5 +1,4 @@
 import { LoaderFunction } from "@remix-run/server-runtime";
-import demos from "../../features/sandpack/demos/demos.json";
 
 export interface SandpackFile {
   code: string;
@@ -15,6 +14,7 @@ export interface SandpackSetup {
 
 export const loader: LoaderFunction = async (context) => {
   let slug = context?.params?.slug || "";
+  let demos = await fetch("/generated/demos.json").then((res) => res.json());
   let demo = demos[slug];
   return { slug, demo };
 };

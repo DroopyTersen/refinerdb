@@ -2,7 +2,7 @@ const fs = require("fs/promises");
 const path = require("path");
 
 let DEMOS_PATH = path.join(__dirname, "..", "app/features/sandpack/demos");
-
+let OUTPUT_PATH = path.join(__dirname, "..", "public/generated");
 let demoJSON = {};
 let CONFIG_FILENAME = "sandpack.json";
 
@@ -20,10 +20,7 @@ let bundleDemo = async (slug) => {
     for (let i = 0; i < fileNames.length; i++) {
       let filename = fileNames[i];
       if (filename !== CONFIG_FILENAME) {
-        let fileContents = await fs.readFile(
-          path.join(demoFolder, filename),
-          "utf8"
-        );
+        let fileContents = await fs.readFile(path.join(demoFolder, filename), "utf8");
         if (filename !== "index.html") {
           filename = "/src/" + filename;
         }
@@ -48,7 +45,7 @@ let bundleCodeDemos = async () => {
     await bundleDemo(demoFolders[i]);
   }
   await fs.writeFile(
-    path.join(DEMOS_PATH, "demos.json"),
+    path.join(OUTPUT_PATH, "demos.json"),
     JSON.stringify(demoJSON, null, 2)
   );
 };

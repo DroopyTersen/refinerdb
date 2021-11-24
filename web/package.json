@@ -7,6 +7,7 @@
     "start": "concurrently \"npm run watch:css\" \"npm run watch:remix\" \"npm run watch:worker\"",
     "postinstall": "remix setup cloudflare-workers",
     "build": "npm run build:css && npm run build:remix && npm run build:worker",
+    "build:demos": "node tasks/bundleDemos.js",
     "build:css": "postcss styles --base styles --dir app/styles --env production",
     "build:remix": "remix build",
     "build:worker": "esbuild --define:process.env.NODE_ENV='\"production\"' --minify --bundle --sourcemap --outdir=dist ./worker",

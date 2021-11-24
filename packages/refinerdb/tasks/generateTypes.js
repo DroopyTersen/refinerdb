@@ -3,10 +3,7 @@ const { writeFileSync, readFileSync } = require("fs");
 const pathUtils = require("path");
 
 const FILEPATH = "public/generatedTypes.json";
-const WEBSITE_PATH = pathUtils.join(
-  __dirname,
-  "../../../website/src/_generated/generatedTypes.json"
-);
+const WEBSITE_PATH = pathUtils.join(__dirname, "../../../web/public/generated/generatedTypes.json");
 new Documentalist()
   .use(/\.tsx?$/, new TypescriptPlugin({ excludeNames: [/I.+State$/] }))
   .documentGlobs("src/RefinerDB.ts")
