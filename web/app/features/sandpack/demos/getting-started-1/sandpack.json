@@ -1,0 +1,17 @@
+{
+  "files": {
+    "index.html": {
+      "hidden": true
+    },
+    "/src/setup.ts": {
+      "active": true
+    }
+  },
+  "template": "vanilla-ts",
+  "customSetup": {
+    "dependencies": {
+      "refinerdb": "next"
+    },
+    "entry": "index.html"
+  }
+}

@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "./layout.css";
+
+@layer base {
+  h1 {
+    @apply text-4xl font-bold mb-4;
+  }
+
+  h2 {
+    @apply text-2xl font-bold mt-12 mb-4;
+  }
+  h3 {
+    @apply text-xl font-bold mt-10 mb-3;
+  }
+  h4 {
+    @apply text-lg font-bold mt-8 mb-2;
+  }
+
+  a {
+    @apply text-secondary opacity-90;
+  }
+  a:hover {
+    @apply opacity-100;
+  }
+  ul {
+    @apply list-disc;
+  }
+  ol,
+  ul {
+    @apply list-outside my-4;
+    @apply pl-6;
+  }
+  ol ul,
+  ol ol,
+  ul ul,
+  ul ol {
+    @apply my-0;
+  }
+  ol {
+    @apply list-decimal;
+  }
+  li {
+    @apply list-item;
+  }
+  p {
+    @apply my-2 max-w-3xl;
+  }
+  code {
+    color: #7ddee9;
+  }
+  a code {
+    @apply text-secondary;
+  }
+
+  pre {
+    @apply p-4 bg-neutral rounded  text-sm;
+    /* @apply py-5; */
+  }
+  pre code {
+    @apply text-neutral-content;
+  }
+}
