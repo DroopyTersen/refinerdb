@@ -21,7 +21,7 @@ let bundleDemo = async (slug) => {
       let filename = fileNames[i];
       if (filename !== CONFIG_FILENAME) {
         let fileContents = await fs.readFile(path.join(demoFolder, filename), "utf8");
-        if (filename !== "index.html") {
+        if (filename !== "index.html" && filename !== "tsconfig.json") {
           filename = "/src/" + filename;
         }
         if (!sandpackConfig.files[filename]) {

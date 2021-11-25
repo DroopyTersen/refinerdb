@@ -3,6 +3,9 @@
     "index.html": {
       "hidden": true
     },
+    "tsconfig.json": {
+      "hidden": true
+    },
     "/src/index.ts": {
       "active": true
     }

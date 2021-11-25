@@ -1,5 +1,6 @@
 import { IndexType, RefinerDB } from "refinerdb";
 
+// JSON file containing 1000 popular movies
 const MOVIES_ENDPOINT =
   "https://raw.githubusercontent.com/DroopyTersen/refinerdb/dev/packages/refinerdb/public/movies.json";
 
@@ -44,6 +45,7 @@ let init = async () => {
   });
 };
 
+// Not a RefinerDB thing, just a quick util to show data in a pre tag
 const renderData = (data) => {
   const rootElement = document.getElementById("app");
   if (rootElement) {

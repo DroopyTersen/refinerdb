@@ -23,11 +23,11 @@ import { Layout } from "./features/layouts/Layout";
 export let links: LinksFunction = () => {
   return [
     { rel: "stylesheet", href: globalStylesUrl },
-    {
-      rel: "stylesheet",
-      href:
-        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/monokai-sublime.min.css",
-    },
+    // {
+    //   rel: "stylesheet",
+    //   href:
+    //     "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/monokai-sublime.min.css",
+    // },
     {
       rel: "stylesheet",
       href: "https://unpkg.com/@codesandbox/sandpack-react/dist/index.css",

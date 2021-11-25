@@ -1,5 +1,5 @@
+import { indexers, indexValues } from "../../helpers/indexers";
 import { IndexType, SearchIndex } from "../../interfaces";
-import { indexValues, indexers } from "../../helpers/indexers";
 
 describe("search.indexers", () => {
   describe("indexValue", () => {
@@ -39,14 +39,15 @@ describe("search.indexers", () => {
       { title: "A Lot Like Love", genres: ["comedy", "romance"] },
     ];
 
-    it("Should support a hashFn that retuns a single string", () => {
+    it("Should support index.key that matches an item property  that returns a single string", () => {
       indexers[IndexType.String](items[0], 0, titleIndex);
       indexers[IndexType.String](items[1], 1, titleIndex);
       expect(Object.keys(titleIndex.value)).toHaveLength(2);
       expect(titleIndex.value).toHaveProperty(items[0].title);
       expect(titleIndex.value[items[0].title]).toHaveLength(1);
     });
-    it("Should support a hashFn that returns a string array", () => {
+
+    it("Should support an index.path that matches an item property that returns a string array", () => {
       indexers[IndexType.String](items[0], 0, genreIndex);
       indexers[IndexType.String](items[1], 1, genreIndex);
       expect(Object.keys(genreIndex.value)).toHaveLength(4);
@@ -56,6 +57,28 @@ describe("search.indexers", () => {
       expect(genreIndex.value.comedy).toHaveLength(2);
       expect(genreIndex.value.romance).toHaveLength(1);
       expect(genreIndex.value.action).toHaveLength(1);
+    });
+
+    it("Should not blow up with an index.path that doesn't match an item property", () => {
+      let invalidIndex: SearchIndex = { key: "title", path: "invalid", type: IndexType.String };
+      indexers[IndexType.String](items[0], 0, invalidIndex);
+      expect(Object.keys(invalidIndex.value)).toHaveLength(0);
+    });
+
+    it("Should support passing a map function that allows providing a custom value", () => {
+      let isActionIndex: SearchIndex = {
+        key: "isAction",
+        map: (item) => (item.genres.includes("action") ? "YES" : "NO"),
+        type: IndexType.String,
+      };
+      indexers[IndexType.String](items[0], 0, isActionIndex);
+      indexers[IndexType.String](items[1], 1, isActionIndex);
+
+      expect(Object.keys(isActionIndex.value)).toHaveLength(2);
+      expect(isActionIndex.value).toHaveProperty("YES");
+      expect(isActionIndex.value).toHaveProperty("NO");
+      expect(isActionIndex.value.YES).toHaveLength(1);
+      expect(isActionIndex.value.NO).toHaveLength(1);
     });
   });
 

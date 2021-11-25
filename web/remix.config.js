@@ -1,3 +1,5 @@
+// const rehypeHighlight = require("rehype-highlight");
+
 /**
  * @type {import('@remix-run/dev/config').AppConfig}
  */
@@ -7,15 +9,11 @@ module.exports = {
   publicPath: "/build/",
   serverBuildDirectory: "build",
   devServerBroadcastDelay: 1000,
-};
+  mdx: async () => {
+    let rehypePlugin = await import("rehype-highlight").then((mod) => mod.default);
 
-// can be an sync / async function or an object
-exports.mdx = async (filename) => {
-  const [rehypeHighlight] = await Promise.all([
-    import("rehype-highlight").then((mod) => mod.default),
-  ]);
-
-  return {
-    rehypePlugins: [rehypeHighlight],
-  };
+    return {
+      rehypePlugins: [rehypePlugin],
+    };
+  },
 };

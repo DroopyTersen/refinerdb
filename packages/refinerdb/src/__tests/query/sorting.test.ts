@@ -104,6 +104,26 @@ describe("Sorting - Basic", () => {
     expect(result.items[0].title).toBe("one");
   });
 
+  it("Should support an invalid sort direction", async () => {
+    search.setItems(items);
+    search.setCriteria({ sort: "title", sortDir: "BLAH", filter: { id: { min: 0 } } } as any);
+    let result = await search.getQueryResult();
+    expect(result).toBeTruthy();
+    expect(result).toHaveProperty("items");
+    expect(result.items).toHaveLength(items.length);
+    expect(result.items[0].title).toBe("four");
+  });
+
+  it("Should support an invalid sort key", async () => {
+    search.setItems(items);
+    search.setCriteria({ sort: "BLAH", filter: { id: { min: 0 } } } as any);
+    let result = await search.getQueryResult();
+    expect(result).toBeTruthy();
+    expect(result).toHaveProperty("items");
+    expect(result.items).toHaveLength(items.length);
+    expect(result.items[0].title).toBe("four");
+  });
+
   it("Should respect the limit and skip", async () => {
     search.setItems(items);
     search.setCriteria({ limit: 1, sort: "title", filter: {} });

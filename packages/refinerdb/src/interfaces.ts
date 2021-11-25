@@ -126,6 +126,12 @@ export interface IndexConfig {
    * Allows nested paths like "author.name"
    */
   path?: string;
+
+  /**
+   * A function to be called for each item when it is indexed
+   * that should return the value for this index.
+   */
+  map?: (item: any) => string | string[] | number | number[] | Date;
   /**
    * For things like dates with timestamps, or really long strings,
    * do you really need to calculate refiner option?
