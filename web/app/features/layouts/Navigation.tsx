@@ -16,9 +16,15 @@ export function Navigation({}: NavigationProps) {
         </Link>
       </div>
       <NavSection title="Setup">
-        <NavItem to="/setup/installation">Installation</NavItem>
-        <NavItem to="/setup/quick-start">Core Quick Start</NavItem>
-        <NavItem to="/setup/react-quick-start">React Quick Start</NavItem>
+        <NavItem to="/setup/core-setup">Core</NavItem>
+        <NavItem to="/setup/react-setup">React</NavItem>
+      </NavSection>
+
+      <NavSection title="Basics">
+        <NavItem to="/basics/items">Insert Items</NavItem>
+        <NavItem to="/basics/indexes">Indexes</NavItem>
+        <NavItem to="basics/querying">Querying</NavItem>
+        <NavItem to="basics/refiners">Refiners</NavItem>
       </NavSection>
 
       <NavSection title="Examples">
@@ -26,13 +32,6 @@ export function Navigation({}: NavigationProps) {
         <NavItem to="/examples/movies">Movies & TV</NavItem>
         <NavItem to="/examples/dev-to-articles">Dev.to Articles</NavItem>
         <NavItem to="/examples/rick-and-morty">Rick & Morty</NavItem>
-      </NavSection>
-
-      <NavSection title="Basics">
-        <NavItem to="/basics/data">Using your data</NavItem>
-        <NavItem to="/basics/indexes">Indexes</NavItem>
-        <NavItem to="basics/querying">Querying</NavItem>
-        <NavItem to="basics/refiners">Refiners</NavItem>
       </NavSection>
 
       <NavSection title="React">
@@ -63,7 +62,7 @@ function NavItem({ children, to, isActive = false }) {
   let resolved = useResolvedPath(to);
   let match = useMatch({ path: resolved.pathname, end: true });
   return (
-    <li className="flex flex-col text-base">
+    <li className="flex flex-col py-0 text-base">
       <Link
         className={`border-transparent opacity-80 hover:opacity-100 py-1 px-3 rounded text-white ${
           match ? "bg-primary-focus opacity-100" : "hover:text-primary"

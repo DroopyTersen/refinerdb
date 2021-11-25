@@ -1,0 +1,18 @@
+# Add Items to be refined
+
+Once you have a database instance you can seed it with an array of items.
+
+```ts
+let refinerDB = new RefinerDB("movies");
+let movies = await getMovies();
+refinerDB.setItems(movies);
+```
+
+- The items can be in any shape. But each item needs to have a property that represents the primary key.
+  - The primary key can be an `string` or a `number`
+- By default RefinerDB assumes that property is `id`
+- When creating a database, you can explicitely tell RefinerDB what the primary key is using the `idProperty` setting.
+
+```ts
+let refinerDB = new RefinerDB("bookmarks", { idProperty: "__id" });
+```

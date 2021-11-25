@@ -659,6 +659,7 @@ html {
   ol, ul {
 	margin-top: 2rem;
 	margin-bottom: 2rem;
+	max-width: 48rem;
 	list-style-position: outside;
 	padding-left: 1.5rem;
 }
@@ -671,10 +672,12 @@ html {
 }
   li {
 	display: list-item;
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
 }
   p {
-	margin-top: 0.5rem;
-	margin-bottom: 0.5rem;
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
 	max-width: 48rem;
 }
   code {
@@ -686,6 +689,8 @@ html {
 }
 
   pre {
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
 	border-radius: 0.25rem;
 	--tw-bg-opacity: 1;
 	background-color: hsla(var(--n) / var(--tw-bg-opacity));
@@ -1293,6 +1298,10 @@ html {
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 }
+.py-0 {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
 .py-1 {
 	padding-top: 0.25rem;
 	padding-bottom: 0.25rem;
@@ -1392,12 +1401,10 @@ html {
 .filter {
 	filter: var(--tw-filter);
 }
-
 .hover\:text-primary:hover {
 	--tw-text-opacity: 1;
 	color: hsla(var(--p) / var(--tw-text-opacity));
 }
-
 .hover\:opacity-100:hover {
 	opacity: 1;
 }

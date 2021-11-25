@@ -1,0 +1,73 @@
+# Creating Indexes
+
+What is the shape of your data? For any properties you want to filter/refine, you need to define an Index.
+
+Imagine we had data that looked like this:
+
+```javascript
+let items = [
+  { title: "Watch the new Matrix", id: 1, tags: ["fun"] },
+  { title: "Cut the grass", id: 2, ["chore", "lawn"] },
+  { title: "Buy fetilizer", id: 4, tags: ["lawn", "shopping"] },
+  { title: "Build RefinerDB", id: 3, ["fun", "code] },
+  { title: "Document RefinerDB", id: 11, ["chore", "code"] },
+];
+```
+
+We would create a `RefinerDB` instance then define two indexes, one for `title`, and one for `tags`. We won't need to filter or sort by `id`, so we dont' need an Index for it.
+
+```javascript
+import { RefinerDB, IndexType } from "refinerdb";
+
+let refinerDB = new RefinerDB("my-db");
+let indexDefinitions = [
+  { key: "tags", type: IndexType.String },
+  // Because all of the titles are generally unique, generating a list of
+  // refiner options and their counts is not that useful. We can improve
+  // performance by skipping that step.
+  { key: "title", type: IndexType.String, skipRefinerOptions: true },
+];
+refinerDB.setIndexes(indexDefinitions);
+```
+
+Here are the available `IndexType` options, as well as the full type definition of `IndexConfig`.
+
+```typescript
+enum IndexType {
+  String = "string",
+  Number = "number",
+  Date = "Date",
+}
+
+interface IndexConfig {
+  /**
+   * Unique identifier for the index.
+   * If no "path" is provided, it is assumed the "key" matches the
+   * property name on the item.
+   */
+  key: string;
+
+  /**
+   * String, Number, Date, etc...
+   */
+  type: IndexType;
+
+  /**
+   * If the key doesn't match the item's property name, use path.
+   * Allows nested paths like "author.name"
+   */
+  path?: string;
+
+  /**
+   * For things like dates with timestamps, or really long strings,
+   * do you really need to calculate refiner option?
+   */
+  skipRefinerOptions?: boolean;
+
+  /**
+   * A convenience property so you can build dynammic controls like
+   * a "Sort Dropwdown"
+   */
+  label?: string;
+}
+```
