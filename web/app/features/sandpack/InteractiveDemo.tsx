@@ -1,8 +1,13 @@
 import { Sandpack } from "@codesandbox/sandpack-react";
 import useAsyncData from "~/hooks/useAsyncData";
 
+let allDemos: any = null;
 const fetchDemo = async (slug) => {
-  return fetch("/demos/" + slug).then((res) => res.json());
+  if (!allDemos) {
+    allDemos = await fetch("/generated/demos.json").then((resp) => resp.json());
+  }
+  console.log(allDemos, slug);
+  return allDemos?.[slug];
 };
 export default function InteractiveDemo({ slug = "" }) {
   let { data } = useAsyncData(fetchDemo, [slug], null);
@@ -14,7 +19,7 @@ export default function InteractiveDemo({ slug = "" }) {
 
   return (
     <Sandpack
-      {...data.demo}
+      {...data}
       options={{
         editorHeight: 700,
         showLineNumbers: true,
