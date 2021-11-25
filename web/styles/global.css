@@ -1,21 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "./layout.css";
 
 @layer base {
   h1 {
-    @apply text-4xl font-bold mb-4;
+    @apply text-5xl font-bold mb-10 tracking-wider;
   }
 
   h2 {
-    @apply text-2xl font-bold mt-12 mb-4;
+    @apply text-3xl font-bold mt-16 mb-4 tracking-wide;
   }
   h3 {
-    @apply text-xl font-bold mt-10 mb-3;
+    @apply text-2xl font-bold mt-12 mb-3 tracking-wide;
   }
   h4 {
-    @apply text-lg font-bold mt-8 mb-2;
+    @apply text-xl font-bold mt-10 mb-2;
   }
 
   a {
@@ -29,7 +28,7 @@
   }
   ol,
   ul {
-    @apply list-outside my-4;
+    @apply list-outside my-8;
     @apply pl-6;
   }
   ol ul,
@@ -48,7 +47,7 @@
     @apply my-2 max-w-3xl;
   }
   code {
-    color: #7ddee9;
+    color: #aae6ed;
   }
   a code {
     @apply text-secondary;

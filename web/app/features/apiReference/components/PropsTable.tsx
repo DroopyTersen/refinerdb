@@ -5,20 +5,26 @@ export interface PropsTableProps {
 export interface PropsTableProperty {
   name: string;
   description?: string;
-  isRequired: "Required" | "Optional";
+  isRequired?: "Required" | "Optional" | "";
   type: string;
 }
 
 export function PropsTable({ properties }: PropsTableProps) {
   return (
-    <div className="props-table">
-      {properties.map(({ name, description, type, isRequired }) => (
+    <div className="max-w-3xl px-6 py-2 rounded props-table bg-neutral">
+      {properties.map(({ name, description, type, isRequired = "" }) => (
         <div
-          className="grid items-center gap-2 py-6 border-b min-h-12"
-          style={{ gridTemplateColumns: "200px 120px 1fr", gridTemplateRows: "40px 1fr" }}
+          className="grid items-center gap-2 py-2 border-b border-neutral-focus min-h-12"
+          style={{
+            gridTemplateColumns: "200px 1fr 120px",
+            gridTemplateRows: "40px 1fr",
+          }}
           key={name}
         >
-          <div className="flex items-center font-mono text-lg font-bold name">{name}</div>
+          <div className="flex items-center font-mono font-bold name">{name}</div>
+          <div className="flex items-center pr-2 text-sm type">
+            <code className="">{type}</code>
+          </div>
           <div
             className={`flex items-center ${
               isRequired === "Required" ? "text-primary" : ""
@@ -26,11 +32,8 @@ export function PropsTable({ properties }: PropsTableProps) {
           >
             {isRequired}
           </div>
-          <div className="flex items-center text-sm type">
-            <code className="text-secondary">{type}</code>
-          </div>
           {description && (
-            <div className="py-3 description" style={{ gridColumn: "1/4" }}>
+            <div className="mb-4 text-gray-300 description" style={{ gridColumn: "2/4" }}>
               {description}
             </div>
           )}

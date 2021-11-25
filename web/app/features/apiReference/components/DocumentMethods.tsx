@@ -19,7 +19,7 @@ export function DocumentMethods({ methods, className = "" }: DocumentMethodsProp
 
   return (
     <div className={className}>
-      <h3 className="mt-3 text-xl text-accent">Methods</h3>
+      <h3 className="mt-3 text-xl tracking-wide text-gray-300 uppercase ">Methods</h3>
 
       <PropsTable properties={tableProperties} />
     </div>

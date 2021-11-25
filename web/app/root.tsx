@@ -10,7 +10,6 @@ import {
   useCatch,
 } from "remix";
 import globalStylesUrl from "~/styles/global.css";
-import layoutStylesUrl from "~/styles/layout.css";
 import { Layout } from "./features/layouts/Layout";
 
 /**
@@ -24,10 +23,10 @@ import { Layout } from "./features/layouts/Layout";
 export let links: LinksFunction = () => {
   return [
     { rel: "stylesheet", href: globalStylesUrl },
-    { rel: "stylesheet", href: layoutStylesUrl },
     {
       rel: "stylesheet",
-      href: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/monokai-sublime.min.css",
+      href:
+        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/monokai-sublime.min.css",
     },
     {
       rel: "stylesheet",

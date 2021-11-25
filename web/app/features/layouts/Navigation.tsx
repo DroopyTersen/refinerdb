@@ -17,7 +17,15 @@ export function Navigation({}: NavigationProps) {
       </div>
       <NavSection title="Setup">
         <NavItem to="/setup/installation">Installation</NavItem>
-        <NavItem to="/setup/quick-start">Quick Start</NavItem>
+        <NavItem to="/setup/quick-start">Core Quick Start</NavItem>
+        <NavItem to="/setup/react-quick-start">React Quick Start</NavItem>
+      </NavSection>
+
+      <NavSection title="Examples">
+        <NavItem to="/examples/repo-finder">Github Repo Finder</NavItem>
+        <NavItem to="/examples/movies">Movies & TV</NavItem>
+        <NavItem to="/examples/dev-to-articles">Dev.to Articles</NavItem>
+        <NavItem to="/examples/rick-and-morty">Rick & Morty</NavItem>
       </NavSection>
 
       <NavSection title="Basics">
@@ -32,13 +40,6 @@ export function Navigation({}: NavigationProps) {
         <NavItem to="/react/refinerdbprovider">RefinerDBProvider</NavItem>
         <NavItem to="/react/display-items">Display items</NavItem>
         <NavItem to="/react/refine-items">Refine items</NavItem>
-      </NavSection>
-
-      <NavSection title="Examples">
-        <NavItem to="/examples/repo-finder">Github Repo Finder</NavItem>
-        <NavItem to="/examples/movies">Movies & TV</NavItem>
-        <NavItem to="/examples/dev-to-articles">Dev.to Articles</NavItem>
-        <NavItem to="/examples/rick-and-morty">Rick & Morty</NavItem>
       </NavSection>
 
       <NavSection title="API Reference">

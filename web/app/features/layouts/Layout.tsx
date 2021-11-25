@@ -3,11 +3,12 @@ import { Navigation } from "./Navigation";
 
 export function Layout({
   children,
-  sidebar,
 }: React.PropsWithChildren<{ sidebar?: React.ReactNode }>) {
   return (
-    <div className="layout bg-neutral-focus">
-      <header className="flex items-center px-8"></header>
+    <div
+      className="grid layout bg-neutral-focus"
+      style={{ gridTemplateColumns: "260px 1fr" }}
+    >
       <aside
         id="grid-left"
         className="sticky top-0 self-start h-screen overflow-y-auto grid-sidebar bg-neutral"
@@ -18,11 +19,6 @@ export function Layout({
       <main id="grid-main" className="p-8">
         {children}
       </main>
-      {sidebar && (
-        <aside id="grid-right" className="p-8 grid-sidebar" title="Table of Contents">
-          {sidebar}
-        </aside>
-      )}
     </div>
   );
 }

@@ -20,7 +20,7 @@ export function DocumentProperties({
   });
   return (
     <div className={className}>
-      <h3 className="mt-3 text-xl text-accent">Properties</h3>
+      <h3 className="mt-3 text-xl tracking-wide text-gray-300 uppercase">Properties</h3>
       <PropsTable properties={propTableProperties} />
     </div>
   );

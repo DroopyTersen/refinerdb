@@ -6,6 +6,7 @@ const MOVIES_ENDPOINT =
 let init = async () => {
   // 1. Create an instance of RefinerDB
   let refinerDB = new RefinerDB("movies-db");
+
   // 2. Register the indexes
   refinerDB.setIndexes([
     // An index where the key doesn't match the property name on the item

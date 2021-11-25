@@ -1,5 +1,5 @@
 export namespace GT {
-  interface Base {
+  export interface Base {
     kind: string;
     fileName: string;
     name: string;
