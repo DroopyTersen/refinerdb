@@ -2,13 +2,28 @@
 
 `refinerdb-react` is a React wrapper around the core engine, `refinerdb`.
 
-- It is a headless framework that provides a suite of custom hooks
-- It does not make anyassumptions about what things how things should look
-- This leaves the UI compeletely up to you and means `refinerdb-react` is compatible
-  with any UI framework or styling technique (ex: CSS in JS).
-
 ## Installation
 
 ```sh
 npm install refinerdb-react
 ```
+
+## Quick Start
+
+import InteractiveDemo from "../../features/sandpack/InteractiveDemo";
+
+1. Define your indexes (see `indexes.ts`)
+2. Wrap you app in a `RefinerDBProvider` (see `App.tsx`)
+3. Refine the items (see `refiners.tsx`)
+4. Display the results (see `ResultsView.tsx`)
+
+_The following example is interactive! Play around with it!_
+
+<InteractiveDemo slug="quick-start-react" />
+
+## Philosophy
+
+- It is a headless framework that provides a suite of custom hooks
+- It does not make anyassumptions about what things how things should look
+- This leaves the UI compeletely up to you and means `refinerdb-react` is compatible
+  with any UI framework or styling technique (ex: CSS in JS).

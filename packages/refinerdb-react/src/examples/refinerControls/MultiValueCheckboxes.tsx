@@ -1,7 +1,7 @@
-import React, { useCallback } from "react";
+import React from "react";
 import {
-  useMultiselectRefiner,
   MultiSelectRefinerOptions,
+  useMultiselectRefiner,
 } from "../../hooks/useMultiselectRefiner";
 
 export interface Props {
@@ -19,7 +19,9 @@ function MultiValueCheckboxes({ indexKey, label = "", ...props }: Props) {
       {options.map((option) => (
         <label key={option.key} className="form-checkbox">
           <input {...getCheckboxProps(option)} />
-          <i className="form-icon"></i> {option.key} ({option.count})
+          <span>
+            {option.key} ({option.count})
+          </span>
         </label>
       ))}
     </div>

@@ -1,0 +1,32 @@
+{
+  "files": {
+    "tsconfig.json": {
+      "hidden": true
+    },
+    "/public/index.html": {
+      "hidden": true
+    },
+    "/src/App.tsx": {
+      "hidden": false,
+      "active": true
+    },
+    "/src/indexes.ts": {
+      "hidden": false
+    },
+    "/src/components/refiners.tsx": {
+      "hidden": false
+    },
+    "/src/styles.css": {
+      "hidden": true
+    },
+    "/src/index.tsx": {
+      "hidden": true
+    }
+  },
+  "template": "react-ts",
+  "customSetup": {
+    "dependencies": {
+      "refinerdb-react": "next"
+    }
+  }
+}

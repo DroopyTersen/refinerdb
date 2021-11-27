@@ -1,0 +1,11 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(auto, 260px) 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+.refiner-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

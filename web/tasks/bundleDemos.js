@@ -1,4 +1,4 @@
-const fs = require("fs/promises");
+const fsExtra = require("fs-extra");
 const path = require("path");
 
 let DEMOS_PATH = path.join(__dirname, "..", "app/features/sandpack/demos");
@@ -6,45 +6,46 @@ let OUTPUT_PATH = path.join(__dirname, "..", "public/generated");
 let demoJSON = {};
 let CONFIG_FILENAME = "sandpack.json";
 
-let bundleDemo = async (slug) => {
-  try {
-    let demoFolder = path.join(DEMOS_PATH, slug);
-    console.log(demoFolder);
-    let fileNames = await fs.readdir(demoFolder);
-    console.log(fileNames);
-
-    let sandpackConfig = await fs
-      .readFile(path.join(demoFolder, CONFIG_FILENAME), "utf-8")
-      .then(JSON.parse);
-
-    for (let i = 0; i < fileNames.length; i++) {
-      let filename = fileNames[i];
-      if (filename !== CONFIG_FILENAME) {
-        let fileContents = await fs.readFile(path.join(demoFolder, filename), "utf8");
-        if (filename !== "index.html" && filename !== "tsconfig.json") {
-          filename = "/src/" + filename;
-        }
-        if (!sandpackConfig.files[filename]) {
-          sandpackConfig.files[filename] = {};
-        }
-        sandpackConfig.files[filename].code = fileContents;
-      }
+let parseFolder = (demoFolder, subFolder = "") => {
+  let folderPath = path.join(demoFolder, subFolder);
+  let files = [];
+  fsExtra.readdirSync(folderPath).forEach((childName) => {
+    if (childName === CONFIG_FILENAME) return;
+    let child = fsExtra.statSync(path.join(folderPath, childName));
+    if (child.isFile()) {
+      let contents = fsExtra.readFileSync(path.join(folderPath, childName), "utf-8");
+      let file = { path: subFolder ? subFolder + "/" + childName : childName, contents };
+      files.push(file);
+    } else if (child.isDirectory()) {
+      files = [...files, ...parseFolder(demoFolder, subFolder + "/" + childName)];
     }
-    demoJSON[slug] = sandpackConfig;
-  } catch (err) {
-    console.error("Unable to parse", slug);
-    console.log(err);
-  }
+  });
+  return files;
 };
+
+let bundleDemo = async (slug) => {
+  let demoFolder = path.join(DEMOS_PATH, slug);
+  let sandpackConfig = await fsExtra
+    .readFile(path.join(demoFolder, CONFIG_FILENAME), "utf-8")
+    .then(JSON.parse);
+
+  let files = parseFolder(demoFolder);
+  files.forEach((file) => {
+    if (!sandpackConfig.files[file.path]) {
+      sandpackConfig.files[file.path] = {};
+    }
+    sandpackConfig.files[file.path].code = file.contents;
+  });
+
+  demoJSON[slug] = sandpackConfig;
+};
+
 let bundleCodeDemos = async () => {
-  try {
-    await fs.rm(path.join(DEMOS_PATH, "demos.json"));
-  } catch (err) {}
-  let demoFolders = await fs.readdir(DEMOS_PATH);
+  let demoFolders = await fsExtra.readdir(DEMOS_PATH);
   for (let i = 0; i < demoFolders.length; i++) {
     await bundleDemo(demoFolders[i]);
   }
-  await fs.writeFile(
+  fsExtra.writeFileSync(
     path.join(OUTPUT_PATH, "demos.json"),
     JSON.stringify(demoJSON, null, 2)
   );

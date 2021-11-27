@@ -16,7 +16,7 @@ export function Navigation({}: NavigationProps) {
         </Link>
       </div>
       <NavSection title="Setup">
-        <NavItem to="/setup/core-setup">Core</NavItem>
+        <NavItem to="/setup/core-setup">Vanilla</NavItem>
         <NavItem to="/setup/react-setup">React</NavItem>
       </NavSection>
 

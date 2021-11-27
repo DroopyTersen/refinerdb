@@ -35,8 +35,12 @@ describe("search.indexers", () => {
     };
 
     let items = [
-      { title: "Kindergarden Cop", genres: ["comedy", "drama", "action"] },
-      { title: "A Lot Like Love", genres: ["comedy", "romance"] },
+      {
+        title: "Kindergarden Cop",
+        genres: ["comedy", "drama", "action"],
+        director: { name: "Jon Doe" },
+      },
+      { title: "A Lot Like Love", genres: ["comedy", "romance"], director: { name: "Jane Doe" } },
     ];
 
     it("Should support index.key that matches an item property  that returns a single string", () => {
