@@ -1,6 +1,6 @@
 # Insert Items
 
-Once you have a database instance you can seed it with an array of items.
+Once you have a `RefinerDB` instance you can seed it with an array of items.
 
 ```ts
 let refinerDB = new RefinerDB("movies");
@@ -15,4 +15,13 @@ refinerDB.setItems(movies);
 
 ```ts
 let refinerDB = new RefinerDB("bookmarks", { idProperty: "__id" });
+```
+
+If you are using `refinerdb-react`, you would leverage the `useRefinerDB` hook.
+
+```ts
+// Assumes your component is already wrapped with a `RefinerDBProvider`.
+let refinerDB = useRefinerDB();
+let movies = await getMovies();
+refinerDB.setItems(movies);
 ```

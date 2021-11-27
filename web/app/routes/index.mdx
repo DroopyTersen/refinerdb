@@ -1,16 +1,90 @@
-# Heading One
+# RefinerDB
 
-## Heading Two
+RefinerDB is a javascript library that greatly simplifies creating advanced search solutions without requiring an additional backend data store.
 
-### Heading Three
+To be honest, we're not exactly sure what to call the user experience (UX) that RefinerDB aims to simplify:
 
-- Item One
-- Item Two
-- Item Three
-- Item [with link](https://link)
+- Advanced Search?
+- Faceted Search?
+- Refiner Panel?
+- etc...
 
-#### Heading Four
+Regardless of what you call it, we mean stuff like this:
 
-If you are using it with Dark Mode you will see the colors are probably not visible or are hard to read. This is because the Typography uses white colors.
+![Faceted Search](/images/refiner-examples.png)
 
-One nice thing about the Typography plugin is that it's possible to add new variants and even replace the default one. We can use this to create a new prose-dark variant where we will only change the colors, let's change our Tailwind config to this one:
+Some commonalities we see in these UX scenarios are...
+
+- Complex Filter criteria
+  - ex: `Title contains 'day' AND genre eq 'Action'`
+- Dynamic Refiner Options w/ counts
+  - Based on the current filtered set, display the available refiner options and the number of items that match.
+- Sorting, Paging, result counts etc..
+
+**RefinerDB will take care of all of this for you**. You just pass in your full set of items and provide some info about the shape of your data. Everything is done in the browser, so your app reacts super fast to interaction and you aren't forced to complicate your architecture.
+
+**Live Demo**
+
+This example leverages [refinerdb-react](/setup/react-setup), but there is a also [vanilla JS](/setup/core-setup.mdx) version. The example is interactive, play around with it!
+
+import InteractiveDemo from "../features/sandpack/InteractiveDemo";
+
+<InteractiveDemo slug="quick-start-react" />
+
+## Why RefinerDB and not X?
+
+There are already some great offerings that can very capably power this UX.
+
+<div className="grid grid-cols-3 gap-4">
+  <div className="col-span-2">
+    <ul >
+      <li>
+        <a href="https://www.elastic.co/">Elasticsearch</a>
+      </li>
+      <li>
+        <a href="https://www.algolia.com/">Algolia</a>
+      </li>
+      <li>
+        <a href="https://www.appbase.io/">Appbase</a>
+      </li>
+    </ul>
+    
+    However, these solutions generally:
+
+    - Require you to write code to **copy your data from your database to their system**.
+    - EITHER are tricky & **time consuming to leverage their APIs to build this specific UX**.
+    - OR provide **UI components that are a little to prescriptive** and hard to customize to specific UI needs.
+    - Mean adding another element to the your app's architecture. For simple situations, this often
+    feels like overkill.
+
+  </div>
+  <div className="flex flex-col gap-8 p-4 bg-gray-200 rounded">
+    <img src="/images/elastic-logo.svg" alt="Elasticsearch" />
+    <img src="/images/algolia.svg" alt="Algolia" />
+    <img src="/images/appbase.svg" alt="Appbase" />
+  </div>
+</div>
+
+### RefinerDB runs completely in the browser.
+
+- **No replicating your data**. RefinerDB doesn't care where your data comes from or what it looks like, it just expects an array of items with a primary key.
+- **It's really fast** because there are no network calls to make with each change in criteria.
+
+### RefinerDB is headless
+
+- RefinerDB does not make any assumptions about your UI.
+- RefinerDB aims to take full control of the "behavior" but the the presentation completely up to you.
+- This means RefinerDB is fully compatible with an UI framework (React, Vue, Svelt, Angular etc...) or styling technique (component libraries, TailwindCSS, CSSinJS libraries etc...)
+
+## When is RefinerDB not a fit?
+
+RefinerDB is designed and tuned to simplify simple scenarios, not power Walmart.com. It is a niche tool for when your data isn't at a scale to justify ANOTHER 3rd party service or database. RefinerDB's sweet spot is a dataset with 100-10,000 items.
+
+- Anything larger and you might be better served leveraging a server side solution.
+- Anthing smaller and you might be better off just rolling your own solution with simple filter functions
+
+If you don't think RefinerDB is a fit for your scenario, check out these
+articles for an overview of what it would take to leverage a backend service.
+
+- [Filters vs Faceted Search - Algolia](https://www.algolia.com/blog/ux/filters-vs-facets-in-site-search)
+- [Faceted Search w/ facet counters using Elasticsearch](https://madewithlove.com/blog/software-engineering/faceted-search-using-elasticsearch/)
