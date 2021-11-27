@@ -15,7 +15,6 @@ export const loader: LoaderFunction = async (context) => {
 
 export default function CoreApiPage() {
   let generatedTypes = useLoaderData();
-  console.log(generatedTypes?.RefinerDB);
   return (
     <RightColumnLayout
       sidebarLinks={[

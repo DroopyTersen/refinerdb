@@ -1,4 +1,4 @@
-import { Link, useMatch, useResolvedPath } from "react-router-dom";
+import { Link, useLocation, useResolvedPath } from "react-router-dom";
 import { Logo } from "~/components/Logo";
 
 interface NavigationProps {}
@@ -16,8 +16,8 @@ export function Navigation({}: NavigationProps) {
         </Link>
       </div>
       <NavSection title="Setup">
-        <NavItem to="/setup/core-setup">Vanilla</NavItem>
-        <NavItem to="/setup/react-setup">React</NavItem>
+        <NavItem to="/setup/react-setup">Install</NavItem>
+        <NavItem to="/setup/react-setup#quick-start">Quick start</NavItem>
       </NavSection>
 
       <NavSection title="Basics">
@@ -59,8 +59,10 @@ function NavSection({ children, title }) {
 }
 
 function NavItem({ children, to, isActive = false }) {
+  let location = useLocation();
   let resolved = useResolvedPath(to);
-  let match = useMatch({ path: resolved.pathname, end: true });
+  let match = resolved.pathname === location.pathname && resolved.hash === location.hash;
+  // let match = useMatch({ path: resolved.pathname, end: true });
   return (
     <li className="flex flex-col py-0 text-base">
       <Link

@@ -1,0 +1,115 @@
+RefinerDB is a javascript library that greatly simplifies creating advanced search solutions without requiring an additional backend data store.
+
+To be honest, we're not exactly sure what to call the user experience (UX) that RefinerDB aims to simplify:
+
+- Advanced Search?
+- Faceted Search?
+- Refiner Panel?
+- etc...
+
+Regardless of what you call it, we mean stuff like this:
+
+![Faceted Search](/images/refiner-examples.png)
+
+Some commonalities we see in these UX scenarios are...
+
+- Complex Filter criteria
+  - ex: `Title contains 'day' AND genre eq 'Action'`
+- Dynamic Refiner Options w/ counts
+  - Based on the current filtered set, display the available refiner options and the number of items that match.
+- Sorting, Paging, result counts etc..
+
+<p>
+  <span className="font-bold text-primary text-lg">
+    RefinerDB will take care of all of this for you!
+  </span>
+  <span>
+    You just pass in your full set of items and provide some info about the shape of your
+    data. **Everything is done in the browser**, so your app reacts super fast to
+    interaction and you aren't forced to complicate your architecture.
+  </span>
+</p>
+
+<h3 id="code-example">Code Example</h3>
+
+```tsx
+import {
+  IndexConfig,
+  IndexType,
+  RefinerDBProvider,
+  useTextRefiner,
+  useMultiselectRefiner,
+} from "refinerdb-react";
+
+/**
+ * Tell RefinerDB about the shape of your data
+ * Image we had an array of movies like...
+ * [ { id:123, title: "Gladiator", genre: ["Action", "Drama"] }, ... ]
+ */
+const indexes: IndexConfig[] = [
+  { key: "genre", type: IndexType.String },
+  // For properties that generally have unique values, improve
+  // performance by specifying 'skipRefinerOptions'
+  { key: "title", type: IndexType.String, skipRefinerOptions: true },
+];
+
+/** Wrap your app in a RefinerDBProvider */
+export default function App() {
+  let movies = useData();
+
+  return (
+    <RefinerDBProvider name="movie-demo" indexes={indexes} items={movies}>
+      <div className="layout">
+        <div className="refiner-panel">
+          <TitleRefiner />
+          <GenreRefiner />
+        </div>
+
+        <div className="results-panel">
+          <ResultsView />
+        </div>
+      </div>
+    </RefinerDBProvider>
+  );
+}
+
+/**
+ * RefinerDB doesn't provide UI components,
+ * just a variety of hooks that are tailored for certain scenarios.
+ * The UI is compeletely up to you.
+ * */
+function TitleRefiner() {
+  let { value = "", setValue } = useTextRefiner("title");
+
+  return (
+    <label>
+      Title
+      <input value={value || ""} onChange={(e) => setValue(e.currentTarget.value)} />
+    </label>
+  );
+}
+
+/**
+ * Here we build a basic Checkbox refiner
+ */
+function GenreRefiner() {
+  // This is the only RefinerDB code, the rest of this component is up to you.
+  let { getCheckboxProps, options } = useMultiselectRefiner("genre");
+
+  return (
+    <div>
+      <label>Genre</label>
+      {options.map((option) => (
+        <div key={option.key}>
+          <label>
+            <input {...getCheckboxProps(option)} />
+            <span className="checkable">
+              {option.key} ({option.count})
+            </span>
+          </label>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
