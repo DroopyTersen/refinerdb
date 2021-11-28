@@ -78,7 +78,7 @@
       },
       "/src/styles.css": {
         "hidden": true,
-        "code": ".layout {\n  display: grid;\n  grid-template-columns: minmax(auto, 260px) 1fr;\n  gap: 1rem;\n  padding: 1rem;\n}\n.refiner-panel {\n  display: flex;\n  flex-direction: column;\n  position: relative;\n  gap: 2rem;\n}\n"
+        "code": ".layout {\n  display: grid;\n  grid-template-columns: 250px 1fr;\n  gap: 1rem;\n  padding: 1rem;\n}\n.refiner-panel {\n  display: flex;\n  flex-direction: column;\n  position: relative;\n  gap: 2rem;\n}\n"
       },
       "/src/index.tsx": {
         "hidden": true,
