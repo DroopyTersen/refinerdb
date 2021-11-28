@@ -17,12 +17,14 @@ function MultiValueCheckboxes({ indexKey, label = "", ...props }: Props) {
     <div className="form-group">
       <label className="form-label">{label ?? indexKey}</label>
       {options.map((option) => (
-        <label key={option.key} className="form-checkbox">
-          <input {...getCheckboxProps(option)} />
-          <span>
-            {option.key} ({option.count})
-          </span>
-        </label>
+        <div>
+          <label key={option.key} style={{ display: "flex" }}>
+            <input {...getCheckboxProps(option)} />
+            <span className="checkable">
+              {option.key} ({option.count})
+            </span>
+          </label>
+        </div>
       ))}
     </div>
   );

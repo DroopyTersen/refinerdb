@@ -1,5 +1,6 @@
 import { PersistedQueryResult, PersistedStore, QueryResult } from ".";
 import { getCache, setCache } from "./helpers/cache";
+import { cleanCriteria } from "./helpers/cleanCriteria";
 import { checkIfModifiedIndexes } from "./helpers/indexers";
 import { IndexConfig, IndexEvent, IndexState, QueryCriteria, RefinerDBConfig } from "./interfaces";
 import { createRobotStateMachine, RefinerDBStateMachine } from "./stateMachine";
@@ -69,7 +70,7 @@ export default class RefinerDB {
     if (!criteria) {
       return;
     }
-    this._criteria = criteria;
+    this._criteria = cleanCriteria(criteria);
     this.stateMachine.send(IndexEvent.QUERY_START);
   };
   /** Return the JSON stringified criteria */

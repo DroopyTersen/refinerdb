@@ -41,6 +41,9 @@ export function useMultiSelectSetters(indexKey: string, debounce = 0) {
           newValues.push(value);
         }
         newFilter[indexKey] = newValues;
+        if (newValues.length === 0) {
+          delete newFilter[indexKey];
+        }
         return newFilter;
       });
     };
@@ -77,7 +80,6 @@ export function useMultiselectRefiner(
             if (checked) {
               newValues.push(value);
             }
-
             return newValues;
           });
         },

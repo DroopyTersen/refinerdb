@@ -23,17 +23,11 @@ export const Characters = () => {
         <div className="d-flex" style={{ justifyContent: "space-between" }}>
           <h1 className="my-2">Rick & Morty Characters</h1>
         </div>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "auto 1fr",
-            gap: "2rem",
-          }}
-        >
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "250px" }}>
+        <div className="layout">
+          <div className="refiner-panel">
             <RefinerPanel />
           </div>
-          <div>
+          <div className="results-view">
             <ResultsView />
           </div>
         </div>
@@ -47,51 +41,43 @@ const ItemResult = React.memo(function ItemResult({ item }: any) {
   let originRefiner = useMultiSelectSetters("origin");
   return (
     <div className="card">
-      <div className="card-image">
-        <a href={item.url} target="_blank" rel="noopener noreferrer">
-          <img
-            className="img-responsive"
-            src={
-              item.image || "https://thepracticaldev.s3.amazonaws.com/i/6hqmcjaxbgbon8ydw93z.png"
-            }
-            alt="Cover Image"
-          />
-        </a>
-      </div>
-      <div className="card-header">
-        <div className="card-title d-flex" style={{ justifyContent: "space-between", gap: "1rem" }}>
-          <h5>{item.name}</h5>
-        </div>
+      <img
+        className="img-responsive"
+        src={item.image || "https://thepracticaldev.s3.amazonaws.com/i/6hqmcjaxbgbon8ydw93z.png"}
+        alt="Cover Image"
+      />
+      {/* <a href={item.url} target="_blank" rel="noopener noreferrer">
+        </a> */}
+      <footer>
+        <h4>{item.name}</h4>
         <div>
           <button
             type="button"
-            className="chip c-hand text-primary"
-            style={{ border: "none", outline: "none" }}
+            className="label success"
             onClick={() => speciesRefiner.appendValue(item?.species)}
           >
             {item?.species}
           </button>
         </div>
-      </div>
-      <div className="card-body text-tiny">
-        {item?.type && <div>Type: {item.type}</div>}
         <div>
-          Origin:{" "}
-          <a
-            href="#"
-            role="button"
-            className="text-primary"
-            onClick={(e) => {
-              e.preventDefault();
-              originRefiner.appendValue(item?.origin?.name);
-            }}
-          >
-            {item.origin?.name}
-          </a>
+          {item?.type && <div>Type: {item.type}</div>}
+          <div>
+            Origin:{" "}
+            <a
+              href="#"
+              role="button"
+              onClick={(e) => {
+                e.preventDefault();
+                originRefiner.appendValue(item?.origin?.name);
+              }}
+            >
+              {item.origin?.name}
+            </a>
+          </div>
+          <div>Status: {item.status}</div>
+          <div>Last seen: {item?.location?.name || "??"}</div>
         </div>
-        <div>Status: {item.status}</div>
-        <div>Last seen: {item?.location?.name || "??"}</div>
-      </div>
+      </footer>
     </div>
   );
 });
@@ -118,44 +104,36 @@ function ResultsView() {
 }
 function RefinerPanel() {
   return (
-    <div>
+    <>
+      <h2 style={{ margin: "0" }}>Refiners</h2>
+
       <ClearRefinersButton style={{ position: "absolute", right: "0", top: ".5rem" }}>
         CLEAR
       </ClearRefinersButton>
-      <div className="menu mb-2">
-        <Textbox indexKey="name" label="Name" debounce={300} />
-      </div>
-      <div className="menu my-2">
-        <MultiValueCheckboxes
-          indexKey="species"
-          label="Species"
-          options={{ debounce: 0, maxRefinersOptions: 8, sort: "count" }}
-        />
-      </div>
+      <Textbox indexKey="name" label="Name" debounce={300} />
+      <MultiValueCheckboxes
+        indexKey="species"
+        label="Species"
+        options={{ debounce: 0, maxRefinersOptions: 8, sort: "count" }}
+      />
 
-      <div className="menu my-2">
-        <MultiValueCheckboxes
-          indexKey="origin"
-          label="Origin"
-          options={{ debounce: 0, maxRefinersOptions: 6, sort: "count" }}
-        />
-      </div>
+      <MultiValueCheckboxes
+        indexKey="origin"
+        label="Origin"
+        options={{ debounce: 0, maxRefinersOptions: 6, sort: "count" }}
+      />
 
-      <div className="menu my-2">
-        <MultiValueCheckboxes
-          indexKey="gender"
-          label="Gender"
-          options={{ debounce: 0, maxRefinersOptions: 6, sort: "alpha" }}
-        />
-      </div>
+      <MultiValueCheckboxes
+        indexKey="gender"
+        label="Gender"
+        options={{ debounce: 0, maxRefinersOptions: 6, sort: "alpha" }}
+      />
 
-      <div className="menu my-2">
-        <MultiValueCheckboxes
-          indexKey="status"
-          label="Status"
-          options={{ debounce: 0, maxRefinersOptions: 6, sort: "alpha" }}
-        />
-      </div>
-    </div>
+      <MultiValueCheckboxes
+        indexKey="status"
+        label="Status"
+        options={{ debounce: 0, maxRefinersOptions: 6, sort: "alpha" }}
+      />
+    </>
   );
 }

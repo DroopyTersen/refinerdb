@@ -1,5 +1,6 @@
 import { ComponentMeta } from "@storybook/react";
 import React from "react";
+import setupLocalStorageWorker from "refinerdb/lib/refinerdb.localStorage.worker";
 import { RefinerDBProvider, useMultiSelectSetters, useQueryResult } from "../../..";
 import { ClearRefinersButton, NumberRangeRefiner, Textbox } from "../../refinerControls";
 import DateRangeRefiner from "../../refinerControls/DateRangeRefiner";
@@ -10,7 +11,6 @@ import movies from "./fixtures/movies";
 import tvShows from "./fixtures/tvShows";
 import { getMoviesAndTv } from "./movies.data";
 import { movieIndexes } from "./movies.indexes";
-import setupLocalStorageWorker from "refinerdb/lib/refinerdb.localStorage.worker";
 console.log(
   "🚀 | setupLocalStorageWorker",
   setupLocalStorageWorker?.setupLocalStorageWorker?.toString()
@@ -32,27 +32,17 @@ export default {
 
 function RefinerPanel() {
   return (
-    <div style={{ position: "relative" }}>
+    <>
       <h2 style={{ margin: "0" }}>Refiners</h2>
       <ClearRefinersButton style={{ position: "absolute", right: "0", top: ".5rem" }}>
         CLEAR
       </ClearRefinersButton>
-      <div>
-        <Textbox indexKey="title" label="Title" debounce={300} />
-      </div>
-      <div>
-        <MultiValueCheckboxes indexKey="type" label="Type" />
-      </div>
-      <div>
-        <MultiValueSelect indexKey="genre" label="Genres" />
-      </div>
-      <div>
-        <DateRangeRefiner indexKey="released" label="Release Date" />
-      </div>
-      <div>
-        <NumberRangeRefiner indexKey="score" label="Score" debounce={200} />
-      </div>
-    </div>
+      <Textbox indexKey="title" label="Title" debounce={300} />
+      <MultiValueCheckboxes indexKey="type" label="Type" />
+      <MultiValueSelect indexKey="genre" label="Genres" />
+      <DateRangeRefiner indexKey="released" label="Release Date" />
+      <NumberRangeRefiner indexKey="score" label="Score" debounce={200} />
+    </>
   );
 }
 
@@ -70,23 +60,19 @@ function ResultsViewWithHydratedItems() {
 const MovieResultItem = React.memo(function MovieResultItem({ item }: { item: any }) {
   let genreRefiner = useMultiSelectSetters("genre");
   return (
-    <div className="card" style={{ marginBottom: "1rem" }}>
-      <div className="card-header">
-        <h4 className="card-title">{item.title}</h4>
-      </div>
-      <div className="card-body">
-        {item.genres.map((genre) => (
-          <button
-            type="button"
-            className="chip c-hand text-primary"
-            style={{ border: "none", outline: "none" }}
-            onClick={() => genreRefiner.appendValue(genre)}
-          >
-            {genre}
-          </button>
-        ))}
-      </div>
-    </div>
+    <article key={item.id} className="card">
+      <footer>
+        <h4>{item.title}</h4>
+        <div>
+          <span>Score: {item.score}</span>
+          {item.genres.map((genre) => (
+            <button className="label" onClick={() => genreRefiner.appendValue(genre)}>
+              {genre}
+            </button>
+          ))}
+        </div>
+      </footer>
+    </article>
   );
 });
 
@@ -122,13 +108,11 @@ function ItemsList({ items }) {
 export const Basic = () => {
   return (
     <DemoSetup dbName="movies-and-tv" indexes={movieIndexes} getItems={getMoviesAndTv}>
-      <div
-        style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "2rem", marginTop: "2rem" }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "250px" }}>
+      <div className="layout">
+        <div className="refiner-panel">
           <RefinerPanel />
         </div>
-        <div>
+        <div className="results-view">
           <ResultsViewWithHydratedItems />
         </div>
       </div>
@@ -144,19 +128,22 @@ export const SkipHydrateItems = () => {
       getItems={getMoviesAndTv}
       hydrateItems={false}
     >
-      <div
-        style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "2rem", marginTop: "2rem" }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "250px" }}>
+      <div className="layout">
+        <div className="refiner-panel">
           <RefinerPanel />
         </div>
-        <div>
+        <div className="results-view">
           <ResultsViewSkipHydrateItems />
         </div>
       </div>
     </DemoSetup>
   );
 };
+
+// let linkTag = document.createElement("link");
+// linkTag.rel = "stylesheet";
+// linkTag.href = "https://cdn.jsdelivr.net/npm/picnic";
+// document.body.appendChild(linkTag);
 
 // export const WebWorker = () => {
 //   let storeRef = React.useRef(

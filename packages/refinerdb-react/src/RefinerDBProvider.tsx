@@ -82,7 +82,7 @@ function ItemsWrapper({ items }) {
       setTimeout(() => {
         if (hasUnmounted) return;
         refinerDB.setItems(items);
-      }, 350);
+      }, 200);
     } else if (items && hasMountedRef.current) {
       refinerDB.setItems(items).then(() => {
         refinerDB.getItemCount().then((count) => console.log("ITEM COUNT", count));
