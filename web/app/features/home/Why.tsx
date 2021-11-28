@@ -1,3 +1,7 @@
+import algoliaLogo from "../../../public/images/algolia.svg";
+import appbaseLogo from "../../../public/images/appbase.svg";
+import elasticLogo from "../../../public/images/elastic-logo.svg";
+
 export default function Why() {
   return (
     <>
@@ -38,9 +42,9 @@ export default function Why() {
           </ul>
         </div>
         <div className="flex flex-col gap-8 p-4 bg-gray-200 rounded">
-          <img src="/images/elastic-logo.svg" alt="Elasticsearch" />
-          <img src="/images/algolia.svg" alt="Algolia" />
-          <img src="/images/appbase.svg" alt="Appbase" />
+          <img src={elasticLogo} alt="Elasticsearch" />
+          <img src={algoliaLogo} alt="Algolia" />
+          <img src={appbaseLogo} alt="Appbase" />
         </div>
       </div>
     </>

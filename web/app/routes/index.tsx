@@ -4,6 +4,20 @@ import WhenNot from "~/features/home/WhenNot.mdx";
 import Why from "~/features/home/Why";
 import { RightColumnLayout } from "~/features/layouts/RightColumnLayout";
 
+export const headers = () => {
+  return {
+    "Cache-Control": "max-age=300, s-maxage=3600",
+  };
+};
+
+export const meta = () => {
+  return {
+    title: "RefinerDB",
+    description:
+      "RefinerDB is a javascript library that greatly simplifies creating advanced search solutions without requiring an additional backend data store.",
+  };
+};
+
 export default function HomePage() {
   return (
     <>

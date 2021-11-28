@@ -11,12 +11,12 @@ export function Layout({
     >
       <aside
         id="grid-left"
-        className="sticky top-0 self-start h-screen overflow-y-auto grid-sidebar bg-neutral"
+        className="sticky top-0 self-start h-screen overflow-auto grid-sidebar bg-neutral"
         title="Site Navigation"
       >
         <Navigation />
       </aside>
-      <main id="grid-main" className="p-8">
+      <main id="grid-main" className="p-8 ">
         {children}
       </main>
     </div>

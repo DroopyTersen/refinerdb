@@ -55,11 +55,14 @@
   }
 
   pre {
-    @apply p-4 bg-neutral rounded  text-sm my-6;
+    @apply p-4 bg-neutral rounded  text-sm my-6 overflow-x-auto;
     /* @apply py-5; */
   }
   pre code {
     @apply text-neutral-content;
+  }
+  strong {
+    text-spacing: 0.03em;
   }
 }
 

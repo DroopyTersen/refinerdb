@@ -3,6 +3,7 @@ import useAsyncData from "~/hooks/useAsyncData";
 import { AllDemos, DemoConfig } from "./demos.types";
 
 let allDemos: AllDemos = null;
+
 const fetchDemo = async (slug): Promise<DemoConfig> => {
   if (!allDemos) {
     allDemos = await fetch("/generated/demos.json").then((resp) => resp.json());

@@ -8,7 +8,7 @@
     "clean": "rimraf lib",
     "tsc:watch": "tsc --build tsconfig.lib.json --watch",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
+    "build:storybook": "rimraf ../../web/public/_storybook && build-storybook -o ../../web/public/_storybook",
     "prerelease": "npm run build && npm version patch",
     "release": "npm version prerelease && npm publish --tag beta"
   },

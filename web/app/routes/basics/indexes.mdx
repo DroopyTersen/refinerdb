@@ -1,3 +1,11 @@
+---
+meta:
+  title: RefinerDB Indexes
+  description: Indexes allow you to tell RefinerDB about the shape of your data.
+headers:
+  Cache-Control: max-age=300, s-maxage=3600
+---
+
 # Creating Indexes
 
 What is the shape of your data? For any properties you want to filter/refine, you need to define an Index.
@@ -30,7 +38,7 @@ let indexDefinitions = [
 refinerDB.setIndexes(indexDefinitions);
 ```
 
-Here are the available `IndexType` options, and the [full type definition for `IndexConfig`]("/reference/core-api#indexconfig").
+Here are the available `IndexType` options, and the [full type definition for `IndexConfig`](/reference/core-api#indexconfig).
 
 ```typescript
 enum IndexType {
@@ -71,13 +79,24 @@ If the item doesn't have a property whose name matches the index `key`, you can 
 Given the following item to index
 
 ```ts
-{ title: "Item One", id: 1, author: { firstName: "Jane", lastName: "Doe" } }
+{
+  id: 1,
+  title: "Item One",
+  author: {
+    firstName: "Jane",
+    lastName: "Doe"
+  }
+}
 ```
 
 The following index would yield an indexed value of "Jane"
 
 ```ts
-{ key: "author", type: IndexType.String, path: "author.firstName" }
+{
+  key: "author",
+  type: IndexType.String,
+  path: "author.firstName"
+}
 ```
 
 ### `map(item => indexedValue)`
@@ -85,11 +104,22 @@ The following index would yield an indexed value of "Jane"
 The most flexible way to index an item value is to use a custom `map` function.
 
 ```ts
-{ title: "Item One", id: 1, author: { firstName: "Jane", lastName: "Doe" } }
+{
+  id: 1,
+  title: "Item One",
+  author: {
+    firstName: "Jane",
+    lastName: "Doe"
+  }
+}
 ```
 
 The following index would yield an indexed value of "Jane Doe"
 
 ```ts
-{ key: "author", type: IndexType.String, map: (item => `${item.firstName} ${item.lastName}`) }
+{
+  key: "author",
+  type: IndexType.String,
+  map: (item => `${item.firstName} ${item.lastName}`)
+}
 ```

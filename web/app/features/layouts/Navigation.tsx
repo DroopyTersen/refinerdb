@@ -32,6 +32,9 @@ export function Navigation({}: NavigationProps) {
         <NavItem to="/examples/movies">Movies & TV</NavItem>
         <NavItem to="/examples/dev-to-articles">Dev.to Articles</NavItem>
         <NavItem to="/examples/rick-and-morty">Rick & Morty</NavItem>
+        <NavItem to="/storybook" useAnchor={true}>
+          Storybook
+        </NavItem>
       </NavSection>
 
       <NavSection title="React">
@@ -58,21 +61,30 @@ function NavSection({ children, title }) {
   );
 }
 
-function NavItem({ children, to, isActive = false }) {
+function NavItem({ children, to, useAnchor = false }) {
   let location = useLocation();
   let resolved = useResolvedPath(to);
   let match = resolved.pathname === location.pathname && resolved.hash === location.hash;
-  // let match = useMatch({ path: resolved.pathname, end: true });
+  let LinkElement: any = useAnchor ? "a" : Link;
+  let linkProps = useAnchor
+    ? {
+        href: to,
+        target: "_blank",
+      }
+    : {
+        to,
+      };
+
   return (
     <li className="flex flex-col py-0 text-base">
-      <Link
+      <LinkElement
         className={`border-transparent opacity-80 hover:opacity-100 py-1 px-3 rounded text-white ${
           match ? "bg-primary-focus opacity-100" : "hover:text-primary"
         }`}
-        to={to}
+        {...linkProps}
       >
         {children}
-      </Link>
+      </LinkElement>
     </li>
   );
 }

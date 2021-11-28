@@ -1,12 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  IndexConfig,
-  IndexState,
-  PersistedStore,
-  QueryCriteria,
-  RefinerDB,
-  RefinerDBConfig,
-} from "refinerdb";
+import { IndexState, RefinerDB, RefinerDBConfig } from "refinerdb";
 import { useRefinerDB } from ".";
 
 export const RefinerDBContext = React.createContext<RefinerDB>(null);
@@ -14,31 +7,29 @@ export const IndexStateContext = React.createContext<{ status: IndexState }>({
   status: IndexState.IDLE,
 });
 
-export interface RefinerDBProviderProps {
+export interface RefinerDBProviderProps extends RefinerDBConfig {
   name: string;
   items: any[];
-  store?: PersistedStore;
-  indexes?: IndexConfig[];
-  criteria?: QueryCriteria;
 }
 const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
   name,
-  children,
   items,
-  store,
+  children,
   indexes,
-  criteria,
+  ...refinerDBConfig
 }) => {
   let [indexState, setIndexState] = useState(IndexState.IDLE);
   let [refinerDB] = useState<RefinerDB>(() => {
     let dbConfig: RefinerDBConfig = {
+      indexDelay: 500,
+      ...refinerDBConfig,
+      indexes,
       onTransition: (state) => {
         setIndexState(state);
+        if (refinerDBConfig.onTransition) {
+          refinerDBConfig.onTransition(state);
+        }
       },
-      indexDelay: 500,
-      indexes: indexes,
-      store,
-      criteria,
     };
     let refinerDB = new RefinerDB(name, dbConfig);
     if (items) {
