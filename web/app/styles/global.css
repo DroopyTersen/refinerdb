@@ -1511,14 +1511,18 @@ html {
 .pl-0 {
 	padding-left: 0px;
 }
-.pr-2 {
-	padding-right: 0.5rem;
-}
 .pt-4 {
 	padding-top: 1rem;
 }
+.pr-2 {
+	padding-right: 0.5rem;
+}
 .font-mono {
 	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+.text-lg {
+	font-size: 1.125rem;
+	line-height: 1.75rem;
 }
 .text-3xl {
 	font-size: 1.875rem;
@@ -1526,10 +1530,6 @@ html {
 }
 .text-xl {
 	font-size: 1.25rem;
-	line-height: 1.75rem;
-}
-.text-lg {
-	font-size: 1.125rem;
 	line-height: 1.75rem;
 }
 .text-base {
@@ -1549,6 +1549,10 @@ html {
 .tracking-wide {
 	letter-spacing: 0.025em;
 }
+.text-primary {
+	--tw-text-opacity: 1;
+	color: hsla(var(--p) / var(--tw-text-opacity));
+}
 .text-white {
 	--tw-text-opacity: 1;
 	color: rgba(255, 255, 255, var(--tw-text-opacity));
@@ -1564,10 +1568,6 @@ html {
 .text-gray-300 {
 	--tw-text-opacity: 1;
 	color: rgba(209, 213, 219, var(--tw-text-opacity));
-}
-.text-primary {
-	--tw-text-opacity: 1;
-	color: hsla(var(--p) / var(--tw-text-opacity));
 }
 .no-underline {
 	text-decoration: none;
