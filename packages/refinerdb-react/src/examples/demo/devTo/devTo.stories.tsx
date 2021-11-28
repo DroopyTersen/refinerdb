@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
 import { ComponentMeta } from "@storybook/react";
-import { RefinerDBProvider, useCriteria, useQueryResult } from "../../..";
-import useAsyncData from "../useAsyncData";
-import { devToIndexes, getDevToArticles } from "./devTo.data";
-import { DemoSetup } from "../DemoSetup";
+import React from "react";
+import { RefinerDBProvider, useQueryResult } from "../../..";
 import { ClearRefinersButton, NumberRangeRefiner, Textbox } from "../../refinerControls";
 import DateRangeRefiner from "../../refinerControls/DateRangeRefiner";
 import MultiValueCheckboxes from "../../refinerControls/MultiValueCheckboxes";
-import MultiValueSelect from "../../refinerControls/MultiValueSelect";
+import { DemoSetup } from "../DemoSetup";
+import { devToIndexes, getDevToArticles } from "./devTo.data";
 
 export default {
   title: "Full Demos/Dev.to Articles",
@@ -15,9 +13,6 @@ export default {
 } as ComponentMeta<typeof RefinerDBProvider>;
 
 export const JavascriptArticles = () => {
-  let { data } = useAsyncData(getDevToArticles, ["javascript"], null);
-  console.log("🚀 | JavascriptArticles | data", data);
-
   return (
     <DemoSetup
       dbName="devto-articles"
@@ -58,7 +53,7 @@ function ItemResult({ item }) {
           <h5>{item.title}</h5>
         </div>
         <div
-          className="d-flex mt-2"
+          className="mt-2 d-flex"
           style={{ justifyContent: "space-between", alignItems: "center" }}
         >
           <div>
@@ -66,7 +61,7 @@ function ItemResult({ item }) {
               <img src={item?.user?.profile_image_90} className="avatar avatar-sm" />
               {item?.user?.name}
             </div>
-            <div className="text-muted text-small mt-1">{item.published_date}</div>
+            <div className="mt-1 text-muted text-small">{item.published_date}</div>
           </div>
           <div className="center text-muted">
             <span className="badge" data-badge={item.reactions_count}>
@@ -106,20 +101,20 @@ function RefinerPanel() {
       <ClearRefinersButton style={{ position: "absolute", right: "0", top: ".5rem" }}>
         CLEAR
       </ClearRefinersButton>
-      <div className="menu mb-2">
+      <div className="mb-2 menu">
         <Textbox indexKey="title" label="Title" debounce={300} />
       </div>
-      <div className="menu my-2">
+      <div className="my-2 menu">
         <MultiValueCheckboxes
           indexKey="tag_list"
           label="Tags"
           options={{ debounce: 0, maxRefinersOptions: 6, sort: "count" }}
         />
       </div>
-      <div className="menu my-2">
+      <div className="my-2 menu">
         <Textbox indexKey="author" label="Author" debounce={300} />
       </div>
-      <div className="menu my-2">
+      <div className="my-2 menu">
         <DateRangeRefiner indexKey="published_timestamp" label="Published" />
         <MultiValueCheckboxes
           indexKey="published_date"
@@ -128,7 +123,7 @@ function RefinerPanel() {
         />
       </div>
 
-      <div className="menu my-2">
+      <div className="my-2 menu">
         <NumberRangeRefiner indexKey="reactions_count" label="Reactions" debounce={200} />
       </div>
     </div>

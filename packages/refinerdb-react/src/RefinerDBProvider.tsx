@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  RefinerDB,
   IndexConfig,
   IndexState,
   PersistedStore,
   QueryCriteria,
+  RefinerDB,
   RefinerDBConfig,
 } from "refinerdb";
 import { useRefinerDB } from ".";
-import { useUpdateEffect } from "./hooks/utils/useUpdateEffect";
 
 export const RefinerDBContext = React.createContext<RefinerDB>(null);
 export const IndexStateContext = React.createContext<{ status: IndexState }>({
@@ -70,13 +69,36 @@ function IndexesWrapper({ indexes }) {
 }
 
 function ItemsWrapper({ items }) {
+  const hasMountedRef = useRef(false);
   let refinerDB = useRefinerDB();
-  // TODO: do this better. only want the delay on mount
-  useUpdateEffect(() => {
-    if (refinerDB && items) {
-      refinerDB.setItems(items);
+
+  useEffect(() => {
+    let hasUnmounted = false;
+    if (items && !hasMountedRef.current) {
+      // Only delay the initial setItem if it is the first
+      // render pass and we already have items. This gives
+      // react a chance to render with the cached items before
+      // reindexing.
+      setTimeout(() => {
+        if (hasUnmounted) return;
+        refinerDB.setItems(items);
+      }, 350);
+    } else if (items && hasMountedRef.current) {
+      refinerDB.setItems(items).then(() => {
+        refinerDB.getItemCount().then((count) => console.log("ITEM COUNT", count));
+        refinerDB.getQueryResult(false).then((result) => console.log("result", result));
+      });
     }
-  }, [items]);
+
+    return () => {
+      hasUnmounted = true;
+    };
+  }, [items, refinerDB]);
+
+  useEffect(() => {
+    hasMountedRef.current = true;
+  }, []);
+
   return null;
 }
 

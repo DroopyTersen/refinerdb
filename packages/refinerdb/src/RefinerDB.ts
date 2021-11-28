@@ -56,6 +56,10 @@ export default class RefinerDB {
     }
   }
 
+  public getItemCount = async () => {
+    return (await this?._store?.allItems?.count()) || 0;
+  };
+
   /** The active QueryCriteria */
   public get criteria() {
     return this._criteria;
@@ -151,8 +155,14 @@ export default class RefinerDB {
   public getQueryResult = async (hydrateItems = true): Promise<QueryResult> => {
     let currentKey = this.getCriteriaKey();
     if (
+      // If it's not idle, it's actively reindexing/querying
+      this.stateMachine.state.value !== IndexState.IDLE ||
+      // If we don't have a cached query result to provide
       !this?.queryResultRequest?.promise ||
+      // If the cached query result was for a differnt criteria
       this?.queryResultRequest?.criteriaKey !== currentKey ||
+      // If everything is good, but this tiem they want to hydrate the items
+      // and last time they didn't.
       (hydrateItems && !this?.queryResultRequest?.hydrateItems)
     ) {
       this.queryResultRequest = {
