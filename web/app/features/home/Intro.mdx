@@ -15,11 +15,15 @@ import refinerExamplesImage from "../../../public/images/refiner-examples.png";
 
 Some commonalities we see in these UX scenarios are...
 
-- Complex Filter criteria
-  - ex: `Title contains 'day' AND genre eq 'Action'`
-- Dynamic Refiner Options w/ counts
+<div className='bg-blue-100 text-blue-800 px-6  py-2 rounded max-w-2xl'>
+
+- **Complex Filter** criteria
+  - ex: Title contains 'day' AND genre eq 'Action'
+- Dynamic **Refiner Options w/ counts**
   - Based on the current filtered set, display the available refiner options and the number of items that match.
-- Sorting, Paging, result counts etc..
+- **Sorting**, **Paging**, result counts etc..
+
+</div>
 
 <p>
   <span className="font-bold text-primary text-lg">
@@ -36,7 +40,6 @@ Some commonalities we see in these UX scenarios are...
 
 ```tsx
 import {
-  IndexConfig,
   IndexType,
   RefinerDBProvider,
   useTextRefiner,
@@ -48,7 +51,7 @@ import {
  * Image we had an array of movies like...
  * [ { id:123, title: "Gladiator", genre: ["Action", "Drama"] }, ... ]
  */
-const indexes: IndexConfig[] = [
+const indexes = [
   { key: "genre", type: IndexType.String },
   // For properties that generally have unique values, improve
   // performance by specifying 'skipRefinerOptions'
@@ -81,7 +84,8 @@ export default function App() {
  * The UI is compeletely up to you.
  * */
 function TitleRefiner() {
-  let { value = "", setValue } = useTextRefiner("title");
+  // This custom hook allows utilizing a "text contains" refiner
+  let { value, setValue } = useTextRefiner("title");
 
   return (
     <label>

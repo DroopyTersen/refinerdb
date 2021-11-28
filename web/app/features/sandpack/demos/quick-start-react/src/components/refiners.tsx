@@ -1,9 +1,19 @@
 import {
+  useFilter,
   useMultiselectRefiner,
   useNumberRangeRefiner,
   useTextRefiner,
 } from "refinerdb-react";
 
+export function ClearRefinersButton() {
+  let { filter, clearFilter } = useFilter();
+  if (Object.keys(filter).length < 1) return null;
+  return (
+    <button type="button" onClick={clearFilter} className="pseudo error">
+      Clear
+    </button>
+  );
+}
 export function TitleRefiner() {
   let { value = "", setValue } = useTextRefiner("title");
 
@@ -36,7 +46,9 @@ export function GenreRefiner() {
 }
 
 export function YearRefiner() {
-  let { getCheckboxProps, options } = useMultiselectRefiner("year", { sort: "count" });
+  let { getCheckboxProps, options } = useMultiselectRefiner("year", {
+    sort: "count",
+  });
 
   return (
     <div>

@@ -16,6 +16,9 @@
     "/src/components/refiners.tsx": {
       "hidden": false
     },
+    "/src/components/ResultsView.tsx": {
+      "hidden": false
+    },
     "/src/styles.css": {
       "hidden": true
     },
@@ -26,7 +29,8 @@
   "template": "react-ts",
   "customSetup": {
     "dependencies": {
-      "refinerdb-react": "next"
+      "refinerdb-react": "next",
+      "react-inspector": "latest"
     }
   }
 }
