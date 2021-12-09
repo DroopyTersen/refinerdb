@@ -18,6 +18,6 @@ export function setupLocalStorageWorker() {
   Comlink.expose(worker);
 }
 
-if (window != self) {
+if (typeof window !== "undefined" && window != self) {
   setupLocalStorageWorker();
 }
