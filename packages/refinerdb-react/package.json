@@ -10,6 +10,7 @@
     "storybook": "start-storybook -p 6006",
     "build:storybook": "rimraf ../../web/public/_storybook && build-storybook -o ../../web/public/_storybook",
     "prerelease": "npm run build && npm version patch",
+    "generateTypes": "node tasks/generateTypes.js",
     "release": "npm version prerelease && npm publish --tag beta"
   },
   "files": [
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
+    "@documentalist/compiler": "^3.0.0",
     "@storybook/addon-actions": "^6.3.12",
     "@storybook/addon-essentials": "^6.3.12",
     "@storybook/addon-links": "^6.3.12",

@@ -11,7 +11,7 @@ export interface RefinerDBProviderProps extends RefinerDBConfig {
   name: string;
   items: any[];
 }
-const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
+export const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
   name,
   items,
   children,
@@ -92,5 +92,3 @@ function ItemsWrapper({ items }) {
 
   return null;
 }
-
-export default RefinerDBProvider;

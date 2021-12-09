@@ -21,7 +21,7 @@ export const meta = () => {
 export default function HomePage() {
   return (
     <>
-      <h1>RefinerDB</h1>
+      <h1 className="font-mono text-7xl ">RefinerDB</h1>
       <RightColumnLayout
         sidebarLinks={[
           { title: "What is it?", to: "#" },

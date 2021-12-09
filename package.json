@@ -20,6 +20,7 @@
     "test": "yarn test:core",
     "test:core": "yarn core test",
     "prerelease": "npm run build",
+    "build:types": "node tasks/generateTypes.js",
     "release": "lerna publish --dist-tag next"
   },
   "repository": {
@@ -33,6 +34,7 @@
   },
   "homepage": "https://github.com/DroopyTersen/refinerdb#readme",
   "devDependencies": {
+    "@documentalist/compiler": "^3.0.0",
     "lerna": "^4.0.0",
     "npm-run-all": "^4.1.5"
   }

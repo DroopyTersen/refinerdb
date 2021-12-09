@@ -1,6 +1,8 @@
 import { useContext } from "react";
+import { RefinerDB } from "refinerdb";
 import { RefinerDBContext } from "../RefinerDBProvider";
 
-export function useRefinerDB() {
+/** Provides raw access to the RefinerDB instance created by the RefinerDBProvider */
+export function useRefinerDB(): RefinerDB {
   return useContext(RefinerDBContext);
 }

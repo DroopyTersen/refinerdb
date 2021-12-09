@@ -1,0 +1,1523 @@
+{
+  "typescript": {
+    "RefinerDBProvider": {
+      "fileName": "packages/refinerdb-react/src/RefinerDBProvider.tsx",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "RefinerDBProvider",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/RefinerDBProvider.tsx#L14",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/RefinerDBProvider.tsx",
+          "kind": "signature",
+          "name": "RefinerDBProvider",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/RefinerDBProvider.tsx#L14",
+          "parameters": [
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "__namedParameters",
+              "type": ""
+            }
+          ],
+          "returnType": "Element<>",
+          "type": "(__namedParameters: ) => Element<>"
+        }
+      ]
+    },
+    "useRefinerDB": {
+      "fileName": "packages/refinerdb-react/src/hooks/useRefinerDB.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useRefinerDB",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useRefinerDB.ts#L6",
+      "signatures": [
+        {
+          "documentation": {
+            "contents": [
+              "<p>Provides raw access to the RefinerDB instance created by the RefinerDBProvider</p>\n"
+            ],
+            "contentsRaw": "Provides raw access to the RefinerDB instance created by the RefinerDBProvider",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useRefinerDB.ts",
+          "kind": "signature",
+          "name": "useRefinerDB",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useRefinerDB.ts#L6",
+          "parameters": [],
+          "returnType": "RefinerDB",
+          "type": "() => RefinerDB"
+        }
+      ]
+    },
+    "useSetCriteria": {
+      "fileName": "packages/refinerdb-react/src/hooks/useCriteria.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useSetCriteria",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useCriteria.ts#L11",
+      "signatures": [
+        {
+          "documentation": {
+            "contents": [
+              "<p>Provides a stable function to update the the RefinerDB criteria. The setter function\nfollows the same signate as the useState setter function. AKA it takes the previous\nvalue and expects you to return the new value.</p>\n"
+            ],
+            "contentsRaw": "Provides a stable function to update the the RefinerDB criteria. The setter function\nfollows the same signate as the useState setter function. AKA it takes the previous\nvalue and expects you to return the new value.",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useCriteria.ts",
+          "kind": "signature",
+          "name": "useSetCriteria",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useCriteria.ts#L11",
+          "parameters": [],
+          "returnType": "(setter: (prev: QueryCriteria) => QueryCriteria) => void",
+          "type": "() => (setter: (prev: QueryCriteria) => QueryCriteria) => void"
+        }
+      ]
+    },
+    "useCriteria": {
+      "fileName": "packages/refinerdb-react/src/hooks/useCriteria.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useCriteria",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useCriteria.ts#L24",
+      "signatures": [
+        {
+          "documentation": {
+            "contents": [
+              "<p>Provides a stable reference to the criteria value as well as a stable update function.\nReturns a tuple where the first value is the criteria and the second value is the\ncriteria setter (see useSetCriteria if you only need a setter).</p>\n"
+            ],
+            "contentsRaw": "Provides a stable reference to the criteria value as well as a stable update function.\nReturns a tuple where the first value is the criteria and the second value is the\ncriteria setter (see useSetCriteria if you only need a setter).",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useCriteria.ts",
+          "kind": "signature",
+          "name": "useCriteria",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useCriteria.ts#L24",
+          "parameters": [],
+          "returnType": "[QueryCriteria, function]",
+          "type": "() => [QueryCriteria, function]"
+        }
+      ]
+    },
+    "useSetFilter": {
+      "fileName": "packages/refinerdb-react/src/hooks/useFilter.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useSetFilter",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useFilter.ts#L10",
+      "signatures": [
+        {
+          "documentation": {
+            "contents": [
+              "<p>Provides a stable function to update the the RefinerDB criteria&#39;s filter. The setter function\ntakes the previous value and expects you to return the new value.</p>\n"
+            ],
+            "contentsRaw": "Provides a stable function to update the the RefinerDB criteria's filter. The setter function\ntakes the previous value and expects you to return the new value.",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useFilter.ts",
+          "kind": "signature",
+          "name": "useSetFilter",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useFilter.ts#L10",
+          "parameters": [],
+          "returnType": "(setter: (prev: Filter) => Filter) => void",
+          "type": "() => (setter: (prev: Filter) => Filter) => void"
+        }
+      ]
+    },
+    "useFilter": {
+      "fileName": "packages/refinerdb-react/src/hooks/useFilter.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useFilter",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useFilter.ts#L37",
+      "signatures": [
+        {
+          "documentation": {
+            "contents": [
+              "<p>Provides a stable reference to the criteria&#39;s filter value as well as a stable update function.\nReturns a tuple where the first value is the criteria&#39;s filter and the second value is the\ncriteria&#39;s filter setter (see useSetFilter if you only need a setter).</p>\n"
+            ],
+            "contentsRaw": "Provides a stable reference to the criteria's filter value as well as a stable update function.\nReturns a tuple where the first value is the criteria's filter and the second value is the\ncriteria's filter setter (see useSetFilter if you only need a setter).",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useFilter.ts",
+          "kind": "signature",
+          "name": "useFilter",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useFilter.ts#L37",
+          "parameters": [],
+          "returnType": "UseFilterReturnType",
+          "type": "() => UseFilterReturnType"
+        }
+      ]
+    },
+    "useQueryResult": {
+      "fileName": "packages/refinerdb-react/src/hooks/useQueryResult.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useQueryResult",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useQueryResult.ts#L18",
+      "signatures": [
+        {
+          "documentation": {
+            "contents": [
+              "<p>Provides the up to date query results.\nAnytime the indexing state goes back to idle\nit will check for new query results and update state.</p>\n"
+            ],
+            "contentsRaw": "Provides the up to date query results.\nAnytime the indexing state goes back to idle\nit will check for new query results and update state.",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useQueryResult.ts",
+          "kind": "signature",
+          "name": "useQueryResult",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useQueryResult.ts#L18",
+          "parameters": [
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "__namedParameters",
+              "defaultValue": "{}",
+              "type": ""
+            }
+          ],
+          "returnType": "QueryResult",
+          "type": "(__namedParameters?: ) => QueryResult"
+        }
+      ]
+    },
+    "useDebounce": {
+      "fileName": "packages/refinerdb-react/src/hooks/utils/useDebounce.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useDebounce",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/utils/useDebounce.ts#L3",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/utils/useDebounce.ts",
+          "kind": "signature",
+          "name": "useDebounce",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/utils/useDebounce.ts#L3",
+          "parameters": [
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "effectFn",
+              "type": "(debouncedValues: any[]) => void | () => void"
+            },
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "values",
+              "type": "any[]"
+            },
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "delay",
+              "type": "number"
+            }
+          ],
+          "returnType": "void",
+          "type": "(effectFn: (debouncedValues: any[]) => void | () => void, values: any[], delay: number) => void"
+        }
+      ]
+    },
+    "useDebouncedEffect": {
+      "fileName": "packages/refinerdb-react/src/hooks/utils/useDebounce.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useDebouncedEffect",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/utils/useDebounce.ts#L36",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/utils/useDebounce.ts",
+          "kind": "signature",
+          "name": "useDebouncedEffect",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/utils/useDebounce.ts#L36",
+          "parameters": [
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "effectFn",
+              "type": "(debouncedValue: T) => void | () => void"
+            },
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "value",
+              "type": "T"
+            },
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "delay",
+              "type": "number"
+            }
+          ],
+          "returnType": "void",
+          "type": "(effectFn: (debouncedValue: T) => void | () => void, value: T, delay: number) => void"
+        }
+      ]
+    },
+    "useDebouncedValue": {
+      "fileName": "packages/refinerdb-react/src/hooks/utils/useDebounce.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useDebouncedValue",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/utils/useDebounce.ts#L53",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/utils/useDebounce.ts",
+          "kind": "signature",
+          "name": "useDebouncedValue",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/utils/useDebounce.ts#L53",
+          "parameters": [
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "value",
+              "type": "any"
+            },
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "delay",
+              "type": "any"
+            }
+          ],
+          "returnType": "any",
+          "type": "(value: any, delay: any) => any"
+        }
+      ]
+    },
+    "useDebouncedValues": {
+      "fileName": "packages/refinerdb-react/src/hooks/utils/useDebounce.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useDebouncedValues",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/utils/useDebounce.ts#L75",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/utils/useDebounce.ts",
+          "kind": "signature",
+          "name": "useDebouncedValues",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/utils/useDebounce.ts#L75",
+          "parameters": [
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "values",
+              "type": "any[]"
+            },
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "delay",
+              "type": "any"
+            }
+          ],
+          "returnType": "any[]",
+          "type": "(values: any[], delay: any) => any[]"
+        }
+      ]
+    },
+    "useRefiner": {
+      "fileName": "packages/refinerdb-react/src/hooks/useRefiner.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useRefiner",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useRefiner.ts#L14",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/useRefiner.ts",
+          "kind": "signature",
+          "name": "useRefiner",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useRefiner.ts#L14",
+          "parameters": [
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "key",
+              "type": "string"
+            },
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "config",
+              "defaultValue": "defaultConfig",
+              "type": "RefinerConfig"
+            }
+          ],
+          "returnType": "[T, Dispatch<SetStateAction<T>>, RefinerOption[]]",
+          "type": "(key: string, config?: RefinerConfig) => [T, Dispatch<SetStateAction<T>>, RefinerOption[]]"
+        }
+      ]
+    },
+    "useDateRangeRefiner": {
+      "fileName": "packages/refinerdb-react/src/hooks/useDateRangeRefiner.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useDateRangeRefiner",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useDateRangeRefiner.ts#L5",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/useDateRangeRefiner.ts",
+          "kind": "signature",
+          "name": "useDateRangeRefiner",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useDateRangeRefiner.ts#L5",
+          "parameters": [
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "indexKey",
+              "type": "string"
+            },
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "debounce",
+              "defaultValue": "500",
+              "type": "number"
+            }
+          ],
+          "returnType": "",
+          "type": "(indexKey: string, debounce?: number) => "
+        }
+      ]
+    },
+    "formatDateForInput": {
+      "fileName": "packages/refinerdb-react/src/hooks/useDateRangeRefiner.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "formatDateForInput",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useDateRangeRefiner.ts#L26",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/useDateRangeRefiner.ts",
+          "kind": "signature",
+          "name": "formatDateForInput",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useDateRangeRefiner.ts#L26",
+          "parameters": [
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "dateish",
+              "type": "any"
+            }
+          ],
+          "returnType": "string",
+          "type": "(dateish: any) => string"
+        }
+      ]
+    },
+    "useSetIndexes": {
+      "fileName": "packages/refinerdb-react/src/hooks/useIndexes.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useSetIndexes",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useIndexes.ts#L7",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/useIndexes.ts",
+          "kind": "signature",
+          "name": "useSetIndexes",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useIndexes.ts#L7",
+          "parameters": [],
+          "returnType": "(Anonymous function)",
+          "type": "() => (Anonymous function)"
+        }
+      ]
+    },
+    "useIndexes": {
+      "fileName": "packages/refinerdb-react/src/hooks/useIndexes.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useIndexes",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useIndexes.ts#L19",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/useIndexes.ts",
+          "kind": "signature",
+          "name": "useIndexes",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useIndexes.ts#L19",
+          "parameters": [],
+          "returnType": "[IndexConfig[], (Anonymous function)]",
+          "type": "() => [IndexConfig[], (Anonymous function)]"
+        }
+      ]
+    },
+    "useMultiSelectSetters": {
+      "fileName": "packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useMultiSelectSetters",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts#L20",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts",
+          "kind": "signature",
+          "name": "useMultiSelectSetters",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts#L20",
+          "parameters": [
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "indexKey",
+              "type": "string"
+            },
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "debounce",
+              "defaultValue": "0",
+              "type": "number"
+            }
+          ],
+          "returnType": "",
+          "type": "(indexKey: string, debounce?: number) => "
+        }
+      ]
+    },
+    "useMultiselectRefiner": {
+      "fileName": "packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useMultiselectRefiner",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts#L59",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts",
+          "kind": "signature",
+          "name": "useMultiselectRefiner",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts#L59",
+          "parameters": [
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "indexKey",
+              "type": "string"
+            },
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": true,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "refinerOptions",
+              "type": "MultiSelectRefinerOptions"
+            }
+          ],
+          "returnType": "",
+          "type": "(indexKey: string, refinerOptions?: MultiSelectRefinerOptions) => "
+        }
+      ]
+    },
+    "useNumberRangeRefiner": {
+      "fileName": "packages/refinerdb-react/src/hooks/useNumberRangeRefiner.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useNumberRangeRefiner",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useNumberRangeRefiner.ts#L5",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/useNumberRangeRefiner.ts",
+          "kind": "signature",
+          "name": "useNumberRangeRefiner",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useNumberRangeRefiner.ts#L5",
+          "parameters": [
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "indexKey",
+              "type": "string"
+            },
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "debounce",
+              "defaultValue": "500",
+              "type": "number"
+            }
+          ],
+          "returnType": "",
+          "type": "(indexKey: string, debounce?: number) => "
+        }
+      ]
+    },
+    "useSort": {
+      "fileName": "packages/refinerdb-react/src/hooks/useSort.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useSort",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useSort.ts#L6",
+      "signatures": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/useSort.ts",
+          "kind": "signature",
+          "name": "useSort",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useSort.ts#L6",
+          "parameters": [],
+          "returnType": "",
+          "type": "() => "
+        }
+      ]
+    },
+    "useTextRefiner": {
+      "fileName": "packages/refinerdb-react/src/hooks/useTextRefiner.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "method",
+      "name": "useTextRefiner",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useTextRefiner.ts#L5",
+      "signatures": [
+        {
+          "documentation": {
+            "contents": [
+              "<p>Appends the refiner value with an asterisk to perform a &quot;Contains&quot; query</p>\n"
+            ],
+            "contentsRaw": "Appends the refiner value with an asterisk to perform a \"Contains\" query",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useTextRefiner.ts",
+          "kind": "signature",
+          "name": "useTextRefiner",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useTextRefiner.ts#L5",
+          "parameters": [
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "indexKey",
+              "type": "any"
+            },
+            {
+              "flags": {
+                "isExported": true,
+                "isExternal": false,
+                "isOptional": false,
+                "isPrivate": false,
+                "isProtected": false,
+                "isPublic": false,
+                "isRest": false,
+                "isStatic": false
+              },
+              "kind": "parameter",
+              "name": "debounce",
+              "defaultValue": "500",
+              "type": "number"
+            }
+          ],
+          "returnType": "",
+          "type": "(indexKey: any, debounce?: number) => "
+        }
+      ]
+    },
+    "RefinerDBProviderProps": {
+      "fileName": "packages/refinerdb-react/src/RefinerDBProvider.tsx",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "interface",
+      "name": "RefinerDBProviderProps",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/RefinerDBProvider.tsx#L10",
+      "extends": [
+        "RefinerDBConfig"
+      ],
+      "methods": [],
+      "properties": [
+        {
+          "documentation": {
+            "contents": [
+              "<p>Used internally to avoid having a Web Worker\nspawn another Web Worker</p>\n"
+            ],
+            "contentsRaw": "Used internally to avoid having a Web Worker\nspawn another Web Worker",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb/lib/cjs/interfaces.d.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": true,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "_isWebWorker",
+          "inheritedFrom": "RefinerDBConfig._isWebWorker",
+          "type": "boolean"
+        },
+        {
+          "documentation": {
+            "contents": [
+              "<p>Initialize the db with criteria so you don&#39;t\nhave to manually call setCriteria</p>\n"
+            ],
+            "contentsRaw": "Initialize the db with criteria so you don't\nhave to manually call setCriteria",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb/lib/cjs/interfaces.d.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": true,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "criteria",
+          "inheritedFrom": "RefinerDBConfig.criteria",
+          "type": "QueryCriteria"
+        },
+        {
+          "documentation": {
+            "contents": [
+              "<p>The item property to use as the primary key.\nDefaults to &#39;id&#39;</p>\n"
+            ],
+            "contentsRaw": "The item property to use as the primary key.\nDefaults to 'id'",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb/lib/cjs/interfaces.d.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": true,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "idProperty",
+          "inheritedFrom": "RefinerDBConfig.idProperty",
+          "type": "string"
+        },
+        {
+          "documentation": {
+            "contents": [
+              "<p>How long in ms to wait before automatically triggering\na reindex. Defaults to 500ms.</p>\n"
+            ],
+            "contentsRaw": "How long in ms to wait before automatically triggering\na reindex. Defaults to 500ms.",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb/lib/cjs/interfaces.d.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": true,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "indexDelay",
+          "inheritedFrom": "RefinerDBConfig.indexDelay",
+          "type": "number"
+        },
+        {
+          "documentation": {
+            "contents": [
+              "<p>Initialize the db with indexes so you don&#39;t\nhave to manually call setIndexes</p>\n"
+            ],
+            "contentsRaw": "Initialize the db with indexes so you don't\nhave to manually call setIndexes",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb/lib/cjs/interfaces.d.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": true,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "indexes",
+          "inheritedFrom": "RefinerDBConfig.indexes",
+          "type": "IndexConfig[]"
+        },
+        {
+          "fileName": "packages/refinerdb-react/src/RefinerDBProvider.tsx",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": false,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "items",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/RefinerDBProvider.tsx#L12",
+          "type": "any[]"
+        },
+        {
+          "fileName": "packages/refinerdb-react/src/RefinerDBProvider.tsx",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": false,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "name",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/RefinerDBProvider.tsx#L11",
+          "type": "string"
+        },
+        {
+          "documentation": {
+            "contents": [
+              "<p>Subscribe to changes in the indexing state</p>\n"
+            ],
+            "contentsRaw": "Subscribe to changes in the indexing state",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb/lib/cjs/interfaces.d.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": true,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "onTransition",
+          "inheritedFrom": "RefinerDBConfig.onTransition",
+          "type": "(value: IndexState) => void"
+        },
+        {
+          "documentation": {
+            "contents": [
+              "<p>The PersistedStore (localStorage, indexedDB, etc...)\nDefaults to localStorage.</p>\n"
+            ],
+            "contentsRaw": "The PersistedStore (localStorage, indexedDB, etc...)\nDefaults to localStorage.",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb/lib/cjs/interfaces.d.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": true,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "store",
+          "inheritedFrom": "RefinerDBConfig.store",
+          "type": "PersistedStore"
+        }
+      ]
+    },
+    "UseFilterReturnType": {
+      "fileName": "packages/refinerdb-react/src/hooks/useFilter.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "interface",
+      "name": "UseFilterReturnType",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useFilter.ts#L26",
+      "methods": [],
+      "properties": [
+        {
+          "documentation": {
+            "contents": [
+              "<p>Stable function to reset the filter</p>\n"
+            ],
+            "contentsRaw": "Stable function to reset the filter",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useFilter.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": false,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "clearFilter",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useFilter.ts#L32",
+          "type": "() => void"
+        },
+        {
+          "documentation": {
+            "contents": [
+              "<p>Provides the realtime filter value</p>\n"
+            ],
+            "contentsRaw": "Provides the realtime filter value",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useFilter.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": false,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "filter",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useFilter.ts#L28",
+          "type": "Filter"
+        },
+        {
+          "documentation": {
+            "contents": [
+              "<p>Stable setter function. Takes in the prev value and returns the new value</p>\n"
+            ],
+            "contentsRaw": "Stable setter function. Takes in the prev value and returns the new value",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useFilter.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": false,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "setFilter",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useFilter.ts#L30",
+          "type": "(setter: (prev: Filter) => Filter) => void"
+        }
+      ]
+    },
+    "UseQueryResultProps": {
+      "documentation": {
+        "contents": [
+          "<p>Options to pass to the useQueryResult hook</p>\n"
+        ],
+        "contentsRaw": "Options to pass to the useQueryResult hook",
+        "metadata": {}
+      },
+      "fileName": "packages/refinerdb-react/src/hooks/useQueryResult.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "interface",
+      "name": "UseQueryResultProps",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useQueryResult.ts#L7",
+      "methods": [],
+      "properties": [
+        {
+          "documentation": {
+            "contents": [
+              "<p>Defaults to true. If false, only the item Id&#39;s will be returned.\nThis can improve performance if you already have your array of items in memory.</p>\n"
+            ],
+            "contentsRaw": "Defaults to true. If false, only the item Id's will be returned.\nThis can improve performance if you already have your array of items in memory.",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useQueryResult.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": true,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "hydrateItems",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useQueryResult.ts#L11",
+          "type": "boolean"
+        }
+      ]
+    },
+    "RefinerConfig": {
+      "fileName": "packages/refinerdb-react/src/hooks/useRefiner.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "interface",
+      "name": "RefinerConfig",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useRefiner.ts#L7",
+      "methods": [],
+      "properties": [
+        {
+          "fileName": "packages/refinerdb-react/src/hooks/useRefiner.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": false,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "debounce",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useRefiner.ts#L8",
+          "type": "number"
+        }
+      ]
+    },
+    "MultiSelectRefinerOptions": {
+      "fileName": "packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "interface",
+      "name": "MultiSelectRefinerOptions",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts#L6",
+      "methods": [],
+      "properties": [
+        {
+          "documentation": {
+            "contents": [
+              "<p>Defaults to 100</p>\n"
+            ],
+            "contentsRaw": "Defaults to 100",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": true,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "debounce",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts#L8",
+          "type": "number"
+        },
+        {
+          "documentation": {
+            "contents": [
+              "<p>Defaults to all</p>\n"
+            ],
+            "contentsRaw": "Defaults to all",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": true,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "maxRefinersOptions",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts#L10",
+          "type": "number"
+        },
+        {
+          "documentation": {
+            "contents": [
+              "<p>Sort alphabetically or by count</p>\n"
+            ],
+            "contentsRaw": "Sort alphabetically or by count",
+            "metadata": {}
+          },
+          "fileName": "packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts",
+          "flags": {
+            "isExported": true,
+            "isExternal": true,
+            "isOptional": true,
+            "isPrivate": false,
+            "isProtected": false,
+            "isPublic": false,
+            "isRest": false,
+            "isStatic": false
+          },
+          "kind": "property",
+          "name": "sort",
+          "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useMultiselectRefiner.ts#L12",
+          "type": "\"alpha\" | \"count\""
+        }
+      ]
+    },
+    "FilterValueType": {
+      "fileName": "packages/refinerdb-react/src/hooks/useRefiner.ts",
+      "flags": {
+        "isExported": true,
+        "isExternal": true,
+        "isOptional": false,
+        "isPrivate": false,
+        "isProtected": false,
+        "isPublic": false,
+        "isRest": false,
+        "isStatic": false
+      },
+      "kind": "type alias",
+      "name": "FilterValueType",
+      "sourceUrl": "https://github.com/DroopyTersen/refinerdb/blob/954b0d8/packages/refinerdb-react/src/hooks/useRefiner.ts#L13",
+      "type": "MinMaxFilterValue | StringFilterValue | NumberFilterValue"
+    }
+  }
+}

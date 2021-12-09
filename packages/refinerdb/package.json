@@ -18,7 +18,6 @@
     "build:esm": "tsc -p tsconfig.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:worker": "esbuild src/stores/localStorage/refinerdb.localStorage.worker.ts --bundle --outfile=lib/refinerdb.localStorage.worker.js",
-    "generateTypes": "node tasks/generateTypes.js",
     "clean": "rimraf lib",
     "prerelease": "npm run build",
     "release": "np --any-branch --tag=beta"
