@@ -84,15 +84,12 @@ function ItemsWrapper({ items }) {
   let refinerDB = useRefinerDB();
 
   useEffect(() => {
-    console.log("REFINERDB: NEW ITEMS", items);
     let hasUnmounted = false;
     const doAsync = async () => {
       if (isFirstPassRef.current) {
         let itemCount = await refinerDB.getItemCount();
         if (itemCount && itemCount > 0) {
-          console.log("WAITING");
           await wait(2000);
-          console.log("DONE WAITING");
         }
         await wait(2000);
       }

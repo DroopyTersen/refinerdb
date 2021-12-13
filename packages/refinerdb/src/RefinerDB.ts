@@ -99,7 +99,6 @@ export default class RefinerDB {
 
   /** Set the items that should be indexed and queried. */
   public setItems = async (items: any[]) => {
-    this.clearQueryResult();
     await this._store.setItems(items);
     this.stateMachine.send(IndexEvent.INVALIDATE);
   };
@@ -133,7 +132,6 @@ export default class RefinerDB {
   reindex = async () => {
     this.stateMachine.send(IndexEvent.INDEX_START);
 
-    this.clearQueryResult();
     await this.waitForState(IndexState.IDLE);
     return;
   };
@@ -161,6 +159,7 @@ export default class RefinerDB {
   /** Waits for querying to complete then returns results based on the active criteria. */
   public getQueryResult = async (hydrateItems = true): Promise<QueryResult> => {
     let currentKey = this.getCriteriaKey();
+
     if (
       // If we don't have a cached query result to provide
       !this?.queryResultRequest?.promise ||
@@ -197,6 +196,7 @@ export default class RefinerDB {
   };
 
   private _reIndex = async (indexingId: number = Date.now()) => {
+    this.clearQueryResult();
     await this._store.reindex({
       indexingId,
       indexRegistrations: this.indexRegistrations,

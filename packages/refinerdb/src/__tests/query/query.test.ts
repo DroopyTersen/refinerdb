@@ -37,7 +37,6 @@ describe("Querying - Basic", () => {
     expect(result).toHaveProperty("timestamp");
     let prevTimestamp = result.timestamp;
 
-    search.setCriteria({ limit: 100 });
     result = await search.getQueryResult();
     expect(result).toBeTruthy();
     expect(result).toHaveProperty("timestamp");
