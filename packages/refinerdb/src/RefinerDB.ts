@@ -3,7 +3,11 @@ import { getCache, setCache } from "./helpers/cache";
 import { cleanCriteria } from "./helpers/cleanCriteria";
 import { checkIfModifiedIndexes } from "./helpers/indexers";
 import { IndexConfig, IndexEvent, IndexState, QueryCriteria, RefinerDBConfig } from "./interfaces";
-import { createRobotStateMachine, RefinerDBStateMachine } from "./stateMachine";
+import {
+  createRobotStateMachine,
+  OnTransitionHandler,
+  RefinerDBStateMachine,
+} from "./stateMachine";
 import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
 import createMeasurement from "./utils/utils";
 
@@ -56,6 +60,11 @@ export default class RefinerDB {
       this._indexRegistrations = this._config.indexes;
     }
   }
+  public onTransition = (handler: OnTransitionHandler): (() => void) => {
+    this.stateMachine.onTransition(handler);
+
+    return () => this.stateMachine.off(handler);
+  };
 
   public getItemCount = async () => {
     return (await this?._store?.allItems?.count()) || 0;

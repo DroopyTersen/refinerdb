@@ -246,12 +246,16 @@ export default function SortControl() {
 
 ## Lower Level
 
-### useIndexState
+### useIndexStatus
 
 Gives you the current `IndexState` (idle, stale, pending, etc...) of your database.
 
 ```typescript
-let { status } = useIndexState();
+useIndexStatus((status) => {
+  if (status === "idle") {
+    // do work
+  }
+});
 ```
 
 ### useCriteria

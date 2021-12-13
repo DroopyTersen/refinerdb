@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { IndexState, QueryResult } from "refinerdb";
-import { useIndexState } from "./useIndexState";
+import { useState } from "react";
+import { QueryResult } from "refinerdb";
+import { useIndexStatus } from ".";
 import { useRefinerDB } from "./useRefinerDB";
 
 /** Options to pass to the useQueryResult hook */
@@ -16,11 +16,10 @@ export interface UseQueryResultProps {
  * it will check for new query results and update state.
  */
 export function useQueryResult({ hydrateItems = true }: UseQueryResultProps = {}): QueryResult {
-  let { status } = useIndexState();
   let refinerDB = useRefinerDB();
   let [result, setResult] = useState<QueryResult>(null);
 
-  useEffect(() => {
+  useIndexStatus((status) => {
     let isMounted = true;
     async function getNewResults() {
       let queryResult: QueryResult = await refinerDB.getQueryResult(hydrateItems);
@@ -28,13 +27,14 @@ export function useQueryResult({ hydrateItems = true }: UseQueryResultProps = {}
         setResult(queryResult);
       }
     }
-    if (status === IndexState.IDLE) {
+    if (status === "idle") {
       getNewResults();
     }
+
     return () => {
       isMounted = false;
     };
-  }, [status, refinerDB]);
+  });
 
   return result;
 }

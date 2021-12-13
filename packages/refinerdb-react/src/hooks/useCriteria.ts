@@ -1,7 +1,7 @@
 import deepEqual from "just-compare";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { QueryCriteria } from "refinerdb";
-import { useIndexState } from "./useIndexState";
+import { useIndexStatus } from ".";
 import { useRefinerDB } from "./useRefinerDB";
 
 /** Provides a stable function to update the the RefinerDB criteria. The setter function
@@ -23,18 +23,16 @@ export function useSetCriteria(): (setter: (prev: QueryCriteria) => QueryCriteri
  * criteria setter (see useSetCriteria if you only need a setter). */
 export function useCriteria() {
   let refinerDB = useRefinerDB();
-  let { status } = useIndexState();
   let [criteriaState, setCriteriaState] = useState<QueryCriteria>(
     refinerDB ? refinerDB.criteria : {}
   );
   let setCriteria = useSetCriteria();
 
-  // when the Index state changes, check for new criteria
-  useEffect(() => {
+  useIndexStatus((status) => {
     if (!deepEqual(criteriaState, refinerDB.criteria)) {
       setCriteriaState(refinerDB.criteria);
     }
-  }, [status, refinerDB]);
+  });
 
   return [criteriaState, setCriteria] as [
     getter: QueryCriteria,

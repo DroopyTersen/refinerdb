@@ -1,7 +1,7 @@
 import deepEqual from "just-compare";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { Filter } from "refinerdb";
-import { useIndexState } from "./useIndexState";
+import { useIndexStatus } from ".";
 import { useRefinerDB } from "./useRefinerDB";
 
 /** Provides a stable function to update the the RefinerDB criteria's filter. The setter function
@@ -35,17 +35,16 @@ export interface UseFilterReturnType {
  * Returns a tuple where the first value is the criteria's filter and the second value is the
  * criteria's filter setter (see useSetFilter if you only need a setter). */
 export function useFilter(): UseFilterReturnType {
-  let { status } = useIndexState();
   let refinerDB = useRefinerDB();
   let [filterState, _setFilterState] = useState(() => refinerDB?.criteria?.filter || {});
   let setFilter = useSetFilter();
   let clearFilter = () => setFilter(() => ({}));
 
-  useEffect(() => {
+  useIndexStatus(() => {
     if (!deepEqual(filterState || {}, refinerDB?.criteria?.filter || {})) {
       _setFilterState(refinerDB?.criteria?.filter || {});
     }
-  }, [status, refinerDB]);
+  });
 
   return {
     filter: filterState,

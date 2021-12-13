@@ -2,7 +2,7 @@ export * from "./useCriteria";
 export * from "./useDateRangeRefiner";
 export * from "./useFilter";
 export * from "./useIndexes";
-export * from "./useIndexState";
+export * from "./useIndexStatus";
 export * from "./useMultiselectRefiner";
 export * from "./useNumberRangeRefiner";
 export * from "./useQueryResult";

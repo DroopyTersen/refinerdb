@@ -3,9 +3,6 @@ import { IndexState, RefinerDB, RefinerDBConfig } from "refinerdb";
 import { useRefinerDB } from ".";
 
 export const RefinerDBContext = React.createContext<RefinerDB>(null);
-export const IndexStateContext = React.createContext<{ status: IndexState }>({
-  status: IndexState.IDLE,
-});
 
 export interface RefinerDBProviderProps extends RefinerDBConfig {
   name: string;
@@ -40,11 +37,9 @@ export const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
 
   return (
     <RefinerDBContext.Provider value={refinerDB}>
-      <IndexStateContext.Provider value={{ status: indexState }}>
-        <ItemsWrapper items={items || null} />
-        <IndexesWrapper indexes={indexes || null} />
-        {children}
-      </IndexStateContext.Provider>
+      <ItemsWrapper items={items || null} />
+      <IndexesWrapper indexes={indexes || null} />
+      {children}
     </RefinerDBContext.Provider>
   );
 };
@@ -59,25 +54,6 @@ function IndexesWrapper({ indexes }) {
   return null;
 }
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-// async function setupItems(refinerDB: RefinerDB, items: any[], isFirstRender = false) {
-//   if (isFirstRender) {
-//     let itemCount = await refinerDB.getItemCount();
-//     if (itemCount && itemCount > 0 ) {
-//       await wait(2000);
-//     }
-//   }
-//   return refinerDB.setItems(items);
-// }
-
-// function ItemsSetup({ items }) {
-//   let refinerDB = useRefinerDB();
-//   useEffect(() => {
-//     setupItems(refinerDB, items);
-//   }, [refinerDB, items]);
-
-//   return null;
-// }
 
 function ItemsWrapper({ items }) {
   const isFirstPassRef = useRef(true);

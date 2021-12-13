@@ -7,6 +7,7 @@ export enum IndexType {
   /** For indexing a date. If it's not a real JS Date, it will try to parse a string as a date. */
   Date = "Date",
 }
+export type IndexStateTransitionHandler = (value: IndexState) => void;
 
 /** The options you can pass to the RefinerDB constructor. */
 export interface RefinerDBConfig {
@@ -23,7 +24,7 @@ export interface RefinerDBConfig {
   /**
    * Subscribe to changes in the indexing state
    * */
-  onTransition?: (value: IndexState) => void;
+  onTransition?: IndexStateTransitionHandler;
   /**
    * The PersistedStore (localStorage, indexedDB, etc...)
    * Defaults to localStorage.
