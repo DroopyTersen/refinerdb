@@ -99,7 +99,7 @@ export default class RefinerDB {
 
   /** Set the items that should be indexed and queried. */
   public setItems = async (items: any[]) => {
-    this.stateMachine.send(IndexEvent.INVALIDATE);
+    this.clearQueryResult();
     await this._store.setItems(items);
     this.stateMachine.send(IndexEvent.INVALIDATE);
   };
@@ -125,9 +125,15 @@ export default class RefinerDB {
       this.stateMachine.onTransition(handler);
     });
   };
-
+  clearQueryResult = () => {
+    if (this?.queryResultRequest?.promise) {
+      this.queryResultRequest.promise = null;
+    }
+  };
   reindex = async () => {
     this.stateMachine.send(IndexEvent.INDEX_START);
+
+    this.clearQueryResult();
     await this.waitForState(IndexState.IDLE);
     return;
   };
@@ -156,8 +162,6 @@ export default class RefinerDB {
   public getQueryResult = async (hydrateItems = true): Promise<QueryResult> => {
     let currentKey = this.getCriteriaKey();
     if (
-      // If it's not idle, it's actively reindexing/querying
-      this.stateMachine.state.value !== IndexState.IDLE ||
       // If we don't have a cached query result to provide
       !this?.queryResultRequest?.promise ||
       // If the cached query result was for a differnt criteria

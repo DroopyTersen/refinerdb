@@ -58,37 +58,59 @@ function IndexesWrapper({ indexes }) {
   }, [indexes]);
   return null;
 }
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// async function setupItems(refinerDB: RefinerDB, items: any[], isFirstRender = false) {
+//   if (isFirstRender) {
+//     let itemCount = await refinerDB.getItemCount();
+//     if (itemCount && itemCount > 0 ) {
+//       await wait(2000);
+//     }
+//   }
+//   return refinerDB.setItems(items);
+// }
+
+// function ItemsSetup({ items }) {
+//   let refinerDB = useRefinerDB();
+//   useEffect(() => {
+//     setupItems(refinerDB, items);
+//   }, [refinerDB, items]);
+
+//   return null;
+// }
 
 function ItemsWrapper({ items }) {
-  const hasMountedRef = useRef(false);
+  const isFirstPassRef = useRef(true);
   let refinerDB = useRefinerDB();
 
   useEffect(() => {
+    console.log("REFINERDB: NEW ITEMS", items);
     let hasUnmounted = false;
-    if (items && !hasMountedRef.current) {
-      // Only delay the initial setItem if it is the first
-      // render pass and we already have items. This gives
-      // react a chance to render with the cached items before
-      // reindexing.
-      setTimeout(() => {
-        if (hasUnmounted) return;
+    const doAsync = async () => {
+      if (isFirstPassRef.current) {
+        let itemCount = await refinerDB.getItemCount();
+        if (itemCount && itemCount > 0) {
+          console.log("WAITING");
+          await wait(2000);
+          console.log("DONE WAITING");
+        }
+        await wait(2000);
+      }
+      if (!hasUnmounted) {
         refinerDB.setItems(items);
-      }, 200);
-    } else if (items && hasMountedRef.current) {
-      refinerDB.setItems(items).then(() => {
-        refinerDB.getItemCount().then((count) => console.log("ITEM COUNT", count));
-        refinerDB.getQueryResult(false).then((result) => console.log("result", result));
-      });
+      }
+      if (isFirstPassRef.current) {
+        isFirstPassRef.current = false;
+      }
+    };
+    if (items) {
+      doAsync();
     }
 
     return () => {
       hasUnmounted = true;
     };
   }, [items, refinerDB]);
-
-  useEffect(() => {
-    hasMountedRef.current = true;
-  }, []);
 
   return null;
 }

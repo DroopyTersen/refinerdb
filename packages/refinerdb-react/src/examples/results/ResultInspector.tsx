@@ -3,7 +3,7 @@ import { ObjectInspector } from "react-inspector";
 import { useQueryResult } from "../../hooks/useQueryResult";
 
 function ResultInspector({ hydrateItems = true }: ResultInspectorProps) {
-  let { itemIds, ...result } = useQueryResult({ hydrateItems });
+  let result = useQueryResult({ hydrateItems });
 
   if (!result) return null;
   return (
