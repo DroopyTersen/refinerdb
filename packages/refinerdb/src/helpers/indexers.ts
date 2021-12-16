@@ -17,8 +17,8 @@ export function indexValues(hashValues: string[] | number[], primaryKey, index: 
 function indexString(item, primaryKey: number, index: SearchIndex) {
   let hashValues = index.map ? index.map(item) ?? [] : get(item, index.path || index.key, []);
 
-  if (typeof hashValues === "string") {
-    hashValues = [hashValues];
+  if (!Array.isArray(hashValues)) {
+    hashValues = [hashValues + ""];
   }
   return indexValues(hashValues.filter(Boolean), primaryKey, index);
 }

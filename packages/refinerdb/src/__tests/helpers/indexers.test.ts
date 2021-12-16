@@ -40,6 +40,7 @@ describe("search.indexers", () => {
         genres: ["comedy", "drama", "action"],
         director: { name: "Jon Doe" },
       },
+
       { title: "A Lot Like Love", genres: ["comedy", "romance"], director: { name: "Jane Doe" } },
     ];
 
@@ -67,6 +68,13 @@ describe("search.indexers", () => {
       let invalidIndex: SearchIndex = { key: "title", path: "invalid", type: IndexType.String };
       indexers[IndexType.String](items[0], 0, invalidIndex);
       expect(Object.keys(invalidIndex.value)).toHaveLength(0);
+    });
+
+    it("Should not blow up with a string index whose item value is null", () => {
+      let titleIndex: SearchIndex = { key: "title", type: IndexType.String };
+      let itemWithNullTitle = { title: null };
+      indexers[IndexType.String](itemWithNullTitle, 0, titleIndex);
+      expect(Object.keys(titleIndex.value)).toHaveLength(1);
     });
 
     it("Should support passing a map function that allows providing a custom value", () => {
