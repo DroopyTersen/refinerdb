@@ -1,3 +1,4 @@
+export * from "./useActiveFilters";
 export * from "./useCriteria";
 export * from "./useDateRangeRefiner";
 export * from "./useFilter";
