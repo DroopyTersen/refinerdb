@@ -16,6 +16,7 @@ export default class RefinerDB {
   _store: PersistedStore;
   /** The database name */
   public name: string;
+
   private queryResultRequest: {
     hydrateItems: boolean;
     criteriaKey: string;
@@ -31,7 +32,9 @@ export default class RefinerDB {
     idProperty: "id",
     // itemsIndexSchema: "++__itemId",
   };
-
+  private getIndexRegistrationsCacheKey = () => {
+    return this.name + "-indexRegistrations";
+  };
   constructor(dbName: string, config?: RefinerDBConfig) {
     this._config = {
       ...this._config,
@@ -50,7 +53,7 @@ export default class RefinerDB {
     });
     // If it's not a webworker, pull index registrations from localstorage
     if (!this._config._isWebWorker) {
-      this._indexRegistrations = getCache(this.name + "-indexes") || [];
+      this._indexRegistrations = getCache(this.getIndexRegistrationsCacheKey()) || [];
     }
     if (this._config.criteria) {
       this._criteria = this._config.criteria;
@@ -95,7 +98,7 @@ export default class RefinerDB {
     if (forceReindex === true || checkIfModifiedIndexes(this._indexRegistrations, indexes)) {
       this._indexRegistrations = indexes;
       if (!this._config._isWebWorker) {
-        setCache(this.name + "-indexes", this._indexRegistrations);
+        setCache(this.getIndexRegistrationsCacheKey(), this._indexRegistrations);
       }
       this.stateMachine.send(IndexEvent.INVALIDATE);
     }

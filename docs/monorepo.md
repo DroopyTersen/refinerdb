@@ -103,3 +103,29 @@ To publish a `latest` version
 ```
 lerna publish
 ```
+
+## Yarn/NPM Link
+
+You might get get an error about duplicate React instances. If so:
+
+1. CD into the consuming projects `node_modules` and then
+
+```
+cd my-consuming-app/node_modules/react
+yarn link
+
+cd my-consuming-app/node_modules/react-dom
+yarn link
+
+cd refinerdb/packages/refinerdb-react
+yarn link react
+yarn link react-dom
+```
+
+Don't for get to unlink in refinerdb!
+
+```
+cd refinerdb/packages/refinerdb-react
+yarn unlink react
+yarn unlink react-dom
+```
