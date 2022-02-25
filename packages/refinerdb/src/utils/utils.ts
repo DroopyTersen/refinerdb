@@ -35,5 +35,7 @@ export function intersection(...allArrays) {
   let [firstArray = [], ...arrays] = allArrays;
   arrays = arrays || [];
 
-  return firstArray.filter((currentItem) => arrays.every((array) => array.includes(currentItem)));
+  return firstArray.filter((currentItem) =>
+    arrays.every((array = []) => array.includes(currentItem))
+  );
 }
