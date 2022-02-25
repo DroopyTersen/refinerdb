@@ -14,7 +14,7 @@
     "test:ui": "majestic",
     "tsc:watch": "tsc -p tsconfig.json --watch",
     "prebuild": "npm run clean",
-    "build": "npm run build:esm && npm run build:cjs",
+    "build-removing": "npm run build:esm && npm run build:cjs",
     "build:esm": "tsc -p tsconfig.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:worker": "esbuild src/workers/refinerdb.worker.ts --bundle --minify --sourcemap --outfile=lib/refinerdb.dexie.worker.js",
