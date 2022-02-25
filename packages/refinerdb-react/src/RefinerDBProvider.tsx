@@ -20,7 +20,6 @@ export const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
     let dbConfig: RefinerDBConfig = {
       indexDelay: 500,
       ...refinerDBConfig,
-      indexes,
       onTransition: (state) => {
         setIndexState(state);
         if (refinerDBConfig.onTransition) {
@@ -29,9 +28,6 @@ export const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
       },
     };
     let refinerDB = new RefinerDB(name, dbConfig);
-    if (items) {
-      refinerDB.setItems(items);
-    }
     return refinerDB;
   });
 
@@ -46,11 +42,33 @@ export const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
 
 function IndexesWrapper({ indexes }) {
   let refinerDB = useRefinerDB();
+  const isFirstPassRef = useRef(true);
+
   useEffect(() => {
-    if (refinerDB && indexes) {
-      refinerDB.setIndexes(indexes);
+    let hasUnmounted = false;
+    const doAsync = async () => {
+      if (isFirstPassRef.current) {
+        let indexCount = refinerDB?.indexRegistrations?.length;
+        if (indexCount && indexCount > 0) {
+          await wait(1800);
+        }
+      }
+      if (!hasUnmounted) {
+        refinerDB.setIndexes(indexes);
+      }
+      if (isFirstPassRef.current) {
+        isFirstPassRef.current = false;
+      }
+    };
+    if (indexes && refinerDB) {
+      doAsync();
     }
-  }, [indexes]);
+
+    return () => {
+      hasUnmounted = true;
+    };
+  }, [indexes, refinerDB]);
+
   return null;
 }
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -67,7 +85,6 @@ function ItemsWrapper({ items }) {
         if (itemCount && itemCount > 0) {
           await wait(2000);
         }
-        await wait(2000);
       }
       if (!hasUnmounted) {
         refinerDB.setItems(items);
