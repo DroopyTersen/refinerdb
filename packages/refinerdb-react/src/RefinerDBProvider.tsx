@@ -46,28 +46,33 @@ function IndexesWrapper({ indexes }) {
 
   useEffect(() => {
     let hasUnmounted = false;
-    const doAsync = async () => {
-      if (isFirstPassRef.current) {
-        let indexCount = refinerDB?.indexRegistrations?.length;
-        if (indexCount && indexCount > 0) {
-          await wait(1800);
-        }
+    // We only want to potentially delay on the first render
+    const doAsync = async (delay = 0) => {
+      let indexCount = refinerDB?.indexRegistrations?.length;
+      // delay setting the indexRegistrations if we have some in cache
+      // this way the user will see the cached items first
+      // and the reindexing will be in the background
+      if (indexCount && indexCount > 0) {
+        await wait(delay);
       }
       if (!hasUnmounted) {
         refinerDB.setIndexes(indexes);
       }
-      if (isFirstPassRef.current) {
-        isFirstPassRef.current = false;
-      }
     };
     if (indexes && refinerDB) {
-      doAsync();
+      doAsync(isFirstPassRef.current ? 1800 : 0);
     }
 
     return () => {
       hasUnmounted = true;
     };
   }, [indexes, refinerDB]);
+
+  useEffect(() => {
+    if (isFirstPassRef.current) {
+      isFirstPassRef.current = false;
+    }
+  }, [refinerDB]);
 
   return null;
 }
@@ -79,28 +84,33 @@ function ItemsWrapper({ items }) {
 
   useEffect(() => {
     let hasUnmounted = false;
-    const doAsync = async () => {
-      if (isFirstPassRef.current) {
-        let itemCount = await refinerDB.getItemCount();
-        if (itemCount && itemCount > 0) {
-          await wait(2000);
-        }
+    // We only want to potentially delay on the first render
+    const doAsync = async (delay = 0) => {
+      let itemCount = await refinerDB.getItemCount();
+      // delay setting the items if we have some in cache
+      // this way the user will see the cached items first
+      // and the reindexing will be in the background
+      if (itemCount && itemCount > 0) {
+        await wait(delay);
       }
       if (!hasUnmounted) {
         refinerDB.setItems(items);
       }
-      if (isFirstPassRef.current) {
-        isFirstPassRef.current = false;
-      }
     };
     if (items) {
-      doAsync();
+      doAsync(isFirstPassRef.current ? 2000 : 0);
     }
 
     return () => {
       hasUnmounted = true;
     };
   }, [items, refinerDB]);
+
+  useEffect(() => {
+    if (isFirstPassRef.current) {
+      isFirstPassRef.current = false;
+    }
+  }, [refinerDB]);
 
   return null;
 }
