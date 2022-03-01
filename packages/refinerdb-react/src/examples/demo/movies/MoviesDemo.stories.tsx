@@ -66,7 +66,7 @@ const MovieResultItem = React.memo(function MovieResultItem({ item }: { item: an
         <div>
           <span>Score: {item.score}</span>
           {item.genres.map((genre) => (
-            <button className="label" onClick={() => genreRefiner.appendValue(genre)}>
+            <button key={genre} className="label" onClick={() => genreRefiner.appendValue(genre)}>
               {genre}
             </button>
           ))}
