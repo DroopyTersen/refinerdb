@@ -20,7 +20,7 @@ describe("Querying - Basic", () => {
   });
 
   it("Should return items with an 'id' property if the original item had an 'id'", async () => {
-    search.setItems(items);
+    await search.setItems(items);
     search.setCriteria({ limit: 100 });
     let result = await search.getQueryResult();
     expect(result).toBeTruthy();
@@ -30,12 +30,14 @@ describe("Querying - Basic", () => {
   });
 
   it("Should be able to return queryResult from cache if same criteriaKey", async () => {
-    search.setItems(items);
+    await search.setItems(items);
     search.setCriteria({ limit: 100 });
     let result = await search.getQueryResult();
+    console.log("🚀 | it | result", result);
     expect(result).toBeTruthy();
     expect(result).toHaveProperty("timestamp");
     let prevTimestamp = result.timestamp;
+    console.log("🚀 | it | prevTimestamp", prevTimestamp);
 
     result = await search.getQueryResult();
     expect(result).toBeTruthy();
@@ -44,6 +46,7 @@ describe("Querying - Basic", () => {
 
     search.setCriteria({ limit: 100, sort: "color" });
     result = await search.getQueryResult();
+    console.log("🚀 | it | result", result);
     expect(result).toBeTruthy();
     expect(result).toHaveProperty("timestamp");
     expect(result.timestamp).not.toEqual(prevTimestamp);

@@ -8,7 +8,8 @@ import {
   OnTransitionHandler,
   RefinerDBStateMachine,
 } from "./stateMachine";
-import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
+// import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
+import { createIndexedDBStore } from "./stores/idb";
 import createMeasurement from "./utils/utils";
 
 /** The big daddy class. Almost everything hinges off of this class. */
@@ -42,7 +43,8 @@ export default class RefinerDB {
     };
     this.name = dbName;
     // this.store = createDexieStore(dbName);
-    this._store = config?.store || createLocalStorageStore(dbName);
+    this._store =
+      config?.store || createIndexedDBStore(dbName, { idProperty: this._config.idProperty });
 
     // Setup StateMachine
     this.stateMachine = createRobotStateMachine({

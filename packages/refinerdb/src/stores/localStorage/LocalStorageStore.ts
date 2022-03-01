@@ -1,7 +1,5 @@
 import * as Comlink from "comlink";
-import { PersistedQueryResult, PersistedStore, QueryParams, ReindexParams } from "../..";
-import { indexItems } from "../../transactions/indexItems";
-import _query from "../../transactions/query/query";
+import { PersistedStore } from "../..";
 import { BasePersistedStore } from "../BasePersistedStore";
 import { LocalStorageCollection } from "./LocalStorageCollection";
 
@@ -10,10 +8,6 @@ interface LocalStorageStoreParams {
   worker: Worker;
 }
 export class LocalStorageStore extends BasePersistedStore implements PersistedStore {
-  private worker = null;
-  private dbName: string;
-  private idProperty: string;
-
   constructor(
     dbName,
     { idProperty = "id", worker }: LocalStorageStoreParams = { idProperty: "id", worker: null }
@@ -35,44 +29,6 @@ export class LocalStorageStore extends BasePersistedStore implements PersistedSt
 
   destroy = async () => {
     localStorage.clear();
-  };
-
-  query = async (params: QueryParams): Promise<PersistedQueryResult> => {
-    if (this.worker) {
-      this.worker.query(this.dbName, this.idProperty, params);
-    } else {
-      return _query(this, params);
-    }
-  };
-
-  reindex = async (params: ReindexParams) => {
-    if (this.worker) {
-      await this.worker.reindex(this.dbName, this.idProperty, params);
-    } else {
-      this.filterResults.clear();
-      this.queryResults.clear();
-      this.indexes.clear();
-      await indexItems(this, params);
-    }
-  };
-
-  setItems = async (items: any[]) => {
-    await Promise.all([
-      this.indexes.clear(),
-      this.filterResults.clear(),
-      this.allItems.clear(),
-      this.queryResults.clear(),
-    ]);
-    await this.allItems.bulkAdd(items);
-  };
-
-  pushItems = async (items: any[]) => {
-    await Promise.all([
-      this.indexes.clear(),
-      this.filterResults.clear(),
-      this.queryResults.clear(),
-    ]);
-    await this.allItems.bulkPut(items);
   };
 }
 

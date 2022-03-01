@@ -1,4 +1,5 @@
 let mockStorage = {};
+import "fake-indexeddb/auto";
 
 export const setupMockStorageApis = () => {
   (global as any).Storage.prototype.setItem = jest.fn((key, value) => {
