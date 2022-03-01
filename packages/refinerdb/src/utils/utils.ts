@@ -31,11 +31,11 @@ export default function createMeasurement(name: string) {
   // return { start: () => {}, stop: () => {} };
 }
 
-export function intersection(...allArrays) {
-  let [firstArray = [], ...arrays] = allArrays;
-  arrays = arrays || [];
+export function intersection(allArrays: any[][] = []) {
+  // take the first item off the array of arrays
+  let firstArray = allArrays.shift() || [];
 
   return firstArray.filter((currentItem) =>
-    arrays.every((array = []) => array.includes(currentItem))
+    allArrays.every((array = []) => array.includes(currentItem))
   );
 }
