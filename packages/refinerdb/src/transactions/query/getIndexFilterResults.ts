@@ -1,4 +1,4 @@
-import { Filter, IndexFilterResult, IndexConfig, PersistedCollection, SearchIndex } from "../..";
+import { Filter, IndexConfig, IndexFilterResult, PersistedCollection, SearchIndex } from "../..";
 import { filterToString, parseFilter } from "../../helpers/filterParser";
 import { finders } from "../../helpers/finders";
 
@@ -20,20 +20,21 @@ export async function getIndexFilterResults(
   // Get an array of arrays. where we store a set of itemId matches for each filter
   let indexFilters = parseFilter(filter);
   let indexFilterResults: IndexFilterResult[] = [];
-
-  // Foreach index registration
-  for (var i = 0; i < indexRegistrations.length; i++) {
-    // Try to create a filter object from the active filters, otherwise
-    // create an empty filter (that will return all items);
-    let indexDefinition = indexRegistrations[i];
+  let indexData = indexRegistrations.map((indexDefinition) => {
     let indexFilter = indexFilters.find((f) => f.indexKey === indexDefinition.key) || {
       indexKey: indexDefinition.key,
     };
-    let filterKey = filterToString(indexFilter);
-    let matches = [];
-    // See if we have a cached filterResult for this indexFilter
-    let cachedFilterResult = await persistedFilterResults.get(filterKey);
 
+    return {
+      indexFilter,
+      indexDefinition,
+      filterKey: filterToString(indexFilter),
+    };
+  });
+  let cachedFilterResults = await persistedFilterResults.bulkGet(indexData.map((i) => i.filterKey));
+  indexData.forEach(({ indexDefinition, indexFilter, filterKey }, i) => {
+    let matches = [];
+    let cachedFilterResult = cachedFilterResults[i];
     if (cachedFilterResult && cachedFilterResult.matches) {
       matches = cachedFilterResult.matches;
     } else {
@@ -50,6 +51,7 @@ export async function getIndexFilterResults(
       key: filterKey,
       matches,
     });
-  }
+  });
+
   return indexFilterResults;
 }
