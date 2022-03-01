@@ -27,8 +27,8 @@ export default function createMeasurement(name: string) {
     );
   };
 
-  // return { start, stop };
-  return { start: () => {}, stop: () => {} };
+  return { start, stop };
+  // return { start: () => {}, stop: () => {} };
 }
 
 export function intersection(...allArrays) {
