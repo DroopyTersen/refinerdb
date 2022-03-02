@@ -85,7 +85,11 @@ export default class RefinerDB {
     if (!criteria) {
       return;
     }
-    this._criteria = cleanCriteria(criteria);
+    let newCriteria = cleanCriteria(criteria);
+    if (JSON.stringify(this._criteria) === JSON.stringify(newCriteria)) {
+      return;
+    }
+    this._criteria = newCriteria;
     this.stateMachine.send(IndexEvent.QUERY_START);
   };
   /** Return the JSON stringified criteria */

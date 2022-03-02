@@ -12,9 +12,6 @@ export function useSetFilter(): (setter: (prev: Filter) => Filter) => void {
   let setFilter = useMemo(() => {
     return (setter: (prev: Filter) => Filter) => {
       let newFilter = setter(refinerDB.criteria.filter);
-      if (JSON.stringify(newFilter) === JSON.stringify(refinerDB.criteria.filter)) {
-        return;
-      }
       let newCriteria = {
         ...refinerDB.criteria,
         filter: newFilter,
