@@ -48,6 +48,7 @@ export class IndexedDBCollection implements PersistedCollection {
     await idb.setMany(this.toEntries(items), this.idbStore);
   };
   bulkGet = async (ids: string[] | number[]) => {
-    return idb.getMany(ids, this.idbStore);
+    let items = await idb.getMany(ids, this.idbStore);
+    return items.filter(Boolean);
   };
 }
