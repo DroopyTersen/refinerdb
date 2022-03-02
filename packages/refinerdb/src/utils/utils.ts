@@ -11,6 +11,11 @@ let _enableMeasurements = false;
 export const setEnableMeasurements = (value: boolean) => {
   _enableMeasurements = value;
 };
+
+if (typeof window !== "undefined") {
+  (window as any)._setEnableMeasurements = setEnableMeasurements;
+}
+
 export default function createMeasurement(name: string) {
   if (!_enableMeasurements || typeof performance === "undefined" || !performance?.mark) {
     return {
@@ -18,9 +23,10 @@ export default function createMeasurement(name: string) {
       stop: () => {},
     };
   }
-  let startKey = name + ":start";
-  let stopKey = name + ":stop";
-  let measureKey = name + ":measure";
+  let now = Date.now();
+  let startKey = name + ":start-" + now;
+  let stopKey = name + ":stop-" + now;
+  let measureKey = name + ":measure-" + now;
 
   let start = () => performance.mark(startKey);
   let stop = () => {
@@ -30,8 +36,8 @@ export default function createMeasurement(name: string) {
     entries.forEach((entry) =>
       console.log(
         `RefinerDB ⏱ \t ${entry?.name
-          ?.replace(":measure", "")
-          .padEnd(50, " ")} ${entry?.duration.toFixed(2).toString().padStart(6, " ")}ms`
+          ?.split(":measure")?.[0]
+          .padEnd(40, " ")} ${entry?.duration.toFixed(2).toString().padStart(6, " ")}ms`
       )
     );
   };

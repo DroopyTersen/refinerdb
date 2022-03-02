@@ -122,7 +122,7 @@ yarn link react
 yarn link react-dom
 ```
 
-Don't for get to unlink in refinerdb!
+Don't forget to unlink in refinerdb!
 
 ```
 cd refinerdb/packages/refinerdb-react

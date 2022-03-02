@@ -159,7 +159,7 @@ export default class RefinerDB {
       return persistedQueryResult;
     }
 
-    let hydrateItemsMeasurement = createMeasurement("query:hydrateItems - " + Date.now());
+    let hydrateItemsMeasurement = createMeasurement(`${persistedQueryResult.queryId}:hydrateItems`);
     hydrateItemsMeasurement.start();
     // Hydrate the items based in the array of itemIds
     let items = await this._store.allItems.bulkGet(persistedQueryResult?.itemIds || []);

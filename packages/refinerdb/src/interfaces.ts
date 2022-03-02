@@ -203,6 +203,8 @@ export interface PersistedQueryResult {
    * The timestamp when the query was executed
    */
   timestamp: number;
+  /** The query Id, used internally to debounce requests */
+  queryId?: string | number;
 }
 
 /**
