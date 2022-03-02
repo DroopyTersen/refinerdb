@@ -45,6 +45,10 @@ export interface RefinerDBConfig {
    * spawn another Web Worker
    */
   _isWebWorker?: boolean;
+  /**
+   * Enable performance measurements
+   */
+  enableMeasurements?: boolean;
 }
 
 /** Use by an internal state machine to manage the logic of when to reindex and requery. */

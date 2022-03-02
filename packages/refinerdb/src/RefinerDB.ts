@@ -10,7 +10,7 @@ import {
 } from "./stateMachine";
 // import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
 import { createIndexedDBStore } from "./stores/idb";
-import createMeasurement from "./utils/utils";
+import createMeasurement, { setEnableMeasurements } from "./utils/utils";
 
 /** The big daddy class. Almost everything hinges off of this class. */
 export default class RefinerDB {
@@ -37,6 +37,7 @@ export default class RefinerDB {
     return this.name + "-indexRegistrations";
   };
   constructor(dbName: string, config?: RefinerDBConfig) {
+    setEnableMeasurements(config?.enableMeasurements ?? false);
     this._config = {
       ...this._config,
       ...config,

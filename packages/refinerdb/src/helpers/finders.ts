@@ -7,7 +7,7 @@ import {
   RefinerOption,
   SearchIndex,
 } from "../interfaces";
-import createMeasurement, { intersection } from "../utils/utils";
+import { intersection } from "../utils/utils";
 import { findNumberRange, findStringRange } from "./binarySearch";
 import { getSortedIds } from "./indexers";
 
@@ -90,16 +90,11 @@ function getRefinerOptions(
   if (!index || !index.key) return [];
   let nonTargetFilterResults = indexFilterResults.filter((f) => f.indexKey !== index.key);
   // Find all matches except for matches for this index
-  let measure1 = createMeasurement("getRefinerOptions-intersection:" + index.key + Date.now());
-  measure1.start();
 
   let nonTargetMatches: number[] = intersection(nonTargetFilterResults.map((f) => f.matches));
-  measure1.stop();
   let refinerOptions: RefinerOption[] = [];
   let hashKeys = Object.keys(index.value);
   for (var i = 0; i < hashKeys.length; i++) {
-    // let measure2 = createMeasurement("getRefinerOptions-count:" + index.key + "-" + i);
-    // measure2.start();
     let count =
       !nonTargetFilterResults || !nonTargetFilterResults.length
         ? // We weren't passed any non target filter results so return the whole hash count

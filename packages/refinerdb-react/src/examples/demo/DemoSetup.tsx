@@ -62,6 +62,7 @@ export function DemoSetup({
       items={items}
       criteria={criteria}
       store={store}
+      enableMeasurements={true}
     >
       <header>
         <button onClick={() => refreshData()}>Refresh Data</button>

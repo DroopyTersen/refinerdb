@@ -6,8 +6,13 @@
 
 // //This will log the measurement name and duration
 // measurement.stop();
+let _enableMeasurements = false;
+
+export const setEnableMeasurements = (value: boolean) => {
+  _enableMeasurements = value;
+};
 export default function createMeasurement(name: string) {
-  if (typeof performance === "undefined" || !performance?.mark) {
+  if (!_enableMeasurements || typeof performance === "undefined" || !performance?.mark) {
     return {
       start: () => {},
       stop: () => {},
@@ -23,12 +28,11 @@ export default function createMeasurement(name: string) {
     performance?.measure?.(measureKey, startKey, stopKey);
     let entries = performance?.getEntriesByName?.(measureKey);
     entries.forEach((entry) =>
-      console.log("MEASUREMENT (milliseconds)", entry.name, entry.duration)
+      console.log("⏱(ms)", entry?.name?.replace(":measure", ""), entry.duration, "(ms)")
     );
   };
 
   return { start, stop };
-  // return { start: () => {}, stop: () => {} };
 }
 
 export function intersection(allArrays: any[][] = []) {

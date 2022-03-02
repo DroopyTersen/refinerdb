@@ -1,6 +1,5 @@
 import { ComponentMeta } from "@storybook/react";
 import React from "react";
-import setupLocalStorageWorker from "refinerdb/lib/refinerdb.localStorage.worker";
 import { RefinerDBProvider, useMultiSelectSetters, useQueryResult } from "../../..";
 import { ClearRefinersButton, NumberRangeRefiner, Textbox } from "../../refinerControls";
 import DateRangeRefiner from "../../refinerControls/DateRangeRefiner";
@@ -11,10 +10,6 @@ import movies from "./fixtures/movies";
 import tvShows from "./fixtures/tvShows";
 import { getMoviesAndTv } from "./movies.data";
 import { movieIndexes } from "./movies.indexes";
-console.log(
-  "🚀 | setupLocalStorageWorker",
-  setupLocalStorageWorker?.setupLocalStorageWorker?.toString()
-);
 
 // let localStorageWorker = new Worker(
 //   URL.createObjectURL(
