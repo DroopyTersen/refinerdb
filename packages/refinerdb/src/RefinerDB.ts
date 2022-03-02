@@ -167,7 +167,7 @@ export default class RefinerDB {
 
     return {
       ...persistedQueryResult,
-      items,
+      items: items.filter(Boolean),
     };
   };
 
