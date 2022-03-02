@@ -28,7 +28,11 @@ export default function createMeasurement(name: string) {
     performance?.measure?.(measureKey, startKey, stopKey);
     let entries = performance?.getEntriesByName?.(measureKey);
     entries.forEach((entry) =>
-      console.log("⏱(ms)", entry?.name?.replace(":measure", ""), entry.duration, "(ms)")
+      console.log(
+        `RefinerDB ⏱ \t ${entry?.name
+          ?.replace(":measure", "")
+          .padEnd(50, " ")} ${entry?.duration.toFixed(2).toString().padStart(6, " ")}ms`
+      )
     );
   };
 

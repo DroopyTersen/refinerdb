@@ -1,6 +1,5 @@
 import { IndexConfig, IndexFilterResult, RefinerOption, SearchIndex } from "../..";
 import { finders } from "../../helpers/finders";
-import createMeasurement from "../../utils/utils";
 
 type RefinerOptionsMap = {
   [indexKey: string]: RefinerOption[];
@@ -22,11 +21,11 @@ export function getRefiners(
     if (indexRegistration.skipRefinerOptions) {
       return [];
     }
-    let measure = createMeasurement("getRefiners:" + indexRegistration.key + Date.now());
-    measure.start();
+    // let measure = createMeasurement("getRefiners:" + indexRegistration.key + Date.now());
+    // measure.start();
     let index = allIndexes.find((i) => i.key === indexRegistration.key);
     let refinerOptions = finders.getRefinerOptions(index, indexFilterResults);
-    measure.stop();
+    // measure.stop();
     return refinerOptions;
   });
 
