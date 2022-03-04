@@ -65,21 +65,17 @@ export function useMultiselectRefiner(
   }, [setValues, values]);
 
   let processedOptions = useMemo(() => {
-    let optionsToShow = [...options]
-      .sort((a, b) => {
-        if (sort === "count" && a.count !== undefined) {
-          return b.count - a.count;
-        }
-        return a.key.localeCompare(b.key);
-      })
-      .slice(0, maxRefinersOptions || options.length + 1);
+    let optionsToShow = [...options];
 
+    optionsToShow = sortOptions(optionsToShow, sort).slice(
+      0,
+      maxRefinersOptions || optionsToShow.length + 1
+    );
     values.forEach((value) => {
       if (!optionsToShow.find((option) => option.key === value)) {
         optionsToShow.push({ key: value, count: 0 });
       }
     });
-
     return optionsToShow;
   }, [options, sort, maxRefinersOptions, values]);
 
@@ -90,3 +86,12 @@ export function useMultiselectRefiner(
     ...propGetters,
   };
 }
+
+const sortOptions = (options: RefinerOption[], sort: "count" | "alpha") => {
+  return options?.sort((a, b) => {
+    if (sort === "count" && a.count !== undefined) {
+      return b.count - a.count;
+    }
+    return a.key.localeCompare(b.key);
+  });
+};
