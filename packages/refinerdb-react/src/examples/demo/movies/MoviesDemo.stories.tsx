@@ -1,6 +1,5 @@
 import { ComponentMeta } from "@storybook/react";
 import React from "react";
-import setupLocalStorageWorker from "refinerdb/lib/refinerdb.localStorage.worker";
 import { RefinerDBProvider, useMultiSelectSetters, useQueryResult } from "../../..";
 import { ClearRefinersButton, NumberRangeRefiner, Textbox } from "../../refinerControls";
 import DateRangeRefiner from "../../refinerControls/DateRangeRefiner";
@@ -11,10 +10,6 @@ import movies from "./fixtures/movies";
 import tvShows from "./fixtures/tvShows";
 import { getMoviesAndTv } from "./movies.data";
 import { movieIndexes } from "./movies.indexes";
-console.log(
-  "🚀 | setupLocalStorageWorker",
-  setupLocalStorageWorker?.setupLocalStorageWorker?.toString()
-);
 
 // let localStorageWorker = new Worker(
 //   URL.createObjectURL(
@@ -66,7 +61,7 @@ const MovieResultItem = React.memo(function MovieResultItem({ item }: { item: an
         <div>
           <span>Score: {item.score}</span>
           {item.genres.map((genre) => (
-            <button className="label" onClick={() => genreRefiner.appendValue(genre)}>
+            <button key={genre} className="label" onClick={() => genreRefiner.appendValue(genre)}>
               {genre}
             </button>
           ))}

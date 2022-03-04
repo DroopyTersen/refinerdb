@@ -1,4 +1,4 @@
-import { IndexFilterResult, IndexConfig, QueryCriteria } from "../..";
+import { IndexConfig, IndexFilterResult, QueryCriteria } from "../..";
 import { intersection } from "../../utils/utils";
 
 /**
@@ -32,7 +32,7 @@ export function getPagedSortedItemIds(
   orderedSets = [target, ...orderedSets.filter((r) => r.indexKey !== sortKey)].filter(Boolean);
   // In order to be a valid result, the itemId needs to appear in EVERY orderedSet
   // The intersection utility function wil use the first set's order to determine the order
-  itemIds = intersection(...orderedSets.map((r) => r.matches).filter(Boolean));
+  itemIds = intersection(orderedSets.map((r) => r.matches).filter(Boolean));
 
   // Apply any pagination
   let skip = criteria.skip || 0;

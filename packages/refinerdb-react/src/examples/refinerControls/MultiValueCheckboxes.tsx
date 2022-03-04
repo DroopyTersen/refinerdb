@@ -17,8 +17,8 @@ function MultiValueCheckboxes({ indexKey, label = "", ...props }: Props) {
     <div className="form-group">
       <label className="form-label">{label ?? indexKey}</label>
       {options.map((option) => (
-        <div>
-          <label key={option.key} style={{ display: "flex" }}>
+        <div key={option.key}>
+          <label style={{ display: "flex" }}>
             <input {...getCheckboxProps(option)} />
             <span className="checkable">
               {option.key} ({option.count})

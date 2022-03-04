@@ -19,7 +19,7 @@ describe("Sorting - Basic", () => {
   });
 
   it("Should return all items if there is no filter", async () => {
-    search.setItems(items);
+    await search.setItems(items);
     search.setCriteria({ limit: 100 });
     let result = await search.getQueryResult();
     expect(result).toBeTruthy();
@@ -29,7 +29,7 @@ describe("Sorting - Basic", () => {
 
   // Assumes 'title' is the first index of `basicItems`
   it("Should sort by the first registered index if no specified filter", async () => {
-    search.setItems(items);
+    await search.setItems(items);
     // clear out any sort
     search.setCriteria({ limit: 100 });
     let result = await search.getQueryResult();
@@ -40,7 +40,7 @@ describe("Sorting - Basic", () => {
   });
 
   it("Should sort by the specified key, with no filter", async () => {
-    search.setItems(items);
+    await search.setItems(items);
     search.setCriteria({ sort: "title" });
     let result = await search.getQueryResult();
     expect(result).toBeTruthy();
@@ -57,7 +57,7 @@ describe("Sorting - Basic", () => {
   });
 
   it("Should sort by the specified key, with a filter", async () => {
-    search.setItems(items);
+    await search.setItems(items);
     search.setCriteria({ sort: "title", filter: { id: { min: 0 } } });
     let result = await search.getQueryResult();
     expect(result).toBeTruthy();
@@ -81,7 +81,7 @@ describe("Sorting - Basic", () => {
   });
 
   it("Should support a sort direction", async () => {
-    search.setItems(items);
+    await search.setItems(items);
     search.setCriteria({ sort: "title", sortDir: "desc", filter: { id: { min: 0 } } });
     let result = await search.getQueryResult();
     expect(result).toBeTruthy();
@@ -105,7 +105,7 @@ describe("Sorting - Basic", () => {
   });
 
   it("Should support an invalid sort direction", async () => {
-    search.setItems(items);
+    await search.setItems(items);
     search.setCriteria({ sort: "title", sortDir: "BLAH", filter: { id: { min: 0 } } } as any);
     let result = await search.getQueryResult();
     expect(result).toBeTruthy();
@@ -115,7 +115,7 @@ describe("Sorting - Basic", () => {
   });
 
   it("Should support an invalid sort key", async () => {
-    search.setItems(items);
+    await search.setItems(items);
     search.setCriteria({ sort: "BLAH", filter: { id: { min: 0 } } } as any);
     let result = await search.getQueryResult();
     expect(result).toBeTruthy();
@@ -125,7 +125,7 @@ describe("Sorting - Basic", () => {
   });
 
   it("Should respect the limit and skip", async () => {
-    search.setItems(items);
+    await search.setItems(items);
     search.setCriteria({ limit: 1, sort: "title", filter: {} });
     let result = await search.getQueryResult();
     expect(result.items).toHaveLength(1);

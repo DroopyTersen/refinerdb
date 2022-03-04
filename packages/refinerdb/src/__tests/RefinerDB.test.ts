@@ -3,11 +3,11 @@
  */
 
 import {
-  RefinerDB,
-  IndexType,
-  RefinerDBConfig,
-  IndexState,
   IndexConfig,
+  IndexState,
+  IndexType,
+  RefinerDB,
+  RefinerDBConfig,
   SearchIndex,
 } from "../index";
 import { resetMockStorage, setupMockStorageApis, teardownMockStorageApis } from "./storageMocks";

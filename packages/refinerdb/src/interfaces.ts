@@ -45,6 +45,10 @@ export interface RefinerDBConfig {
    * spawn another Web Worker
    */
   _isWebWorker?: boolean;
+  /**
+   * Enable performance measurements
+   */
+  enableMeasurements?: boolean;
 }
 
 /** Use by an internal state machine to manage the logic of when to reindex and requery. */
@@ -199,6 +203,8 @@ export interface PersistedQueryResult {
    * The timestamp when the query was executed
    */
   timestamp: number;
+  /** The query Id, used internally to debounce requests */
+  queryId?: string | number;
 }
 
 /**

@@ -1,5 +1,4 @@
 import { PersistedCollection } from "../..";
-import createMeasurement from "../../utils/utils";
 
 export class LocalStorageCollection implements PersistedCollection {
   key = "";

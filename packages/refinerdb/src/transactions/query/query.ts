@@ -40,7 +40,7 @@ const query = async (
     if (activeQueryId !== queryId) return;
 
     // GET INDEX FILTER RESULTS
-    let filtersMeasure = createMeasurement("query:filters" + queryId);
+    let filtersMeasure = createMeasurement(`${queryId}:filters`);
     filtersMeasure.start();
     // Get an array of arrays. where we store a set of itemId matches for each filter
     let indexFilterResults: IndexFilterResult[] = await getIndexFilterResults(
@@ -55,7 +55,7 @@ const query = async (
     if (activeQueryId !== queryId) return;
 
     /** Start Refiners */
-    let refinersMeasure = createMeasurement("query:refiners" + queryId);
+    let refinersMeasure = createMeasurement(`${queryId}:refiners`);
     refinersMeasure.start();
 
     let refiners = getRefiners(indexRegistrations, allIndexes, indexFilterResults);
@@ -65,7 +65,7 @@ const query = async (
     /** End Refiners */
 
     /** Calculate the ordered itemIds */
-    let intersectionMeasure = createMeasurement("query:intersection" + queryId);
+    let intersectionMeasure = createMeasurement(`${queryId}:sortedItemIds`);
     intersectionMeasure.start();
 
     let { trimmedIds, totalCount } = getPagedSortedItemIds(
@@ -81,6 +81,7 @@ const query = async (
       totalCount: totalCount,
       key: criteriaKey,
       timestamp: Date.now(),
+      queryId: queryId,
     };
     persistedQueryResult = await store.queryResults.put(persistedQueryResult);
     // Check for a stale query id after every async activity

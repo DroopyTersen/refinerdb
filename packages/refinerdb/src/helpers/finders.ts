@@ -1,16 +1,15 @@
-import {
-  IndexFilter,
-  SearchIndex,
-  IndexType,
-  IndexFilterResult,
-  RefinerOption,
-} from "../interfaces";
 import flatten from "just-flatten-it";
 import uniq from "just-unique";
-
+import {
+  IndexFilter,
+  IndexFilterResult,
+  IndexType,
+  RefinerOption,
+  SearchIndex,
+} from "../interfaces";
+import { intersection } from "../utils/utils";
 import { findNumberRange, findStringRange } from "./binarySearch";
 import { getSortedIds } from "./indexers";
-import { intersection } from "../utils/utils";
 
 function findByNumber(index: SearchIndex, min?: number, max?: number) {
   if (min === undefined && max === undefined && index?.sortedIds?.length) return index.sortedIds;
@@ -91,8 +90,8 @@ function getRefinerOptions(
   if (!index || !index.key) return [];
   let nonTargetFilterResults = indexFilterResults.filter((f) => f.indexKey !== index.key);
   // Find all matches except for matches for this index
-  let nonTargetMatches: number[] = intersection(...nonTargetFilterResults.map((f) => f.matches));
 
+  let nonTargetMatches: number[] = intersection(nonTargetFilterResults.map((f) => f.matches));
   let refinerOptions: RefinerOption[] = [];
   let hashKeys = Object.keys(index.value);
   for (var i = 0; i < hashKeys.length; i++) {
@@ -102,13 +101,14 @@ function getRefinerOptions(
           index.value[hashKeys[i]].length
         : nonTargetMatches.length
         ? // If we have non target index filter results, then return the count of their intersection
-          intersection(index.value[hashKeys[i]], nonTargetMatches).length
+          intersection([index.value[hashKeys[i]], nonTargetMatches]).length
         : // otherwise return Zero because we have a nonTarget index filter with no matches
           0;
 
     if (count) {
       refinerOptions.push({ key: hashKeys[i], count });
     }
+    // measure2.stop();
   }
 
   return refinerOptions;

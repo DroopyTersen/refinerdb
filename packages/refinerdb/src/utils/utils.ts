@@ -6,16 +6,27 @@
 
 // //This will log the measurement name and duration
 // measurement.stop();
+let _enableMeasurements = false;
+
+export const setEnableMeasurements = (value: boolean) => {
+  _enableMeasurements = value;
+};
+
+if (typeof window !== "undefined") {
+  (window as any)._setEnableMeasurements = setEnableMeasurements;
+}
+
 export default function createMeasurement(name: string) {
-  if (typeof performance === "undefined" || !performance?.mark) {
+  if (!_enableMeasurements || typeof performance === "undefined" || !performance?.mark) {
     return {
       start: () => {},
       stop: () => {},
     };
   }
-  let startKey = name + ":start";
-  let stopKey = name + ":stop";
-  let measureKey = name + ":measure";
+  let now = Date.now();
+  let startKey = name + ":start-" + now;
+  let stopKey = name + ":stop-" + now;
+  let measureKey = name + ":measure-" + now;
 
   let start = () => performance.mark(startKey);
   let stop = () => {
@@ -23,19 +34,22 @@ export default function createMeasurement(name: string) {
     performance?.measure?.(measureKey, startKey, stopKey);
     let entries = performance?.getEntriesByName?.(measureKey);
     entries.forEach((entry) =>
-      console.log("MEASUREMENT (milliseconds)", entry.name, entry.duration)
+      console.log(
+        `RefinerDB ⏱ \t ${entry?.name
+          ?.split(":measure")?.[0]
+          .padEnd(40, " ")} ${entry?.duration.toFixed(2).toString().padStart(6, " ")}ms`
+      )
     );
   };
 
-  // return { start, stop };
-  return { start: () => {}, stop: () => {} };
+  return { start, stop };
 }
 
-export function intersection(...allArrays) {
-  let [firstArray = [], ...arrays] = allArrays;
-  arrays = arrays || [];
+export function intersection(allArrays: any[][] = []) {
+  // take the first item off the array of arrays
+  let firstArray = allArrays.shift() || [];
 
   return firstArray.filter((currentItem) =>
-    arrays.every((array = []) => array.includes(currentItem))
+    allArrays.every((array = []) => array.includes(currentItem))
   );
 }

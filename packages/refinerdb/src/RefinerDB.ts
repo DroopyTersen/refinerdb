@@ -8,8 +8,9 @@ import {
   OnTransitionHandler,
   RefinerDBStateMachine,
 } from "./stateMachine";
-import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
-import createMeasurement from "./utils/utils";
+// import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
+import { createIndexedDBStore } from "./stores/idb";
+import createMeasurement, { setEnableMeasurements } from "./utils/utils";
 
 /** The big daddy class. Almost everything hinges off of this class. */
 export default class RefinerDB {
@@ -36,13 +37,15 @@ export default class RefinerDB {
     return this.name + "-indexRegistrations";
   };
   constructor(dbName: string, config?: RefinerDBConfig) {
+    setEnableMeasurements(config?.enableMeasurements ?? false);
     this._config = {
       ...this._config,
       ...config,
     };
     this.name = dbName;
     // this.store = createDexieStore(dbName);
-    this._store = config?.store || createLocalStorageStore(dbName);
+    this._store =
+      config?.store || createIndexedDBStore(dbName, { idProperty: this._config.idProperty });
 
     // Setup StateMachine
     this.stateMachine = createRobotStateMachine({
@@ -82,7 +85,11 @@ export default class RefinerDB {
     if (!criteria) {
       return;
     }
-    this._criteria = cleanCriteria(criteria);
+    let newCriteria = cleanCriteria(criteria);
+    if (JSON.stringify(this._criteria) === JSON.stringify(newCriteria)) {
+      return;
+    }
+    this._criteria = newCriteria;
     this.stateMachine.send(IndexEvent.QUERY_START);
   };
   /** Return the JSON stringified criteria */
@@ -156,7 +163,7 @@ export default class RefinerDB {
       return persistedQueryResult;
     }
 
-    let hydrateItemsMeasurement = createMeasurement("query:hydrateItems - " + Date.now());
+    let hydrateItemsMeasurement = createMeasurement(`${persistedQueryResult.queryId}:hydrateItems`);
     hydrateItemsMeasurement.start();
     // Hydrate the items based in the array of itemIds
     let items = await this._store.allItems.bulkGet(persistedQueryResult?.itemIds || []);
@@ -164,7 +171,7 @@ export default class RefinerDB {
 
     return {
       ...persistedQueryResult,
-      items,
+      items: items.filter(Boolean),
     };
   };
 

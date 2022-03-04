@@ -1,27 +1,9 @@
 import deepEqual from "just-compare";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import type { Filter } from "refinerdb";
 import { useIndexStatus } from ".";
 import { useRefinerDB } from "./useRefinerDB";
-
-/** Provides a stable function to update the the RefinerDB criteria's filter. The setter function
- * takes the previous value and expects you to return the new value.
- */
-export function useSetFilter(): (setter: (prev: Filter) => Filter) => void {
-  let refinerDB = useRefinerDB();
-
-  let setFilter = useMemo(() => {
-    return (setter: (prev: Filter) => Filter) => {
-      let newCriteria = {
-        ...refinerDB.criteria,
-        filter: setter(refinerDB.criteria.filter),
-      };
-      refinerDB.setCriteria(newCriteria);
-    };
-  }, [refinerDB]);
-
-  return setFilter;
-}
+import { useSetFilter } from "./useSetFilter";
 
 export interface UseFilterReturnType {
   /** Provides the realtime filter value */
