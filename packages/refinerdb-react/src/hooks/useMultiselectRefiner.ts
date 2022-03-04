@@ -64,9 +64,8 @@ export function useMultiselectRefiner(
     };
   }, [setValues, values]);
 
-  // TODO: make sure selected values are included if sliced
   let processedOptions = useMemo(() => {
-    return [...options]
+    let optionsToShow = [...options]
       .sort((a, b) => {
         if (sort === "count" && a.count !== undefined) {
           return b.count - a.count;
@@ -74,7 +73,15 @@ export function useMultiselectRefiner(
         return a.key.localeCompare(b.key);
       })
       .slice(0, maxRefinersOptions || options.length + 1);
-  }, [options, sort, maxRefinersOptions]);
+
+    values.forEach((value) => {
+      if (!optionsToShow.find((option) => option.key === value)) {
+        optionsToShow.push({ key: value, count: 0 });
+      }
+    });
+
+    return optionsToShow;
+  }, [options, sort, maxRefinersOptions, values]);
 
   return {
     values,
