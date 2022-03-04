@@ -42,9 +42,12 @@ export async function indexItems(
         });
         // Persist the indexes
         await store.indexes.bulkPut(indexes);
+      } else {
+        throw { message: "Indexing cancelled. Stale indexingId", type: "abort" };
       }
     })
     .catch((err) => {
       console.error("Indexing error", err);
+      throw err;
     });
 }

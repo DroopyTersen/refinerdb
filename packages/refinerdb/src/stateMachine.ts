@@ -1,5 +1,5 @@
-import { IndexState, IndexEvent } from "./interfaces";
 import * as robot from "robot3";
+import { IndexEvent, IndexState } from "./interfaces";
 
 export interface RefinerDBStateMachine {
   send: (event: IndexEvent) => void;
@@ -32,9 +32,13 @@ export function createRobotStateMachine({
       robot.transition(
         "error",
         IndexState.FAILED,
+        robot.guard((ctx: any, ev: any) => {
+          console.log("ERROR GUARD", ctx, ev);
+          return ev?.error?.type !== "abort";
+        }),
         robot.reduce((ctx: any, ev: any) => {
           console.log("INDEXING ERROR", ev?.error);
-          return { ...ctx, error: ev?.error };
+          return { ...ctx, type: ev?.error };
         })
       )
     ),
@@ -46,9 +50,13 @@ export function createRobotStateMachine({
       robot.transition(
         "error",
         IndexState.FAILED,
+        robot.guard((ctx: any, ev: any) => {
+          console.log("ERROR GUARD", ctx, ev);
+          return ev?.error?.type !== "abort";
+        }),
         robot.reduce((ctx: any, ev: any) => {
           console.log("INDEXING ERROR", ev?.error);
-          return { ...ctx, error: ev?.error };
+          return { ...ctx, type: ev?.error };
         })
       )
     ),

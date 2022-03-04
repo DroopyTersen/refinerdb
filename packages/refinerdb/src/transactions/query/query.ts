@@ -33,13 +33,14 @@ const query = async (
 
     if (!allIndexes || !allIndexes.length) {
       // db.stateMachine.send(IndexEvent.INVALIDATE);
-      return Promise.resolve(null);
+      throw { messsage: "No indexes found", type: "abort" };
     }
 
+    // throw { message: "custom", type: "abort" };
     // Check for a stale query id after every async activity
     if (activeQueryId !== queryId) {
       console.log("Stale queryId indexing", activeQueryId, queryId);
-      return;
+      throw { messsage: "Stale queryId indexing", type: "abort" };
     }
 
     // GET INDEX FILTER RESULTS
@@ -57,7 +58,7 @@ const query = async (
     // Check for a stale query id after every async activity
     if (activeQueryId !== queryId) {
       console.log("Stale queryId filtering", activeQueryId, queryId);
-      return;
+      throw { messsage: "Stale queryId filtering", type: "abort" };
     }
 
     /** Start Refiners */
