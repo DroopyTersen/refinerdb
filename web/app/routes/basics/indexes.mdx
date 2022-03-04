@@ -8,17 +8,17 @@ headers:
 
 # Creating Indexes
 
-What is the shape of your data? For any properties you want to filter/refine, you need to define an Index.
+> What is the shape of your data? For any properties you want to filter/refine, you need to define an Index.
 
 Imagine we had data that looked like this:
 
 ```javascript
 let items = [
   { title: "Watch the new Matrix", id: 1, tags: ["fun"] },
-  { title: "Cut the grass", id: 2, ["chore", "lawn"] },
+  { title: "Cut the grass", id: 2, tags: ["chore", "lawn"] },
   { title: "Buy fetilizer", id: 4, tags: ["lawn", "shopping"] },
-  { title: "Build RefinerDB", id: 3, ["fun", "code"] },
-  { title: "Document RefinerDB", id: 11, ["chore", "code"] },
+  { title: "Build RefinerDB", id: 3, tags: ["fun", "code"] },
+  { title: "Document RefinerDB", id: 11, tags: ["chore", "code"] },
 ];
 ```
 
