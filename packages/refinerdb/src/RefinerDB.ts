@@ -162,8 +162,11 @@ export default class RefinerDB {
     if (hydrateItems === false) {
       return persistedQueryResult;
     }
+    // TODO: handle null or undefined persistedQueryResult
 
-    let hydrateItemsMeasurement = createMeasurement(`${persistedQueryResult.queryId}:hydrateItems`);
+    let hydrateItemsMeasurement = createMeasurement(
+      `${persistedQueryResult?.queryId}:hydrateItems`
+    );
     hydrateItemsMeasurement.start();
     // Hydrate the items based in the array of itemIds
     let items = await this._store.allItems.bulkGet(persistedQueryResult?.itemIds || []);

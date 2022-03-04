@@ -37,7 +37,10 @@ const query = async (
     }
 
     // Check for a stale query id after every async activity
-    if (activeQueryId !== queryId) return;
+    if (activeQueryId !== queryId) {
+      console.log("Stale queryId indexing", activeQueryId, queryId);
+      return;
+    }
 
     // GET INDEX FILTER RESULTS
     let filtersMeasure = createMeasurement(`${queryId}:filters`);
@@ -52,7 +55,10 @@ const query = async (
     filtersMeasure.stop();
 
     // Check for a stale query id after every async activity
-    if (activeQueryId !== queryId) return;
+    if (activeQueryId !== queryId) {
+      console.log("Stale queryId filtering", activeQueryId, queryId);
+      return;
+    }
 
     /** Start Refiners */
     let refinersMeasure = createMeasurement(`${queryId}:refiners`);
@@ -84,6 +90,7 @@ const query = async (
       queryId: queryId,
     };
     persistedQueryResult = await store.queryResults.put(persistedQueryResult);
+    return persistedQueryResult;
     // Check for a stale query id after every async activity
   }
 
