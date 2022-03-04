@@ -106,9 +106,15 @@ lerna publish
 
 ## Yarn/NPM Link
 
-You might get get an error about duplicate React instances. If so:
+```
+cd refinerdb-root/packages/refinerdb-react
+npm link
 
-1. CD into the consuming projects `node_modules` and then
+cd my-consuming-app
+npm link refinerdb-react
+```
+
+You might get get an error about duplicate React instances. If so:
 
 ```
 cd my-consuming-app/node_modules/react
@@ -129,3 +135,9 @@ cd refinerdb/packages/refinerdb-react
 yarn unlink react
 yarn unlink react-dom
 ```
+
+You might get errors like this
+
+> This command has had no effect. If this command was run in another folder with the same name, the other folder is still linked. Please run yarn unlink in the other folder if you want to register this folder.
+
+If so delete `react` and `react-dom` from `~/.config/yarn/link`
