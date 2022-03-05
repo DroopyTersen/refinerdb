@@ -1,4 +1,4 @@
-import { IndexState, RefinerDB } from "../..";
+import { RefinerDB } from "../..";
 import { IndexConfig, IndexType, QueryResult } from "../../interfaces";
 import movies from "../fixtures/movies";
 import { resetMockStorage, setupMockStorageApis, teardownMockStorageApis } from "../storageMocks";
@@ -32,10 +32,9 @@ describe("Query Tests - Movies Data Set", () => {
   beforeAll(async () => {
     setupMockStorageApis();
     resetMockStorage();
-    search = new RefinerDB("movies", { indexDelay: 100 });
+    search = new RefinerDB("movies", { indexDelay: 100, store: "localStorage" });
     search.setIndexes(indexes);
     await search.setItems(items);
-    await search.waitForState(IndexState.IDLE);
   });
 
   describe.only("Query for Action Movies", () => {

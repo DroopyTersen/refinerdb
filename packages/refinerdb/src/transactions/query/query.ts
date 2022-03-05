@@ -88,7 +88,6 @@ const query = async (
       timestamp: Date.now(),
       queryId: queryId,
     };
-    await new Promise((resolve) => setTimeout(resolve, 200));
     persistedQueryResult = await store.queryResults.put(persistedQueryResult);
 
     // Check for a stale query id after every async activity
