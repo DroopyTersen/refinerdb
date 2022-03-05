@@ -187,7 +187,7 @@ export default class RefinerDB {
       !this?.queryResultRequest?.promise ||
       // If the cached query result was for a differnt criteria
       this?.queryResultRequest?.criteriaKey !== currentKey ||
-      // If everything is good, but this tiem they want to hydrate the items
+      // If everything is good, but this time they want to hydrate the items
       // and last time they didn't.
       (hydrateItems && !this?.queryResultRequest?.hydrateItems)
     ) {

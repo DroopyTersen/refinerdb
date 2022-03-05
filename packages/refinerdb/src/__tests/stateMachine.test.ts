@@ -1,5 +1,5 @@
+import { IndexEvent, IndexState } from "../interfaces";
 import { createRobotStateMachine } from "../stateMachine";
-import { IndexState, IndexEvent } from "../interfaces";
 
 describe("State Machine", () => {
   it("Should start in an Idle state", () => {
@@ -90,6 +90,59 @@ describe("State Machine", () => {
     await wait(200);
     expect(stateMachine.state.value).toBe(IndexState.IDLE);
     expect(stateHistory.length).toEqual(0);
+  });
+
+  it("Should cancel any existing queries if a new query_start event is triggered", async () => {
+    let reIndexCount = 0;
+    let _queryId = 0;
+    let queryResult = null;
+    let fakeReindex = () => Promise.resolve((reIndexCount = reIndexCount + 1));
+    let fakeQuery = async () => {
+      let queryId = _queryId;
+      await wait(200);
+      if (queryId !== _queryId) {
+        throw { type: "abort", message: "stale query" };
+      }
+      queryResult = { queryId };
+      console.log("🚀 | fakeQuery | queryResult", queryResult);
+      return queryResult;
+    };
+
+    let stateMachine = createRobotStateMachine({
+      reindex: fakeReindex,
+      query: fakeQuery,
+      indexingDelay: 100,
+    });
+
+    const waitForState = (targetState) => {
+      if (stateMachine.state.value === targetState) {
+        return Promise.resolve(true);
+      }
+      return new Promise((resolve, reject) => {
+        let handler = (state: IndexState) => {
+          if (state === targetState) {
+            stateMachine.off(handler);
+            resolve(true);
+          }
+        };
+        stateMachine.onTransition(handler);
+      });
+    };
+    expect(stateMachine.state.value).toBe(IndexState.IDLE);
+    stateMachine.send(IndexEvent.QUERY_START);
+    expect(stateMachine.state.value).toBe(IndexState.QUERYING);
+    await waitForState(IndexState.IDLE);
+    expect(stateMachine.state.value).toBe(IndexState.IDLE);
+
+    expect(queryResult.queryId).toBe(0);
+    _queryId = 1;
+    stateMachine.send(IndexEvent.QUERY_START);
+    await wait(150);
+    _queryId = 2;
+    stateMachine.send(IndexEvent.QUERY_START);
+    await waitForState(IndexState.IDLE);
+    expect(stateMachine.state.value).toBe(IndexState.IDLE);
+    expect(queryResult.queryId).toBe(2);
   });
 });
 
