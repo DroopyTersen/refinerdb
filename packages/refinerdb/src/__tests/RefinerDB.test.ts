@@ -29,8 +29,8 @@ describe("RefinerDB", () => {
     setupMockStorageApis();
   });
 
-  afterEach(() => {
-    resetMockStorage();
+  afterEach(async () => {
+    await resetMockStorage();
   });
 
   describe("Constructor", () => {
@@ -216,6 +216,31 @@ describe("RefinerDB", () => {
       expect(result).toHaveProperty("items");
       expect(result.items).toHaveLength(1);
       expect(result.items[0].title).toBe("two");
+    });
+
+    it("Should allow rapid calls to getQueryResult and setCriteria", async () => {
+      let search = new RefinerDB("test-querying-2");
+      search.setIndexes(indexDefinitions);
+      search.setItems(items);
+      search.setCriteria({ filter: { title: "two" } });
+      expect(search.getIndexState()).toBe(IndexState.STALE);
+      let result = await search.getQueryResult();
+      expect(search.getIndexState()).toBe(IndexState.IDLE);
+      expect(result).toBeTruthy();
+      expect(result).toHaveProperty("items");
+      expect(result.items).toHaveLength(1);
+      expect(result.items[0].title).toBe("two");
+
+      search.setCriteria({ filter: { title: "one" } });
+      expect(search.getIndexState()).toBe(IndexState.QUERYING);
+      await wait(2);
+      search.setCriteria({ filter: { title: "three" } });
+      expect(search.getIndexState()).toBe(IndexState.QUERYING);
+      result = await search.getQueryResult();
+      expect(search.getIndexState()).toBe(IndexState.IDLE);
+      expect(result).toBeTruthy();
+      expect(result.items).toHaveLength(1);
+      expect(result.items[0].title).toBe("three");
     });
   });
   afterAll(() => {

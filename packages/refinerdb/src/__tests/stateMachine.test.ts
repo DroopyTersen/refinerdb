@@ -104,7 +104,6 @@ describe("State Machine", () => {
         throw { type: "abort", message: "stale query" };
       }
       queryResult = { queryId };
-      console.log("🚀 | fakeQuery | queryResult", queryResult);
       return queryResult;
     };
 

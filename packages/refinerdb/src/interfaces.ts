@@ -29,7 +29,7 @@ export interface RefinerDBConfig {
    * The PersistedStore (localStorage, indexedDB, etc...)
    * Defaults to localStorage.
    */
-  store?: PersistedStore;
+  store?: PersistedStoreConfiguration;
   /**
    * Initialize the db with indexes so you don't
    * have to manually call setIndexes
@@ -51,6 +51,7 @@ export interface RefinerDBConfig {
   enableMeasurements?: boolean;
 }
 
+export type PersistedStoreConfiguration = "indexeddb" | "localStorage" | PersistedStore;
 /** Use by an internal state machine to manage the logic of when to reindex and requery. */
 export enum IndexState {
   /**

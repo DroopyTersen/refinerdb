@@ -8,10 +8,18 @@ import {
   OnTransitionHandler,
   RefinerDBStateMachine,
 } from "./stateMachine";
-// import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
 import { createIndexedDBStore } from "./stores/idb";
+import { createLocalStorageStore } from "./stores/localStorage/LocalStorageStore";
 import createMeasurement, { setEnableMeasurements } from "./utils/utils";
 
+const createStore = (dbName, config: RefinerDBConfig): PersistedStore => {
+  if (!config?.store || config?.store === "indexeddb") {
+    return createIndexedDBStore(dbName, { idProperty: config?.idProperty });
+  } else if (config.store === "localStorage") {
+    return createLocalStorageStore(dbName, { idProperty: config?.idProperty });
+  }
+  return config.store;
+};
 /** The big daddy class. Almost everything hinges off of this class. */
 export default class RefinerDB {
   _store: PersistedStore;
@@ -44,8 +52,7 @@ export default class RefinerDB {
     };
     this.name = dbName;
     // this.store = createDexieStore(dbName);
-    this._store =
-      config?.store || createIndexedDBStore(dbName, { idProperty: this._config.idProperty });
+    this._store = createStore(dbName, config);
 
     // Setup StateMachine
     this.stateMachine = createRobotStateMachine({
@@ -181,6 +188,7 @@ export default class RefinerDB {
   /** Waits for querying to complete then returns results based on the active criteria. */
   public getQueryResult = async (hydrateItems = true): Promise<QueryResult> => {
     let currentKey = this.getCriteriaKey();
+    // return this._getQueryResult(hydrateItems);
 
     if (
       // If we don't have a cached query result to provide

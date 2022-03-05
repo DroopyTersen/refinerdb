@@ -39,7 +39,6 @@ const query = async (
     // throw { message: "custom", type: "abort" };
     // Check for a stale query id after every async activity
     if (activeQueryId !== queryId) {
-      console.log("Stale queryId indexing", activeQueryId, queryId);
       throw { messsage: "Stale queryId indexing", type: "abort" };
     }
 
@@ -57,7 +56,6 @@ const query = async (
 
     // Check for a stale query id after every async activity
     if (activeQueryId !== queryId) {
-      console.log("Stale queryId filtering", activeQueryId, queryId);
       throw { messsage: "Stale queryId filtering", type: "abort" };
     }
 
@@ -90,7 +88,13 @@ const query = async (
       timestamp: Date.now(),
       queryId: queryId,
     };
+    await new Promise((resolve) => setTimeout(resolve, 200));
     persistedQueryResult = await store.queryResults.put(persistedQueryResult);
+
+    // Check for a stale query id after every async activity
+    if (activeQueryId !== queryId) {
+      throw { messsage: "Stale queryId saving persistedQueryResult", type: "abort" };
+    }
     return persistedQueryResult;
     // Check for a stale query id after every async activity
   }

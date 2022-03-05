@@ -17,6 +17,10 @@ export const teardownMockStorageApis = () => {
   (global as any).Storage.prototype.clear?.mockReset();
 };
 
-export const resetMockStorage = () => {
+export const resetMockStorage = async () => {
   mockStorage = {};
+  const dbs = await indexedDB.databases();
+  dbs.forEach((db) => {
+    window.indexedDB.deleteDatabase(db.name);
+  });
 };

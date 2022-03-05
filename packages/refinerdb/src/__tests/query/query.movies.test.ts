@@ -1,6 +1,6 @@
-import movies from "../fixtures/movies";
-import { RefinerDB } from "../..";
+import { IndexState, RefinerDB } from "../..";
 import { IndexConfig, IndexType, QueryResult } from "../../interfaces";
+import movies from "../fixtures/movies";
 import { resetMockStorage, setupMockStorageApis, teardownMockStorageApis } from "../storageMocks";
 
 let items = movies.map((item: any) => {
@@ -35,9 +35,10 @@ describe("Query Tests - Movies Data Set", () => {
     search = new RefinerDB("movies", { indexDelay: 100 });
     search.setIndexes(indexes);
     await search.setItems(items);
+    await search.waitForState(IndexState.IDLE);
   });
 
-  describe("Query for Action Movies", () => {
+  describe.only("Query for Action Movies", () => {
     let result: QueryResult = null;
     beforeAll(async () => {
       result = await search.query({ filter: { genre: "Action" } });

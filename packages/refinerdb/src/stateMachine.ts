@@ -51,11 +51,10 @@ export function createRobotStateMachine({
         "error",
         IndexState.FAILED,
         robot.guard((ctx: any, ev: any) => {
-          console.log("ERROR GUARD", ctx, ev);
+          console.log("INDEXING ERROR", ev?.error);
           return ev?.error?.type !== "abort";
         }),
         robot.reduce((ctx: any, ev: any) => {
-          console.log("INDEXING ERROR", ev?.error);
           return { ...ctx, type: ev?.error };
         })
       )

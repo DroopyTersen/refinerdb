@@ -53,3 +53,5 @@ export function intersection(allArrays: any[][] = []) {
     allArrays.every((array = []) => array.includes(currentItem))
   );
 }
+
+export const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
