@@ -89,6 +89,7 @@ export default class RefinerDB {
   }
   /** Update the QueryCriteria. This will trigger a requery */
   public setCriteria = (criteria: QueryCriteria) => {
+    console.log("🚀 | setCriteria", criteria);
     if (!criteria) {
       return;
     }
@@ -125,8 +126,8 @@ export default class RefinerDB {
 
   /** Set the items that should be indexed and queried. */
   public setItems = async (items: any[]) => {
-    await this._store.setItems(items);
     this.stateMachine.send(IndexEvent.INVALIDATE);
+    await this._store.setItems(items);
   };
 
   // TODO: test for worker support
@@ -162,7 +163,7 @@ export default class RefinerDB {
     return;
   };
 
-  private _getQueryResult = async (hydrateItems = true) => {
+  private _getQueryResult = async (hydrateItems = true): Promise<QueryResult> => {
     await this.waitForState(IndexState.IDLE);
 
     let persistedQueryResult = await this._store.queryResults.get(this.getCriteriaKey());
@@ -231,7 +232,6 @@ export default class RefinerDB {
       indexRegistrations: this.indexRegistrations,
     });
     this.clearQueryResult();
+    return { indexingId };
   };
 }
-
-console.log("HELLO!!");

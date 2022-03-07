@@ -64,7 +64,7 @@ export enum IndexState {
   /**
    * Reindex is in progress
    */
-  PENDING = "pending",
+  INDEXING = "indexing",
   /**
    * A query is in progress
    */

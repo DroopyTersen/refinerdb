@@ -27,7 +27,8 @@ export class IndexedDBCollection implements PersistedCollection {
   };
 
   put = async (item: any) => {
-    return idb.set(item[this.idProperty], item, this.idbStore);
+    await idb.set(item[this.idProperty], item, this.idbStore);
+    return item;
   };
 
   count = async () => {

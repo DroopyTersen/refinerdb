@@ -22,13 +22,20 @@ export function createRobotStateMachine({
   const machine = robot.createMachine(IndexState.IDLE, {
     [IndexState.STALE]: robot.invoke(
       wait(indexingDelay),
-      robot.transition("done", IndexState.PENDING),
-      robot.transition(IndexEvent.INDEX_START, IndexState.PENDING)
+      robot.transition(IndexEvent.INVALIDATE, IndexState.STALE),
+      robot.transition("done", IndexState.INDEXING),
+      robot.transition(IndexEvent.INDEX_START, IndexState.INDEXING)
     ),
-    [IndexState.PENDING]: robot.invoke(
+    [IndexState.INDEXING]: robot.invoke(
       reindex,
       robot.transition(IndexEvent.INVALIDATE, IndexState.STALE),
-      robot.transition("done", IndexState.QUERYING),
+      robot.transition(
+        "done",
+        IndexState.QUERYING,
+        robot.guard((ctx, event: any) => {
+          return event?.data?.indexingId;
+        })
+      ),
       robot.transition(
         "error",
         IndexState.FAILED,
@@ -46,7 +53,13 @@ export function createRobotStateMachine({
       query,
       robot.transition(IndexEvent.INVALIDATE, IndexState.STALE),
       robot.transition(IndexEvent.QUERY_START, IndexState.QUERYING),
-      robot.transition("done", IndexState.IDLE),
+      robot.transition(
+        "done",
+        IndexState.IDLE,
+        robot.guard((ctx, event: any) => {
+          return event?.data?.queryId;
+        })
+      ),
       robot.transition(
         "error",
         IndexState.FAILED,
@@ -65,7 +78,7 @@ export function createRobotStateMachine({
     ),
     [IndexState.FAILED]: robot.state(
       robot.transition(IndexEvent.INVALIDATE, IndexState.STALE),
-      robot.transition(IndexEvent.RETRY, IndexState.PENDING)
+      robot.transition(IndexEvent.RETRY, IndexState.INDEXING)
     ),
   });
 
@@ -94,78 +107,3 @@ export function createRobotStateMachine({
     },
   };
 }
-
-// export function createStateMachine(
-//   machine,
-//   onTransition: (state: IndexState) => void = (state) => {}
-// ) {
-//   let interpreter = interpret(machine)
-//     // .onTransition((state) => console.log("State Transition", state?.value))
-//     .onTransition((state) => onTransition(state?.value as IndexState))
-//     .start();
-
-//   interpreter.state.value;
-//   return interpreter as RefinerDBStateMachine;
-// }
-
-// export function createMachineConfig(reIndex, query, indexingDelay = 750) {
-//   return createMachine({
-//     id: "indexer",
-//     initial: IndexState.IDLE,
-//     states: {
-//       [IndexState.STALE]: {
-//         on: {
-//           [IndexEvent.INDEX_START]: IndexState.PENDING,
-//         },
-//         after: {
-//           [indexingDelay]: IndexState.PENDING,
-//         },
-//       },
-//       [IndexState.PENDING]: {
-//         on: {
-//           [IndexEvent.INVALIDATE]: IndexState.STALE,
-//         },
-//         invoke: {
-//           id: "reindex",
-//           src: () => reIndex(),
-//           onDone: {
-//             target: IndexState.QUERYING,
-//           },
-//           onError: {
-//             target: IndexState.FAILED,
-//             actions: (context, event) => console.log("INDEX ERROR", event.data),
-//           },
-//         },
-//       },
-//       [IndexState.QUERYING]: {
-//         on: {
-//           [IndexEvent.INVALIDATE]: IndexState.STALE,
-//           [IndexEvent.QUERY_START]: IndexState.QUERYING,
-//         },
-//         invoke: {
-//           id: "query",
-//           src: () => query(),
-//           onDone: {
-//             target: IndexState.IDLE,
-//           },
-//           onError: {
-//             target: IndexState.FAILED,
-//             actions: (context, event) => console.log("QUERY ERROR", event.data),
-//           },
-//         },
-//       },
-//       [IndexState.IDLE]: {
-//         on: {
-//           [IndexEvent.INVALIDATE]: IndexState.STALE,
-//           [IndexEvent.QUERY_START]: IndexState.QUERYING,
-//         },
-//       },
-//       [IndexState.FAILED]: {
-//         on: {
-//           [IndexEvent.INVALIDATE]: IndexState.STALE,
-//           [IndexEvent.RETRY]: IndexState.PENDING,
-//         },
-//       },
-//     },
-//   });
-// }
