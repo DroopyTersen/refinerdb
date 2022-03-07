@@ -226,10 +226,12 @@ export default class RefinerDB {
   };
 
   private _reIndex = async (indexingId: number = Date.now()) => {
-    this.clearQueryResult();
     await this._store.reindex({
       indexingId,
       indexRegistrations: this.indexRegistrations,
     });
+    this.clearQueryResult();
   };
 }
+
+console.log("HELLO!!");

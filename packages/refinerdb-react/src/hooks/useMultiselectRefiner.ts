@@ -66,17 +66,16 @@ export function useMultiselectRefiner(
 
   let processedOptions = useMemo(() => {
     let optionsToShow = [...options];
-
     optionsToShow = sortOptions(optionsToShow, sort).slice(
       0,
       maxRefinersOptions || optionsToShow.length + 1
     );
     values.forEach((value) => {
       if (!optionsToShow.find((option) => option.key === value)) {
-        optionsToShow.push({ key: value, count: 0 });
+        optionsToShow.push(options.find((o) => o.key === value) || { key: value, count: 0 });
       }
     });
-    return optionsToShow;
+    return sortOptions(optionsToShow, sort);
   }, [options, sort, maxRefinersOptions, values]);
 
   return {

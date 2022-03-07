@@ -51,10 +51,9 @@ export abstract class BasePersistedStore implements PersistedStoreCollections {
     if (this.worker) {
       await this.worker.reindex(this.dbName, this.idProperty, params);
     } else {
-      this.filterResults.clear();
-      this.queryResults.clear();
-      this.indexes.clear();
+      await this.indexes.clear();
       await indexItems(this, params);
+      await Promise.all([this.queryResults.clear(), this.filterResults.clear()]);
     }
   };
 }
