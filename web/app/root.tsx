@@ -9,8 +9,8 @@ import {
   ScrollRestoration,
   useCatch,
 } from "remix";
-import globalStylesUrl from "~/styles/global.css";
 import { Layout } from "./features/layouts/Layout";
+import globalStylesUrl from "./global.css";
 
 /**
  * The `links` export is a function that returns an array of objects that map to

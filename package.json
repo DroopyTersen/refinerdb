@@ -9,8 +9,10 @@
   "scripts": {
     "core": "yarn workspace refinerdb",
     "react": "yarn workspace refinerdb-react",
+    "web": "yarn workspace @refinerdb/web",
     "dexie": "yarn workspace refinerdb-dexie",
     "start": "npm-run-all --parallel start:core start:react",
+    "start:web": "yarn web dev",
     "start:core": "yarn core start",
     "start:react": "yarn react start",
     "build": "turbo run build",

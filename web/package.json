@@ -18,7 +18,7 @@
     "deploy": "npm run build && wrangler publish"
   },
   "dependencies": {
-    "@codesandbox/sandpack-react": "^0.6.0",
+    "@codesandbox/sandpack-react": "^0.14.7",
     "@mapbox/rehype-prism": "^0.8.0",
     "@remix-run/cloudflare-workers": "^1.0.3",
     "@remix-run/react": "^1.0.3",

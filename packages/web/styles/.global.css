@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-5xl font-bold mb-10 tracking-wider;
+  }
+
+  h2 {
+    @apply text-3xl font-bold mt-16 mb-4 tracking-wide;
+  }
+  h3 {
+    @apply text-2xl font-bold mt-12 mb-3 tracking-wide;
+  }
+  h4 {
+    @apply text-xl font-bold mt-10 mb-2;
+  }
+
+  a {
+    @apply text-secondary opacity-90;
+  }
+  a:hover {
+    @apply opacity-100;
+  }
+  ul {
+    @apply list-disc;
+  }
+  ol,
+  ul {
+    @apply list-outside my-4 max-w-3xl;
+    @apply pl-6;
+  }
+  ol ul,
+  ol ol,
+  ul ul,
+  ul ol {
+    @apply my-0;
+  }
+  ol {
+    @apply list-decimal;
+  }
+  li {
+    @apply list-item;
+    padding: 2px 0;
+  }
+  p {
+    @apply my-6 max-w-3xl;
+  }
+  code {
+    color: #aae6ed;
+  }
+  a code {
+    @apply text-secondary;
+  }
+
+  pre {
+    @apply p-4 bg-neutral rounded  text-sm my-6 overflow-x-auto;
+    /* @apply py-5; */
+  }
+  pre code {
+    @apply text-neutral-content;
+  }
+  strong {
+    text-spacing: 0.03em;
+  }
+}
+
+.hljs {
+  @apply bg-neutral text-neutral-content;
+}
+
+.hljs-tag,
+.hljs-subst {
+  @apply text-secondary;
+}
+
+.hljs-strong,
+.hljs-emphasis {
+  color: #a8a8a2;
+}
+
+.hljs-bullet,
+.hljs-quote,
+.hljs-number,
+.hljs-regexp,
+.hljs-literal,
+.hljs-link {
+  @apply text-primary;
+}
+
+.hljs-code,
+.hljs-title,
+.hljs-section,
+.hljs-selector-class {
+  @apply text-neutral-content;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag {
+  @apply text-primary;
+}
+
+.hljs-name,
+.hljs-property,
+.hljs-function,
+.hljs-attr {
+  @apply text-accent;
+}
+
+.hljs-symbol,
+.hljs-attribute {
+  color: pink;
+}
+
+.hljs-params,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  @apply text-neutral-content;
+}
+
+.hljs-string,
+.hljs-type,
+.hljs-built_in,
+.hljs-selector-id,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-variable {
+  @apply text-secondary;
+}
+
+.hljs-comment,
+.hljs-deletion,
+.hljs-meta {
+  color: #75715e;
+}
