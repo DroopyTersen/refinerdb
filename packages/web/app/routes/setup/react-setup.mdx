@@ -1,0 +1,41 @@
+---
+meta:
+  title: RefinerDB React Setup
+  description: Install refinerdb-react from npm and wrap your app with a RefinerDBProvider.
+headers:
+  Cache-Control: max-age=300, s-maxage=3600
+---
+
+# React Setup
+
+<div className='max-w-3xl'>
+
+`refinerdb-react` is a React wrapper around the core engine, `refinerdb`.
+
+<h2 id="install">Installation</h2>
+
+```sh
+npm install refinerdb-react
+```
+
+<h2 id="quick-start">Quick Start</h2>
+
+import InteractiveDemo from "../../features/sandpack/InteractiveDemo";
+
+1. Define your indexes (see `indexes.ts`)
+2. Wrap you app in a `RefinerDBProvider` (see `App.tsx`)
+3. Refine the items (see `refiners.tsx`)
+4. Display the results (see `ResultsView.tsx`)
+
+_The following example is interactive! Play around with it!_
+
+  </div>
+
+<InteractiveDemo slug="quick-start-react" />
+
+## Philosophy
+
+- It is a headless framework that provides a suite of custom hooks
+- It does not make any assumptions about what things how things should look
+- This leaves the UI compeletely up to you and means `refinerdb-react` is compatible
+  with any UI framework or styling technique (ex: CSS in JS).

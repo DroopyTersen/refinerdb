@@ -1,4 +1,4 @@
-import { Link } from "remix";
+import { Link } from "@remix-run/react";
 
 interface RightColumnLayoutProps {
   children: React.ReactNode;
@@ -8,10 +8,13 @@ interface RightColumnLayoutProps {
   }[];
 }
 
-export function RightColumnLayout({ children, sidebarLinks }: RightColumnLayoutProps) {
+export function RightColumnLayout({
+  children,
+  sidebarLinks,
+}: RightColumnLayoutProps) {
   return (
-    <div className="grid max-w-xl grid-cols-12 gap-3">
-      <div className="col-span-10">{children}</div>
+    <div className="grid grid-cols-12 gap-3">
+      <div className="max-w-3xl col-span-10">{children}</div>
       <div className="col-span-2">
         <ul className="sticky top-0 pt-4 list-none">
           {sidebarLinks.map((link) => (

@@ -1,0 +1,125 @@
+---
+meta:
+  title: RefinerDB Indexes
+  description: Indexes allow you to tell RefinerDB about the shape of your data.
+headers:
+  Cache-Control: max-age=300, s-maxage=3600
+---
+
+# Creating Indexes
+
+> What is the shape of your data? For any properties you want to filter/refine, you need to define an Index.
+
+Imagine we had data that looked like this:
+
+```javascript
+let items = [
+  { title: "Watch the new Matrix", id: 1, tags: ["fun"] },
+  { title: "Cut the grass", id: 2, tags: ["chore", "lawn"] },
+  { title: "Buy fetilizer", id: 4, tags: ["lawn", "shopping"] },
+  { title: "Build RefinerDB", id: 3, tags: ["fun", "code"] },
+  { title: "Document RefinerDB", id: 11, tags: ["chore", "code"] },
+];
+```
+
+We would create a `RefinerDB` instance then define two indexes, one for `title`, and one for `tags`. We won't need to filter or sort by `id`, so we dont' need an Index for it.
+
+```javascript
+import { RefinerDB, IndexType } from "refinerdb";
+
+let refinerDB = new RefinerDB("my-db");
+let indexDefinitions = [
+  { key: "tags", type: IndexType.String },
+  // Because all of the titles are generally unique, generating a list of
+  // refiner options and their counts is not that useful. We can improve
+  // performance by skipping that step.
+  { key: "title", type: IndexType.String, skipRefinerOptions: true },
+];
+refinerDB.setIndexes(indexDefinitions);
+```
+
+Here are the available `IndexType` options, and the [full type definition for `IndexConfig`](/reference/core-api#indexconfig).
+
+```typescript
+enum IndexType {
+  String = "string",
+  Number = "number",
+  Date = "Date",
+}
+```
+
+## Indexed values
+
+`refinerDB` will loop through all your items and get an indexed value for each registered index.
+
+There are a few ways to tell `refinerDB` what to index
+
+### `key`
+
+The index `key` can be used if the item's property name matches the index `key`.
+
+Given the following item to index
+
+```ts
+{ title: "Item One", id: 1 }
+```
+
+The following index would yield an indexed value of "Item One"
+
+```ts
+{ key: "title", type: IndexType.String }
+```
+
+### `path`
+
+If the item doesn't have a property whose name matches the index `key`, you can specify an index `path`.
+
+- The path can point to a nested property, like `"author.firstName"`
+
+Given the following item to index
+
+```ts
+{
+  id: 1,
+  title: "Item One",
+  author: {
+    firstName: "Jane",
+    lastName: "Doe"
+  }
+}
+```
+
+The following index would yield an indexed value of "Jane"
+
+```ts
+{
+  key: "author",
+  type: IndexType.String,
+  path: "author.firstName"
+}
+```
+
+### `map(item => indexedValue)`
+
+The most flexible way to index an item value is to use a custom `map` function.
+
+```ts
+{
+  id: 1,
+  title: "Item One",
+  author: {
+    firstName: "Jane",
+    lastName: "Doe"
+  }
+}
+```
+
+The following index would yield an indexed value of "Jane Doe"
+
+```ts
+{
+  key: "author",
+  type: IndexType.String,
+  map: (item => `${item.firstName} ${item.lastName}`)
+}
+```

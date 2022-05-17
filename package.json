@@ -10,6 +10,7 @@
     "core": "yarn workspace refinerdb",
     "react": "yarn workspace refinerdb-react",
     "dexie": "yarn workspace refinerdb-dexie",
+    "web": "yarn workspace refinerdb-website",
     "start": "npm-run-all --parallel start:core start:react",
     "start:core": "yarn core start",
     "start:react": "yarn react start",

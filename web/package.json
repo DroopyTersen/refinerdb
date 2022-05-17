@@ -1,5 +1,6 @@
 {
-  "name": "refinerdb-website",
+  "name": "refinerdb-website2",
+  "version": "1.2.7-alpha.0",
   "description": "Documentation site for RefinerDB",
   "private": true,
   "scripts": {

@@ -1,0 +1,101 @@
+{
+  "getting-started-1": {
+    "files": {
+      "index.html": {
+        "hidden": true
+      },
+      "/src/setup.ts": {
+        "active": true
+      },
+      "/index.html": {
+        "code": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Parcel Sandbox</title>\n    <meta charset=\"UTF-8\" />\n  </head>\n\n  <body>\n    <div id=\"app\"></div>\n\n    <script src=\"src/index.ts\"></script>\n  </body>\n</html>\n"
+      },
+      "/index.ts": {
+        "code": "import { setupRefinerDB } from \"./setup\";\n\nconst rootElement = document.getElementById(\"app\");\nconst refinerDB = setupRefinerDB();\n\nlet init = async () => {\n  let { items, refiners } = await refinerDB.query({\n    filter: {\n      tags: \"fun\",\n    },\n  });\n\n  if (rootElement) {\n    rootElement.innerHTML = `\n    <h1>Query Result</h1>\n    <pre>${JSON.stringify({ items, refiners }, null, 2)}</pre>`;\n  }\n};\ninit();\n"
+      },
+      "/items.ts": {
+        "code": "export default [\n  { title: \"Watch the new Matrix\", id: 1, tags: [\"fun\"] },\n  { title: \"Cut the grass\", id: 2, tags: [\"chore\", \"lawn\"] },\n  { title: \"Buy fetilizer\", id: 4, tags: [\"lawn\", \"shopping\"] },\n  { title: \"Build RefinerDB\", id: 3, tags: [\"fun\", \"code\"] },\n  { title: \"Document RefinerDB\", id: 11, tags: [\"chore\", \"code\"] },\n];\n"
+      },
+      "/setup.ts": {
+        "code": "import { RefinerDB, IndexType } from \"refinerdb\";\nimport items from \"./items\";\n\nlet indexDefinitions = [\n  { key: \"tags\", type: IndexType.String },\n  // Because all of the titles are generally unique, generating a list of\n  // refiner options and their counts is not that useful. We can improve\n  // performance by skipping that step.\n  { key: \"title\", type: IndexType.String, skipRefinerOptions: true },\n];\n\nexport const setupRefinerDB = () => {\n  let refinerDB = new RefinerDB(\"my-demo\");\n  refinerDB.setIndexes(indexDefinitions);\n  refinerDB.setItems(items);\n\n  return refinerDB;\n};\n"
+      }
+    },
+    "template": "vanilla-ts",
+    "customSetup": {
+      "dependencies": {
+        "refinerdb": "next"
+      },
+      "entry": "index.html"
+    }
+  },
+  "quick-start": {
+    "files": {
+      "index.html": {
+        "hidden": true
+      },
+      "tsconfig.json": {
+        "hidden": true
+      },
+      "/src/index.ts": {
+        "active": true,
+        "code": "import { IndexType, RefinerDB } from \"refinerdb\";\n\n// JSON file containing 1000 popular movies\nconst MOVIES_ENDPOINT =\n  \"https://raw.githubusercontent.com/DroopyTersen/refinerdb/dev/packages/refinerdb/public/movies.json\";\n\nlet init = async () => {\n  // 1. Create an instance of RefinerDB\n  let refinerDB = new RefinerDB(\"movies-db\");\n\n  // 2. Register the indexes\n  refinerDB.setIndexes([\n    // An index where the key doesn't match the property name on the item\n    { key: \"genre\", type: IndexType.String, path: \"genres\" },\n    // For properties that generally have unique values, improve\n    // performance by specifying 'skipRefinerOptions'\n    { key: \"title\", type: IndexType.String, skipRefinerOptions: true },\n    // A Date index\n    { key: \"released\", type: IndexType.Date, skipRefinerOptions: true },\n    // // A number index\n    { key: \"score\", type: IndexType.Number, skipRefinerOptions: true },\n  ]);\n\n  // 3. Fetch data then add it to the RefinerDB\n  let movies = await fetch(MOVIES_ENDPOINT).then((res) => res.json());\n  refinerDB.setItems(movies);\n\n  // 4. Query Data\n  // A 7+ rated 'Action' or 'Comedy' with 'day' in the title\n  let filter = {\n    title: \"day*\",\n    genre: [\"Action\", \"Comedy\"],\n    score: { min: 7 },\n  };\n  let { items, refiners, totalCount } = await refinerDB.query({\n    filter,\n    sort: \"released\",\n  });\n\n  // 5. Display the results\n  renderData({\n    totalCount,\n    titles: items.map((item) => item.title),\n    refiners,\n  });\n};\n\n// Not a RefinerDB thing, just a quick util to show data in a pre tag\nconst renderData = (data) => {\n  const rootElement = document.getElementById(\"app\");\n  if (rootElement) {\n    rootElement.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;\n  }\n};\n\ninit();\n"
+      },
+      "/index.html": {
+        "code": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Parcel Sandbox</title>\n    <meta charset=\"UTF-8\" />\n  </head>\n\n  <body>\n    <div id=\"app\"></div>\n\n    <script src=\"src/index.ts\"></script>\n  </body>\n</html>\n"
+      },
+      "/tsconfig.json": {
+        "code": "{\n  \"compilerOptions\": {\n    \"strict\": false,\n    \"module\": \"commonjs\",\n    \"jsx\": \"preserve\",\n    \"esModuleInterop\": true,\n    \"sourceMap\": true,\n    \"allowJs\": true,\n    \"lib\": [\"es6\", \"dom\"],\n    \"rootDir\": \"src\",\n    \"moduleResolution\": \"node\"\n  }\n}\n"
+      }
+    },
+    "template": "vanilla-ts",
+    "customSetup": {
+      "dependencies": {
+        "refinerdb": "next"
+      },
+      "entry": "index.html"
+    }
+  },
+  "quick-start-react": {
+    "files": {
+      "/tsconfig.json": {
+        "hidden": true,
+        "code": "{\n  \"compilerOptions\": {\n    \"strict\": false,\n    \"module\": \"commonjs\",\n    \"jsx\": \"preserve\",\n    \"esModuleInterop\": true,\n    \"sourceMap\": true,\n    \"allowJs\": true,\n    \"lib\": [\"es6\", \"dom\"],\n    \"rootDir\": \".\",\n    \"moduleResolution\": \"node\"\n  }\n}\n"
+      },
+      "/App.tsx": {
+        "hidden": false,
+        "active": true,
+        "code": "import { RefinerDBProvider } from \"refinerdb-react\";\nimport {\n  GenreRefiner,\n  ScoreRefiner,\n  TitleRefiner,\n  YearRefiner,\n} from \"./src/components/refiners\";\nimport { ResultsView } from \"./src/components/ResultsView\";\nimport { indexes } from \"./src/indexes\";\nimport { useData } from \"./src/useData\";\n\nexport default function App() {\n  let movies = useData();\n\n  return (\n    <RefinerDBProvider name=\"movie-demo\" indexes={indexes} items={movies}>\n      <div className=\"layout\">\n        <div className=\"refiner-panel\">\n          <TitleRefiner />\n          <ScoreRefiner />\n          <YearRefiner />\n          <GenreRefiner />\n        </div>\n\n        <div className=\"results-panel\">\n          <ResultsView />\n        </div>\n      </div>\n    </RefinerDBProvider>\n  );\n}\n"
+      },
+      "/src/indexes.ts": {
+        "hidden": false,
+        "code": "import { IndexConfig, IndexType } from \"refinerdb-react\";\nexport const indexes: IndexConfig[] = [\n  // An index where the key doesn't match the property name on the item\n  { key: \"genre\", type: IndexType.String, path: \"genres\" },\n  // For properties that generally have unique values, improve\n  // performance by specifying 'skipRefinerOptions'\n  { key: \"title\", type: IndexType.String, skipRefinerOptions: true },\n  // // A number index\n  { key: \"score\", type: IndexType.Number, skipRefinerOptions: true },\n  // A custom year index that derives it value from the released date string\n  // {\n  //   key: \"year\",\n  //   type: IndexType.String,\n  //   map: (item) => new Date(item.released)?.getFullYear() + \"\",\n  // },\n];\n"
+      },
+      "/src/components/refiners.tsx": {
+        "hidden": false,
+        "code": "import {\n  useFilter,\n  useMultiselectRefiner,\n  useNumberRangeRefiner,\n  useTextRefiner,\n} from \"refinerdb-react\";\n\nexport function ClearRefinersButton() {\n  let { filter, clearFilter } = useFilter();\n  if (Object.keys(filter).length < 1) return null;\n  return (\n    <button type=\"button\" onClick={clearFilter} className=\"pseudo error\">\n      Clear\n    </button>\n  );\n}\nexport function TitleRefiner() {\n  let { value = \"\", setValue } = useTextRefiner(\"title\");\n\n  return (\n    <label>\n      Title\n      <input value={value || \"\"} onChange={(e) => setValue(e.currentTarget.value)} />\n    </label>\n  );\n}\n\nexport function GenreRefiner() {\n  let { getCheckboxProps, options } = useMultiselectRefiner(\"genre\");\n\n  return (\n    <div>\n      <label>Genre</label>\n      {options.map((option) => (\n        <div key={option.key}>\n          <label>\n            <input {...getCheckboxProps(option)} />\n            <span className=\"checkable\">\n              {option.key} ({option.count})\n            </span>\n          </label>\n        </div>\n      ))}\n    </div>\n  );\n}\n\nexport function YearRefiner() {\n  let { getCheckboxProps, options } = useMultiselectRefiner(\"year\", {\n    sort: \"count\",\n  });\n\n  return (\n    <div>\n      <label>Year</label>\n      {options.slice(0, 6).map((option) => (\n        <div key={option.key}>\n          <label>\n            <input {...getCheckboxProps(option)} />\n            <span className=\"checkable\">\n              {option.key} ({option.count})\n            </span>\n          </label>\n        </div>\n      ))}\n    </div>\n  );\n}\n\nexport function ScoreRefiner() {\n  let range = useNumberRangeRefiner(\"score\");\n\n  return (\n    <label>\n      Score (out of 10)\n      <div\n        style={{\n          width: \"100%\",\n          display: \"grid\",\n          gridTemplateColumns: \"1fr 1fr\",\n          gap: \".5rem\",\n          boxSizing: \"border-box\",\n        }}\n      >\n        <input\n          placeholder=\"Min\"\n          value={range.min + \"\"}\n          onChange={(e) => range.setMin(e.currentTarget.value)}\n          type=\"number\"\n        />\n        <input\n          placeholder=\"Max\"\n          value={(range?.max && range?.max + \"\") || \"\"}\n          onChange={(e) => range.setMax(e.currentTarget.value)}\n          type=\"number\"\n        />\n      </div>\n    </label>\n  );\n}\n"
+      },
+      "/src/components/ResultsView.tsx": {
+        "hidden": false,
+        "code": "import { ObjectInspector } from \"react-inspector\";\nimport { useQueryResult } from \"refinerdb-react\";\nimport { ClearRefinersButton } from \"./refiners\";\n\nexport function ResultsView() {\n  let result = useQueryResult();\n  return (\n    <div style={{ display: \"flex\", flexDirection: \"column\", gap: \"1rem\" }}>\n      <div style={{ display: \"flex\", justifyContent: \"space-between\" }}>\n        <h2 style={{ margin: \"0\" }}>Results</h2>\n        <ClearRefinersButton />\n      </div>\n\n      <div>\n        <code>result?.refiners</code>\n        <ObjectInspector data={result?.refiners} />\n      </div>\n\n      <div>\n        <code>result?.items ({result?.totalCount})</code>\n        <ObjectInspector data={result?.items} />\n      </div>\n\n      <pre>\n        <code>criteria: {JSON.stringify(JSON.parse(result?.key || \"{}\"), null, 2)}</code>\n      </pre>\n    </div>\n  );\n}\n"
+      },
+      "/src/styles.css": {
+        "hidden": true,
+        "code": ".layout {\n  display: grid;\n  grid-template-columns: 250px 1fr;\n  gap: 1rem;\n  padding: 1rem;\n}\n.refiner-panel {\n  display: flex;\n  flex-direction: column;\n  position: relative;\n  gap: 2rem;\n}\n"
+      },
+      "/index.tsx": {
+        "hidden": false,
+        "code": "import { StrictMode } from \"react\";\nimport ReactDOM from \"react-dom\";\nimport App from \"./App\";\nimport \"./src/styles.css\";\n\nconst rootElement = document.getElementById(\"root\");\nReactDOM.render(\n  <StrictMode>\n    <App />\n  </StrictMode>,\n  rootElement\n);\n\nlet linkTag = document.createElement(\"link\");\nlinkTag.rel = \"stylesheet\";\nlinkTag.href = \"https://cdn.jsdelivr.net/npm/picnic\";\ndocument.body.appendChild(linkTag);\n"
+      },
+      "/src/useData.ts": {
+        "code": "import { useEffect, useState } from \"react\";\n\n// JSON file containing 1000 popular movies\nconst ENDPOINT =\n  \"https://raw.githubusercontent.com/DroopyTersen/refinerdb/dev/packages/refinerdb/public/movies.json\";\n\nexport function useData() {\n  let [items, setItems] = useState([]);\n  // This is NOT the proper way to do async data\n  // in React, but trying to keep this example simple\n  useEffect(() => {\n    fetch(ENDPOINT)\n      .then((res) => res.json())\n      .then((data) => setItems(data));\n  }, []);\n\n  return items;\n}\n"
+      }
+    },
+    "template": "react-ts",
+    "customSetup": {
+      "dependencies": {
+        "refinerdb-react": "next",
+        "react-inspector": "latest"
+      }
+    }
+  }
+}

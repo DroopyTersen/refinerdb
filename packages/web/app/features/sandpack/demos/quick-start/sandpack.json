@@ -1,0 +1,20 @@
+{
+  "files": {
+    "index.html": {
+      "hidden": true
+    },
+    "tsconfig.json": {
+      "hidden": true
+    },
+    "/src/index.ts": {
+      "active": true
+    }
+  },
+  "template": "vanilla-ts",
+  "customSetup": {
+    "dependencies": {
+      "refinerdb": "next"
+    },
+    "entry": "index.html"
+  }
+}

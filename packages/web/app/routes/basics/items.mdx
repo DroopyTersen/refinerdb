@@ -1,0 +1,54 @@
+---
+meta:
+  title: RefinerDB Items
+  description: Give RefinerDB your full array of items, and it will take care of the filtering, sorting, and paging for you.
+headers:
+  Cache-Control: max-age=300, s-maxage=3600
+---
+
+# Insert Items
+
+RefinerDB wants to know your full set of items (prior to any filtering, sorting, or paging).
+
+You can pass your items to the `RefinerDBProvider` or you can call `setItems` on
+the `RefinerDB` instance provided by `useRefinerDB`.
+
+```tsx
+// Option 1: Pass items to the RefinerDBProvider
+<RefinerDBProvider
+  name="movies"
+  items={movies}
+  indexes={movieIndexes} >
+  <YourStuff />
+</RefinerDBProvider>
+
+// Option 1b: Pass items to the RefinerDBProvider
+// and specify the primary key
+<RefinerDBProvider
+  name="movies"
+  items={movies}
+  {/*  If you don't pass an `idProperty` RefinerDB will assume it is "id". */}
+  idProperty="movieId"
+  indexes={movieIndexes} >
+  <YourStuff />
+</RefinerDBProvider>
+
+// Option 2: Set items explicitely
+// Assumes your component is already
+// wrapped with a `RefinerDBProvider`.
+let refinerDB = useRefinerDB();
+refinerDB.setItems(movies);
+```
+
+- The items can be in any shape.
+- But **each item needs to have a property that represents the primary key**.
+  - The primary key can be an `string` or a `number`
+- By default **RefinerDB assumes that property is `id`**
+- When creating a database, you can explicitely tell RefinerDB what the primary key is using the `idProperty` setting.
+
+```ts
+let refinerDB = new RefinerDB("bookmarks", { idProperty: "__id" });
+```
+
+If you are using `refinerdb-react`, you can pass the items to the `RefinerDBProvider` or
+you can set them explcitely using the `useRefinerDB` hook.
