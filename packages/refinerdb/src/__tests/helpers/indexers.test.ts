@@ -63,7 +63,11 @@ describe("search.indexers", () => {
       expect(genreIndex.value.romance).toHaveLength(1);
       expect(genreIndex.value.action).toHaveLength(1);
     });
-
+    it("Should not blow up with an index.key that doesn't exist", () => {
+      let invalidIndex: SearchIndex = { key: "title2", type: IndexType.String };
+      indexers[IndexType.String](items[0], 0, invalidIndex);
+      expect(Object.keys(invalidIndex.value)).toHaveLength(0);
+    });
     it("Should not blow up with an index.path that doesn't match an item property", () => {
       let invalidIndex: SearchIndex = { key: "title", path: "invalid", type: IndexType.String };
       indexers[IndexType.String](items[0], 0, invalidIndex);

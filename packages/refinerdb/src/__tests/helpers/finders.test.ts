@@ -1,6 +1,5 @@
 import { finders } from "../../helpers/finders";
-
-import { IndexType, IndexFilterResult, SearchIndex } from "../../interfaces";
+import { IndexFilterResult, IndexType, SearchIndex } from "../../interfaces";
 
 describe("search.finders", () => {
   describe("findByNumber", () => {
@@ -29,6 +28,18 @@ describe("search.finders", () => {
     it("Should return all results if there is not filter", () => {
       let resultKeys = finders.findByNumber(ratingIndex);
       expect(JSON.stringify(resultKeys)).toBe(JSON.stringify([100, 101, 1, 21, 32, 54, 13, 6, 11]));
+    });
+
+    it("Should handle an empty index", () => {
+      let emptyIndex: SearchIndex = {
+        key: "rating",
+        type: IndexType.Number,
+        sortedKeys: [],
+        sortedIds: [],
+        value: {},
+      };
+      let resultKeys = finders.findByNumber(emptyIndex);
+      expect(resultKeys).toHaveLength(0);
     });
   });
 
@@ -78,6 +89,18 @@ describe("search.finders", () => {
       expect(JSON.stringify(exactEqualsResesults)).toBe(JSON.stringify([6, 7, 3, 4, 5, 1, 2]));
       let containsResults = finders.findByString(titleIndex, ["pie*"]);
       expect(JSON.stringify(containsResults)).toBe(JSON.stringify([6, 7, 3, 4, 5, 1, 2]));
+    });
+
+    it("Should handle an empty index", () => {
+      let emptyIndex: SearchIndex = {
+        key: "genre",
+        type: IndexType.String,
+        sortedKeys: [],
+        sortedIds: [],
+        value: {},
+      };
+      let resultKeys = finders.findByString(emptyIndex);
+      expect(resultKeys).toHaveLength(0);
     });
   });
 
