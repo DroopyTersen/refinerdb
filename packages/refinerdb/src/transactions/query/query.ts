@@ -5,7 +5,7 @@ import {
   QueryParams,
   SearchIndex,
 } from "../..";
-import createMeasurement from "../../utils/utils";
+import createMeasurement, { deserializeFunction } from "../../utils/utils";
 import { getIndexFilterResults } from "./getIndexFilterResults";
 import { getPagedSortedItemIds } from "./getPagedSortedItemIds";
 import { getRefiners } from "./getRefiners";
@@ -29,7 +29,12 @@ const query = async (
   if (!persistedQueryResult) {
     let allIndexes: SearchIndex[] = (
       await store.indexes.bulkGet(indexRegistrations.map((index) => index.key))
-    ).filter(Boolean) as any;
+    )
+      .map((index) => {
+        index.map = deserializeFunction(index.map as any);
+        return index;
+      })
+      .filter(Boolean) as any;
 
     if (!allIndexes || !allIndexes.length) {
       // db.stateMachine.send(IndexEvent.INVALIDATE);
@@ -72,7 +77,6 @@ const query = async (
     /** Calculate the ordered itemIds */
     let intersectionMeasure = createMeasurement(`${queryId}:sortedItemIds`);
     intersectionMeasure.start();
-
     let { trimmedIds, totalCount } = getPagedSortedItemIds(
       indexFilterResults,
       criteria,

@@ -24,6 +24,7 @@ let indexes: IndexConfig[] = [
   { key: "genre", path: "genres", type: IndexType.String },
   { key: "released", type: IndexType.Date },
   { key: "score", type: IndexType.Number, skipRefinerOptions: true },
+  { key: "year", type: IndexType.String, map: (item) => item.released.getFullYear() + "" },
 ];
 
 describe("Query Tests - Movies Data Set", () => {

@@ -47,6 +47,7 @@ export default function createMeasurement(name: string) {
 
 export function intersection(allArrays: any[][] = []) {
   // take the first item off the array of arrays
+  allArrays = allArrays.filter((a) => a?.includes);
   let firstArray = allArrays.shift() || [];
 
   return firstArray.filter((currentItem) =>
@@ -55,3 +56,15 @@ export function intersection(allArrays: any[][] = []) {
 }
 
 export const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export function serializeFunction(fn: Function) {
+  if (!fn) return "";
+  return fn.toString();
+}
+
+export function deserializeFunction(serializedFn: string) {
+  if (!serializedFn) return undefined;
+  if (typeof serializeFunction !== "string") return serializeFunction;
+
+  return new Function(`return ${serializeFunction}`)();
+}

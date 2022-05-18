@@ -1,6 +1,7 @@
 import { PersistedStoreCollections, ReindexParams, SearchIndex } from "..";
 import { getSortedIds, indexers } from "../helpers/indexers";
 import { IndexType } from "../interfaces";
+import { serializeFunction } from "../utils/utils";
 
 let transactionId = -1;
 
@@ -41,7 +42,12 @@ export async function indexItems(
           index.sortedIds = Array.from(new Set(getSortedIds(index, [])));
         });
         // Persist the indexes
-        await store.indexes.bulkPut(indexes);
+        await store.indexes.bulkPut(
+          indexes.map((index) => {
+            index.map = serializeFunction(index.map) as any;
+            return index;
+          })
+        );
       } else {
         throw { message: "Indexing cancelled. Stale indexingId", type: "abort" };
       }

@@ -64,7 +64,7 @@ function findByIndexFilter(
   { indexDefinition, values, min, max }: IndexFilter,
   index: SearchIndex
 ): number[] {
-  if (!indexDefinition || !index) return [];
+  if (!indexDefinition || !index || !index.sortedKeys?.length) return null;
 
   if (indexDefinition.type === IndexType.String) {
     return findByString(index, values as string[]);

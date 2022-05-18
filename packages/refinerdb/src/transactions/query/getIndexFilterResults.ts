@@ -33,16 +33,15 @@ export async function getIndexFilterResults(
   });
   let cachedFilterResults = await persistedFilterResults.bulkGet(indexData.map((i) => i.filterKey));
   indexData.forEach(({ indexDefinition, indexFilter, filterKey }, i) => {
-    let matches = [];
+    let matches = null;
     let cachedFilterResult = cachedFilterResults[i];
     if (cachedFilterResult && cachedFilterResult.matches) {
       matches = cachedFilterResult.matches;
     } else {
+      let index = allIndexes.find((i) => i.key === indexFilter.indexKey);
+
       // Query the index for any matches based on the active filter value
-      matches = finders.findByIndexFilter(
-        { indexDefinition, ...indexFilter },
-        allIndexes.find((i) => i.key === indexFilter.indexKey)
-      );
+      matches = finders.findByIndexFilter({ indexDefinition, ...indexFilter }, index);
       // Cache the results for next time in case the filter key matches
       persistedFilterResults.put({ key: filterKey, matches, indexKey: indexFilter.indexKey });
     }

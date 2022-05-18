@@ -29,7 +29,10 @@ export function getPagedSortedItemIds(
   // order the result sets by which indexes to sort by
   // so those get used in the intersection
   // move the targeted ordered set to the front
-  orderedSets = [target, ...orderedSets.filter((r) => r.indexKey !== sortKey)].filter(Boolean);
+  orderedSets = [
+    target,
+    ...orderedSets.filter((r) => r.indexKey !== sortKey && r.matches !== null),
+  ].filter(Boolean);
   // In order to be a valid result, the itemId needs to appear in EVERY orderedSet
   // The intersection utility function wil use the first set's order to determine the order
   itemIds = intersection(orderedSets.map((r) => r.matches).filter(Boolean));
