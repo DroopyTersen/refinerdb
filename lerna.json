@@ -1,6 +1,9 @@
 {
-  "packages": ["packages/refinerdb", "packages/refinerdb-react"],
+  "packages": [
+    "packages/refinerdb",
+    "packages/refinerdb-react"
+  ],
   "npmClient": "yarn",
-  "version": "1.2.7-alpha.0",
+  "version": "2.0.0",
   "useWorkspaces": true
 }
