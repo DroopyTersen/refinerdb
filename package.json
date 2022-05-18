@@ -22,7 +22,7 @@
     "test:core": "yarn core test",
     "prerelease": "npm run build",
     "build:types": "node tasks/generateTypes.js",
-    "release": "lerna publish --dist-tag next"
+    "release": "lerna publish"
   },
   "repository": {
     "type": "git",
