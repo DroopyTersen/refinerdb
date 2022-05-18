@@ -13,8 +13,14 @@ describe("State Machine", () => {
   it("Should allow allow manual Invalidate and Start", async () => {
     let reIndexCount = 0;
     let queryCount = 0;
-    let fakeReindex = () => Promise.resolve((reIndexCount = reIndexCount + 1));
-    let fakeQuery = () => Promise.resolve((queryCount = queryCount + 1));
+    let fakeReindex = () => {
+      reIndexCount = reIndexCount + 1;
+      return Promise.resolve({ indexingId: Date.now() });
+    };
+    let fakeQuery = () => {
+      queryCount = queryCount + 1;
+      return Promise.resolve({ queryId: Date.now() });
+    };
 
     let stateMachine = createRobotStateMachine({
       reindex: fakeReindex,
@@ -38,8 +44,14 @@ describe("State Machine", () => {
   it("Should allow automatically Index and Query when Invalidated", async () => {
     let reIndexCount = 0;
     let queryCount = 0;
-    let fakeReindex = () => Promise.resolve((reIndexCount = reIndexCount + 1));
-    let fakeQuery = () => Promise.resolve((queryCount = queryCount + 1));
+    let fakeReindex = () => {
+      reIndexCount = reIndexCount + 1;
+      return Promise.resolve({ indexingId: Date.now() });
+    };
+    let fakeQuery = () => {
+      queryCount = queryCount + 1;
+      return Promise.resolve({ queryId: Date.now() });
+    };
 
     let stateMachine = createRobotStateMachine({
       reindex: fakeReindex,
@@ -61,8 +73,14 @@ describe("State Machine", () => {
     let reIndexCount = 0;
     let queryCount = 0;
     let stateHistory = [];
-    let fakeReindex = () => Promise.resolve((reIndexCount = reIndexCount + 1));
-    let fakeQuery = () => Promise.resolve((queryCount = queryCount + 1));
+    let fakeReindex = () => {
+      reIndexCount = reIndexCount + 1;
+      return Promise.resolve({ indexingId: Date.now() });
+    };
+    let fakeQuery = () => {
+      queryCount = queryCount + 1;
+      return Promise.resolve({ queryId: Date.now() });
+    };
 
     let stateMachine = createRobotStateMachine({
       reindex: fakeReindex,
@@ -94,9 +112,13 @@ describe("State Machine", () => {
 
   it("Should cancel any existing queries if a new query_start event is triggered", async () => {
     let reIndexCount = 0;
-    let _queryId = 0;
+    let _queryId = 1;
     let queryResult = null;
-    let fakeReindex = () => Promise.resolve((reIndexCount = reIndexCount + 1));
+    let fakeReindex = () => {
+      reIndexCount = reIndexCount + 1;
+      return Promise.resolve({ indexingId: Date.now() });
+    };
+
     let fakeQuery = async () => {
       let queryId = _queryId;
       await wait(200);
@@ -133,15 +155,15 @@ describe("State Machine", () => {
     await waitForState(IndexState.IDLE);
     expect(stateMachine.state.value).toBe(IndexState.IDLE);
 
-    expect(queryResult.queryId).toBe(0);
-    _queryId = 1;
+    expect(queryResult.queryId).toBe(1);
+    _queryId = 2;
     stateMachine.send(IndexEvent.QUERY_START);
     await wait(150);
-    _queryId = 2;
+    _queryId = 3;
     stateMachine.send(IndexEvent.QUERY_START);
     await waitForState(IndexState.IDLE);
     expect(stateMachine.state.value).toBe(IndexState.IDLE);
-    expect(queryResult.queryId).toBe(2);
+    expect(queryResult.queryId).toBe(3);
   });
 });
 

@@ -32,12 +32,14 @@ describe("Query Tests - Movies Data Set", () => {
   beforeAll(async () => {
     setupMockStorageApis();
     resetMockStorage();
-    search = new RefinerDB("movies", { indexDelay: 100, store: "localStorage" });
-    search.setIndexes(indexes);
+    search = new RefinerDB("movies", {
+      indexDelay: 100,
+    });
+    await search.setIndexes(indexes);
     await search.setItems(items);
   });
 
-  describe.only("Query for Action Movies", () => {
+  describe("Query for Action Movies", () => {
     let result: QueryResult = null;
     beforeAll(async () => {
       result = await search.query({ filter: { genre: "Action" } });

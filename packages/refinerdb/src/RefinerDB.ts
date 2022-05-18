@@ -89,7 +89,6 @@ export default class RefinerDB {
   }
   /** Update the QueryCriteria. This will trigger a requery */
   public setCriteria = (criteria: QueryCriteria) => {
-    console.log("🚀 | setCriteria", criteria);
     if (!criteria) {
       return;
     }

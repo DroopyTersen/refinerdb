@@ -71,7 +71,6 @@ describe("IndexedDBCollection", () => {
       collection.put(item);
       collection.put(item2);
       let count = await collection.count();
-      console.log("🚀 | it | count", count);
       expect(count).toEqual(2);
     });
   });
