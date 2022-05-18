@@ -64,7 +64,7 @@ export function serializeFunction(fn: Function) {
 
 export function deserializeFunction(serializedFn: string) {
   if (!serializedFn) return undefined;
-  if (typeof serializeFunction !== "string") return serializeFunction;
+  if (typeof serializedFn !== "string") return serializedFn;
 
-  return new Function(`return ${serializeFunction}`)();
+  return new Function(`return ${serializedFn}`)();
 }

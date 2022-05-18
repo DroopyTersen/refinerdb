@@ -35,6 +35,7 @@ function RefinerPanel() {
       <Textbox indexKey="title" label="Title" debounce={300} />
       <MultiValueCheckboxes indexKey="type" label="Type" />
       <MultiValueSelect indexKey="genre" label="Genres" />
+      <MultiValueCheckboxes indexKey="year" label="Year" options={{ sort: "count" }} />
       <DateRangeRefiner indexKey="released" label="Release Date" />
       <NumberRangeRefiner indexKey="score" label="Score" debounce={200} />
     </>

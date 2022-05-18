@@ -19,6 +19,7 @@ export const RefinerDBProvider: React.FC<RefinerDBProviderProps> = ({
   let [refinerDB] = useState<RefinerDB>(() => {
     let dbConfig: RefinerDBConfig = {
       indexDelay: 500,
+      indexes: indexes,
       ...refinerDBConfig,
       onTransition: (state) => {
         setIndexState(state);

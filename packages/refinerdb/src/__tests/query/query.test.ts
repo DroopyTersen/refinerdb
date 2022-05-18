@@ -55,7 +55,7 @@ describe("Querying - Basic", () => {
   });
 });
 
-describe("Querying - Invalid indexes", () => {
+describe.only("Querying - Map fn indexes", () => {
   beforeAll(async () => {
     setupMockStorageApis();
   });
@@ -72,8 +72,12 @@ describe("Querying - Invalid indexes", () => {
     ];
     search.setIndexes(indexes);
     await search.setItems(items);
-    search.setCriteria({ limit: 100, filter: { "color-title": "onered" } });
+    await search.setCriteria({ limit: 100, filter: { "color-title": ["onered"] } });
     let result = await search.getQueryResult();
+    // let storedIndexes = await search._store.indexes.bulkGet(
+    //   search.indexRegistrations.map((i) => i.key)
+    // );
+    // console.log("🚀 | it | storedIndexes", storedIndexes);
     expect(result).toBeTruthy();
     expect(result).toHaveProperty("items");
     expect(result.items).toHaveLength(1);
@@ -86,7 +90,7 @@ describe("Querying - Invalid indexes", () => {
   });
 });
 
-describe("Querying - Map fn index", () => {
+describe("Querying - Invalid index", () => {
   beforeAll(async () => {
     setupMockStorageApis();
   });

@@ -1,5 +1,6 @@
 import get from "just-safe-get";
 import { IndexConfig, IndexType, SearchIndex } from "../interfaces";
+import { deserializeFunction, serializeFunction } from "../utils/utils";
 export function indexValues(hashValues: string[] | number[], primaryKey, index: SearchIndex) {
   if (!index.value) index.value = {};
   hashValues.forEach((hash) => {
@@ -15,7 +16,10 @@ export function indexValues(hashValues: string[] | number[], primaryKey, index: 
 }
 
 function indexString(item, primaryKey: number, index: SearchIndex) {
-  let hashValues = index.map ? index.map(item) ?? [] : get(item, index.path || index.key, []);
+  let hashValues =
+    typeof index.map === "function"
+      ? index.map(item) ?? []
+      : get(item, index.path || index.key, []);
 
   if (!Array.isArray(hashValues)) {
     hashValues = [hashValues + ""];
@@ -81,4 +85,20 @@ export const indexers = {
 
 export function checkIfModifiedIndexes(current: IndexConfig[], next: IndexConfig[]): boolean {
   return JSON.stringify(current) !== JSON.stringify(next);
+}
+
+export function serializeIndexes(indexes: { map?: Function }[]): any[] {
+  indexes = indexes || [];
+  return indexes.map((index) => {
+    index.map = serializeFunction(index.map) as any;
+    return index;
+  });
+}
+
+export function deserializeIndexes<T extends { map: Function }>(indexes: T[]): any[] {
+  indexes = indexes || [];
+  return indexes.map((index) => {
+    index.map = deserializeFunction(index.map as any);
+    return index;
+  }) as T[];
 }

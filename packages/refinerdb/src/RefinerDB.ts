@@ -1,7 +1,7 @@
 import { PersistedQueryResult, PersistedStore, QueryResult } from ".";
 import { getCache, setCache } from "./helpers/cache";
 import { cleanCriteria } from "./helpers/cleanCriteria";
-import { checkIfModifiedIndexes } from "./helpers/indexers";
+import { checkIfModifiedIndexes, deserializeIndexes, serializeIndexes } from "./helpers/indexers";
 import { IndexConfig, IndexEvent, IndexState, QueryCriteria, RefinerDBConfig } from "./interfaces";
 import {
   createRobotStateMachine,
@@ -63,7 +63,8 @@ export default class RefinerDB {
     });
     // If it's not a webworker, pull index registrations from localstorage
     if (!this._config._isWebWorker) {
-      this._indexRegistrations = getCache(this.getIndexRegistrationsCacheKey()) || [];
+      this._indexRegistrations =
+        deserializeIndexes(getCache(this.getIndexRegistrationsCacheKey())) || [];
     }
     if (this._config.criteria) {
       this._criteria = this._config.criteria;
@@ -105,14 +106,15 @@ export default class RefinerDB {
   };
   /** The active index registrations */
   public get indexRegistrations() {
-    return this._indexRegistrations;
+    return deserializeIndexes(this._indexRegistrations as any);
   }
   /** Update the index registrations. This will trigger both a reindex and a requery */
   public setIndexes = (indexes: IndexConfig[], forceReindex = false) => {
     if (forceReindex === true || checkIfModifiedIndexes(this._indexRegistrations, indexes)) {
       this._indexRegistrations = indexes;
       if (!this._config._isWebWorker) {
-        setCache(this.getIndexRegistrationsCacheKey(), this._indexRegistrations);
+        let serializedIndexRegistrations = serializeIndexes(this._indexRegistrations);
+        setCache(this.getIndexRegistrationsCacheKey(), serializedIndexRegistrations);
       }
       this.stateMachine.send(IndexEvent.INVALIDATE);
     }
