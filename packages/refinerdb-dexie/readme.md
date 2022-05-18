@@ -1,1 +1,0 @@
-# RefinerDB - Dexie Persisted Store

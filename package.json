@@ -4,20 +4,20 @@
   "description": "Monorepo fo refinerdb and it's supplemental packages",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "apps/*"
   ],
   "scripts": {
     "core": "yarn workspace refinerdb",
     "react": "yarn workspace refinerdb-react",
-    "dexie": "yarn workspace refinerdb-dexie",
-    "web": "yarn workspace refinerdb-website",
+    "website": "yarn workspace refinerdb-website",
     "start": "npm-run-all --parallel start:core start:react",
     "start:core": "yarn core start",
     "start:react": "yarn react start",
     "build": "turbo run build",
     "build:core": "yarn core build",
     "build:react": "yarn react build",
-    "build:dexie": "yarn dexie build",
+    "build:website": "yarn website build",
     "test": "yarn test:core",
     "test:core": "yarn core test",
     "prerelease": "npm run build",
