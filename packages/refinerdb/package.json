@@ -1,7 +1,7 @@
 {
   "name": "refinerdb",
   "description": "A browser database (indexeddb wrapper) used to support advanced search scenarios. An engine that could power an Amazon Refiner-like search experience.",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "files": [
