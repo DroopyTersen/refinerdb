@@ -1,5 +1,5 @@
 import { PersistedStoreCollections, ReindexParams, SearchIndex } from "..";
-import { getSortedIds, indexers } from "../helpers/indexers";
+import { getSortedIds, indexers, NULL_HASH } from "../helpers/indexers";
 import { IndexType } from "../interfaces";
 import { serializeFunction } from "../utils/utils";
 
@@ -35,10 +35,15 @@ export async function indexItems(
         // Finalize the indexes by sorting keys and ids to help optimize queries
         indexes.forEach((index) => {
           if (index.type === IndexType.Number) {
-            index.sortedKeys = index.sortedKeys.sort((a, b) => a - b);
+            index.sortedKeys = index.sortedKeys.sort((a, b) => {
+              if (a === NULL_HASH) return 1;
+              if (b === NULL_HASH) return -1;
+              return a - b;
+            });
           } else {
             index.sortedKeys = index.sortedKeys.sort();
           }
+
           index.sortedIds = Array.from(new Set(getSortedIds(index, [])));
         });
         // Persist the indexes

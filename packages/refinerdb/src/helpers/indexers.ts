@@ -1,7 +1,12 @@
 import get from "just-safe-get";
 import { IndexConfig, IndexType, SearchIndex } from "../interfaces";
 import { deserializeFunction, serializeFunction } from "../utils/utils";
+
+export const NULL_HASH = "~NULL";
 export function indexValues(hashValues: string[] | number[], primaryKey, index: SearchIndex) {
+  if (!hashValues?.length) {
+    hashValues = [NULL_HASH];
+  }
   if (!index.value) index.value = {};
   hashValues.forEach((hash) => {
     if (hash === undefined) return;

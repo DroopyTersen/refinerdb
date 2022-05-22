@@ -1,5 +1,5 @@
 import { RefinerDB } from "../..";
-import { IndexType } from "../../interfaces";
+import { IndexConfig, IndexType } from "../../interfaces";
 import { cloneBasicItems } from "../fixtures/basicItems";
 import { resetMockStorage, setupMockStorageApis, teardownMockStorageApis } from "../storageMocks";
 
@@ -55,7 +55,7 @@ describe("Querying - Basic", () => {
   });
 });
 
-describe.only("Querying - Map fn indexes", () => {
+describe("Querying - Map fn indexes", () => {
   beforeAll(async () => {
     setupMockStorageApis();
   });
@@ -110,6 +110,71 @@ describe("Querying - Invalid index", () => {
     expect(result).toHaveProperty("items");
     expect(result.items).toHaveLength(items.length);
     expect(result.items[0]).toHaveProperty("id");
+  });
+
+  afterAll(() => {
+    teardownMockStorageApis();
+  });
+});
+
+describe("Querying - items are missing properties", () => {
+  beforeAll(async () => {
+    setupMockStorageApis();
+  });
+
+  afterEach(() => {
+    resetMockStorage();
+  });
+
+  const items = [
+    {
+      id: 1,
+      title: "one",
+      number: 1,
+    },
+    {
+      id: 2,
+      color: "red",
+    },
+    {
+      id: 3,
+      title: "three",
+      number: 3,
+    },
+    {
+      id: 4,
+      color: "blue",
+    },
+    {
+      id: 5,
+      title: "five",
+      color: "purple",
+      number: 5,
+    },
+    {
+      id: 6,
+      color: "blue",
+    },
+  ];
+  let indexDefinitions: IndexConfig[] = [
+    { key: "title", type: IndexType.String },
+    { key: "color", type: IndexType.String },
+    { key: "number", type: IndexType.Number },
+  ];
+
+  it("Should bring back all items if no query", async () => {
+    let search = new RefinerDB("test-missing-properties");
+    let indexes = [...indexDefinitions];
+    search.setIndexes(indexes);
+    await search.setItems(items);
+    search.setCriteria({ limit: 100 });
+    let result = await search.getQueryResult();
+    expect(result).toBeTruthy();
+    expect(result).toHaveProperty("items");
+    console.log("🚀 | it | result.items", result.items, result.refiners);
+    expect(result.items).toHaveLength(items.length);
+    expect(result.items[0]).toHaveProperty("id");
+    expect(result?.refiners?.["title"].length).toBe(3);
   });
 
   afterAll(() => {

@@ -9,7 +9,7 @@ import {
 } from "../interfaces";
 import { intersection } from "../utils/utils";
 import { findNumberRange, findStringRange } from "./binarySearch";
-import { getSortedIds } from "./indexers";
+import { getSortedIds, NULL_HASH } from "./indexers";
 
 function findByNumber(index: SearchIndex, min?: number, max?: number) {
   if (min === undefined && max === undefined && index?.sortedIds?.length) return index.sortedIds;
@@ -93,7 +93,7 @@ function getRefinerOptions(
 
   let nonTargetMatches: number[] = intersection(nonTargetFilterResults.map((f) => f.matches));
   let refinerOptions: RefinerOption[] = [];
-  let hashKeys = Object.keys(index.value);
+  let hashKeys = Object.keys(index.value).filter((hash) => hash != NULL_HASH);
   for (var i = 0; i < hashKeys.length; i++) {
     let count =
       !nonTargetFilterResults || !nonTargetFilterResults.length

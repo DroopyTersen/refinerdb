@@ -1,4 +1,4 @@
-import { indexers, indexValues } from "../../helpers/indexers";
+import { indexers, indexValues, NULL_HASH } from "../../helpers/indexers";
 import { IndexType, SearchIndex } from "../../interfaces";
 
 describe("search.indexers", () => {
@@ -64,14 +64,20 @@ describe("search.indexers", () => {
       expect(genreIndex.value.action).toHaveLength(1);
     });
     it("Should not blow up with an index.key that doesn't exist", () => {
+      const primaryKey = 1;
       let invalidIndex: SearchIndex = { key: "title2", type: IndexType.String };
-      indexers[IndexType.String](items[0], 0, invalidIndex);
-      expect(Object.keys(invalidIndex.value)).toHaveLength(0);
+      indexers[IndexType.String](items[0], primaryKey, invalidIndex);
+      expect(Object.keys(invalidIndex.value)).toHaveLength(1);
+      expect(invalidIndex.value[NULL_HASH]).toHaveLength(1);
+      expect(invalidIndex.value[NULL_HASH][0])?.toBe(primaryKey);
     });
     it("Should not blow up with an index.path that doesn't match an item property", () => {
+      const primaryKey = 1;
       let invalidIndex: SearchIndex = { key: "title", path: "invalid", type: IndexType.String };
-      indexers[IndexType.String](items[0], 0, invalidIndex);
-      expect(Object.keys(invalidIndex.value)).toHaveLength(0);
+      indexers[IndexType.String](items[0], primaryKey, invalidIndex);
+      expect(Object.keys(invalidIndex.value)).toHaveLength(1);
+      expect(invalidIndex.value[NULL_HASH]).toHaveLength(1);
+      expect(invalidIndex.value[NULL_HASH][0])?.toBe(primaryKey);
     });
 
     it("Should not blow up with a string index whose item value is null", () => {
@@ -135,7 +141,9 @@ describe("search.indexers", () => {
       ];
       indexers[IndexType.Date](items[0], 0, bornIndex);
       indexers[IndexType.Date](items[1], 1, bornIndex);
-      expect(Object.keys(bornIndex.value)).toHaveLength(1);
+      expect(Object.keys(bornIndex.value)).toHaveLength(2);
+      expect(bornIndex.value[NULL_HASH]).toHaveLength(1);
+      expect(bornIndex.value[NULL_HASH][0])?.toBe(0);
     });
   });
 
@@ -171,10 +179,13 @@ describe("search.indexers", () => {
         path: "invalid!",
         type: IndexType.Number,
       };
+      let primaryKey = 1;
       let items = [{ name: "Andrew", age: "blah" }];
-      indexers[IndexType.Number](items[0], 0, ageIndex);
+      indexers[IndexType.Number](items[0], primaryKey, ageIndex);
       // console.log(ageIndex);
-      expect(Object.keys(ageIndex.value)).toHaveLength(0);
+      expect(Object.keys(ageIndex.value)).toHaveLength(1);
+      expect(ageIndex.value[NULL_HASH]).toHaveLength(1);
+      expect(ageIndex.value[NULL_HASH][0])?.toBe(primaryKey);
     });
 
     it("Should properly handle invalid numbers", () => {
@@ -183,10 +194,13 @@ describe("search.indexers", () => {
         key: "age",
         type: IndexType.Number,
       };
+      let primaryKey = 1;
       let items = [{ name: "Andrew", age: "blah" }];
-      indexers[IndexType.Number](items[0], 0, ageIndex);
+      indexers[IndexType.Number](items[0], primaryKey, ageIndex);
       // console.log(ageIndex);
-      expect(Object.keys(ageIndex.value)).toHaveLength(0);
+      expect(Object.keys(ageIndex.value)).toHaveLength(1);
+      expect(ageIndex.value[NULL_HASH]).toHaveLength(1);
+      expect(ageIndex.value[NULL_HASH][0])?.toBe(primaryKey);
     });
   });
 });
